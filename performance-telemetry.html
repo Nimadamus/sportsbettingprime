@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Telemetry - SPORTS BETTING PRIME</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700;
+            --color-win: #00ff7f; /* SpringGreen for wins */
+            --color-loss: #ff4d4d; /* Red for losses */
+            --glass-bg: rgba(10, 8, 25, 0.5);
+            --glass-border: rgba(0, 255, 255, 0.2);
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
+        .background-container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover; background-position: center center;
+            animation: kenburns 120s ease-in-out infinite alternate;
+        }
+        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
+
+        /* --- Header & Navigation --- */
+        header {
+            padding: 20px 5%; position: sticky; top: 0; z-index: 100;
+            background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase;}
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+        
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 20px; }
+        .nav-links a {
+            font-family: var(--font-secondary); text-decoration: none; color: var(--text-color);
+            font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
+            padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+
+        .btn-primary {
+            padding: 12px 30px; border-radius: 8px; text-decoration: none;
+            font-weight: 700; font-family: var(--font-primary); font-size: 1rem;
+            background-color: var(--neon-gold); color: #01000f;
+            border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold);
+            animation: pulse-button 2s infinite; transition: all 0.3s ease;
+            margin-left: 20px;
+        }
+        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
+        @keyframes pulse-button { 50% { transform: scale(1.05); } }
+
+        /* --- Main Content --- */
+        .content-wrapper { position: relative; z-index: 10; }
+        .section-container { padding: 40px 5%; text-align: center; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 50px; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .glass-panel {
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            border-radius: 20px; padding: 40px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        /* --- PERFORMANCE METRICS --- */
+        .metrics-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .metric-box { text-align: center; }
+        .metric-label { font-family: var(--font-primary); font-size: 1.2rem; color: var(--neon-cyan); margin-bottom: 10px; text-transform: uppercase; }
+        .metric-value { font-family: var(--font-primary); font-size: 2.8rem; line-height: 1; font-weight: 900; }
+        .metric-value.win { color: var(--color-win); text-shadow: 0 0 15px var(--color-win); }
+        .metric-value.loss { color: var(--color-loss); text-shadow: 0 0 15px var(--color-loss); }
+
+        /* --- RESULTS TABLE --- */
+        .results-log { text-align: left; }
+        .results-log h2 { font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 15px; text-align: center; }
+        .results-log .log-date { text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: rgba(234, 248, 255, 0.8); }
+        .results-log table { width: 100%; border-collapse: collapse; }
+        .results-log th, .results-log td { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); }
+        .results-log th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; }
+        .results-log td { font-size: 1.1rem; }
+
+        .pick-type { font-weight: 700; }
+        .pick-type.signal { color: var(--neon-cyan); }
+        .pick-type.prime { color: var(--neon-gold); }
+        
+        .result { font-weight: 700; text-transform: uppercase; }
+        .result.win { color: var(--color-win); }
+        .result.loss { color: var(--color-loss); }
+
+        /* --- Footer --- */
+        footer { background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); text-align: center; }
+        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
+        footer .footer-links { font-size: 0.8rem; }
+        footer a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; }
+        footer a:hover { text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-container"></div>
+    
+    <!-- Main Page Content -->
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mlb-prime-directives.html">MLB</a></li>
+                    <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                    <li><a href="performance-telemetry.html" class="active">Telemetry</a></li>
+                    <li><a href="#" class="btn-primary">PRIME ACCESS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="section-container">
+                <h1 class="section-title">PERFORMANCE TELEMETRY</h1>
+
+                <!-- OVERALL PERFORMANCE METRICS -->
+                <div class="metrics-container glass-panel">
+                    <div class="metric-box">
+                        <div class="metric-label">Yesterday's Record</div>
+                        <div class="metric-value win">+1.90 Units</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Prime Directive Record</div>
+                        <div class="metric-value win">8W - 2L</div>
+                    </div>
+                     <div class="metric-box">
+                        <div class="metric-label">Total Net Units</div>
+                        <div class="metric-value win">+27.35 Units</div>
+                    </div>
+                </div>
+
+                <!-- YESTERDAY'S RESULTS LOG -->
+                <div class="results-log glass-panel">
+                    <h2>Results Log</h2>
+                    <p class="log-date">July 29, 2025</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Matchup</th>
+                                <th>Pick Type</th>
+                                <th>The Pick</th>
+                                <th>Result</th>
+                                <th>Units</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chicago Cubs @ Milwaukee Brewers</td>
+                                <td><span class="pick-type signal">Signal-Found</span></td>
+                                <td>Under 7.5 Runs</td>
+                                <td><span class="result win">WIN</span></td>
+                                <td><span class="result win">+1.00</span></td>
+                            </tr>
+                             <tr>
+                                <td>Boston Red Sox @ Toronto Blue Jays</td>
+                                <td><span class="pick-type prime">Prime Directive</span></td>
+                                <td>Blue Jays -1.5 Run Line</td>
+                                <td><span class="result win">WIN</span></td>
+                                <td><span class="result win">+0.90</span></td>
+                            </tr>
+                            <tr>
+                                <td>Los Angeles Dodgers @ Cincinnati Reds</td>
+                                <td><span class="pick-type signal">Signal-Found</span></td>
+                                <td>Dodgers -1.5 Run Line</td>
+                                <td><span class="result loss">LOSS</span></td>
+                                <td><span class="result loss">-1.00</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved. Unit sizing based on a flat betting system. Past performance is not an indicator of future results.</p>
+            <p class="footer-links">
+                <a href="index.html">Home</a> |
+                <a href="mlb-prime-directives.html">MLB Directives</a> |
+                <a href="nfl-gridiron-oracles.html">NFL Oracles</a> |
+                <a href="#">Responsible Gaming</a> | 
+                <a href="#">Terms of Service</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
