@@ -78,7 +78,25 @@
         }
         nav { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase; }
+        .logo a { color: inherit; text-decoration: none; }
         .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+        
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
+        .nav-links a {
+            font-family: var(--font-secondary);
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--neon-gold);
+            text-shadow: 0 0 8px var(--neon-gold);
+        }
+
         .btn-primary {
             padding: 12px 30px; border-radius: 8px; text-decoration: none;
             font-weight: 700; font-family: var(--font-primary);
@@ -86,6 +104,7 @@
             border: 1px solid var(--neon-gold);
             box-shadow: 0 0 20px var(--neon-gold);
             animation: pulse-button 2s infinite; transition: all 0.3s ease;
+            margin-left: 20px; /* Add some space between nav links and button */
         }
         .btn-primary:hover { 
             box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff;
@@ -156,19 +175,18 @@
             margin-right: auto;
         }
 
-        .hero .btn-primary { 
+        .hero .btn-secondary { /* Changed class to avoid conflict and allow different styling */
             font-size: 1.1rem; 
             padding: 15px 40px; 
             display: inline-block;
-            background-color: transparent;
+            text-decoration: none;
+            font-family: var(--font-primary);
             color: var(--neon-gold);
+            border: 1px solid var(--neon-gold);
+            border-radius: 8px;
+            box-shadow: 0 0 15px var(--neon-gold);
+            background: transparent;
             cursor: default;
-            animation: none; /* Disable animation for this button */
-            filter: brightness(0.8);
-        }
-        .hero .btn-primary:hover {
-            box-shadow: 0 0 20px var(--neon-gold);
-            filter: brightness(1);
         }
         
         /* --- Footer --- */
@@ -205,8 +223,14 @@
     <div class="content-wrapper">
         <header>
             <nav>
-                <div class="logo">SPORTS BETTING <span>PRIME</span></div>
-                <a href="index.html" class="btn-primary">RETURN TO HOME</a>
+                <div class="logo">
+                    <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="mlb-prime-directives.html">MLB</a></li>
+                    <li><a href="nfl-gridiron-oracles.html" class="active">NFL</a></li>
+                    <li><a href="#" class="btn-primary">PRIME ACCESS</a></li>
+                </ul>
             </nav>
         </header>
 
@@ -216,7 +240,7 @@
                     <h1>The Gridiron Algorithm<br>is <span>Computing...</span></h1>
                     <p class="status-text">STATUS: CALIBRATING FOR NFL 2025 SEASON</p>
                     <p>Our proprietary data oracles are analyzing every timeline, every variable, every possible outcome. Unparalleled insights are coming soon.</p>
-                    <a href="#" class="btn-primary">STAY TUNED</a>
+                    <a href="#" class="btn-secondary">STAY TUNED</a>
                 </div>
             </section>
         </main>
@@ -225,6 +249,7 @@
             <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
             <p class="footer-links">
                 <a href="mlb-prime-directives.html">MLB Prime Directives</a> |
+                <a href="nfl-gridiron-oracles.html">NFL Gridiron Oracles</a> |
                 <a href="#">Responsible Gaming</a> | 
                 <a href="#">Terms of Service</a> | 
                 <a href="#">Privacy Policy</a>
@@ -232,4 +257,4 @@
         </footer>
     </div>
 </body>
-</html>```
+</html>
