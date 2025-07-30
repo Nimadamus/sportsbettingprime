@@ -49,8 +49,7 @@
         .summary-table th, .summary-table td { padding: 15px 20px; border-bottom: 1px solid var(--glass-border); }
         .summary-table th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; }
         .summary-table td { font-size: 1.1rem; }
-        .summary-table .status-prime { color: var(--neon-gold); font-weight: 700; }
-        .summary-table .status-signal { color: var(--neon-cyan); }
+        .summary-table .status-pick { color: var(--neon-cyan); font-weight: 600; }
         .summary-table .status-pass { color: rgba(234, 248, 255, 0.6); }
         .confidence-3u { font-weight: 900; color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
         .confidence-2u { font-weight: 700; color: var(--neon-cyan); }
@@ -68,12 +67,8 @@
         .verdict-title { font-family: var(--font-primary); font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
         .verdict-text { font-size: 1.2rem; font-weight: 600; }
         .verdict-text span { display: block; margin-top: 8px; font-size: 1.5rem; }
-        .verdict-prime { border: 2px solid var(--neon-gold); background: rgba(255, 215, 0, 0.1); box-shadow: 0 0 25px var(--neon-gold); }
-        .verdict-prime .verdict-title { color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold); }
-        .verdict-signal { border: 2px solid var(--neon-cyan); background: rgba(0, 255, 255, 0.1); box-shadow: 0 0 20px var(--neon-cyan); }
-        .verdict-signal .verdict-title { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
-        .verdict-pass { border: 2px solid rgba(234, 248, 255, 0.4); background: rgba(234, 248, 255, 0.05); }
-        .verdict-pass .verdict-title { color: rgba(234, 248, 255, 0.7); }
+        .verdict-pick { border: 2px solid var(--neon-cyan); background: rgba(0, 255, 255, 0.1); box-shadow: 0 0 20px var(--neon-cyan); }
+        .verdict-pick .verdict-title { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
         
         footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
         footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
@@ -122,9 +117,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>New York Yankees @ Toronto Blue Jays</td><td class="status-prime">Yankees -1.5 Run Line</td><td class="confidence-3u">3 UNITS</td></tr>
-                            <tr><td>Baltimore Orioles @ Tampa Bay Rays</td><td class="status-signal">Over 8.0 Runs</td><td class="confidence-2u">2 UNITS</td></tr>
-                            <tr><td>Los Angeles Dodgers @ Arizona Diamondbacks</td><td class="status-signal">Dodgers Moneyline</td><td class="confidence-1u">1 UNIT</td></tr>
+                            <tr><td>New York Yankees @ Toronto Blue Jays</td><td class="status-pick">Yankees -1.5 Run Line</td><td class="confidence-3u">3 UNITS</td></tr>
+                            <tr><td>Baltimore Orioles @ Tampa Bay Rays</td><td class="status-pick">Over 8.0 Runs</td><td class="confidence-2u">2 UNITS</td></tr>
+                            <tr><td>Los Angeles Dodgers @ Arizona Diamondbacks</td><td class="status-pick">Dodgers Moneyline</td><td class="confidence-1u">1 UNIT</td></tr>
                             <tr><td>Boston Red Sox @ Cleveland Guardians</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
                             <tr><td>Chicago White Sox @ Detroit Tigers</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
                             <tr><td>Houston Astros @ Texas Rangers</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
@@ -142,7 +137,7 @@
                 </div>
 
                 <div class="dossier-container">
-                    <!-- UNLOCKED PRIME DIRECTIVE -->
+                    <!-- OFFICIAL PLAY 1 -->
                     <div class="game-dossier glass-panel">
                         <h3 class="dossier-title">New York Yankees @ Toronto Blue Jays</h3>
                         <div class="dossier-section">
@@ -151,13 +146,13 @@
                             <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
                             <p>The Yankees offense is built to punish Gausman's current weakness; they rank **2nd in MLB in wRC+ (130)** against splitters this season. The Blue Jays' offense, conversely, has struggled mightily against high-velocity fastballs (Cole averages 97 mph), posting a league-worst **.280 wOBA** against that pitch type. The Yankees also have a significant bullpen advantage with a fully rested Clay Holmes, while Toronto's Jordan Romano has pitched 3 of the last 4 nights. All data points align for a dominant Yankees performance.</p>
                         </div>
-                        <div class="verdict verdict-prime">
-                            <div class="verdict-title">PRIME DIRECTIVE</div>
+                        <div class="verdict verdict-pick">
+                            <div class="verdict-title">OFFICIAL PICK</div>
                             <p class="verdict-text">Yankees -1.5 Run Line <span class="confidence-3u">3 UNIT PLAY</span></p>
                         </div>
                     </div>
 
-                    <!-- SIGNAL FOUND GAME 1 -->
+                    <!-- OFFICIAL PLAY 2 -->
                     <div class="game-dossier glass-panel">
                         <h3 class="dossier-title">Baltimore Orioles @ Tampa Bay Rays</h3>
                         <div class="dossier-section">
@@ -166,13 +161,13 @@
                             <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
                             <p>The Orioles rank **1st in MLB in ISO (.215)** against RHP, a nightmare matchup for a homer-prone pitcher like Bradley. The Rays' offense is league-average (**101 wRC+**), but their bullpen has been overworked, posting a **4.50 ERA** in the last 14 days with their two high-leverage arms having pitched on back-to-back days. Our model projects a high probability of early runs against Bradley and late runs against a tired Rays bullpen.</p>
                         </div>
-                        <div class="verdict verdict-signal">
-                            <div class="verdict-title">SIGNAL-FOUND PICK</div>
+                        <div class="verdict verdict-pick">
+                            <div class="verdict-title">OFFICIAL PICK</div>
                             <p class="verdict-text">Over 8.0 Runs <span class="confidence-2u">2 UNIT PLAY</span></p>
                         </div>
                     </div>
 
-                    <!-- SIGNAL FOUND GAME 2 -->
+                    <!-- OFFICIAL PLAY 3 -->
                     <div class="game-dossier glass-panel">
                         <h3 class="dossier-title">Los Angeles Dodgers @ Arizona Diamondbacks</h3>
                         <div class="dossier-section">
@@ -181,28 +176,26 @@
                             <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
                             <p>The Dodgers offense leads the league with a **125 wRC+** against RHP on the road. The Diamondbacks have gone cold over the last 7 days, hitting just .210 as a team. The Dodgers also hold a decisive bullpen advantage, with a collective **3.20 bullpen xFIP** compared to Arizona's **4.15**. While the moneyline price is steep, our model still projects a 4% edge over the implied probability, making it a small but clear value play.</p>
                         </div>
-                        <div class="verdict verdict-signal">
-                            <div class="verdict-title">SIGNAL-FOUND PICK</div>
+                        <div class="verdict verdict-pick">
+                            <div class="verdict-title">OFFICIAL PICK</div>
                             <p class="verdict-text">Los Angeles Dodgers Moneyline <span class="confidence-1u">1 UNIT PLAY</span></p>
                         </div>
                     </div>
-
-                    <!-- DETAILED PASS GAME -->
-                    <div class="game-dossier glass-panel">
-                         <h3 class="dossier-title">Houston Astros @ Texas Rangers</h3>
-                        <div class="dossier-section">
-                            <h4>SYSTEM ANALYSIS</h4>
-                            <p>A divisional rivalry between two potent offenses. The starting pitchers, Framber Valdez and Jon Gray, present conflicting signals. Valdez's elite groundball rate (**65% GB%**) is a strong weapon, but the Rangers' offense has the 3rd lowest groundball rate in the league, partially neutralizing his greatest strength. Gray has strong strikeout numbers but is prone to explosive innings. The Rangers are 7-3 in their last 10, but the Astros have won 4 of the last 5 head-to-head matchups. Our model shows the current market line is efficient and accurately priced, leaving no value on either side.</p>
-                        </div>
-                         <div class="verdict verdict-pass">
-                            <div class="verdict-title">PASS</div>
-                            <p class="verdict-text">Conflicting metrics and an efficient market line.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- EVERY OTHER GAME GETS A DETAILED PASS -->
-                    <div class="game-dossier glass-panel">
-                        <h3 class="dossier-title">Boston Red Sox @ Cleveland Guardians</h3>
-                        <div class="dossier-section">
-                            <h4>SYSTEM ANALYSIS</h4>
-                            <p>Tanner Houck (BOS) vs. Triston McKenzie (CLE) presents a classic model conflict. Houck's high groundball rate is an asset, but McKenzie's elite strikeout upside (**28% K-rate**) gives him the higher ceiling. The Guardians' bullpen has been lockdown (**2.80 ERA** in last 30 days), but their offense is in a slump (**85 wRC+** vs
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved. Stats and analysis are for informational purposes only.</p>
+            <p class="footer-links">
+                 <a href="index.html">Home</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
+            </p>
+        </footer>
+    </div>
+    <script>
+        const dateElement = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
