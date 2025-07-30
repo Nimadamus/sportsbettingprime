@@ -46,6 +46,50 @@
         .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 10px; text-align: center; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
         .section-subtitle { font-family: var(--font-secondary); font-size: 1.5rem; text-align: center; color: var(--text-color); font-weight: 300; margin-bottom: 40px; letter-spacing: 1px; }
         
+        /* New Summary Block Styles */
+        .picks-summary-block {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 50px;
+        }
+        .summary-title {
+            font-family: var(--font-primary);
+            font-size: 1.8rem;
+            color: var(--neon-gold);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
+        }
+        .summary-list li {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-left: 4px solid var(--neon-cyan);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .summary-list .pick-text {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .summary-list .unit-text {
+            color: var(--neon-gold);
+            font-weight: bold;
+        }
+        
         .game-analysis-block { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; border: 1px solid var(--glass-border); margin-bottom: 40px; }
         .game-header { border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 20px; }
         .game-header h3 { font-family: var(--font-primary); font-size: 1.8rem; color: var(--neon-cyan); }
@@ -90,11 +134,24 @@
         <main>
             <section class="section-container">
                 <h1 class="section-title">MLB PRIME DIRECTIVES</h1>
-                <h2 class="section-subtitle">July 30, 2025 // MLB Betting Analysis</h2>
+                <h2 class="section-subtitle">July 30, 2025 - MLB Betting Analysis</h2>
+
+                <!-- PICKS SUMMARY BLOCK START -->
+                <div class="picks-summary-block">
+                    <h3 class="summary-title">Today's Prime Directives</h3>
+                    <ul class="summary-list">
+                        <li><span class="pick-text">Dodgers -1.5 Run Line</span><span class="unit-text">3.0 Units</span></li>
+                        <li><span class="pick-text">Mets First 5 Innings ML</span><span class="unit-text">3.0 Units</span></li>
+                        <li><span class="pick-text">Rangers First 5 Innings -0.5 RL</span><span class="unit-text">3.0 Units</span></li>
+                        <li><span class="pick-text">White Sox ML</span><span class="unit-text">2.0 Units</span></li>
+                        <li><span class="pick-text">Mariners Team Total Over 4.5</span><span class="unit-text">2.0 Units</span></li>
+                    </ul>
+                </div>
+                <!-- PICKS SUMMARY BLOCK END -->
                 
                 <!-- Game 1: LAD @ CIN -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Los Angeles Dodgers @ Cincinnati Reds</h3><p>S. Ohtani (R, 1.50 ERA) vs. N. Martinez (R, 4.81 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" alt="Dodgers Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Los Angeles Dodgers @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" alt="Reds Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Cincinnati Reds</h3><p>S. Ohtani (R, 1.50 ERA) vs. N. Martinez (R, 4.81 ERA)</p></div>
                     <div class="analysis-content">
                         <p>This matchup presents the most significant pitching disparity on the entire slate. Shohei Ohtani isn't just performing at an elite level; his underlying metrics confirm his dominance. His 2.15 xERA (Expected ERA) suggests his 1.50 ERA is legitimate, supported by a league-leading 32.5% K-BB% (Strikeout-to-Walk Percentage) and a low Barrel Rate. He consistently suppresses hard contact and generates swings and misses, making him one of the toughest arms to score against in any ballpark.</p>
                         <p>Conversely, Nick Martinez is a prime regression candidate whose 4.81 ERA might even be fortunate, as indicated by his 5.20 xFIP (Expected Fielding Independent Pitching). He struggles with command and gives up a high rate of hard contact. This is a catastrophic combination against the Dodgers' lineup, which boasts a league-best 121 wRC+ against right-handed pitching. In the hitter-friendly confines of Great American Ball Park, the Dodgers offense should feast on Martinez early and often, providing ample run support to cover the spread.</p>
@@ -104,7 +161,7 @@
 
                 <!-- Game 2: NYM @ SD -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>New York Mets @ San Diego Padres</h3><p>C. Holmes (R, 3.42 ERA) vs. Y. Darvish (R, 9.56 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/nym.png" alt="Mets Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">New York Mets @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" alt="Padres Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">San Diego Padres</h3><p>C. Holmes (R, 3.42 ERA) vs. Y. Darvish (R, 9.56 ERA)</p></div>
                     <div class="analysis-content">
                         <p>Our algorithm has flagged Yu Darvish as the strongest fade candidate of the day. A 9.56 ERA is not merely a slump; it's indicative of a systemic failure. His velocity is down, his spin rates have plummeted, and his Hard-Hit Percentage allowed is in the bottom 5% of all qualified starters. This isn't just bad luck; it's a complete collapse in performance. Clay Holmes, while not an ace, is a stable, league-average starter with a solid groundball rate, providing a predictable and significant advantage for New York.</p>
                         <p>To capitalize on this specific mismatch, we are isolating the bet to the First 5 Innings. This mitigates the risk of bullpen variance and directly targets the period where Darvish is guaranteed to be on the mound. Petco Park is generally pitcher-friendly, but Darvish's inability to prevent damaging, extra-base hits negates that advantage. The algorithm identifies a significant +EV opportunity in backing the Mets to secure an early lead against a pitcher in freefall.</p>
@@ -114,17 +171,17 @@
 
                 <!-- Game 3: TEX @ LAA -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Texas Rangers @ Los Angeles Angels</h3><p>N. Eovaldi (R, 1.50 ERA) vs. J. Soriano (R, 3.79 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tex.png" alt="Rangers Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Texas Rangers @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" alt="Angels Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Los Angeles Angels</h3><p>N. Eovaldi (R, 1.50 ERA) vs. J. Soriano (R, 3.79 ERA)</p></div>
                     <div class="analysis-content">
                         <p>This is another scenario where an ace-level pitcher provides a clear and decisive edge. Nathan Eovaldi's 1.50 ERA is backed by elite underlying numbers: a low walk rate, a high groundball rate, and an xERA below 2.50. He is a master at controlling the strike zone and inducing weak contact, which is the perfect formula for consistent success. Jose Soriano is a serviceable arm for the Angels, but his peripherals suggest he is a league-average pitcher who is outmatched in this contest.</p>
                         <p>The strategic angle here is to leverage Eovaldi's dominance in the first half of the game. The Angels' lineup has been particularly vulnerable against top-tier right-handed pitching, posting a bottom-10 wRC+ in that split. The Rangers, meanwhile, have a potent offense that should be able to provide Eovaldi with an early lead. The F5 Run Line offers excellent value by focusing on this specific period of maximum advantage for Texas.</p>
                     </div>
                     <div class="directive-box"><div class="pick">Prime Directive: Rangers First 5 Innings -0.5 RL</div><div class="units">Units: 3.0</div></div>
                 </div>
-
+                
                 <!-- Game 4: PHI @ CHW -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Philadelphia Phillies @ Chicago White Sox</h3><p>T. Walker (R, 3.88 ERA) vs. A. Houser (R, 2.12 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" alt="Phillies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Philadelphia Phillies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/chw.png" alt="White Sox Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Chicago White Sox</h3><p>T. Walker (R, 3.88 ERA) vs. A. Houser (R, 2.12 ERA)</p></div>
                     <div class="analysis-content">
                         <p>This matchup is a classic case of market inefficiency, where team reputation is creating a mispriced line. The algorithm flags a significant value signal on the White Sox, driven entirely by the pitching mismatch. While Taijuan Walker is a household name, his 3.88 ERA is mediocre, and his underlying metrics (4.10 xFIP) suggest he is performing exactly to that level. Adrian Houser, conversely, has been exceptional. His 2.12 ERA is supported by a high groundball rate and an ability to limit hard contact, making him one of the most underrated arms in the American League.</p>
                         <p>The Phillies possess the superior lineup, which is why they are the road favorite. However, Houser's sinker-heavy arsenal is well-equipped to neutralize Philadelphia's power-hitting approach by keeping the ball on the ground. The algorithm calculates that the significant starting pitching advantage for the White Sox is not being fully priced into the moneyline, creating a positive expected value opportunity on the home underdog.</p>
@@ -134,7 +191,7 @@
 
                 <!-- Game 5: SEA @ OAK -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Seattle Mariners @ Oakland Athletics</h3><p>B. Woo (R, 2.93 ERA) vs. J. Springs (L, 4.12 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" alt="Mariners Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Seattle Mariners @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/oak.png" alt="Athletics Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Athletics</h3><p>B. Woo (R, 2.93 ERA) vs. J. Springs (L, 4.12 ERA)</p></div>
                     <div class="analysis-content">
                         <p>This directive targets a weak link rather than a single starting pitcher. While Bryan Woo provides a solid advantage for Seattle with his sub-3.00 ERA and excellent command, the primary signal here is the vulnerability of the entire Oakland pitching staff. Jeffrey Springs has been inconsistent, particularly at home, and is prone to giving up runs in bunches. This provides a solid foundation for the Mariners' offense to build an early lead.</p>
                         <p>The crucial factor, however, is the Athletics' bullpen. Their relief corps ranks in the bottom three in all of baseball in key metrics like SIERA, WHIP, and inherited runners scored percentage. This means that even after Springs exits, the Mariners will face a sequence of struggling pitchers. The algorithm projects a high probability that Seattle will continue to score throughout the game, making their Team Total a more reliable play than a full-game run line, which could be subject to backdoor covers.</p>
@@ -144,70 +201,70 @@
 
                 <!-- Game 6: TOR @ BAL -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Toronto Blue Jays @ Baltimore Orioles</h3><p>J. Berrios (R, 3.83 ERA) vs. D. Kremer (R, 4.18 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" alt="Blue Jays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Toronto Blue Jays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" alt="Orioles Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Baltimore Orioles</h3><p>J. Berrios (R, 3.83 ERA) vs. D. Kremer (R, 4.18 ERA)</p></div>
                     <div class="analysis-content"><p>This divisional matchup presents two closely matched, league-average pitchers. Both Jose Berrios and Dean Kremer have ERAs that align with their underlying metrics, suggesting neither holds a significant, hidden advantage. Berrios has been slightly more consistent on the road, but Kremer benefits from pitching in the more pitcher-friendly Camden Yards.</p><p>With no clear edge on the mound and two potent lineups that are familiar with the opposing pitcher's arsenal, the algorithm finds the current moneyline odds to be sharp and efficient. There is no significant gap between the implied probability and our projected outcome to warrant a wager. This game profiles as a high-variance contest where bullpen performance will likely be the deciding factor, making it a clear pass from a pre-game perspective.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 7: AZ @ DET -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Arizona Diamondbacks @ Detroit Tigers</h3><p>R. Nelson (R, 3.10 ERA) vs. Pitcher: TBD</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" alt="Diamondbacks Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Arizona Diamondbacks @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" alt="Tigers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Detroit Tigers</h3><p>R. Nelson (R, 3.10 ERA) vs. Pitcher: TBD</p></div>
                     <div class="analysis-content"><p>The Prime Protocol has a strict non-negotiable rule: we do not allocate capital to games with significant unknown variables. The absence of a confirmed starting pitcher for the Detroit Tigers makes this matchup fundamentally un-analyzable from a data-driven standpoint. The difference between a top prospect making a spot start versus a bullpen game is immense and completely alters the probabilities of the game.</p><p>While Ryne Nelson has been a solid performer for Arizona, we cannot model his effectiveness without knowing who he is facing. Any wager made at this point would be pure speculation, not analysis. We will monitor for updates, but until a starter is officially named and we can process their data, this game is off the board.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 8: BOS @ MIN -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Boston Red Sox @ Minnesota Twins</h3><p>B. Bello (R, 3.31 ERA) vs. Z. Matthews (R, 4.97 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" alt="Red Sox Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Boston Red Sox @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/min.png" alt="Twins Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Minnesota Twins</h3><p>B. Bello (R, 3.31 ERA) vs. Z. Matthews (R, 4.97 ERA)</p></div>
                     <div class="analysis-content"><p>On the surface, this appears to be a clear pitching advantage for Boston, with Brayan Bello's solid 3.31 ERA against the struggling Zebulon Matthews. However, a deeper dive into the metrics reveals some caution. Bello's xERA is closer to 4.00, suggesting he's been the beneficiary of some good defensive play and luck. Matthews, while poor, has shown slightly better numbers at home.</p><p>The primary reason for a pass is the offensive inconsistency of both clubs. The Red Sox have struggled to string together runs on the road, while the Twins have one of the highest strikeout rates in the league against right-handed pitching. This creates a high-variance scenario where a solid pitching performance from Bello could be wasted by a lack of run support. The moneyline odds reflect this uncertainty, offering no clear +EV opportunity.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 9: WAS @ HOU -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Washington Nationals @ Houston Astros</h3><p>M. Gore (L, 3.54 ERA) vs. R. Gusto (R, 5.85 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" alt="Nationals Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Washington Nationals @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" alt="Astros Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Houston Astros</h3><p>M. Gore (L, 3.54 ERA) vs. R. Gusto (R, 5.85 ERA)</p></div>
                     <div class="analysis-content"><p>This is a classic "trap" game scenario. While MacKenzie Gore's ERA is significantly better than Ronel Gusto's, the situational factors present a major risk. The Astros, despite Gusto's struggles, have a formidable lineup that crushes left-handed pitching at home, posting a top-5 wRC+ in that split. Gore's fly-ball tendencies could be problematic in the Crawford Boxes of Minute Maid Park.</p><p>Furthermore, the Astros boast a top-tier bullpen, while the Nationals' relief corps is among the league's worst. This means even if Gore pitches well and secures an early lead, there is a high probability that the bullpen will surrender it late in the game. The algorithm projects that the offensive and bullpen disparities are significant enough to negate the starting pitching advantage, making the moneyline a poor investment.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
                 
                 <!-- Game 10: ATL @ KC -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Atlanta Braves @ Kansas City Royals</h3><p>J. Wentz (L, 3.38 ERA) vs. A. Zerpa (L, 0.00 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" alt="Braves Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Atlanta Braves @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" alt="Royals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Kansas City Royals</h3><p>J. Wentz (L, 3.38 ERA) vs. A. Zerpa (L, 0.00 ERA)</p></div>
                     <div class="analysis-content"><p>This game presents a significant analytical challenge due to the small sample size for Royals starter Angel Zerpa. While his 0.00 ERA is impressive, it comes from limited innings, primarily out of the bullpen. It's impossible to project how his stuff will play over 5-6 innings as a starter. Joey Wentz has been solid for Atlanta, but the Braves have been one of the worst road teams in baseball this season, with a dismal 19-35 record.</p><p>The conflicting signals make this a high-variance matchup. Can Zerpa maintain his effectiveness in a starting role? Can the Braves offense overcome their significant road struggles against a pitcher they have never seen before? With too many unanswered questions and unreliable data points, the algorithm flags this game as a clear pass. There is no quantifiable edge to exploit.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 11: CHC @ MIL -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Chicago Cubs @ Milwaukee Brewers</h3><p>S. Imanaga (L, 3.12 ERA) vs. F. Peralta (R, 2.83 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Chicago Cubs @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" alt="Brewers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Milwaukee Brewers</h3><p>S. Imanaga (L, 3.12 ERA) vs. F. Peralta (R, 2.83 ERA)</p></div>
                     <div class="analysis-content"><p>This is a premier pitching matchup between two of the National League's best. Shota Imanaga has been a revelation for the Cubs, with a high K-rate and excellent command. Freddy Peralta is a bona fide ace with some of the most electric stuff in baseball, backed by a strong xERA of 3.05. Both pitchers are capable of completely shutting down an opposing lineup on any given day.</p><p>When two elite pitchers of this caliber face off, the betting line is almost always efficient and sharp. The algorithm finds no significant value on either the moneyline or the total. The Brewers' strong home record gives them a slight theoretical edge, but it's fully priced into the current odds. This is a game to watch and enjoy as a fan of pitching, not one to bet on.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 12: PIT @ SF -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Pittsburgh Pirates @ San Francisco Giants</h3><p>M. Burrows (R, 4.41 ERA) vs. L. Webb (R, 3.40 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/pit.png" alt="Pirates Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Pittsburgh Pirates @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sf.png" alt="Giants Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">San Francisco Giants</h3><p>M. Burrows (R, 4.41 ERA) vs. L. Webb (R, 3.40 ERA)</p></div>
                     <div class="analysis-content"><p>Logan Webb is a significantly better pitcher than Mike Burrows, and the Giants are playing at home where Webb excels due to his extreme groundball tendencies perfectly matching the spacious ballpark. However, the primary issue here is the price. The betting market is fully aware of this mismatch, and as a result, the Giants' moneyline is heavily inflated, offering poor value.</p><p>While a run-line bet might seem tempting, the Giants' offense has been anemic, ranking in the bottom-third of the league in runs scored over the last 30 days. There is a significant risk that Webb pitches a gem but receives minimal run support, leading to a one-run victory that fails to cover the -1.5 spread. The algorithm identifies the price as being too steep to justify a wager, despite the clear on-paper advantage.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 13: COL @ CLE -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Colorado Rockies @ Cleveland Guardians</h3><p>K. Freeland (L, 5.26 ERA) vs. K. Allard (L, 4.50 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/col.png" alt="Rockies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Colorado Rockies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" alt="Guardians Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Cleveland Guardians</h3><p>K. Freeland (L, 5.26 ERA) vs. K. Allard (L, 4.50 ERA)</p></div>
                     <div class="analysis-content"><p>This game is flagged by the algorithm as a classic "avoid" scenario. It features two struggling left-handed pitchers with high ERAs and uninspiring underlying metrics. Kyle Freeland's numbers are particularly poor, but he's facing a Cleveland lineup that has historically struggled against left-handed pitching, posting a wRC+ below 90 in that split.</p><p>Furthermore, the Rockies are arguably the worst road team in baseball, with a 14-41 record away from the hitter-friendly Coors Field. Betting on them is a losing proposition, but betting against them with an unreliable pitcher like Kolby Allard on the mound is equally risky. This matchup is a perfect storm of mediocrity and variance, offering no clear, exploitable edge for a disciplined bettor.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
                 
                 <!-- Game 14: TB @ NYY -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Tampa Bay Rays @ New York Yankees</h3><p>Z. Littell (R, 3.73 ERA) vs. W. Warren (R, 4.79 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" alt="Rays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Tampa Bay Rays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" alt="Yankees Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">New York Yankees</h3><p>Z. Littell (R, 3.73 ERA) vs. W. Warren (R, 4.79 ERA)</p></div>
                     <div class="analysis-content"><p>While Zack Littell holds a clear statistical advantage over Will Warren on the surface, this game is complicated by team trends and park factors. The Yankees' offense, despite a recent 5-5 slump, performs significantly better at home, and the short porch in right field is always a threat against any right-handed pitcher. Littell's solid ERA is also accompanied by a slightly higher xFIP, suggesting some minor regression is possible.</p><p>The Rays are a notoriously difficult team to model due to their aggressive and often unpredictable bullpen usage. They may pull Littell after just a few innings, turning the contest into a battle of middle relievers. With the Yankees' potent lineup at home and the Rays' unorthodox strategy, the algorithm finds the current odds to be efficient, presenting no clear +EV signal on either side.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
 
                 <!-- Game 15: MIA @ STL -->
                 <div class="game-analysis-block">
-                    <div class="game-header"><h3>Miami Marlins @ St. Louis Cardinals</h3><p>C. Quantrill (R, 5.09 ERA) vs. M. Mikolas (R, 4.94 ERA)</p></div>
+                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/mia.png" alt="Marlins Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Miami Marlins @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">St. Louis Cardinals</h3><p>C. Quantrill (R, 5.09 ERA) vs. M. Mikolas (R, 4.94 ERA)</p></div>
                     <div class="analysis-content"><p>This game features two starting pitchers who are struggling mightily. Both Cal Quantrill and Miles Mikolas have ERAs hovering near 5.00, and their underlying metrics (xFIP, SIERA) confirm that their poor performance is not due to bad luck. This would typically suggest a play on the Over, however, both the Marlins and Cardinals lineups have been inconsistent and rank in the bottom half of the league in most offensive categories over the last month.</p><p>This creates a conflicting signal: two bad pitchers versus two anemic offenses. This type of matchup often leads to unpredictable outcomes. The game could easily turn into a 7-6 slugfest or a 2-1 snoozer, depending on which version of the offenses shows up. The algorithm cannot find a confident edge when both the pitching and hitting present such high levels of negative variance. This is a clear pass.</p></div>
                     <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
                 </div>
