@@ -18,8 +18,6 @@
             --text-color: #eaf8ff;
             --neon-cyan: #00ffff;
             --neon-gold: #FFD700; /* Primary Action Color */
-            --glass-bg: rgba(5, 4, 20, 0.4);
-            --glass-border: rgba(0, 255, 255, 0.2);
             --font-primary: 'Orbitron', sans-serif;
             --font-secondary: 'Poppins', sans-serif;
         }
@@ -73,10 +71,10 @@
         /* --- Header & Navigation --- */
         header {
             padding: 20px 5%;
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(1, 0, 15, 0.2);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid var(--glass-border);
+            position: absolute; /* Changed from sticky to absolute for cleaner layering */
+            top: 0;
+            width: 100%;
+            z-index: 100;
         }
         nav { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase; }
@@ -95,24 +93,31 @@
         }
         @keyframes pulse-button { 50% { transform: scale(1.05); } }
 
-        /* --- Global Section & Card Styling --- */
-        .content-wrapper { position: relative; z-index: 10; }
-        .section-container { padding: 120px 5%; text-align: center; }
-        .section-title { font-family: var(--font-primary); font-size: 3rem; margin-bottom: 60px; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
-        .glass-panel {
-            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px; padding: 40px; position: relative; overflow: hidden;
-            border: 1px solid var(--glass-border);
+        /* --- Content Wrapper & Main Layout --- */
+        .content-wrapper { 
+            position: relative; 
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 85px; /* Added padding to account for header height */
         }
         
-        /* --- Hero Section with REFINED Spacing --- */
+        /* --- Hero Section --- */
         .hero { 
-            padding: 8vh 20px; /* Reduced padding for a more compact hero section */
+            text-align: center;
+            padding: 20px;
         }
         
         .hero h1 {
             font-family: var(--font-primary);
-            font-size: 4.2rem; /* Slightly reduced font size */
+            font-size: 4.2rem;
             font-weight: 700;
             text-shadow: 0 0 20px rgba(234, 248, 255, 0.5);
             line-height: 1.2;
@@ -146,28 +151,30 @@
             padding: 15px 40px; 
             display: inline-block;
         }
-
-        /* --- Prime Picks Section --- */
-        #prime-picks {
-             padding-top: 80px; /* Adjusted padding to bring it closer to hero */
-        }
-        .picks-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
-        .pick-card { text-align: left; transition: transform 0.3s ease; border: 1px solid transparent }
-        .pick-card:hover { transform: translateY(-15px) scale(1.03); border-color: var(--glass-border); }
-        .pick-card h3 { font-family: var(--font-secondary); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
-        .pick-card .pick-title { font-size: 1.8rem; font-weight: 600; color: var(--text-color); margin-bottom: 15px; }
-        .pick-card .pick-analysis { font-size: 1rem; color: rgba(234, 248, 255, 0.8); margin-bottom: 25px; height: 65px; }
-        .confidence-meter label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--neon-cyan); text-transform: uppercase; }
-        .power-bar-bg { width: 100%; height: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid var(--glass-border); padding: 2px; }
-        .power-bar-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--neon-cyan), #00aaff); box-shadow: 0 0 15px var(--neon-cyan); }
-        .btn-secondary { display: block; text-align: center; text-decoration: none; color: var(--text-color); background-color: transparent; border: 1px solid var(--neon-cyan); border-radius: 8px; padding: 12px; transition: all 0.3s ease; font-weight: 600; margin-top: 20px; }
-        .btn-secondary:hover { background-color: var(--neon-cyan); color: var(--bg-color); box-shadow: 0 0 15px var(--neon-cyan); }
         
         /* --- Footer --- */
-        footer { background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); text-align: center; }
-        footer p { color: rgba(234, 248, 255, 0.7); }
-        footer a { color: var(--neon-cyan); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        footer { 
+            background: transparent; 
+            padding: 20px 5%; 
+            text-align: center;
+            width: 100%;
+        }
+        footer p { 
+            color: rgba(234, 248, 255, 0.7);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        footer .footer-links {
+            font-size: 0.8rem;
+        }
+        footer a { 
+            color: var(--neon-cyan); 
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover { 
+            text-decoration: underline; 
+        }
 
     </style>
 </head>
@@ -185,55 +192,22 @@
         </header>
 
         <main>
-            <section class="section-container hero">
-                <h1>The Universe of Probabilities<br>Has Just Been <span>Hacked.</span></h1>
-                <p>Gain your edge with our proprietary data analysis.</p>
-                <a href="#prime-picks" class="btn-primary">SEE TODAY'S PRIME PICKS</a>
-            </section>
-
-            <section id="prime-picks" class="section-container">
-                <h2 class="section-title">TODAY'S PRIME DIRECTIVES</h2>
-                <div class="picks-container">
-                    <!-- Pick Card 1: MLB -->
-                    <div class="pick-card glass-panel">
-                        <h3>MLB Prime Pick</h3>
-                        <p class="pick-title">Cubs @ Brewers: UNDER 7.5 Runs</p>
-                        <p class="pick-analysis">Our model flags a massive pitching advantage for both aces, projecting a final score well below the market total. High value detected.</p>
-                        <div class="confidence-meter">
-                            <label>Confidence Rating</label>
-                            <div class="power-bar-bg"><div class="power-bar-fill" style="width: 90%;"></div></div>
-                        </div>
-                        <a href="#" class="btn-secondary">Unlock Full Analysis</a>
-                    </div>
-                    <!-- Pick Card 2: NFL -->
-                    <div class="pick-card glass-panel">
-                        <h3>NFL Prime Pick</h3>
-                        <p class="pick-title">Kansas City Chiefs -3.5 vs. Ravens</p>
-                        <p class="pick-analysis">Despite offseason narratives, our season simulation model still shows a significant edge for the Chiefs' offense in this opening week matchup.</p>
-                        <div class="confidence-meter">
-                            <label>Confidence Rating</label>
-                            <div class="power-bar-bg"><div class="power-bar-fill" style="width: 75%;"></div></div>
-                        </div>
-                         <a href="#" class="btn-secondary">Unlock Full Analysis</a>
-                    </div>
-                    <!-- Pick Card 3: College Football -->
-                    <div class="pick-card glass-panel">
-                        <h3>NCAAF Prime Pick</h3>
-                        <p class="pick-title">Ohio State to Win Big Ten</p>
-                        <p class="pick-analysis">Key transfers and a favorable schedule give the Buckeyes a 45% higher probability to win the conference than current future odds imply.</p>
-                         <div class="confidence-meter">
-                            <label>Confidence Rating</label>
-                            <div class="power-bar-bg"><div class="power-bar-fill" style="width: 85%;"></div></div>
-                        </div>
-                         <a href="#" class="btn-secondary">Unlock Full Analysis</a>
-                    </div>
+            <section class="hero">
+                <div>
+                    <h1>The Universe of Probabilities<br>Has Just Been <span>Hacked.</span></h1>
+                    <p>Gain your edge with our proprietary data analysis.</p>
+                    <a href="#" class="btn-primary">LEARN MORE</a>
                 </div>
             </section>
         </main>
-
+        
         <footer>
-            <p>© 2_025 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p><a href="#">Responsible Gaming</a> | <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a></p>
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="#">Responsible Gaming</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Privacy Policy</a>
+            </p>
         </footer>
     </div>
 </body>
