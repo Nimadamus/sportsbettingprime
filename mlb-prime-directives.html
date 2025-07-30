@@ -20,38 +20,21 @@
         body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
         
         .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-            background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate;
-        }
+        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
         @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
 
         header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px); border-bottom: 1px solid var(--glass-border); }
         nav { display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 40px; }
-
         .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase;}
         .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        
         .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a {
-            font-family: var(--font-secondary); text-decoration: none; color: var(--text-color);
-            font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
-            padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-        }
+        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
         .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-
-        .btn-primary {
-            padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem;
-            background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold);
-            animation: pulse-button 2s infinite; transition: all 0.3s ease;
-        }
+        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
         .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
         @keyframes pulse-button { 50% { transform: scale(1.05); } }
 
-        /* The rest of the MLB page-specific CSS remains the same */
         .content-wrapper { position: relative; z-index: 10; }
         .section-container { padding: 40px 5%; text-align: center; max-width: 1400px; margin: 0 auto; }
         .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 15px; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
@@ -103,9 +86,9 @@
                     </div>
                     <ul class="nav-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html" class="active">MLB</a></li>
-                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                        <li><a href="the-data-stream.html">Blog</a></li>
+                        <li><a href="mlb-prime-directives.html" class="active">Prime Directives</a></li>
+                        <li><a href="nfl-gridiron-oracles.html">Gridiron Oracles</a></li>
+                        <li><a href="the-data-stream.html">The Data Stream</a></li>
                         <li><a href="performance-telemetry.html">Telemetry</a></li>
                     </ul>
                 </div>
@@ -113,24 +96,129 @@
             </nav>
         </header>
         
-        <!-- The rest of the page's main and footer content goes here, it is unchanged. -->
         <main>
             <section class="section-container">
                 <h1 class="section-title">MLB PRIME DIRECTIVES</h1>
-                <p class="section-date" id="current-date">July 30, 2025</p>
+                <p class="section-date" id="current-date"></p>
+
                 <div class="summary-table glass-panel">
-                    <!-- Summary table content -->
+                    <h2>Today's Directives</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Matchup</th>
+                                <th>Pick</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chicago Cubs @ Milwaukee Brewers</td>
+                                <td>Under 7.5 Runs</td>
+                                <td class="status-signal">SIGNAL FOUND</td>
+                            </tr>
+                            <tr>
+                                <td>Los Angeles Dodgers @ Cincinnati Reds</td>
+                                <td>Dodgers -1.5 Run Line</td>
+                                <td class="status-signal">SIGNAL FOUND</td>
+                            </tr>
+                             <tr>
+                                <td>Boston Red Sox @ Toronto Blue Jays</td>
+                                <td>[PREMIUM PICK]</td>
+                                <td class="status-locked">LOCKED 🔒</td>
+                            </tr>
+                            <tr>
+                                <td>Tampa Bay Rays @ New York Yankees</td>
+                                <td>-</td>
+                                <td class="status-pass">PASS</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
                 <div class="dossier-container">
-                    <!-- All the dossier content -->
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">
+                            <img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs Logo" class="team-logo"> Chicago Cubs @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" alt="Brewers Logo" class="team-logo" style="padding: 4px;"> Milwaukee Brewers
+                        </h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>This matchup presents a classic ace duel. The Cubs' Shota Imanaga has been sensational, not just because of his low ERA, but due to his elite **2.85 FIP (Fielding Independent Pitching)**. On the other side, Freddy Peralta for the Brewers is a high-octane strikeout machine, boasting a **31.5% K-rate**.</p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>Neither offense holds a significant advantage against these top-tier arms. Crucially, this is a late-season divisional game with significant playoff implications, which historically trend towards lower-scoring, tighter contests. Both bullpens are well-rested and rank in the MLB top 5 by FIP.</p>
+                        </div>
+                        <div class="verdict verdict-signal">
+                            <div class="verdict-title">SIGNAL-FOUND PICK</div>
+                            <p class="verdict-text">UNDER 7.5 RUNS</p>
+                        </div>
+                    </div>
+
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">
+                             <img src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" alt="Dodgers Logo" class="team-logo"> Los Angeles Dodgers @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" alt="Reds Logo" class="team-logo" style="padding: 2px;"> Cincinnati Reds
+                        </h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>This is the most significant pitching mismatch on the board. The Dodgers are starting Shohei Ohtani, whose 1.50 ERA is backed by a generational **1.99 FIP**. The Reds counter with Nick Martinez, whose 4.81 ERA is not a fluke; his **4.55 xFIP** confirms he is a below-average arm.</p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>The Dodgers lead MLB in almost every significant offensive category, including **wRC+ (Weighted Runs Created Plus)**. Furthermore, the game is at Great American Ball Park, the #1 park for home runs in MLB. This environment will amplify Martinez's weaknesses and the Dodgers' strengths.</p>
+                        </div>
+                        <div class="verdict verdict-signal">
+                            <div class="verdict-title">SIGNAL-FOUND PICK</div>
+                            <p class="verdict-text">DODGERS -1.5 RUN LINE</p>
+                        </div>
+                    </div>
+
+                    <div class="game-dossier glass-panel">
+                         <h3 class="dossier-title">
+                           <img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" alt="Red Sox Logo" class="team-logo"> Boston Red Sox @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" alt="Blue Jays Logo" class="team-logo"> Toronto Blue Jays
+                        </h3>
+                        <div class="dossier-section">
+                            <h4>ANALYSIS LOCKED</h4>
+                            <p>Our system has identified a high-confidence edge in this matchup based on a convergence of proprietary data points, including advanced pitcher metrics, batter vs. pitcher history, and situational trends. This analysis is reserved for members with Prime Access.</p>
+                        </div>
+                        <div class="verdict verdict-locked">
+                            <div class="verdict-title">PRIME DIRECTIVE 🔒</div>
+                            <p class="verdict-text">This is our highest-confidence play of the day. The algorithm has flagged a significant probability mismatch with the current betting market.</p>
+                            <a href="#" class="btn-primary">UNLOCK WITH PRIME ACCESS</a>
+                        </div>
+                    </div>
+
+                    <div class="game-dossier glass-panel">
+                         <h3 class="dossier-title">
+                             <img src="https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" alt="Rays Logo" class="team-logo" style="padding: 5px;"> Tampa Bay Rays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" alt="Yankees Logo" class="team-logo"> New York Yankees
+                        </h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>An intriguing but volatile matchup. The Rays' Zack Littell (3.73 ERA) has outperformed his **4.10 xFIP**, suggesting some minor regression is possible. The Yankees' starter has been inconsistent. The true story here is the bullpens. Both teams feature top-10 relief corps.</p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>The betting line reflects this uncertainty, pricing the game as close to a pick-'em. There is no significant analytical edge to be found in the offensive splits or recent trends that justifies taking a strong position on either side. The umpire, noted for a tight strike zone, adds another layer of unpredictability.</p>
+                        </div>
+                         <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">No significant value detected. Avoid this matchup.</p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="scope-panel glass-panel">
-                     <!-- Scope panel content -->
+                    <h3>PRIME ANALYSIS SCOPE</h3>
+                    <p>Not all games are listed. Our mission is to isolate and deliver only the matchups where our data models detect a significant, quantifiable edge against the market consensus. If a game is not on our board, it means the variables do not meet our strict threshold for a high-confidence signal. We focus on quality, not quantity.</p>
                 </div>
             </section>
         </main>
+        
         <footer>
-            <!-- Footer content -->
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
+            <p class="footer-links">
+                 <a href="index.html">Home</a> | <a href="nfl-gridiron-oracles.html">Gridiron Oracles</a> | <a href="the-data-stream.html">The Data Stream</a> | <a href="performance-telemetry.html">Telemetry</a> | <a href="#">Responsible Gaming</a>
+            </p>
         </footer>
     </div>
     <script>
