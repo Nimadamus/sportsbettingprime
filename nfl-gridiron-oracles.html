@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Gridiron Oracles - SPORTS BETTING PRIME</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- All the style code is now placed directly inside the HTML file -->
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700; /* Primary Action Color */
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* --- PHOTO-REALISTIC, ANIMATED SPACE BACKGROUND --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .background-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center center;
+            animation: kenburns 120s ease-in-out infinite alternate;
+        }
+        
+        @keyframes kenburns {
+            from { transform: scale(1) translate(0, 0); }
+            to { transform: scale(1.15) translate(-2%, 2%); }
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            padding: 20px 5%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase; }
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+        .btn-primary {
+            padding: 12px 30px; border-radius: 8px; text-decoration: none;
+            font-weight: 700; font-family: var(--font-primary);
+            background-color: var(--neon-gold); color: #01000f;
+            border: 1px solid var(--neon-gold);
+            box-shadow: 0 0 20px var(--neon-gold);
+            animation: pulse-button 2s infinite; transition: all 0.3s ease;
+        }
+        .btn-primary:hover { 
+            box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff;
+            filter: brightness(1.2);
+        }
+        @keyframes pulse-button { 50% { transform: scale(1.05); } }
+
+        /* --- Content Wrapper & Main Layout --- */
+        .content-wrapper { 
+            position: relative; 
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 85px; /* Added padding to account for header height */
+        }
+        
+        /* --- Hero Section --- */
+        .hero { 
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-primary);
+            font-size: 3.8rem; /* Slightly smaller to fit the text */
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(234, 248, 255, 0.5);
+            line-height: 1.3;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--neon-cyan);
+            font-weight: 900;
+            text-shadow: 0 0 25px var(--neon-cyan);
+            animation: flicker 3s linear infinite;
+        }
+
+        .status-text {
+            font-family: var(--font-primary);
+            font-size: 1.2rem;
+            color: var(--neon-gold);
+            text-shadow: 0 0 15px var(--neon-gold);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 25px var(--neon-cyan), 0 0 50px var(--neon-cyan);}
+            20%, 24%, 55% { text-shadow: none; filter: brightness(0.8); }
+        }
+
+        .hero p { 
+            font-size: 1.2rem; 
+            margin-bottom: 3rem; 
+            color: rgba(234, 248, 255, 0.8);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .btn-primary { 
+            font-size: 1.1rem; 
+            padding: 15px 40px; 
+            display: inline-block;
+            background-color: transparent;
+            color: var(--neon-gold);
+            cursor: default;
+            animation: none; /* Disable animation for this button */
+            filter: brightness(0.8);
+        }
+        .hero .btn-primary:hover {
+            box-shadow: 0 0 20px var(--neon-gold);
+            filter: brightness(1);
+        }
+        
+        /* --- Footer --- */
+        footer { 
+            background: transparent; 
+            padding: 20px 5%; 
+            text-align: center;
+            width: 100%;
+        }
+        footer p { 
+            color: rgba(234, 248, 255, 0.7);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        footer .footer-links {
+            font-size: 0.8rem;
+        }
+        footer a { 
+            color: var(--neon-cyan); 
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover { 
+            text-decoration: underline; 
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-container"></div>
+    
+    <!-- Main Page Content -->
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <div class="logo">SPORTS BETTING <span>PRIME</span></div>
+                <a href="index.html" class="btn-primary">RETURN TO HOME</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div>
+                    <h1>The Gridiron Algorithm<br>is <span>Computing...</span></h1>
+                    <p class="status-text">STATUS: CALIBRATING FOR NFL 2025 SEASON</p>
+                    <p>Our proprietary data oracles are analyzing every timeline, every variable, every possible outcome. Unparalleled insights are coming soon.</p>
+                    <a href="#" class="btn-primary">STAY TUNED</a>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="mlb-prime-directives.html">MLB Prime Directives</a> |
+                <a href="#">Responsible Gaming</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>```
