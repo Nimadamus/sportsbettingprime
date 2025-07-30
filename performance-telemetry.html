@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Telemetry - SPORTS BETTING PRIME</title>
+    <title>Performance Results - SPORTS BETTING PRIME</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +25,13 @@
 
         header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px); border-bottom: 1px solid var(--glass-border); }
         nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { display: flex; align-items: center; gap: 40px; }
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase;}
+        .nav-left { flex: 1; }
+        .nav-center { flex: 2; display: flex; justify-content: center; }
+        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
+        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
         .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
         .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
+        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
         .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
         .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
         .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
@@ -46,7 +48,6 @@
         .metric-value.win { color: var(--color-win); text-shadow: 0 0 15px var(--color-win); }
         .metric-value.loss { color: var(--color-loss); text-shadow: 0 0 15px var(--color-loss); }
         .metric-value.neutral { color: var(--text-color); }
-        
         .results-log { text-align: left; }
         .results-log h2 { font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 15px; text-align: center; }
         .results-log .log-date { text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: rgba(234, 248, 255, 0.8); }
@@ -54,7 +55,6 @@
         .results-log th, .results-log td { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); text-align: center; }
         .results-log th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; }
         .results-log td.no-results { font-style: italic; color: rgba(234, 248, 255, 0.6); padding: 40px 0; }
-        
         footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
         footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
         footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
@@ -69,15 +69,20 @@
                     <div class="logo">
                         <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
                     </div>
+                </div>
+                <div class="nav-center">
                     <ul class="nav-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html">Prime Directives</a></li>
-                        <li><a href="nfl-gridiron-oracles.html">Gridiron Oracles</a></li>
-                        <li><a href="the-data-stream.html">The Data Stream</a></li>
-                        <li><a href="performance-telemetry.html" class="active">Telemetry</a></li>
+                        <li><a href="mlb-prime-directives.html">MLB</a></li>
+                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                        <li><a href="the-data-stream.html">Blog</a></li>
+                        <li><a href="performance-telemetry.html" class="active">Results</a></li>
+                        <li><a href="the-prime-protocol.html">About</a></li>
                     </ul>
                 </div>
-                <a href="#" class="btn-primary">PRIME ACCESS</a>
+                <div class="nav-right">
+                    <a href="#" class="btn-primary">PRIME ACCESS</a>
+                </div>
             </nav>
         </header>
 
@@ -128,7 +133,7 @@
         <footer>
             <p>© 2025 SPORTS BETTING PRIME. All rights reserved. Unit sizing based on a flat betting system. Past performance is not an indicator of future results.</p>
             <p class="footer-links">
-                <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">Prime Directives</a> | <a href="nfl-gridiron-oracles.html">Gridiron Oracles</a> | <a href="#">Responsible Gaming</a>
+                <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
             </p>
         </footer>
     </div>
