@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLB Picks & Analysis - SPORTS BETTING PRIME</title>
+    <title>MLB Picks & Full Slate Analysis - SPORTS BETTING PRIME</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,15 +42,20 @@
         .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 15px; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
         .section-date { font-family: var(--font-primary); font-size: 1.5rem; color: var(--text-color); margin-bottom: 50px; }
         .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px; border: 1px solid var(--glass-border); }
+        
         .summary-table { margin-bottom: 60px; text-align: left; }
         .summary-table h2 { font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 25px; text-align: center; }
         .summary-table table { width: 100%; border-collapse: collapse; }
         .summary-table th, .summary-table td { padding: 15px 20px; border-bottom: 1px solid var(--glass-border); }
         .summary-table th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; }
         .summary-table td { font-size: 1.1rem; }
-        .summary-table .status-signal { color: var(--neon-cyan); font-weight: 700; }
+        .summary-table .status-signal { color: var(--neon-cyan); }
         .summary-table .status-pass { color: rgba(234, 248, 255, 0.6); }
-        .summary-table .status-locked { color: var(--neon-gold); font-weight: 700; }
+        .summary-table .status-locked { color: var(--neon-gold); }
+        .confidence-3u { font-weight: 900; color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+        .confidence-2u { font-weight: 700; color: var(--neon-cyan); }
+        .confidence-1u { font-weight: 700; color: var(--text-color); }
+        
         .dossier-container { display: grid; grid-template-columns: 1fr; gap: 50px; }
         .game-dossier { padding: 30px; text-align: left; }
         .dossier-title { font-family: var(--font-primary); font-size: 2rem; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; display: flex; align-items: center; gap: 15px; }
@@ -58,9 +63,11 @@
         .dossier-section h4 { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; margin-top: 25px; margin-bottom: 10px; }
         .dossier-section p { line-height: 1.8; color: rgba(234, 248, 255, 0.85); }
         .dossier-section p strong { color: var(--text-color); font-weight: 600; }
+        
         .verdict { margin-top: 30px; padding: 25px; border-radius: 10px; text-align: center; }
         .verdict-title { font-family: var(--font-primary); font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
         .verdict-text { font-size: 1.2rem; font-weight: 600; }
+        .verdict-text span { display: block; margin-top: 8px; font-size: 1.5rem; }
         .verdict-signal { border: 2px solid var(--neon-cyan); background: rgba(0, 255, 255, 0.1); box-shadow: 0 0 20px var(--neon-cyan); }
         .verdict-signal .verdict-title { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
         .verdict-pass { border: 2px solid rgba(234, 248, 255, 0.4); background: rgba(234, 248, 255, 0.05); }
@@ -69,6 +76,7 @@
         .verdict-locked .verdict-title { color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold); }
         .verdict-locked .verdict-text { font-size: 1.1rem; color: rgba(234, 248, 255, 0.8); max-width: 450px; margin: 0 auto 20px auto; }
         .verdict-locked .btn-primary { font-size: 1rem; }
+        
         footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
         footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
         footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
@@ -112,25 +120,25 @@
                             <tr>
                                 <th>Matchup</th>
                                 <th>Pick</th>
-                                <th>Status</th>
+                                <th>Confidence</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>New York Yankees @ Toronto Blue Jays</td><td>Yankees -1.5</td><td class="status-locked">LOCKED 🔒</td></tr>
-                            <tr><td>Baltimore Orioles @ Tampa Bay Rays</td><td>Over 8.0 Runs</td><td class="status-signal">SIGNAL FOUND</td></tr>
-                            <tr><td>Los Angeles Dodgers @ Arizona Diamondbacks</td><td>Dodgers ML</td><td class="status-signal">SIGNAL FOUND</td></tr>
-                            <tr><td>Boston Red Sox @ Cleveland Guardians</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Chicago White Sox @ Detroit Tigers</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Houston Astros @ Texas Rangers</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Kansas City Royals @ Minnesota Twins</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Los Angeles Angels @ Oakland Athletics</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Atlanta Braves @ Miami Marlins</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>New York Mets @ Washington Nationals</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Chicago Cubs @ St. Louis Cardinals</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Cincinnati Reds @ Milwaukee Brewers</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Philadelphia Phillies @ Pittsburgh Pirates</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>San Diego Padres @ San Francisco Giants</td><td>-</td><td class="status-pass">PASS</td></tr>
-                            <tr><td>Colorado Rockies @ Seattle Mariners</td><td>-</td><td class="status-pass">PASS</td></tr>
+                            <tr><td>New York Yankees @ Toronto Blue Jays</td><td class="status-locked">[PRIME DIRECTIVE]</td><td class="confidence-3u">3 UNITS</td></tr>
+                            <tr><td>Baltimore Orioles @ Tampa Bay Rays</td><td class="status-signal">Over 8.0 Runs</td><td class="confidence-2u">2 UNITS</td></tr>
+                            <tr><td>Los Angeles Dodgers @ Arizona Diamondbacks</td><td class="status-signal">Dodgers Moneyline</td><td class="confidence-1u">1 UNIT</td></tr>
+                            <tr><td>Boston Red Sox @ Cleveland Guardians</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Chicago White Sox @ Detroit Tigers</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Houston Astros @ Texas Rangers</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Kansas City Royals @ Minnesota Twins</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Los Angeles Angels @ Oakland Athletics</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Atlanta Braves @ Miami Marlins</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>New York Mets @ Washington Nationals</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Chicago Cubs @ St. Louis Cardinals</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Cincinnati Reds @ Milwaukee Brewers</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Philadelphia Phillies @ Pittsburgh Pirates</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>San Diego Padres @ San Francisco Giants</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
+                            <tr><td>Colorado Rockies @ Seattle Mariners</td><td class="status-pass">PASS</td><td class="status-pass">-</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -145,8 +153,8 @@
                         </div>
                         <div class="verdict verdict-locked">
                             <div class="verdict-title">PRIME DIRECTIVE 🔒</div>
-                            <p class="verdict-text">This is our highest-confidence play of the day where all proprietary data points align to indicate a substantial market inefficiency.</p>
-                            <a href="#" class="btn-primary">UNLOCK WITH PRIME ACCESS</a>
+                            <p class="verdict-text">Yankees -1.5 Run Line <span class="confidence-3u">3 UNIT PLAY</span></p>
+                            <a href="#" class="btn-primary">UNLOCK ALL PRIME DIRECTIVES</a>
                         </div>
                     </div>
 
@@ -155,13 +163,13 @@
                         <h3 class="dossier-title">Baltimore Orioles @ Tampa Bay Rays</h3>
                         <div class="dossier-section">
                             <h4>PITCHING FORENSICS</h4>
-                            <p>A fascinating duel between two pitchers trending in opposite directions. The Orioles' Corbin Burnes has been elite, maintaining a **2.95 xFIP** that suggests his success is sustainable. However, he has a slightly higher Hard Hit Rate on the road (**41%**). The Rays counter with Taj Bradley, who flashes elite strikeout potential (**29.5% K-rate**) but struggles with command (**9.8% BB-rate**), leading to a volatile **4.35 SIERA**. Bradley's main flaw is the home run ball (1.8 HR/9), a major red flag against Baltimore.</p>
+                            <p>Corbin Burnes (BAL) has been elite, maintaining a **2.95 xFIP**. However, his Hard Hit Rate on the road (**41%**) is a minor concern. The Rays counter with Taj Bradley, who flashes elite strikeout potential (**29.5% K-rate**) but struggles with command (**9.8% BB-rate**), leading to a volatile **4.35 SIERA** and a high 1.8 HR/9 rate.</p>
                             <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
-                            <p>The Orioles possess one of the most potent offenses in baseball, ranking **1st in MLB in ISO (.215)** against right-handed pitching. Tropicana Field suppresses home runs slightly, but not enough to neutralize Baltimore's power advantage against a homer-prone pitcher. The Rays' offense is league-average (**101 wRC+**) but their bullpen has been overworked, posting a **4.50 ERA** in the last 14 days with their two high-leverage arms having pitched on back-to-back days. Our model projects a high probability of early and late runs in this contest.</p>
+                            <p>The Orioles rank **1st in MLB in ISO (.215)** against RHP, a nightmare matchup for a homer-prone pitcher like Bradley. The Rays' offense is league-average (**101 wRC+**), but their bullpen has been overworked, posting a **4.50 ERA** in the last 14 days with their two high-leverage arms having pitched on back-to-back days. Our model projects a high probability of early runs against Bradley and late runs against a tired Rays bullpen.</p>
                         </div>
                         <div class="verdict verdict-signal">
                             <div class="verdict-title">SIGNAL-FOUND PICK</div>
-                            <p class="verdict-text">Over 8.0 Runs</p>
+                            <p class="verdict-text">Over 8.0 Runs <span class="confidence-2u">2 UNIT PLAY</span></p>
                         </div>
                     </div>
 
@@ -170,13 +178,13 @@
                         <h3 class="dossier-title">Los Angeles Dodgers @ Arizona Diamondbacks</h3>
                         <div class="dossier-section">
                             <h4>PITCHING FORENSICS</h4>
-                            <p>This matchup presents a clear and significant pitching advantage for Los Angeles. Yoshinobu Yamamoto takes the mound for the Dodgers, boasting a stellar **3.15 SIERA** and an elite **5.5% walk rate**. His control is paramount. For Arizona, Ryne Nelson has struggled to find consistency, with a **4.90 xFIP** that indicates his ERA is not unlucky. Nelson relies on soft contact, but his low strikeout rate (**17.0% K-rate**) is a critical flaw against a patient and powerful lineup.</p>
+                            <p>This matchup presents a clear pitching advantage for Los Angeles. Yoshinobu Yamamoto takes the mound, boasting a stellar **3.15 SIERA** and an elite **5.5% walk rate**. For Arizona, Ryne Nelson has struggled to find consistency, with a **4.90 xFIP**. Nelson's low strikeout rate (**17.0% K-rate**) is a critical flaw against a patient and powerful lineup.</p>
                             <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
-                            <p>The Dodgers offense is a juggernaut, leading the league with a **125 wRC+** against right-handed pitching on the road. They excel at working counts and punishing mistakes, a terrible combination for a pitcher with Nelson's profile. The Diamondbacks have gone cold over the last 7 days, hitting just .210 as a team. While their bullpen has been solid, the Dodgers hold a decisive advantage there as well, with a collective **3.20 bullpen xFIP** compared to Arizona's **4.15**. The data points to a clear, consistent advantage for the Dodgers from the first pitch to the last.</p>
+                            <p>The Dodgers offense leads the league with a **125 wRC+** against RHP on the road. The Diamondbacks have gone cold over the last 7 days, hitting just .210 as a team. The Dodgers also hold a decisive bullpen advantage, with a collective **3.20 bullpen xFIP** compared to Arizona's **4.15**. While the moneyline price is steep, our model still projects a 4% edge over the implied probability, making it a small but clear value play.</p>
                         </div>
                         <div class="verdict verdict-signal">
                             <div class="verdict-title">SIGNAL-FOUND PICK</div>
-                            <p class="verdict-text">Los Angeles Dodgers Moneyline</p>
+                            <p class="verdict-text">Los Angeles Dodgers Moneyline <span class="confidence-1u">1 UNIT PLAY</span></p>
                         </div>
                     </div>
 
@@ -185,7 +193,7 @@
                          <h3 class="dossier-title">Houston Astros @ Texas Rangers</h3>
                         <div class="dossier-section">
                             <h4>SYSTEM ANALYSIS</h4>
-                            <p>A divisional rivalry between two potent offenses. The starting pitchers, Framber Valdez and Jon Gray, present conflicting signals. Valdez's elite groundball rate (**65% GB%**) is a strong weapon, but the Rangers' offense has the 3rd lowest groundball rate in the league, partially neutralizing his greatest strength. Gray has strong strikeout numbers but is prone to explosive innings. The Rangers are 7-3 in their last 10, but the Astros have won 4 of the last 5 head-to-head matchups. Our model shows the current market line is efficient and accurately priced, with no significant edge on either the side or the total. A classic 'stay-away' game due to conflicting data.</p>
+                            <p>A divisional rivalry between two potent offenses. The starting pitchers, Framber Valdez and Jon Gray, present conflicting signals. Valdez's elite groundball rate (**65% GB%**) is a strong weapon, but the Rangers' offense has the 3rd lowest groundball rate in the league, partially neutralizing his greatest strength. Gray has strong strikeout numbers but is prone to explosive innings. The Rangers are 7-3 in their last 10, but the Astros have won 4 of the last 5 head-to-head matchups. Our model shows the current market line is efficient and accurately priced, leaving no value on either side.</p>
                         </div>
                          <div class="verdict verdict-pass">
                             <div class="verdict-title">PASS</div>
@@ -193,18 +201,128 @@
                         </div>
                     </div>
                     
-                    <!-- ABBREVIATED PASS GAMES -->
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Boston Red Sox @ Cleveland Guardians</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Model indicates no significant edge against the current market odds. Pitching matchup is a statistical wash.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Chicago White Sox @ Detroit Tigers</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Two bottom-quartile offenses. High unpredictability and low-confidence signals.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Kansas City Royals @ Minnesota Twins</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">The Twins have dominated this matchup (8-2 H2H), but our model flags potential regression for their starter. Too much variance.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Los Angeles Angels @ Oakland Athletics</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Model indicates no significant edge against the current market odds.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Atlanta Braves @ Miami Marlins</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Market line is inflated due to public perception of the Braves. No value signal found.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">New York Mets @ Washington Nationals</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Signal does not meet confidence threshold.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Chicago Cubs @ St. Louis Cardinals</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Classic rivalry game where models often struggle with intangible factors. No clear data edge.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Cincinnati Reds @ Milwaukee Brewers</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">High-variance game with unpredictable bullpen factors. Both teams have overworked high-leverage arms.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Philadelphia Phillies @ Pittsburgh Pirates</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Signal does not meet confidence threshold.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">San Diego Padres @ San Francisco Giants</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">Market line is efficient. Both offenses have underperformed against left-handed pitching in the last 30 days.</p></div></div>
-                    <div class="game-dossier glass-panel"><h3 class="dossier-title">Colorado Rockies @ Seattle Mariners</h3><div class="verdict verdict-pass"><div class="verdict-title">PASS</div><p class="verdict-text">The "Coors Field Hangover" is a legitimate but difficult-to-quantify travel factor. Staying away.</p></div></div>
+                    <!-- EVERY OTHER GAME GETS A DETAILED PASS -->
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Boston Red Sox @ Cleveland Guardians</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>Tanner Houck (BOS) vs. Triston McKenzie (CLE) presents a classic model conflict. Houck's high groundball rate is an asset, but McKenzie's elite strikeout upside (**28% K-rate**) gives him the higher ceiling. The Guardians' bullpen has been lockdown (**2.80 ERA** in last 30 days), but their offense is in a slump (**85 wRC+** vs RHP in the same span). The model shows a slight lean to the under, but not enough to clear our 3.5% value threshold for a play.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Model indicates no significant edge against the current market odds.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Chicago White Sox @ Detroit Tigers</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>This game features two bottom-quartile offenses, with the White Sox ranking 29th in wRC+ and the Tigers 24th. The starting pitchers, Erick Fedde and Jack Flaherty, are both having solid seasons but are prone to inconsistency. While the Tigers have a clear bullpen advantage, their moneyline price has been steamed up by the public, erasing any potential value our model initially detected. We will not chase a bad number.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Public money has removed all value from the initial line.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Kansas City Royals @ Minnesota Twins</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>The Twins have historically dominated this matchup (8-2 H2H), but our model flags significant positive regression indicators for Royals starter Cole Ragans, whose **3.10 xFIP** is much lower than his 4.05 ERA. Conversely, Twins starter Bailey Ober has outperformed his peripherals. This suggests the game is much closer to a coin flip than the market price indicates, but not enough to justify a play on the underdog Royals.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Potential regression candidates on both sides create too much variance.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Los Angeles Angels @ Oakland Athletics</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>Two teams out of playoff contention often leads to unpredictable results. While the Angels have the superior offense on paper, they have the 2nd worst bullpen ERA in baseball over the last 30 days (**5.50**). Oakland's starter, JP Sears, has strong home/road splits, making this game more volatile than it appears. The model sees no angle with a mathematical edge.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Unpredictable bullpen situations and lack of motivation create too many variables.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Atlanta Braves @ Miami Marlins</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>The market line on this game is inflated due to the public's perception of the Braves' offense vs. a struggling Marlins team. Atlanta's moneyline price implies a 70% win probability. Our model, factoring in a stellar season from Marlins starter Braxton Garrett (**3.20 SIERA**), places the Braves' win probability closer to 64%. This is a classic "value fade" scenario, but the edge is not quite strong enough to trigger an official play on the underdog.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Market line is inflated. No value signal found.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">New York Mets @ Washington Nationals</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>This matchup features two inconsistent teams. The Mets' offense has been surprisingly potent in the last 14 days (**115 wRC+**), but they face Nationals' starter MacKenzie Gore, who has elite strikeout stuff (**29% K-rate**) but struggles with efficiency. The model cannot find a consistent enough data set on either side to warrant a play. The range of outcomes is too wide.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Signal does not meet confidence threshold.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Chicago Cubs @ St. Louis Cardinals</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>A classic rivalry game where models often struggle to account for intangible factors. Shota Imanaga (CHC) has been fantastic, but his low home run rate (**0.6 HR/9**) is due for some regression. The Cardinals' offense, while inconsistent, ranks in the top 5 in Barrel Rate. The model flags this as a potential regression spot for Imanaga, but the Cardinals' unreliable bullpen makes backing them too risky.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Potential regression spot creates too much unpredictability.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Cincinnati Reds @ Milwaukee Brewers</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>This game is projected to be a high-variance affair. Great American Ball Park is a launching pad, and both starters (Andrew Abbott and Freddy Peralta) have elite strikeout ability but are also prone to giving up hard contact. Both teams have overworked their high-leverage bullpen arms over the weekend. The model projects a wide range of potential scores, making the total a risky play, and sees the side as a coin flip.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">High-variance game with unpredictable bullpen factors.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Philadelphia Phillies @ Pittsburgh Pirates</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>The Phillies are heavy road favorites, and while our model agrees they are the most likely winner, the -220 moneyline price is far too steep to offer any value. The implied probability is over 68%, while our model caps the Phillies' win chance at 65% against Pirates' phenom Jared Jones. The run line is a consideration, but the Pirates' top-10 ranked bullpen keeps the back door open. No value to be found.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">No value on the heavy favorite.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">San Diego Padres @ San Francisco Giants</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>A classic pitcher's duel in a pitcher-friendly park. The market has set a sharp line of 7.0 runs, and our model agrees. Both offenses have underperformed against left-handed pitching in the last 30 days, with the Padres at an **88 wRC+** and the Giants at **91 wRC+**. Both starters, Blake Snell and Kyle Harrison, have elite strikeout stuff. The model indicates the line is perfectly priced with no edge in either direction.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Market line is efficient. No value signal found.</p>
+                        </div>
+                    </div>
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Colorado Rockies @ Seattle Mariners</h3>
+                        <div class="dossier-section">
+                            <h4>SYSTEM ANALYSIS</h4>
+                            <p>This game features two factors that create statistical noise: the Rockies playing on the road after a long homestand (the "Coors Field Hangover" is a legitimate but difficult-to-quantify factor) and a Mariners offense that is notoriously streaky. While Seattle starter Logan Gilbert has a significant statistical advantage, the moneyline is heavily juiced to -250. There is no value in playing the favorite, and the Rockies' road performance is too unpredictable to back them as an underdog.</p>
+                        </div>
+                        <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">Extreme park factors and travel situation create too much volatility.</p>
+                        </div>
+                    </div>
 
                 </div>
             </section>
