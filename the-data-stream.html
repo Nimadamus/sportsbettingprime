@@ -20,71 +20,39 @@
         body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
         
         .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-            background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate;
-        }
+        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
         @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
 
-        /* --- CORRECTED HEADER & NAVIGATION --- */
-        header {
-            padding: 20px 5%; position: sticky; top: 0; z-index: 100;
-            background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px);
-            border-bottom: 1px solid var(--glass-border);
-        }
+        header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px); border-bottom: 1px solid var(--glass-border); }
         nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { display: flex; align-items: center; gap: 40px; } /* Groups logo and links */
-
+        .nav-left { display: flex; align-items: center; gap: 40px; }
         .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase;}
         .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        
         .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a {
-            font-family: var(--font-secondary); text-decoration: none; color: var(--text-color);
-            font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
-            padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-        }
+        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
         .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-
-        .btn-primary {
-            padding: 12px 30px; border-radius: 8px; text-decoration: none;
-            font-weight: 700; font-family: var(--font-primary); font-size: 1rem;
-            background-color: var(--neon-gold); color: #01000f;
-            border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold);
-            animation: pulse-button 2s infinite; transition: all 0.3s ease;
-        }
+        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
         .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
         @keyframes pulse-button { 50% { transform: scale(1.05); } }
 
-        /* --- Main Content --- */
         .content-wrapper { position: relative; z-index: 10; }
         .section-container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
         .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 50px; text-align: center; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
         .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px; border: 1px solid var(--glass-border); }
 
-        /* --- Blog Layout --- */
         .blog-layout { display: flex; flex-direction: column; gap: 60px; }
-        .featured-article {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
-        }
+        .featured-article { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
         .featured-image img { width: 100%; border-radius: 15px; }
         .featured-content h2 { font-family: var(--font-primary); font-size: 2.5rem; color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); margin-bottom: 15px; }
         .featured-content .meta { font-size: 0.9rem; color: rgba(234, 248, 255, 0.7); margin-bottom: 20px; }
         .featured-content p { line-height: 1.7; margin-bottom: 30px; }
-        .btn-secondary { background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 25px; text-decoration: none; font-weight: 700; border-radius: 8px; transition: all 0.3s ease; }
-        .btn-secondary:hover { background: var(--neon-cyan); color: var(--bg-color); box-shadow: 0 0 20px var(--neon-cyan); }
         
-        .article-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
-        }
-        .article-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; }
-        .article-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-color: rgba(0, 255, 255, 0.5); }
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .article-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; }
         .article-card-image img { width: 100%; height: 200px; object-fit: cover; }
-        .article-card-content { padding: 25px; }
+        .article-card-content { padding: 25px; flex-grow: 1; }
         .article-card-content h3 { font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 15px; }
-        .article-card-content p { font-size: 0.95rem; line-height: 1.6; color: rgba(234, 248, 255, 0.8); margin-bottom: 20px; }
+        .article-card-content p { font-size: 0.95rem; line-height: 1.6; color: rgba(234, 248, 255, 0.8); }
 
         footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
         footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
@@ -102,9 +70,9 @@
                     </div>
                     <ul class="nav-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html">MLB</a></li>
-                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                        <li><a href="the-data-stream.html" class="active">Blog</a></li>
+                        <li><a href="mlb-prime-directives.html">Prime Directives</a></li>
+                        <li><a href="nfl-gridiron-oracles.html">Gridiron Oracles</a></li>
+                        <li><a href="the-data-stream.html" class="active">The Data Stream</a></li>
                         <li><a href="performance-telemetry.html">Telemetry</a></li>
                     </ul>
                 </div>
@@ -117,43 +85,37 @@
                 <h1 class="section-title">THE DATA STREAM</h1>
 
                 <div class="blog-layout">
-                    <!-- Featured Article -->
                     <div class="featured-article glass-panel">
                         <div class="featured-content">
-                            <h2>Decoding the Matrix: A Bettor's Guide to FIP and Advanced Stats</h2>
+                            <h2>Decoding the Matrix: A Bettor's Guide to FIP</h2>
                             <p class="meta">By The Prime Algorithm | July 30, 2025</p>
-                            <p>Tired of relying on a pitcher's ERA? That number is lying to you. It's time to pull back the curtain and look at the real data that drives wins and losses. In this article, we break down FIP, xFIP, and wOBA – the core metrics our algorithm uses to find its edge.</p>
-                            <a href="#" class="btn-secondary">READ FULL ARTICLE</a>
+                            <p>Tired of relying on a pitcher's ERA? That number is lying to you. It's heavily influenced by the defense behind the pitcher and pure luck. **Fielding Independent Pitching (FIP)** strips that away, focusing only on what a pitcher can control: strikeouts, walks, and home runs. A pitcher with a 4.50 ERA but a 3.20 FIP is performing far better than his basic stats suggest and is often undervalued by the market. This is a core signal we use to find our edge.</p>
                         </div>
                         <div class="featured-image">
                              <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Abstract data code">
                         </div>
                     </div>
 
-                    <!-- Grid of Other Articles -->
                     <div class="article-grid">
                         <div class="article-card">
                             <div class="article-card-image"><img src="https://images.pexels.com/photos/433309/pexels-photo-433309.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football on a field"></div>
                             <div class="article-card-content">
-                                <h3>The Bullpen Heist: Profiting From Mid-Game Pitching Changes</h3>
-                                <p>The starting pitchers are only half the story. We explore how to analyze bullpen strength and fatigue to find live-betting opportunities.</p>
-                                <a href="#" class="btn-secondary">READ MORE</a>
+                                <h3>The Bullpen Heist</h3>
+                                <p>The starting pitchers are only half the story. We analyze bullpen metrics like SIERA (Skill-Interactive ERA) and recent workload to find profitable live-betting opportunities when the starters inevitably exit the game.</p>
                             </div>
                         </div>
                         <div class="article-card">
                             <div class="article-card-image"><img src="https://images.pexels.com/photos/2116469/pexels-photo-2116469.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Person holding money"></div>
                             <div class="article-card-content">
-                                <h3>The Prime Directive of Betting: A Guide to Bankroll Management</h3>
-                                <p>The single most important key to long-term success. Learn how to size your bets and protect your capital from variance.</p>
-                                <a href="#" class="btn-secondary">READ MORE</a>
+                                <h3>The Prime Directive</h3>
+                                <p>The most important rule is bankroll management. We advocate a flat-betting approach, where every bet is one "unit." This protects your capital from variance and ensures long-term, sustainable growth without emotional decision-making.</p>
                             </div>
                         </div>
                         <div class="article-card">
                             <div class="article-card-image"><img src="https://images.pexels.com/photos/163224/book-open-glasses-read-163224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Open book with glasses"></div>
                             <div class="article-card-content">
-                                <h3>Signal Integrity 101: How to Read and Understand Betting Odds</h3>
-                                <p>A foundational guide to understanding what odds represent, how they're calculated, and how to spot initial market value.</p>
-                                <a href="#" class="btn-secondary">READ MORE</a>
+                                <h3>Signal Integrity</h3>
+                                <p>We don't just look at who will win; we look for gaps between a team's true probability of winning and the "implied probability" offered by the sportsbooks' odds. Finding a 55% chance to win on a line that's priced at 50% is where true value lies.</p>
                             </div>
                         </div>
                     </div>
