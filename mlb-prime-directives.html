@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLB Prime Directives - SPORTS BETTING PRIME</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- All the style code is now placed directly inside the HTML file -->
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700;
+            --glass-bg: rgba(5, 4, 20, 0.5);
+            --glass-border: rgba(0, 255, 255, 0.2);
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* --- PHOTO-REALISTIC, ANIMATED SPACE BACKGROUND --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .background-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center center;
+            animation: kenburns 120s ease-in-out infinite alternate;
+        }
+        
+        @keyframes kenburns {
+            from { transform: scale(1) translate(0, 0); }
+            to { transform: scale(1.15) translate(-2%, 2%); }
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            padding: 20px 5%;
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(1, 0, 15, 0.2);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-primary); font-size: 1.8rem; font-weight: 900; text-transform: uppercase; text-decoration: none; color: var(--text-color); }
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+        .btn-primary {
+            padding: 12px 30px; border-radius: 8px; text-decoration: none;
+            font-weight: 700; font-family: var(--font-primary);
+            background-color: var(--neon-gold); color: #01000f;
+            border: 1px solid var(--neon-gold);
+            box-shadow: 0 0 20px var(--neon-gold);
+            animation: pulse-button 2s infinite; transition: all 0.3s ease;
+        }
+        .btn-primary:hover { 
+            box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff;
+            filter: brightness(1.2);
+        }
+        @keyframes pulse-button { 50% { transform: scale(1.05); } }
+
+        /* --- Global Section Styling --- */
+        .content-wrapper { position: relative; z-index: 10; }
+        .section-container { padding: 60px 5%; text-align: center; }
+        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 60px; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
+        .glass-panel {
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; padding: 40px; position: relative; overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        
+        /* --- GAME DOSSIER LAYOUT --- */
+        .dossier-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .game-dossier {
+            padding: 30px;
+        }
+
+        .dossier-title {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+        
+        .dossier-section h4 {
+            font-family: var(--font-primary);
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .dossier-section p {
+            line-height: 1.8;
+            color: rgba(234, 248, 255, 0.85);
+        }
+        
+        .dossier-section p strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        /* --- VERDICT BOX --- */
+        .verdict {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .verdict-pick {
+            border: 2px solid var(--neon-cyan);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+        
+        .verdict-pass {
+            border: 2px solid rgba(234, 248, 255, 0.4);
+            background: rgba(234, 248, 255, 0.05);
+        }
+
+        .verdict-title {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        
+        .verdict-pick .verdict-title {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .verdict-pass .verdict-title {
+            color: rgba(234, 248, 255, 0.7);
+        }
+
+        .verdict-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* --- Footer --- */
+        footer { background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); text-align: center; }
+        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
+        footer .footer-links { font-size: 0.8rem; }
+        footer a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; }
+        footer a:hover { text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-container"></div>
+    
+    <!-- Main Page Content -->
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+                <a href="#" class="btn-primary">UNLOCK ALL PICKS</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="section-container">
+                <h1 class="section-title">MLB PRIME DIRECTIVES</h1>
+                <div class="dossier-container">
+
+                    <!-- GAME DOSSIER 1 -->
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Chicago Cubs @ Milwaukee Brewers</h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>This matchup presents a classic ace duel. The Cubs' Shota Imanaga has been sensational, not just because of his low ERA, but due to his elite **2.85 FIP (Fielding Independent Pitching)**, which indicates his success is skill-based, not luck. He pairs this with a microscopic **4.8% walk rate**. On the other side, Freddy Peralta for the Brewers is a high-octane strikeout machine, boasting a **31.5% K-rate** that can neutralize any lineup. His primary weakness is the occasional home run, but the Cubs rank in the bottom half of the league in road ISO (Isolated Power).</p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>Neither offense holds a significant advantage against these top-tier arms. Crucially, this is a late-season divisional game with significant playoff implications, which historically trend towards lower-scoring, tighter contests. Both bullpens are well-rested and rank in the MLB top 5 by FIP, meaning there will be no let-up in pitching quality in the later innings.</p>
+                        </div>
+                        <div class="verdict verdict-pick">
+                            <div class="verdict-title">PRIME PICK</div>
+                            <p class="verdict-text">UNDER 7.5 RUNS</p>
+                        </div>
+                    </div>
+
+                    <!-- GAME DOSSIER 2 -->
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Los Angeles Dodgers @ Cincinnati Reds</h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>This is the most significant pitching mismatch on the board. The Dodgers are starting Shohei Ohtani, whose 1.50 ERA is backed by a generational **1.99 FIP**. His sweeper pitch is holding batters to a pathetic .165 wOBA. The Reds counter with Nick Martinez, whose 4.81 ERA is not a fluke; his **4.55 xFIP** confirms he is a below-average arm. Martinez's primary flaw is allowing hard contact, evidenced by his high **9.5% Barrel Rate**. </p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>The Dodgers lead MLB in almost every significant offensive category, including **wRC+ (Weighted Runs Created Plus)**. They are a nightmare matchup for a pitcher who gives up hard contact. Furthermore, the game is at Great American Ball Park, the #1 park for home runs in MLB. This environment will amplify Martinez's weaknesses and the Dodgers' strengths. The Reds' bullpen has also been heavily taxed over the past week, suggesting a significant late-game advantage for Los Angeles.</p>
+                        </div>
+                        <div class="verdict verdict-pick">
+                            <div class="verdict-title">PRIME PICK</div>
+                            <p class="verdict-text">DODGERS -1.5 RUN LINE</p>
+                        </div>
+                    </div>
+
+                    <!-- GAME DOSSIER 3 -->
+                    <div class="game-dossier glass-panel">
+                        <h3 class="dossier-title">Tampa Bay Rays @ New York Yankees</h3>
+                        <div class="dossier-section">
+                            <h4>PITCHING FORENSICS</h4>
+                            <p>An intriguing but volatile matchup. The Rays' Zack Littell (3.73 ERA) has outperformed his **4.10 xFIP**, suggesting some minor regression is possible. The Yankees' Warren has a high 4.79 ERA, but his peripherals suggest he's been somewhat unlucky. The true story here is the bullpens. Both teams feature top-10 relief corps, indicating that if the starters can keep the game close, it will likely stay that way.</p>
+                        </div>
+                        <div class="dossier-section">
+                            <h4>OFFENSIVE & SITUATIONAL MATRIX</h4>
+                            <p>The Yankees offense has been potent at home, but they are facing a Rays team that plays them tough and is desperate for every win in the wildcard race. The betting line reflects this uncertainty, pricing the game as close to a pick-'em. There is no significant analytical edge to be found in the offensive splits or recent trends that justifies taking a strong position on either side. The umpire, noted for a tight strike zone, could lead to inflated pitch counts and early exits for both starters, turning this into an unpredictable bullpen game.</p>
+                        </div>
+                         <div class="verdict verdict-pass">
+                            <div class="verdict-title">PASS</div>
+                            <p class="verdict-text">No significant value detected. Avoid this matchup.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="#">Responsible Gaming</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
