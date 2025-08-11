@@ -1,3 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLB Prime Directives - Daily Analysis | SPORTS BETTING PRIME</title>
+    
+    <link rel="canonical" href="https://www.sportsbettingprime.com/mlb-prime-directives.html" />
+    <meta name="description" content="Prime algorithm's top MLB betting picks and unit allocations. Daily in-depth analysis on the full slate, backed by advanced stats like xFIP and wRC+.">
+    <meta name="keywords" content="MLB picks, MLB betting, expert baseball picks, advanced stats, sabermetrics, xFIP, wRC+, unit betting, sports betting prime, daily mlb analysis">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
+            --glass-bg: rgba(10, 8, 25, 0.6); --glass-border: rgba(0, 255, 255, 0.2);
+            --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
+        
+        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
+        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
+        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
+
+        header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.4); backdrop-filter: blur(8px); border-bottom: 1px solid var(--glass-border); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-left { flex: 1; }
+        .nav-center { flex: 2; display: flex; justify-content: center; }
+        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
+        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
+        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
+        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
+        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
+        @keyframes pulse-button { 50% { transform: scale(1.05); } }
+
+        .content-wrapper { position: relative; z-index: 10; }
+        .section-container { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 10px; text-align: center; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .section-subtitle { font-family: var(--font-secondary); font-size: 1.5rem; text-align: center; color: var(--text-color); font-weight: 300; margin-bottom: 40px; letter-spacing: 1px; }
+        
+        .picks-summary-block { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; border: 1px solid var(--glass-border); margin-bottom: 50px; }
+        .summary-title { font-family: var(--font-primary); font-size: 1.8rem; color: var(--neon-gold); text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
+        .summary-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; }
+        .summary-list li { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; font-size: 1.1rem; border-left: 4px solid var(--neon-cyan); display: flex; justify-content: space-between; align-items: center; }
+        .summary-list .pick-text { font-weight: 600; color: var(--text-color); }
+        .summary-list .line-info { color: rgba(234, 248, 255, 0.7); font-size: 0.9rem; margin-left: 8px; }
+        .summary-list .unit-text { color: var(--neon-gold); font-weight: bold; }
+        
+        .game-analysis-block { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; border: 1px solid var(--glass-border); margin-bottom: 40px; }
+        .game-header { border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 20px; }
+        .game-header h3 { font-family: var(--font-primary); font-size: 1.8rem; color: var(--neon-cyan); }
+        .game-header p { font-size: 1rem; color: rgba(234, 248, 255, 0.8); }
+        .game-lines { font-size: 0.9rem !important; color: var(--neon-gold) !important; font-weight: bold; margin-top: 8px; }
+        .analysis-content p { margin-bottom: 1em; line-height: 1.7; }
+        .directive-box { background: rgba(0,0,0,0.3); border: 1px solid var(--neon-gold); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+        .directive-box .pick { font-family: var(--font-primary); font-size: 1.5rem; color: var(--neon-gold); margin-bottom: 5px; }
+        .directive-box .units { font-size: 1.1rem; color: #fff; font-weight: bold; }
+        .no-bet { color: rgba(234, 248, 255, 0.7); }
+
+        footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
+        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
+        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <div class="nav-left">
+                    <div class="logo">
+                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
+                    </div>
+                </div>
+                <div class="nav-center">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="mlb-prime-directives.html" class="active">MLB</a></li>
+                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                        <li><a href="the-data-stream.html">Blog</a></li>
+                        <li><a href="performance-telemetry.html">Results</a></li>
+                        <li><a href="the-prime-protocol.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <a href="#" class="btn-primary">PRIME ACCESS</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="section-container">
+
                 <h1 class="section-title">MLB PRIME DIRECTIVES</h1>
                 <h2 class="section-subtitle">August 11, 2025 - Full Slate Analysis</h2>
                 
@@ -31,47 +132,7 @@
                     <div class="analysis-content"><p>This is a high-conviction wager on an elite pitchers' duel. Texas's Nathan Eovaldi is having a historic season, with a remarkable 1.38 ERA backed by a 2.15 xERA. Arizona's Ryne Nelson has been nearly as dominant, with a 2.76 ERA and a 3.10 xERA. The model projects a high probability of both starters controlling the game, making the Under a strong directive even at the slightly higher number of 8.</p></div>
                     <div class="directive-box"><div class="pick">Prime Directive: Under 8 Runs</div><div class="units">Units: 2.0</div></div>
                 </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" alt="Dodgers Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Los Angeles Dodgers @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" alt="Angels Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Los Angeles Angels</h3><p>Y. Yamamoto (R, 2.51 ERA) vs. J. Soriano (R, 4.01 ERA)</p><p class="game-lines">Line: LAD -182 | O/U: 8.0</p></div>
-                    <div class="analysis-content"><p>This directive targets a complete statistical domination. The Dodgers hold a massive advantage in every single analytical category: starting pitching (Yamamoto's 2.85 xERA vs. Soriano's 4.33), offense (league-best 125 wRC+ vs. the Angels' 97), and bullpen (top-5 vs. bottom-5). The historical data, showing the Dodgers have won 9 of the last 12 in this series, strongly supports the statistical conclusion. The algorithm projects a high-probability win for the superior team in every facet of the game.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Los Angeles Dodgers ML</div><div class="units">Units: 1.5</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/min.png" alt="Twins Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Minnesota Twins @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" alt="Yankees Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">New York Yankees</h3><p>Z. Matthews (R, 5.21 ERA) vs. W. Warren (R, 4.42 ERA)</p><p class="game-lines">Line: NYY -178 | O/U: 9.0</p></div>
-                    <div class="analysis-content"><p>This is a "get-right" spot where the model finds value on the run line. The Yankees are dominant at home (35-24) and face a Twins team that is awful on the road (24-36). The key is the vulnerability of Twins starter Zebastian Matthews (5.45 xERA), who is a prime target for a potent Yankees offense. New York also boasts a top-5 bullpen, which will be crucial in preserving a multi-run lead. The algorithm favors the Yankees' talent and elite bullpen to secure a comfortable win, making the plus-money run line the optimal investment.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: New York Yankees -1.5</div><div class="units">Units: 1.5</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" alt="Phillies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Philadelphia Phillies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" alt="Reds Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Cincinnati Reds</h3><p>T. Walker (R, 3.48 ERA) vs. A. Abbott (L, 2.35 ERA)</p><p class="game-lines">Line: CIN -122 | O/U: 9.5</p></div>
-                    <div class="analysis-content"><p>This is a surgical directive designed to isolate the game's biggest mismatch while avoiding Cincinnati's vulnerable bullpen. Reds starter Andrew Abbott is a budding ace with elite underlying metrics (2.95 xERA, 20.3% K-BB%) and is even better at night (2.15 ERA). He holds a significant statistical advantage over Taijuan Walker (3.88 xERA). By targeting the First 5 Innings, we invest directly in Abbott's dominance and neutralize the late-game advantage of the Phillies' superior relief corps.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Cincinnati Reds F5 ML</div><div class="units">Units: 1.5</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" alt="Tigers Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Detroit Tigers @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/chw.png" alt="White Sox Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Chi. White Sox</h3><p>C. Paddack (R, 4.91 ERA) vs. E. Peguero (R, 0.00 ERA)</p><p class="game-lines">Line: DET -140 | O/U: 8.5</p></div>
-                    <div class="analysis-content"><p>This directive is not based on the teams, but on the physics of the environment. A powerful and sustained 12-15 mph wind will be blowing directly out at Guaranteed Rate Field, a park that is notoriously sensitive to wind conditions. This will turn routine fly balls into extra-base hits. This factor is amplified by the teams' recent Over streaks (DET 8-1-1, CHW 7-2-1 in their last 10) and a high-variance umpire in Angel Hernandez. The model projects the weather to be the dominant variable, creating a high-scoring environment.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Over 8.5 Runs</div><div class="units">Units: 1.0</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/col.png" alt="Rockies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Colorado Rockies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">St. Louis Cardinals</h3><p>C. Dollander (R, 6.75 ERA) vs. M. Mikolas (R, 5.11 ERA)</p><p class="game-lines">Line: STL -225 | O/U: 8.5</p></div>
-                    <div class="analysis-content"><p>This directive is a classic fade of the Rockies on the road—one of the most reliable long-term trends in baseball. Colorado's offense goes from elite at Coors Field to the worst in MLB on the road (75 wRC+). The Cardinals have a massive advantage in every pitching category, with a far superior starter and bullpen. The historical data confirms this, with St. Louis winning 6 of the last 7 in this matchup at home. The model projects a high probability of a comfortable, multi-run victory for the Cardinals.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: St. Louis Cardinals -1.5</div><div class="units">Units: 1.0</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" alt="Nationals Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Washington Nationals @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" alt="Royals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Kansas City Royals</h3><p>C. Cavalli (R, 0.00 ERA) vs. B. Falter (L, 4.15 ERA)</p><p class="game-lines">Line: KC -148 | O/U: 8.5 (Moved to 9)</p></div>
-                    <div class="analysis-content"><p>This directive is based on a convergence of pitcher-friendly factors. The game features a top-tier pitcher's umpire (Pat Hoberg) in a classic pitcher's park (Kauffman Stadium). Most importantly, Royals starter Bailey Falter has historically neutralized the Nationals' power, allowing only one single extra-base hit in 42 career at-bats for a pathetic .535 OPS against. These combined factors create a high probability of a low-scoring affair. The market has started to adjust, but there is still value on the Under.</p></div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Under 9 Runs</div><div class="units">Units: 1.0</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" alt="Red Sox Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Boston Red Sox @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" alt="Astros Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Houston Astros</h3><p>G. Crochet (L, 2.25 ERA) vs. C. Javier (R, 0.00 ERA)</p></div>
-                    <div class="analysis-content"><p>An analytically complex matchup. Red Sox starter Garrett Crochet is elite (2.45 xERA), but faces an Astros lineup that is top-5 against lefties (120 wRC+). The Red Sox offense is hot (121 wRC+ in L20), but faces an Astros team with a top-5 bullpen and a dominant historical record at home against Boston (7-2). The betting market shows a classic sharp vs. public split, with professional money on Houston. Due to these conflicting, high-level signals, the model advises a pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" alt="Rays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Tampa Bay Rays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/oak.png" alt="Athletics Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Oakland Athletics</h3><p>R. Pepiot (R, 3.77 ERA) vs. J. Sears (L, 3.86 ERA)</p></div>
-                    <div class="analysis-content"><p>The algorithm's analysis is heavily influenced by a massive reverse line movement that flipped Oakland from an underdog to a favorite, indicating a flood of sharp money is fading the slumping Rays (3-7 L10) on the road. While Tampa Bay has a slight starting pitching advantage with Ryan Pepiot, their offense has been one of the worst in baseball over the last 20 games (89 wRC+). The A's offense, conversely, has been surprisingly competent (104 wRC+). The model sides with the market momentum and recent form, identifying a lean to Oakland that just misses the official card.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / Strong Lean Athletics ML</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
+                
                 <h2 class="section-subtitle">August 10, 2025 - Full Slate Analysis</h2>
                 <div class="picks-summary-block">
                     <h3 class="summary-title">Today's Prime Directives</h3>
@@ -87,7 +148,6 @@
                         <li><div><span class="pick-text">Braves @ Marlins Over 8</span><span class="line-info">(-147)</span></div><span class="unit-text">1.0 Unit</span></li>
                     </ul>
                 </div>
-
                 <div class="game-analysis-block">
                     <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/col.png" alt="Rockies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Colorado Rockies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" alt="Diamondbacks Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Arizona Diamondbacks</h3><p>Pitcher: TBD vs. Pitcher: TBD</p><p class="game-lines">Line: ARI -210 | O/U: 9.0</p></div>
                     <div class="analysis-content"><p>The PRIME algorithm flags this total as a significant market inefficiency driven by public bias. The line of 9 is inflated due to the "Rockies" name, yet the environmental data presents a starkly different reality. This game is at Chase Field, a pitcher-friendly park, not Coors Field. The algorithm heavily weighs the Rockies' offensive metrics on the road, where they rank last in MLB in wRC+ and runs scored (3.1 per game). This anemic road offense dramatically lowers the probability of a high-scoring outcome, creating a strong contrarian value proposition.</p></div>
@@ -155,176 +215,4 @@
                 </div>
                  <div class="game-analysis-block">
                     <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" alt="Red Sox Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Boston Red Sox @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" alt="Padres Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">San Diego Padres</h3><p>B. Bello (R, 3.20 ERA) vs. Y. Darvish (R, 6.50 ERA)</p></div>
-                    <div class="analysis-content"><p>An interesting clash of current form versus season-long metrics. The Red Sox have the far superior starting pitcher in Brayan Bello, while Yu Darvish has had a disastrous season. However, the Padres are a dominant home team (36-19) and are playing much better baseball recently. With conflicting signals between starting pitching and home-field/team form, the algorithm finds no clear edge and advises a pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-                 <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" alt="Blue Jays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Toronto Blue Jays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" alt="Angels Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Los Angeles Angels</h3><p>Y. Kikuchi (L, 3.30 ERA) vs. S. Ohtani (R, 2.95 ERA)</p></div>
-                    <div class="analysis-content"><p>The model finds no clear edge in this game. With Shohei Ohtani on the mound for the Angels at home, they have a significant pitching advantage. However, the Blue Jays' potent offense, especially against right-handers, makes the price of LAA -180 prohibitive. The total of 8.5 is sharp. With no value on the side or total, this is a clear pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-                <h2 class="section-subtitle">August 9, 2025 - Full Slate Analysis</h2>
-                
-                <div class="picks-summary-block">
-                    <h3 class="summary-title">Today's Prime Directives</h3>
-                    <ul class="summary-list">
-                        <li><div><span class="pick-text">San Francisco Giants ML</span><span class="line-info">(-164)</span></div><span class="unit-text">2.0 Units</span></li>
-                        <li><div><span class="pick-text">Phillies @ Rangers Under 8</span><span class="line-info">(-157)</span></div><span class="unit-text">2.0 Units</span></li>
-                        <li><div><span class="pick-text">Astros First 5 Innings ML</span><span class="line-info">(-125)</span></div><span class="unit-text">1.5 Units</span></li>
-                        <li><div><span class="pick-text">Royals First 5 Innings ML</span><span class="line-info">(-125)</span></div><span class="unit-text">1.5 Units</span></li>
-                        <li><div><span class="pick-text">Cleveland Guardians ML</span><span class="line-info">(-144)</span></div><span class="unit-text">1.0 Unit</span></li>
-                        <li><div><span class="pick-text">Diamondbacks -1.5 Run Line</span><span class="line-info">(-112)</span></div><span class="unit-text">1.0 Unit</span></li>
-                        <li><div><span class="pick-text">Rockies @ D-backs Over 10</span><span class="line-info">(+112)</span></div><span class="unit-text">1.0 Unit</span></li>
-                    </ul>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" alt="Nationals Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Washington Nationals @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sf.png" alt="Giants Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">San Francisco Giants</h3><p>B. Lord (R) vs. C. Whisenhunt (L)</p><p class="game-lines">Line: SF -164 | O/U: 8.5</p></div>
-                    <div class="analysis-content">
-                        <p>The PRIME algorithm flags this as a cornerstone play, anchored by a massive situational and environmental advantage for San Francisco. The Giants are a solid home team (28-26) facing one of the league's worst road teams in the Nationals (23-33). The primary handicap, however, is the venue. Oracle Park is a notorious pitcher's paradise, and the forecast for a cool evening with the marine layer in effect will further suppress offense. Fly balls that are home runs elsewhere die on the warning track here.</p>
-                        <p>This environment is a nightmare for a struggling, undisciplined Nationals lineup. Giants LHP Carson Whisenhunt holds a significant advantage over the unproven Blade Lord. This directive is a confident investment in a superior, motivated home team playing in conditions that perfectly suit their style and cripple their opponent's only path to victory.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Giants ML</div><div class="units">Units: 2.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" alt="Phillies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Philadelphia Phillies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/tex.png" alt="Rangers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Texas Rangers</h3><p>J. Luzardo (L, 4.32 ERA) vs. J. deGrom (R, 2.56 ERA)</p><p class="game-lines">Line: TEX -131 | O/U: 7.5</p></div>
-                    <div class="analysis-content">
-                        <p>This directive is a high-conviction wager on an elite pitchers' duel where runs will be at an absolute premium. The algorithm identifies the total of 8 as being too high given the arms on the mound. Rangers ace Jacob deGrom is, simply put, a run-suppression machine. His combination of velocity (99+ mph), command, and elite swing-and-miss stuff neutralizes even the most potent lineups.</p>
-                        <p>While Phillies starter Jesús Luzardo's ERA is higher, his advanced metrics (xFIP, SIERA) are likely a full run lower, indicating he's pitched much better than his surface stats suggest and is a prime candidate for a dominant outing. With two top-tier starters backed by two solid bullpens, the path to 9 or more runs is incredibly narrow. We are investing in elite talent to control the game.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Under 8 Runs</div><div class="units">Units: 2.0</div></div>
-                </div>
-                
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" alt="Astros Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Houston Astros @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" alt="Yankees Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">New York Yankees</h3><p>F. Valdez (L, 2.83 ERA) vs. L. Gil (R, 15.00 ERA)</p><p class="game-lines">Line: HOU -117 | O/U: 8.0</p></div>
-                    <div class="analysis-content">
-                        <p>This is a targeted, surgical directive designed to exploit the single biggest starting pitching mismatch on the entire slate. We are isolating the first five innings to capitalize on this chasm of talent. Astros ace Framber Valdez (2.83 ERA) is a groundball specialist whose profile is perfect for neutralizing the short porches of Yankee Stadium. He faces Luis Gil, whose 15.00 ERA is not a typo. Gil's primary issue is a catastrophic lack of control, a fatal flaw against a patient, high-contact Astros lineup that excels at working counts and punishing mistakes.</p>
-                        <p>This is a classic "ace vs. disaster" scenario, and we are confidently wagering on the ace to dominate the first half of the game, removing any late-game bullpen variance from the equation.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Astros F5 ML</div><div class="units">Units: 1.5</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" alt="Royals Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Kansas City Royals @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/min.png" alt="Twins Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Minnesota Twins</h3><p>N. Cameron (L, 2.69 ERA) vs. B. Ober (R, 5.38 ERA)</p><p class="game-lines">Line: KC -119 | O/U: 8.5</p></div>
-                    <div class="analysis-content">
-                        <p>Similar to the Astros play, the algorithm has identified an underrated starting pitching mismatch that the market hasn't fully respected. Royals LHP Noah Cameron has been a revelation this season, posting a fantastic 2.69 ERA with solid underlying metrics. He is a quality arm that consistently gives his team a chance to win. He faces Bailey Ober, a pitcher in the midst of a terrible season. Ober's 5.38 ERA is backed by even worse advanced stats, including an alarming hard-hit rate and barrel percentage. He is a prime regression candidate who is highly vulnerable. We are backing the far superior starting pitcher for the first five innings.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Royals F5 ML</div><div class="units">Units: 1.5</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" alt="Guardians Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Cleveland Guardians @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/chw.png" alt="White Sox Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Chicago White Sox</h3><p>J. Cantillo (L, 5.00 ERA) vs. S. Burke (R, 4.50 ERA)</p><p class="game-lines">Line: CLE -144 | O/U: 8.5</p></div>
-                    <div class="analysis-content">
-                        <p>This directive is a straightforward play on a superior, motivated team against a struggling one. The algorithm identifies multiple edges for Cleveland. They are the hotter team, going 8-2 in their last 10 games, while the White Sox are just 4-6. More importantly, the key analytical angle is the pitching matchup. Cleveland starts lefty Joey Cantillo, and for years, the White Sox have been one of the worst statistical lineups in baseball against left-handed pitching, with a team wRC+ that consistently ranks in the bottom tier. This is a tactical mismatch that gives the better team an even clearer path to victory.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Cleveland Guardians ML</div><div class="units">Units: 1.0</div></div>
-                </div>
-                
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/col.png" alt="Rockies Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Colorado Rockies @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" alt="Diamondbacks Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Arizona Diamondbacks</h3><p>B. Blalock (R, 7.20 ERA) vs. E. Rodriguez (L, 5.67 ERA)</p><p class="game-lines">Line: ARI -213 | O/U: 9.5</p></div>
-                    <div class="analysis-content">
-                        <p>This is a correlated game stack targeting a blowout scenario. The algorithm identifies two high-value plays based on the same projected game script: a Diamondbacks offensive explosion. The first directive, <b>Diamondbacks -1.5</b>, is a direct attack on Rockies starter Braden Blalock and his disastrous 7.20 ERA. The Rockies are also a historically poor road team (14-42), and their offense is significantly less potent away from Coors Field. Arizona should have no problem scoring enough to win by multiple runs.</p>
-                        <p>The second directive, <b>Over 10 Runs</b>, is viable because Arizona's own starter, Eduardo Rodriguez (5.67 ERA), is also very hittable. He is prone to giving up runs, creating a strong probability that the Rockies will contribute just enough offense (3-4 runs) to help push the game total over the number. We are attacking one likely outcome (e.g., a 9-4 Arizona win) from two different angles.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directives: Diamondbacks -1.5 &amp; Over 10 Runs</div><div class="units">Units: 1.0 (RL) & 1.0 (Over)</div></div>
-                </div>
-
-                <h2 class="section-subtitle" style="margin-top: 50px; font-size: 1.2rem; border-top: 1px solid var(--glass-border); padding-top: 30px;">FULL SLATE ANALYTICAL OVERVIEW (August 9)</h2>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/mia.png" alt="Marlins Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Miami Marlins @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" alt="Braves Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Atlanta Braves</h3><p>S. Alcantara (R, 6.44 ERA) vs. E. Fedde (R, 5.35 ERA)</p></div>
-                    <div class="analysis-content"><p>A matchup between two struggling teams with two struggling pitchers. Sandy Alcantara's ERA is shockingly high for a pitcher of his talent, while Erick Fedde has been consistently mediocre. The Braves are in a full-blown tailspin (3-7 L10). While there might be a slight lean to the Marlins, the unpredictability of both starting pitchers makes this a high-variance game. The algorithm finds no clear, quantifiable edge, mandating a pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" alt="Angels Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Los Angeles Angels @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" alt="Tigers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Detroit Tigers</h3><p>Y. Kikuchi (L, 3.22 ERA) vs. C. Morton (R, 5.44 ERA)</p></div>
-                    <div class="analysis-content"><p>An intriguing matchup where the algorithm sees a fairly efficient line. Yusei Kikuchi has been solid for the Angels, but Charlie Morton, despite a high ERA, is a veteran who can still miss bats. The Tigers have a strong home record (38-23), while the Angels struggle on the road (25-31). The model identifies this as a coin-flip game where the current odds accurately reflect the probabilities. There is no significant value to exploit.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" alt="Reds Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Cincinnati Reds @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/pit.png" alt="Pirates Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Pittsburgh Pirates</h3><p>N. Martinez (R, 4.72 ERA) vs. G. Ashcraft (R, 0.00 ERA)</p></div>
-                    <div class="analysis-content"><p>This game presents a high degree of uncertainty due to the limited sample size for Pirates starter Graham Ashcraft. While his 0.00 ERA is impressive, it's unsustainable and difficult to model accurately. The Reds have the superior offense, but the unknown quantity of Ashcraft makes this a high-variance situation. The PRIME protocol avoids plays with critical unknown variables like this.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/oak.png" alt="Athletics Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Athletics @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" alt="Orioles Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Baltimore Orioles</h3><p>J. Perkins (R, 12.00 ERA) vs. B. Young (R, 5.93 ERA)</p></div>
-                    <div class="analysis-content"><p>A matchup of two struggling pitchers with ERAs that are difficult to back. Jack Perkins and Braden Young both have underlying metrics that suggest their struggles are legitimate. While the Orioles are the better team, the volatility on the mound makes the moneyline unappealing. The algorithm finds no clear edge on the side or total, making it a pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/nym.png" alt="Mets Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">New York Mets @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" alt="Brewers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Milwaukee Brewers</h3><p>TBD vs. T. Myers (R, 5.21 ERA)</p></div>
-                    <div class="analysis-content"><p>The PRIME protocol mandates a pass on any game with an unconfirmed starting pitcher. With the Mets' starter listed as TBD, there are too many unknown variables to create an accurate analytical model for this game. This is a mandatory stay-away until a starter is officially announced.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-                
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Chicago Cubs @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">St. Louis Cardinals</h3><p>C. Rea (R, 4.68 ERA) vs. A. Pallante (R, 4.57 ERA)</p></div>
-                    <div class="analysis-content"><p>A divisional matchup between two evenly matched teams with two very average starting pitchers. Colin Rea and Andre Pallante have nearly identical, mediocre statistical profiles. The Cubs have been the slightly better team this season, but the Cardinals are solid at home. The betting line is priced as a coin-flip, which the algorithm agrees with. With no discernible edge on either side, this is a clear pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-                
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" alt="Red Sox Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Boston Red Sox @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" alt="Padres Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">San Diego Padres</h3><p>L. Giolito (R, 3.83 ERA) vs. M. King (R, 2.62 ERA)</p></div>
-                    <div class="analysis-content"><p>This game was the final cut from the official card. It features an excellent pitching matchup with San Diego's Michael King holding a significant edge over Lucas Giolito. The Padres are also a dominant home team (36-19). However, the market has priced this efficiently at -145. While there is a clear edge for San Diego, the algorithm determined the value was slightly better on other plays like the Giants ML. This remains a strong lean to the Padres, but not a prime directive.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / Strong Lean Padres</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" alt="Blue Jays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Toronto Blue Jays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" alt="Dodgers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Los Angeles Dodgers</h3><p>C. Bassitt (R, 4.28 ERA) vs. B. Snell (L)</p></div>
-                    <div class="analysis-content"><p>A marquee matchup between two powerhouse teams. The Dodgers are strong home favorites, but the Blue Jays have one of the most potent offenses in baseball, leading the league in batting average against lefties. Blake Snell is a former Cy Young winner but can be inconsistent with his command. With so many high-end variables and conflicting signals, the algorithm finds the line to be efficient and advises a pass. A great game to watch, but a tough one to bet.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" alt="Rays Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Tampa Bay Rays @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" alt="Mariners Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Seattle Mariners</h3><p>J. Boyle (R) vs. L. Evans (R, 4.22 ERA)</p></div>
-                    <div class="analysis-content"><p>The Mariners are priced as slight home favorites, which feels correct. Seattle is the better team and is playing at home. However, the Rays are a notoriously difficult team to bet against, especially as an underdog. With Joe Boyle being a relatively unknown quantity for Tampa Bay, there is too much variance to make a high-confidence play. The line is sharp, reflecting the uncertainty. Pass.</p></div>
-                    <div class="directive-box"><div class="pick no-bet">Prime Directive: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div>
-                </div>
-
-                <h2 class="section-subtitle">August 8, 2025 - Full Slate Analysis</h2>
-                <div class="picks-summary-block">
-                    <h3 class="summary-title">Today's Prime Directives</h3>
-                    <ul class="summary-list">
-                        <li><div><span class="pick-text">Detroit Tigers -1.5 Run Line</span><span class="line-info">(-137)</span></div><span class="unit-text">2.0 Units</span></li>
-                        <li><div><span class="pick-text">Chicago Cubs ML</span><span class="line-info">(-156)</span></div><span class="unit-text">1.5 Units</span></li>
-                        <li><div><span class="pick-text">Astros First 5 Innings ML</span><span class="line-info">(-130)</span></div><span class="unit-text">1.5 Units</span></li>
-                        <li><div><span class="pick-text">Phillies @ Rangers F5 Under 4.5</span><span class="line-info">(-175)</span></div><span class="unit-text">1.5 Units</span></li>
-                        <li><div><span class="pick-text">Detroit Tigers Team Total Over 4.5</span><span class="line-info">(-120)</span></div><span class="unit-text">1.0 Unit</span></li>
-                        <li><div><span class="pick-text">Reds @ Pirates Under 8 Runs</span><span class="line-info">(-148)</span></div><span class="unit-text">1.0 Unit</span></li>
-                        <li><div><span class="pick-text">Red Sox @ Padres Over 8 Runs</span><span class="line-info">(-108)</span></div><span class="unit-text">1.0 Unit</span></li>
-                    </ul>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" alt="Angels Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Los Angeles Angels @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" alt="Tigers Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">Detroit Tigers</h3><p>K. Hendricks (R, 4.62 ERA) vs. T. Skubal (L, 2.19 ERA)</p><p class="game-lines">Line: DET -276 | O/U: 7.5</p></div>
-                    <div class="analysis-content">
-                        <p>The PRIME algorithm has identified this as the cornerstone directive of the slate, representing a monumental mismatch that the market has not fully priced into the run line. The directive is a full-throated endorsement of Tigers ace Tarik Skubal, whose 2.19 ERA is not just elite but is supported by an even more impressive 2.44 FIP (Fielding Independent Pitching). Skubal's staggering 30.4% K-BB% (Strikeout Percentage minus Walk Percentage) places him in the 98th percentile, showcasing his ability to completely dominate hitters without issuing free passes.</p>
-                        <p>He faces an Angels offense that is statistically inept against left-handed pitching, owning a team wRC+ (Weighted Runs Created Plus) of just 87. This is compounded by Detroit's offense facing the highly vulnerable Kyle Hendricks (4.62 ERA) and a weak Angels bullpen. The algorithm projects a high probability of a multi-run victory for the Tigers, making the -1.5 run line the primary directive. A correlated directive on the Tigers Team Total Over 4.5 is also issued, capitalizing on the same offensive mismatch.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directives: Tigers -1.5 &amp; Tigers TT Over 4.5</div><div class="units">Units: 2.0 (RL) & 1.0 (TT)</div></div>
-                </div>
-                <div class="game-analysis-block">
-                    <div class="game-header"><h3><img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">Chicago Cubs @ <img src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals Logo" style="height: 30px; width: auto; margin-left: 10px; margin-right: 10px; vertical-align: middle;">St. Louis Cardinals</h3><p>M. Boyd (L, 2.35 ERA) vs. M. McGreevy (R, 6.00 ERA)</p><p class="game-lines">Line: CHC -147 | O/U: 8.0</p></div>
-                    <div class="analysis-content">
-                        <p>This directive targets a severe pitching mismatch. Cubs lefty Matthew Boyd is in the midst of a career renaissance, with his 2.35 ERA being fully supported by a low walk rate and solid underlying FIP numbers. He has become one of the most reliable arms in the National League. On the other side, Cardinals starter Michael McGreevy has been catastrophic, sporting a 6.00 ERA and an even worse xwOBA of .345, which indicates he gives up extremely hard contact.</p>
-                        <p>The Cardinals' offense has also been inconsistent, particularly against left-handed pitching. The PRIME algorithm identifies a significant edge for the Cubs on the moneyline, as they possess the far superior starting pitcher and are in better recent form than their divisional rivals.</p>
-                    </div>
-                    <div class="directive-box"><div class="pick">Prime Directive: Chicago Cubs ML</div><div class="units">Units: 1.5</div></div>
-                </div>
-
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p class="footer-links">
-                 <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
-            </p>
-        </footer>
-    </div>
-</body>
-</html>
+                    <div class="analysis-content"><p>An interesting clash of current form versus season-long metrics. The Red Sox have the far superior starting pitcher in Brayan Bello, while Yu Darvish has had a disastrous season. However, the Padres are a dominant home team (36-19) and are playing much 
