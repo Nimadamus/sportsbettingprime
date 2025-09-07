@@ -1,98 +1,280 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFL Picks - SPORTS BETTING PRIME</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
-            --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
-        
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
-        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
-
-        header { padding: 20px 5%; position: absolute; top: 0; width: 100%; z-index: 100; }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { flex: 1; }
-        .nav-center { flex: 2; display: flex; justify-content: center; }
-        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
-        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
-        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
-        @keyframes pulse-button { 50% { transform: scale(1.05); } }
-
-        .content-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; min-height: 100vh; }
-        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding-top: 85px; }
-        .hero { text-align: center; padding: 20px; }
-        .hero h1 { font-family: var(--font-primary); font-size: 3.8rem; font-weight: 700; text-shadow: 0 0 20px rgba(234, 248, 255, 0.5); line-height: 1.3; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero h1 span { color: var(--neon-cyan); font-weight: 900; text-shadow: 0 0 25px var(--neon-cyan); animation: flicker 3s linear infinite; }
-        .status-text { font-family: var(--font-primary); font-size: 1.2rem; color: var(--neon-gold); text-shadow: 0 0 15px var(--neon-gold); margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 2px; }
-        @keyframes flicker { 0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 25px var(--neon-cyan), 0 0 50px var(--neon-cyan);} 20%, 24%, 55% { text-shadow: none; filter: brightness(0.8); } }
-        .hero p { font-size: 1.2rem; margin-bottom: 3rem; color: rgba(234, 248, 255, 0.8); max-width: 700px; margin-left: auto; margin-right: auto; }
-        .hero .btn-secondary { font-size: 1.1rem; padding: 15px 40px; display: inline-block; text-decoration: none; font-family: var(--font-primary); color: var(--neon-gold); border: 1px solid var(--neon-gold); border-radius: 8px; box-shadow: 0 0 15px var(--neon-gold); background: transparent; cursor: default; }
-        footer { text-align: center; background: transparent; padding: 20px 5%; width: 100%; }
-        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
-        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
-    </style>
-</head>
-<body>
-    <div class="background-container"></div>
-    <div class="content-wrapper">
-        <header>
-            <nav>
-                <div class="nav-left">
-                    <div class="logo">
-                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-                    </div>
-                </div>
-                <div class="nav-center">
-                    <ul class="nav-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html">MLB</a></li>
-                        <li><a href="nfl-gridiron-oracles.html" class="active">NFL</a></li>
-                        <li><a href="the-data-stream.html">Blog</a></li>
-                        <li><a href="performance-telemetry.html">Results</a></li>
-                        <li><a href="the-prime-protocol.html">About</a></li>
-                    </ul>
-                </div>
-                <div class="nav-right">
-                    <a href="#" class="btn-primary">PRIME ACCESS</a>
-                </div>
-            </nav>
-        </header>
-
-        <main>
-            <section class="hero">
-                <div>
-                    <h1>The Gridiron Algorithm<br>is <span>Computing...</span></h1>
-                    <p class="status-text">STATUS: CALIBRATING FOR NFL 2025 SEASON</p>
-                    <p>Our proprietary data oracles are analyzing every timeline, every variable, every possible outcome. Unparalleled insights are coming soon.</p>
-                    <a href="#" class="btn-secondary">STAY TUNED</a>
-                </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p class="footer-links">
-                <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
-            </p>
-        </footer>
-    </div>
-</body>
-</html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Week 1 NFL Gridiron Oracles</title>
+<link href="https://a.espncdn.com" rel="preconnect"/>
+<style>
+:root{ --wrap:1200px; --bg:#0b0f1c; --panel:rgba(16,22,35,.78); --text:#eaf8ff; --muted:rgba(234,248,255,.72); --neon:#00ffd5; --gold:#ffb612; }
+*{box-sizing:border-box} html,body{margin:0;padding:0;background:#000;color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background-image:url('https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1920');background-size:cover;background-position:center;filter:brightness(.6) saturate(1.1);}
+a{color:inherit;text-decoration:none}
+.hero{display:grid;place-items:center;text-align:center;padding:40px 16px 6px;min-height:240px}
+.hero .hero-wrap{width:min(100%,var(--wrap));margin:0 auto}
+.hero .slogan{font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);text-shadow:0 0 18px rgba(0,255,213,.35);margin-bottom:6px}
+.hero .title{font-size:clamp(28px,4.2vw,48px);margin:0 0 4px 0;text-shadow:0 0 22px rgba(0,255,213,.25)}
+.hero .subtitle{color:var(--muted);margin:0}
+.section-post{position:relative;z-index:2;padding:18px 16px 60px}
+.section-post .post-wrap{width:min(100%,var(--wrap));margin:0 auto}
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:18px 0 24px}
+.feature-card{position:relative;border-radius:16px;overflow:hidden;background:rgba(10,12,24,.85);border:1px solid rgba(0,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.feature-card .img{aspect-ratio:16/9;background-size:cover;background-position:center;position:relative}
+.feature-card .img.gradient{background-image: radial-gradient(circle at 30% 10%, rgba(0,255,170,.18), transparent 40%), linear-gradient(135deg, #07121f, #0c0a1a);}
+.logo-stack{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:18px}
+.logo-stack img{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));background:rgba(255,255,255,.03);border-radius:50%;border:1px solid rgba(255,255,255,.12);padding:8px}
+.feature-card .tag{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);font-size:.78rem}
+.feature-card .body{padding:14px 14px 18px}
+.feature-card h4{margin:0 0 6px 0}
+.matchup{margin:24px 0;border-radius:16px;overflow:hidden;border:1px solid rgba(0,255,255,.12);background:linear-gradient(90deg, rgba(0,20,35,.85), rgba(10,8,20,.85));box-shadow:0 10px 28px rgba(0,0,0,.45)}
+.m-header{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;padding:16px;color:#fff;position:relative}
+.m-header::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);background-size:18px 18px;pointer-events:none}
+.m-team{display:flex;align-items:center;gap:10px;min-width:0}
+.m-team img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.35))}
+.m-team .name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+.m-meta{padding:0 16px 10px;color:var(--muted);font-size:.95rem}
+.m-odds{padding:0 16px 12px;font-size:.98rem}
+.m-odds b{color:var(--gold)}
+.hr{height:1px;background:linear-gradient(90deg, transparent, rgba(0,255,255,.25), transparent);margin:12px 0}
+.m-body{padding:0 16px 18px;display:grid;gap:10px}
+.m-body p{margin:0;color:#e9f7ff}
+@media (min-width:1300px){ .hero .title{font-size:56px} }
+</style>
+</head><body>
+<section class="hero">
+<div class="hero-wrap">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1 class="title">WEEK 1 NFL GRIDIRON ORACLES</h1>
+<p class="subtitle">Posted Sep 07, 2025 01:45 AM — Featured: Ravens ML, Broncos -8, Steelers–Jets Under 38</p>
+</div>
+</section>
+<section class="section-post" id="week1">
+<div class="post-wrap">
+<div class="featured-grid">
+<div class="feature-card">
+<div class="img gradient" style="background-image: radial-gradient(circle at 30% 10%, rgba(0,255,170,.18), transparent 40%), linear-gradient(135deg, #07121f, #0c0a1a);"><div class="logo-stack"><img alt="Baltimore Ravens" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/><img alt="Buffalo Bills" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/></div></div>
+<div class="tag">FEATURED PICK</div>
+<div class="body"><h4>Ravens ML @ Bills</h4><p>Elite offense + physical defense; weather management is key — backing Baltimore moneyline.</p></div>
+</div>
+<div class="feature-card">
+<div class="img gradient" style="background-image: radial-gradient(circle at 30% 10%, rgba(0,255,170,.18), transparent 40%), linear-gradient(135deg, #07121f, #0c0a1a);"><div class="logo-stack"><img alt="Denver Broncos" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png"/><img alt="Tennessee Titans" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/></div></div>
+<div class="tag">FEATURED PICK</div>
+<div class="body"><h4>Broncos -8 vs Titans</h4><p>Altitude + defense; if Denver gets in front, TEN’s pass script buckles.</p></div>
+</div>
+<div class="feature-card">
+<div class="img gradient gradient" style="background-image: radial-gradient(circle at 30% 10%, rgba(0,255,170,.18), transparent 40%), linear-gradient(135deg, #07121f, #0c0a1a);"><div class="logo-stack"><img alt="Pittsburgh Steelers" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png"/><img alt="New York Jets" decoding="async" loading="lazy" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png"/></div></div>
+<div class="tag">FEATURED PICK</div>
+<div class="body"><h4>Under 38 — Steelers @ Jets</h4><p>Wind + conservative scripts lower the explosive rate.</p></div>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#ffb612;--home:#125740;">
+<div class="m-team"><img alt="Pittsburgh Steelers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png"/><div class="name">Pittsburgh Steelers</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="New York Jets logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png"/><div class="name">New York Jets</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — MetLife Stadium, East Rutherford, NJ</div>
+<div class="m-odds"><b>Line:</b> N.Y. Jets -2.5 | Pittsburgh +2.5   •   <b>Total:</b> 38.0</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: a sub-40 total with a short home favorite points to a field-position game. Public leans Jets but books resisted moving to −3—respect for PIT’s defense.</p>
+<p>Scheme: Steelers’ edges vs Jets’ protection is the hinge. NYJ counters with Breece Hall and QB movement to stay ahead of the chains; PIT will live in simulated pressure on 3rd down.</p>
+<p>Environment: MetLife wind + early moisture clip deep balls and long FGs. With a steady crew expected, discipline and field position matter—an Under-friendly profile.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#0b2265;--home:#5a1414;">
+<div class="m-team"><img alt="New York Giants logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png"/><div class="name">New York Giants</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/><div class="name">Washington Commanders</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — FedEx Field, Landover, MD</div>
+<div class="m-odds"><b>Line:</b> Washington -6 | N.Y. Giants +6   •   <b>Total:</b> 45.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Divisional dog catching a full +6 in Week 1 carries value. Any drop to +5.5 trims edge quickly; a climb toward −6.5/−7 raises the tax on the fave.</p>
+<p>Scheme: NYG must protect the blind side with chips + quick game; WAS front wins with four and squeezes the middle. If Commanders own early downs, PA digs become drive sustainers.</p>
+<p>Environment: Mild conditions favor the cleaner dropback plan. Tackle/edge inactives swing sack risk and drive-kill probability.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#0085ca;--home:#006778;">
+<div class="m-team"><img alt="Carolina Panthers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png"/><div class="name">Carolina Panthers</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Jacksonville Jaguars logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png"/><div class="name">Jacksonville Jaguars</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — EverBank Stadium, Jacksonville, FL</div>
+<div class="m-odds"><b>Line:</b> Jacksonville -3.5 | Carolina +3.5   •   <b>Total:</b> 46.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: The hook (−3.5) matters in a humid opener where late pace slows. Public on JAX; back‑door live.</p>
+<p>Scheme: CAR’s wide‑zone/play‑action depends on tackle health—extra chips shrink routes and explosives. JAX must be better on true dropbacks; inside zone vs light boxes unlocks crossers.</p>
+<p>Environment: Heat/pop‑up showers create cramping/ball‑security swings—OL and DB depth, not just starters, matters.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#97233f;--home:#d3bc8d;">
+<div class="m-team"><img alt="Arizona Cardinals logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png"/><div class="name">Arizona Cardinals</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="New Orleans Saints logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/nor.png"/><div class="name">New Orleans Saints</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — Caesars Superdome, New Orleans, LA</div>
+<div class="m-odds"><b>Line:</b> New Orleans -6 | Arizona +6   •   <b>Total:</b> 43.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: −6 with a 43.5 total indoors is a teaser magnet. Dome reduces randomness and favors the cleaner script.</p>
+<p>Scheme: NO thrives in 11 with motion creating in‑breakers/YAC; ARI must keep two‑high intact and tackle. If ARI is stuck in 3rd‑and‑7+, NO’s simulated pressure wins leverage snaps.</p>
+<p>Environment: Superdome noise taxes cadence; penalties and miscommunication swing possessions.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#fb4f14;--home:#311d00;">
+<div class="m-team"><img alt="Cincinnati Bengals logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"/><div class="name">Cincinnati Bengals</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Cleveland Browns logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png"/><div class="name">Cleveland Browns</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — Cleveland Browns Stadium, Cleveland, OH</div>
+<div class="m-odds"><b>Line:</b> Cincinnati -5 | Cleveland +5   •   <b>Total:</b> 47.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Road −5 in the AFC North is rich; home‑dog bands +3 to +6 have historically graded well in slower, familiar games—especially with lake wind risk.</p>
+<p>Scheme: CIN’s explosives vs CLE’s four‑man rush + tight coverage; Browns want run efficiency to force 10‑play drives and control tempo.</p>
+<p>Environment: Crosswinds trim deep balls and 50‑yard FGs; tackle health on both sides &gt; WR3/CB3 for handicapping.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#d50a0a;--home:#a71930;">
+<div class="m-team"><img alt="Tampa Bay Buccaneers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png"/><div class="name">Tampa Bay Buccaneers</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Atlanta Falcons logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png"/><div class="name">Atlanta Falcons</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — Mercedes-Benz Stadium, Atlanta, GA</div>
+<div class="m-odds"><b>Line:</b> Atlanta -1 | Tampa Bay +1   •   <b>Total:</b> 47.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Near pick’em indoors with a high‑40s total → red‑zone finish rate (TDs vs FGs) is king.</p>
+<p>Scheme: ATL wide‑zone + PA vs TB run fits; Bucs need clean 1st/2nd‑down pockets to access intermediate options, or third‑and‑long tilts to ATL.</p>
+<p>Environment: Closed roof neutralizes weather; execution/3rd‑down distance decide it.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#008e97;--home:#002c5f;">
+<div class="m-team"><img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/><div class="name">Miami Dolphins</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Indianapolis Colts logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png"/><div class="name">Indianapolis Colts</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — Lucas Oil Stadium, Indianapolis, IN</div>
+<div class="m-odds"><b>Line:</b> Miami -1 | Indianapolis +1   •   <b>Total:</b> 46.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Practically a pick’em at −1; any flip to IND −1 signals sharp Colts interest.</p>
+<p>Scheme: MIA stretches horizontally with motion/speed; IND counters with reroute + rally tackling and a rushing baseline to balance PROE. If MIA leads by two scores, Colts’ dropback game must hold vs pressure.</p>
+<p>Environment: Roof minimizes variance; secondary health and OL continuity drive the explosive count.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#000000;--home:#002244;">
+<div class="m-team"><img alt="Las Vegas Raiders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png"/><div class="name">Las Vegas Raiders</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="New England Patriots logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png"/><div class="name">New England Patriots</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 1:00 PM ET — Gillette Stadium, Foxborough, MA</div>
+<div class="m-odds"><b>Line:</b> New England -2.5 | Las Vegas +2.5   •   <b>Total:</b> 44.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: NE −2.5 with a mid‑40s total and cross‑country travel is the grinder archetype. Weather leaning cool/damp pushes to field position.</p>
+<p>Scheme: NE needs negative‑play avoidance on early downs and ST edges; LV’s explosives are protection/footing sensitive.</p>
+<p>Environment: Light rain/wind reduce long FGs; conservative 4th‑down posture likely near midfield.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#aa0000;--home:#69be28;">
+<div class="m-team"><img alt="San Francisco 49ers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png"/><div class="name">San Francisco 49ers</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Seattle Seahawks logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"/><div class="name">Seattle Seahawks</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 4:05 PM ET — Lumen Field, Seattle, WA</div>
+<div class="m-odds"><b>Line:</b> San Francisco -1 | Seattle +1   •   <b>Total:</b> 43.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: −1 with a 43.5 total → toss‑up; turnovers and 3rd‑down efficiency decide it.</p>
+<p>Scheme: SF manufactures YAC via motion/bunch; SEA must tackle in space and move the launch point to avoid SF’s rush. Long 3rds swing to SF’s rush/coverage marriage.</p>
+<p>Environment: Lumen noise adds pre‑snap strain; light rain nudges shorter game and suppresses total a touch.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#0c2340;--home:#fb4f14;">
+<div class="m-team"><img alt="Tennessee Titans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/><div class="name">Tennessee Titans</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Denver Broncos logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png"/><div class="name">Denver Broncos</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 4:05 PM ET — Empower Field at Mile High, Denver, CO</div>
+<div class="m-odds"><b>Line:</b> Denver -8 | Tennessee +8   •   <b>Total:</b> 42.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: DEN −8 with a 42.5 total implies a cap on TEN scoring and trust in DEN defense/altitude. Low‑total big spreads invite back‑door dynamics.</p>
+<p>Scheme: DEN defense is tight in coverage with rush games; offense needs run‑action for clean pockets. TEN must stay on schedule—3rd‑and‑long invites sacks/punts.</p>
+<p>Environment: Altitude fatigue swings fourth quarters; possible storms add volatility—DL/OL rotations matter.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#03202f;--home:#003594;">
+<div class="m-team"><img alt="Houston Texans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png"/><div class="name">Houston Texans</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Los Angeles Rams logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png"/><div class="name">Los Angeles Rams</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 4:25 PM ET — SoFi Stadium, Inglewood, CA</div>
+<div class="m-odds"><b>Line:</b> L.A. Rams -3 | Houston +3   •   <b>Total:</b> 42.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: LAR −3, 42.5 total indoors → long fields and a handful of red‑zone trips decide it. −3 vs −2.5 is a big swing.</p>
+<p>Scheme: LA condensed splits + motion create crossers; HOU needs clean pass‑offs in zone. If HOU protects, their intermediate game pressures LA; if not, Stafford gains control via PA rhythm throws.</p>
+<p>Environment: Indoors; protection vs coverage is the whole chess match. Track LT/RT and CB statuses for late tweaks.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#0076b6;--home:#203731;">
+<div class="m-team"><img alt="Detroit Lions logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png"/><div class="name">Detroit Lions</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/><div class="name">Green Bay Packers</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 4:25 PM ET — Lambeau Field, Green Bay, WI</div>
+<div class="m-odds"><b>Line:</b> Green Bay -2.5 | Detroit +2.5   •   <b>Total:</b> 47.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: GB −2.5 with public leaning DET—home short‑fav archetype. 47.5 outdoors hinges on red‑zone TD rate.</p>
+<p>Scheme: DET interior run + PA stresses the middle; GB must win early downs to force 3rd‑and‑7 where their rush disguises hold up. Packers O best mixing quick game with shots off under‑center.</p>
+<p>Environment: Cool, mostly calm; OL health and DET secondary depth set the explosive ceiling and whether sub‑3 holds value.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#241773;--home:#00338d;">
+<div class="m-team"><img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/><div class="name">Baltimore Ravens</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Buffalo Bills logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/><div class="name">Buffalo Bills</div></div>
+</div>
+<div class="m-meta">Sunday, Sep 7 — 8:20 PM ET — Highmark Stadium, Orchard Park, NY</div>
+<div class="m-odds"><b>Line:</b> Baltimore -1 | Buffalo +1   •   <b>Total:</b> 50.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Tiny road fave with a 50.5 total; Orchard Park wind is the hidden tax that can stall drives.</p>
+<p>Scheme: BAL QB‑run threat + PA punishes poor fits; BUF creates explosives off scrambles/layered concepts. Turnover margin and red‑zone TD% decide more than raw yardage.</p>
+<p>Environment: Night wind &gt;12 mph dents deep balls and 50‑yard FGs; check K/OT statuses pre‑kick.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#4f2683;--home:#0b162a;">
+<div class="m-team"><img alt="Minnesota Vikings logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png"/><div class="name">Minnesota Vikings</div></div>
+<div class="vs">at</div>
+<div class="m-team"><img alt="Chicago Bears logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"/><div class="name">Chicago Bears</div></div>
+</div>
+<div class="m-meta">Monday, Sep 8 — 8:15 PM ET — Soldier Field, Chicago, IL</div>
+<div class="m-odds"><b>Line:</b> Minnesota -1 | Chicago +1   •   <b>Total:</b> 44.0</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market context</p>
+<p>Scheme context</p>
+<p>Environment context</p>
+</div>
+</div>
+</div></section></body></html>
