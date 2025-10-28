@@ -48,13 +48,19 @@
         .metric-value.win { color: var(--color-win); text-shadow: 0 0 15px var(--color-win); }
         .metric-value.loss { color: var(--color-loss); text-shadow: 0 0 15px var(--color-loss); }
         .metric-value.neutral { color: var(--text-color); }
-        .results-log { text-align: left; }
+        .results-log { text-align: left; margin-bottom: 40px; }
         .results-log h2 { font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 15px; text-align: center; }
         .results-log .log-date { text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: rgba(234, 248, 255, 0.8); }
         .results-log table { width: 100%; border-collapse: collapse; }
-        .results-log th, .results-log td { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); text-align: center; }
-        .results-log th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.2rem; }
-        .results-log td.no-results { font-style: italic; color: rgba(234, 248, 255, 0.6); padding: 40px 0; }
+        .results-log th, .results-log td { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); text-align: left; }
+        .results-log th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.1rem; }
+        .results-log td.no-results { font-style: italic; color: rgba(234, 248, 255, 0.6); padding: 40px 0; text-align: center; }
+        .result-win { color: var(--color-win); font-weight: 700; }
+        .result-loss { color: var(--color-loss); font-weight: 700; }
+        .result-pending { color: var(--neon-gold); font-weight: 700; }
+        .sport-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; margin-right: 8px; }
+        .badge-nhl { background: rgba(0, 119, 200, 0.3); border: 1px solid #0077c8; color: #4db8ff; }
+        .badge-mlb { background: rgba(0, 90, 156, 0.3); border: 1px solid #005a9c; color: #4db8ff; }
         footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
         footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
         footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
@@ -73,8 +79,9 @@
                 <div class="nav-center">
                     <ul class="nav-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html">MLB</a></li>
+                        <li><a href="mlb-prime-directives-page2.html">MLB</a></li>
                         <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                        <li><a href="nhl-ice-oracles.html">NHL</a></li>
                         <li><a href="the-data-stream.html">Blog</a></li>
                         <li><a href="performance-telemetry.html" class="active">Results</a></li>
                         <li><a href="the-prime-protocol.html">About</a></li>
@@ -93,39 +100,90 @@
                 <div class="metrics-container glass-panel">
                     <div class="metric-box">
                         <div class="metric-label">System Status</div>
-                        <div class="metric-value neutral" style="font-size: 2.2rem;">ONLINE</div>
+                        <div class="metric-value neutral" style="font-size: 2.2rem;">TRACKING</div>
                     </div>
                     <div class="metric-box">
                         <div class="metric-label">Official Record</div>
-                        <div class="metric-value neutral">0W - 0L</div>
+                        <div class="metric-value neutral">TBD</div>
                     </div>
                      <div class="metric-box">
                         <div class="metric-label">Total Net Units</div>
-                        <div class="metric-value neutral">+0.00</div>
+                        <div class="metric-value result-pending">PENDING</div>
                     </div>
                 </div>
 
                 <div class="results-log glass-panel">
-                    <h2>Results Log</h2>
-                    <p class="log-date" id="yesterdays-date"></p>
+                    <h2>October 28, 2025 Results</h2>
+                    <p class="log-date">NHL Frozen Frenzy & MLB Picks - Results Pending</p>
                     <table>
                         <thead>
                             <tr>
-                                <th>Matchup</th>
-                                <th>Pick Type</th>
-                                <th>The Pick</th>
-                                <th>Result</th>
-                                <th>Units</th>
+                                <th style="width: 15%;">Sport</th>
+                                <th style="width: 30%;">Matchup</th>
+                                <th style="width: 25%;">Pick</th>
+                                <th style="width: 15%;">Result</th>
+                                <th style="width: 15%;">Units</th>
                             </tr>
                         </thead>
                         <tbody>
                            <tr>
-                                <td colspan="5" class="no-results">
-                                    System initializing... Check back tomorrow for the first official telemetry report.
-                                </td>
+                                <td><span class="sport-badge badge-nhl">NHL</span></td>
+                                <td>Penguins @ Flyers</td>
+                                <td>Flyers ML -165</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>2.0 Units</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-nhl">NHL</span></td>
+                                <td>Kings @ Sharks</td>
+                                <td>Kings ML -210</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>2.0 Units</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-nhl">NHL</span></td>
+                                <td>Islanders @ Bruins</td>
+                                <td>Islanders ML -145</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>1.0 Unit</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-nhl">NHL</span></td>
+                                <td>Flames @ Maple Leafs</td>
+                                <td>Over 5.5 -120</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>1.0 Unit</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-nhl">NHL</span></td>
+                                <td>Devils @ Red Wings</td>
+                                <td>Devils ML +140</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>0.5 Units</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-mlb">MLB</span></td>
+                                <td>Dodgers vs Blue Jays</td>
+                                <td>Dodgers ML -185</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>2.0 Units</td>
+                           </tr>
+                           <tr>
+                                <td><span class="sport-badge badge-mlb">MLB</span></td>
+                                <td>Dodgers vs Blue Jays</td>
+                                <td>Blue Jays TT Under 3.5 -130</td>
+                                <td class="result-pending">PENDING</td>
+                                <td>2.0 Units</td>
+                           </tr>
+                           <tr style="border-top: 2px solid var(--neon-cyan);">
+                                <td colspan="4" style="text-align: right; font-weight: 700; color: var(--neon-cyan);">Total Units Risked:</td>
+                                <td style="font-weight: 700; color: var(--neon-cyan);">10.5 Units</td>
                            </tr>
                         </tbody>
                     </table>
+                    <p style="text-align: center; margin-top: 20px; color: rgba(234, 248, 255, 0.7); font-size: 0.95rem;">
+                        Results will be updated after all games conclude. Check back later tonight or tomorrow morning for final results.
+                    </p>
                 </div>
             </section>
         </main>
@@ -133,7 +191,7 @@
         <footer>
             <p>© 2025 SPORTS BETTING PRIME. All rights reserved. Unit sizing based on a flat betting system. Past performance is not an indicator of future results.</p>
             <p class="footer-links">
-                <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
+                <a href="index.html">Home</a> | <a href="mlb-prime-directives-page2.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
             </p>
         </footer>
     </div>
