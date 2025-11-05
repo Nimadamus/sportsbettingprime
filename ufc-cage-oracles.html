@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFC & MMA Picks - Sports Betting Prime</title>
+    <meta name="description" content="Expert UFC and MMA betting picks powered by advanced fight analysis. Get tonight's best UFC odds, prop bets, and detailed fighter breakdowns.">
+    <meta name="keywords" content="UFC picks, MMA betting, UFC predictions, fight picks, UFC odds, MMA betting analysis, UFC prop bets">
+    <link rel="canonical" href="https://sportsbettingprime.com/ufc-cage-oracles.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="UFC Cage Oracles - Sports Betting Prime">
+    <meta property="og:description" content="Expert UFC and MMA betting analysis powered by advanced fight algorithms">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sportsbettingprime.com/ufc-cage-oracles.html">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700;
+            --neon-red: #ff0050;
+            --glass-bg: rgba(10, 8, 25, 0.6);
+            --glass-border: rgba(0, 255, 255, 0.2);
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.3) saturate(0.8);
+            z-index: -1;
+            animation: kenburns 60s ease-in-out infinite alternate;
+        }
+
+        @keyframes kenburns {
+            0% { transform: scale(1) translateX(0); }
+            100% { transform: scale(1.1) translateX(-20px); }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(1, 0, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-family: var(--font-primary);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b00, #ff9500);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            white-space: nowrap;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+        }
+
+        .slogan {
+            font-family: var(--font-primary);
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: var(--neon-red);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255, 0, 80, 0.8);
+        }
+
+        .title {
+            font-family: var(--font-primary);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, var(--neon-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 0, 80, 0.4);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(234, 248, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .section-post {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .matchup {
+            background: linear-gradient(135deg, rgba(10, 8, 25, 0.8), rgba(25, 10, 15, 0.8));
+            border: 1px solid rgba(255, 0, 80, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .matchup:hover {
+            border-color: var(--neon-red);
+            box-shadow: 0 8px 32px rgba(255, 0, 80, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .fight-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .fight-type {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(255, 0, 80, 0.2), rgba(200, 0, 60, 0.2));
+            border: 1px solid var(--neon-red);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-family: var(--font-primary);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: var(--neon-red);
+        }
+
+        .m-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .fighter {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .fighter-name {
+            font-family: var(--font-primary);
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .fighter-record {
+            font-size: 0.95rem;
+            color: rgba(234, 248, 255, 0.7);
+            font-family: var(--font-primary);
+        }
+
+        .vs {
+            font-family: var(--font-primary);
+            color: var(--neon-red);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .fighter.right {
+            text-align: right;
+        }
+
+        .m-meta {
+            text-align: center;
+            color: rgba(234, 248, 255, 0.7);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .m-odds {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: rgba(255, 0, 80, 0.05);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 0, 80, 0.2);
+        }
+
+        .odds-item {
+            font-family: var(--font-primary);
+            font-size: 0.95rem;
+        }
+
+        .odds-item strong {
+            color: var(--neon-gold);
+            margin-right: 0.5rem;
+        }
+
+        .m-body {
+            color: rgba(234, 248, 255, 0.9);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .m-body p {
+            margin-bottom: 1.3rem;
+        }
+
+        .m-body strong {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .directive-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 182, 18, 0.1));
+            border: 2px solid var(--neon-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .directive-box .pick-label {
+            font-family: var(--font-primary);
+            color: var(--neon-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .directive-box .pick {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .directive-box .units {
+            color: var(--neon-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: rgba(1, 0, 15, 0.95);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem;
+            text-align: center;
+            color: rgba(234, 248, 255, 0.6);
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            nav {
+                gap: 1rem;
+                font-size: 0.85rem;
+                justify-content: center;
+            }
+
+            .m-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .fighter.right {
+                text-align: left;
+            }
+
+            .vs {
+                display: none;
+            }
+
+            .m-odds {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SPORTS BETTING PRIME</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ufc-cage-oracles.html" class="active">UFC/MMA</a>
+            <a href="soccer-pitch-oracles.html">Soccer</a>
+            <a href="nba-court-oracles.html">NBA</a>
+            <a href="ncaa-hoops-oracles.html">NCAA Basketball</a>
+            <a href="nfl-gridiron-oracles.html">NFL</a>
+            <a href="the-data-stream.html">Blog</a>
+            <a href="performance-telemetry.html">Results</a>
+            <a href="the-prime-protocol.html">About</a>
+        </nav>
+        <a href="https://wlYouWager.adsrv.eacdn.com/C.ashx?btag=a_329706b_752c_&affid=2319&siteid=329706&adid=752&c=" class="cta-button" target="_blank">GET YOUR 350% BONUS</a>
+    </header>
+
+    <section class="hero">
+        <div class="slogan">THE CAGE ALGORITHM IS ANALYZING...</div>
+        <h1 class="title">UFC CAGE ORACLES</h1>
+        <p class="subtitle">Posted November 5, 2025 — UFC 310 Fight Night</p>
+    </section>
+
+    <section class="section-post">
+
+        <!-- Main Event: Lightweight Title -->
+        <article class="matchup">
+            <div class="fight-header">
+                <span class="fight-type">Main Event - Lightweight Championship (5 Rounds)</span>
+            </div>
+            <div class="m-header">
+                <div class="fighter">
+                    <div class="fighter-name">Islam Makhachev (C)</div>
+                    <div class="fighter-record">26-1-0 | #1 P4P</div>
+                </div>
+                <span class="vs">VS</span>
+                <div class="fighter right">
+                    <div class="fighter-name">Charles Oliveira</div>
+                    <div class="fighter-record">35-10-0 | #2 LW</div>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Saturday, Nov 8 — 10:00 PM ET — T-Mobile Arena, Las Vegas (ESPN+ PPV)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>Moneyline:</strong> Makhachev -240 / Oliveira +195</div>
+                <div class="odds-item"><strong>Over/Under:</strong> 2.5 Rounds (-140/+115)</div>
+                <div class="odds-item"><strong>Method:</strong> Decision (+180) / Submission (-110) / KO/TKO (+250)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>The Trilogy Nobody Expected</strong></p>
+                <p>Islam Makhachev and Charles Oliveira meet for the third time in a rivalry that has defined the lightweight division for three years. Makhachev won their first encounter at UFC 280 via second-round arm-triangle choke, capturing the vacant lightweight title. Oliveira avenged that loss at UFC 294 with a stunning third-round submission (rear-naked choke), reclaiming the belt. Now, 11 months later, they complete the trilogy with Makhachev having won the title back against Arman Tsarukyan at UFC 302. This fight will likely determine the greatest lightweight of this era.</p>
+
+                <p><strong>Makhachev's Evolving Striking Game</strong></p>
+                <p>Islam Makhachev has traditionally been known for his elite grappling — a product of training at American Kickboxing Academy with Khabib Nurmagomedov and Javier Mendez. However, his striking has evolved dramatically over his past four fights. Against Alexander Volkanovski (at featherweight) and Arman Tsarukyan, Makhachev showed improved jab placement, footwork, and defensive head movement. He's no longer purely a wrestler looking to take opponents down; he's become a complete mixed martial artist who can win rounds on the feet. His striking accuracy is 54.3% (elite for lightweights), and he's learned to set up takedowns with feints and level changes off strikes.</p>
+
+                <p><strong>Oliveira's Submission Threat from Anywhere</strong></p>
+                <p>Charles Oliveira holds the UFC record for most submission wins (18) and most finishes (20). His Brazilian Jiu-Jitsu is world-class, particularly from his back where he has finished elite grapplers with triangles, armbars, and chokes. In their second fight, Oliveira caught Makhachev in a scramble, transitioned to the back, and locked in a fight-ending rear-naked choke. The threat of Oliveira's submissions forces opponents to be cautious in grappling exchanges, limiting their offensive wrestling. Even when Oliveira is losing on the scorecards, he's always one scramble away from ending the fight.</p>
+
+                <p><strong>The Grappling Chess Match</strong></p>
+                <p>This fight will be decided in grappling exchanges — specifically, who can control position without exposing themselves to submissions. Makhachev's Sambo background emphasizes control and pressure from top position, while Oliveira's BJJ thrives in scrambles and transitions. The key question: will Makhachev be willing to engage in Oliveira's guard, or will he use his striking to score points and avoid grappling altogether? In their first fight, Makhachev dominated on the ground. In the rematch, Oliveira turned a scramble into a finish. Expect both fighters to be more calculated this time.</p>
+
+                <p><strong>Cardio and Championship Rounds</strong></p>
+                <p>Five-round fights favor Makhachev's relentless pressure and grinding style. He has never been finished and has only gassed once (against Alexander Volkanovski in their first fight, after draining down to 145 lbs). Oliveira, conversely, has been known to slow in later rounds, particularly after absorbing heavy shots early. If Makhachev can drag Oliveira into deep waters in rounds 3-5, his pressure and control will become overwhelming. Oliveira's best path to victory is an early finish or stealing rounds 1-3 before cardio becomes a factor.</p>
+
+                <p><strong>The Mental Edge and Experience</strong></p>
+                <p>Both fighters have championship experience and have fought each other twice — familiarity is equal. However, Makhachev has the psychological edge of being the current champion and having the support of Khabib Nurmagomedov in his corner. Oliveira is the challenger trying to reclaim glory, which can create desperation. In their most recent fights, Makhachev looked calm and composed against Tsarukyan, while Oliveira struggled with Michael Chandler's power before finding a late submission. The fighter who can impose their game plan and stay composed under pressure will likely prevail.</p>
+
+                <p><strong>Betting the Champion's Consistency</strong></p>
+                <p>The -240 line on Makhachev reflects his status as champion and his technical advantages. However, at +195, Oliveira offers value given his proven ability to finish Makhachev. The over/under of 2.5 rounds at -140 suggests the market expects a finish — and given both fighters' submission skills, that's likely. The safest play is Makhachev by decision or submission, covering his two most likely winning paths. If forced to pick one, Makhachev's control and cardio give him the edge in a five-round war. Take Makhachev on the moneyline and pair it with UNDER 4.5 rounds, expecting a late submission or dominant decision.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">Islam Makhachev ML (-240) + UNDER 4.5 Rounds (-155)</div>
+                    <div class="units">3.5 Units (2.5U ML, 1U Under)</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Co-Main Event: Welterweight -->
+        <article class="matchup">
+            <div class="fight-header">
+                <span class="fight-type">Co-Main Event - Welterweight (5 Rounds)</span>
+            </div>
+            <div class="m-header">
+                <div class="fighter">
+                    <div class="fighter-name">Shavkat Rakhmonov</div>
+                    <div class="fighter-record">18-0-0 | #3 WW</div>
+                </div>
+                <span class="vs">VS</span>
+                <div class="fighter right">
+                    <div class="fighter-name">Belal Muhammad</div>
+                    <div class="fighter-record">24-3-0 | #4 WW</div>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Saturday, Nov 8 — 10:00 PM ET — T-Mobile Arena, Las Vegas (ESPN+ PPV)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>Moneyline:</strong> Rakhmonov -185 / Muhammad +155</div>
+                <div class="odds-item"><strong>Over/Under:</strong> 3.5 Rounds (-125/+105)</div>
+                <div class="odds-item"><strong>Method:</strong> Decision (+140) / Submission (+200) / KO/TKO (+180)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>The Undefeated Prospect Meets the Ultimate Test</strong></p>
+                <p>Shavkat Rakhmonov is one of MMA's most exciting undefeated prospects, holding an 18-0 record with 18 finishes. He's never been to a decision, finishing every opponent via knockout or submission — a rare combination of striking power and grappling excellence. Belal Muhammad represents the toughest test of Rakhmonov's career: a volume striker with elite cardio, underrated wrestling, and a 10-fight winning streak. Muhammad is durable (never been knocked out) and strategic, using constant pressure and high output to break opponents mentally. This is a classic striker-vs-grinder matchup.</p>
+
+                <p><strong>Rakhmonov's Finishing Instinct</strong></p>
+                <p>Rakhmonov's defining characteristic is his ability to find finishes from any position. He has 10 KO/TKO wins and 8 submission wins, showing comfort in all phases of combat. His striking is crisp and technical, favoring body kicks and straight punches to set up power shots. On the ground, his grappling transitions are smooth, and he hunts for the neck relentlessly. Against Neil Magny, Stephen Thompson, and Geoff Neal — all top-15 welterweights — Rakhmonov showcased his finishing ability, never letting fights go to the judges. His Octagon time averages just 8 minutes per fight.</p>
+
+                <p><strong>Muhammad's High-Volume Pressure</strong></p>
+                <p>Belal Muhammad is the anti-finisher — he grinds opponents down with relentless pace, volume striking, and smothering top control. He throws 5.8 significant strikes per minute (top 10 in welterweight), mixing jabs, low kicks, and level changes to keep opponents guessing. Muhammad's wrestling is underrated; he landed 7 takedowns against Sean Brady and controlled Gilbert Burns for large portions of their fight. His cardio is elite — he never slows down in championship rounds. If Muhammad can survive Rakhmonov's early power and drag him into a grinding five-round war, his experience and pace could overwhelm the undefeated prospect.</p>
+
+                <p><strong>The Durability Factor</strong></p>
+                <p>Rakhmonov has never fought past the second round in his career. We don't know how his cardio holds up in championship rounds or how he responds to adversity when his finishing attempts are defended. Muhammad has fought 25 minutes in five-round fights multiple times and thrives in deep waters. If Muhammad can weather the early storm (rounds 1-2) and force Rakhmonov into unfamiliar territory (rounds 3-5), the experience gap could become decisive. However, Muhammad must avoid getting caught in submissions or eating a fight-ending power shot.</p>
+
+                <p><strong>Stylistic Clash: Finish vs Decision</strong></p>
+                <p>This is a fascinating stylistic matchup: Rakhmonov has never been to a decision, while Muhammad has gone to decision in 17 of his 27 UFC fights. One of these streaks will end. Either Rakhmonov extends his perfect finishing rate to 19-0, or Muhammad breaks Rakhmonov's finishing streak and drags him to an ugly decision. The over/under of 3.5 rounds is perfectly placed — bet on Rakhmonov's finishing ability (under), or bet on Muhammad's durability (over).</p>
+
+                <p><strong>Betting the Proven Finisher</strong></p>
+                <p>Rakhmonov at -185 is fair value for an undefeated prospect with 18 finishes against a durable but hittable opponent. Muhammad's durability is impressive, but he's been hurt by Gilbert Burns, Sean Brady, and Vicente Luque — all fighters with less one-punch power than Rakhmonov. The under 3.5 rounds offers value at -125, banking on Rakhmonov finding a finish before championship rounds. If you want a hedge, consider a small play on Muhammad by decision at +250 — if he survives early, his volume and cardio could steal rounds. Primary play: Rakhmonov inside the distance.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">Shavkat Rakhmonov ML (-185) + UNDER 3.5 Rounds (-125)</div>
+                    <div class="units">2.5 Units (1.5U ML, 1U Under)</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Featured Fight: Women's Flyweight -->
+        <article class="matchup">
+            <div class="fight-header">
+                <span class="fight-type">Featured Fight - Women's Flyweight (3 Rounds)</span>
+            </div>
+            <div class="m-header">
+                <div class="fighter">
+                    <div class="fighter-name">Valentina Shevchenko</div>
+                    <div class="fighter-record">24-4-0 | #1 FLW</div>
+                </div>
+                <span class="vs">VS</span>
+                <div class="fighter right">
+                    <div class="fighter-name">Manon Fiorot</div>
+                    <div class="fighter-record">12-1-0 | #2 FLW</div>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Saturday, Nov 8 — 9:00 PM ET — T-Mobile Arena, Las Vegas (ESPN+ PPV)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>Moneyline:</strong> Shevchenko +115 / Fiorot -135</div>
+                <div class="odds-item"><strong>Over/Under:</strong> 2.5 Rounds (+125/-150)</div>
+                <div class="odds-item"><strong>Method:</strong> Decision (-200) / Submission (+450) / KO/TKO (+300)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>The Changing of the Guard</strong></p>
+                <p>Valentina Shevchenko dominated the women's flyweight division for seven years, defending her title seven times before losing it to Alexa Grasso in a shocking upset. Now, at 37 years old, "Bullet" attempts to regain title contention against the rising star Manon Fiorot. The French striker is 12-1 with 10 finishes and has looked unstoppable in her UFC run, outstriking Rose Namajunas, Katlyn Chookagian, and Erin Blanchfield. This fight determines whether Shevchenko can reclaim her throne or if Fiorot is the future of the division.</p>
+
+                <p><strong>Shevchenko's Championship Pedigree</strong></p>
+                <p>Despite losing her title, Shevchenko remains one of the most well-rounded fighters in MMA. Her Muay Thai striking is technical and precise, her takedown defense is 82% (elite), and her fight IQ is unmatched. Shevchenko has only been finished once in her career (by Liz Carmouche in 2010), and she's fought the best competition in the world for over a decade. Her experience in big moments gives her an edge in three-round fights where every round matters. If Shevchenko can implement her game plan and avoid Fiorot's power, her experience could be the difference.</p>
+
+                <p><strong>Fiorot's Explosive Striking</strong></p>
+                <p>Manon Fiorot is a French karate black belt with explosive kicks and punches. She lands 5.4 significant strikes per minute with 51% accuracy — elite numbers for women's flyweight. Her knockout of former title challenger Jennifer Maia showcased her finishing power, while her decision win over Rose Namajunas proved she can outpoint elite competition. Fiorot's youth (33 years old vs Shevchenko's 37) and athleticism give her a physical edge. If she can pressure Shevchenko and force a firefight, her power could overwhelm the veteran.</p>
+
+                <p><strong>The Betting Value on the Underdog</strong></p>
+                <p>Shevchenko at +115 as an underdog feels disrespectful given her championship pedigree. The market is overvaluing Fiorot's recent wins and undervaluing Shevchenko's experience. This fight will go to decision (hence the -200 price), and in three-round decisions, experience and championship-level fight IQ matter. Take Shevchenko as a live underdog at +115 and expect a close, competitive decision that could go either way.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">Valentina Shevchenko ML (+115)</div>
+                    <div class="units">2.0 Units</div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime. All rights reserved.</p>
+        <p><a href="the-prime-protocol.html">About</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-data-stream.html">Blog</a></p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(234, 248, 255, 0.5);">
+            Gambling problem? Call 1-800-GAMBLER. Must be 21+ to wager.
+        </p>
+    </footer>
+</body>
+</html>

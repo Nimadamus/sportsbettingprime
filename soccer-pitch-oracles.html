@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Picks & Predictions - Sports Betting Prime</title>
+    <meta name="description" content="Expert soccer betting picks for Premier League, Champions League, MLS and more. Advanced algorithm analysis for today's best soccer spreads and totals.">
+    <meta name="keywords" content="soccer picks, soccer betting, Premier League predictions, Champions League picks, MLS betting, football predictions, soccer analysis">
+    <link rel="canonical" href="https://sportsbettingprime.com/soccer-pitch-oracles.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Soccer Pitch Oracles - Sports Betting Prime">
+    <meta property="og:description" content="Expert soccer betting analysis and predictions powered by advanced algorithms">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sportsbettingprime.com/soccer-pitch-oracles.html">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700;
+            --glass-bg: rgba(10, 8, 25, 0.6);
+            --glass-border: rgba(0, 255, 255, 0.2);
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.3) saturate(0.8);
+            z-index: -1;
+            animation: kenburns 60s ease-in-out infinite alternate;
+        }
+
+        @keyframes kenburns {
+            0% { transform: scale(1) translateX(0); }
+            100% { transform: scale(1.1) translateX(-20px); }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(1, 0, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-family: var(--font-primary);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b00, #ff9500);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            white-space: nowrap;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+        }
+
+        .slogan {
+            font-family: var(--font-primary);
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: var(--neon-cyan);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        }
+
+        .title {
+            font-family: var(--font-primary);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(234, 248, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .section-post {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .matchup {
+            background: linear-gradient(135deg, rgba(10, 8, 25, 0.8), rgba(15, 10, 35, 0.8));
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .matchup:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .m-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: var(--font-primary);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .team img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .vs {
+            font-family: var(--font-primary);
+            color: var(--neon-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .m-meta {
+            text-align: center;
+            color: rgba(234, 248, 255, 0.7);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .m-odds {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .odds-item {
+            font-family: var(--font-primary);
+            font-size: 0.95rem;
+        }
+
+        .odds-item strong {
+            color: var(--neon-gold);
+            margin-right: 0.5rem;
+        }
+
+        .m-body {
+            color: rgba(234, 248, 255, 0.9);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .m-body p {
+            margin-bottom: 1.3rem;
+        }
+
+        .m-body strong {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .directive-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 182, 18, 0.1));
+            border: 2px solid var(--neon-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .directive-box .pick-label {
+            font-family: var(--font-primary);
+            color: var(--neon-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .directive-box .pick {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .directive-box .units {
+            color: var(--neon-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .league-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 200, 255, 0.2));
+            border: 1px solid var(--neon-cyan);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-family: var(--font-primary);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            background: rgba(1, 0, 15, 0.95);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem;
+            text-align: center;
+            color: rgba(234, 248, 255, 0.6);
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            nav {
+                gap: 1rem;
+                font-size: 0.85rem;
+                justify-content: center;
+            }
+
+            .m-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .vs {
+                display: none;
+            }
+
+            .m-odds {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SPORTS BETTING PRIME</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="soccer-pitch-oracles.html" class="active">Soccer</a>
+            <a href="nba-court-oracles.html">NBA</a>
+            <a href="ncaa-hoops-oracles.html">NCAA Basketball</a>
+            <a href="mlb-prime-directives.html">MLB</a>
+            <a href="nfl-gridiron-oracles.html">NFL</a>
+            <a href="nhl-ice-oracles.html">NHL</a>
+            <a href="college-football.html">College Football</a>
+            <a href="the-data-stream.html">Blog</a>
+            <a href="performance-telemetry.html">Results</a>
+            <a href="the-prime-protocol.html">About</a>
+        </nav>
+        <a href="https://wlYouWager.adsrv.eacdn.com/C.ashx?btag=a_329706b_752c_&affid=2319&siteid=329706&adid=752&c=" class="cta-button" target="_blank">GET YOUR 350% BONUS</a>
+    </header>
+
+    <section class="hero">
+        <div class="slogan">THE PITCH ALGORITHM IS COMPUTING...</div>
+        <h1 class="title">SOCCER PITCH ORACLES</h1>
+        <p class="subtitle">Posted November 5, 2025 — Champions League, Premier League & MLS Playoffs</p>
+    </section>
+
+    <section class="section-post">
+
+        <!-- Game 1: Champions League - Real Madrid vs Liverpool -->
+        <article class="matchup">
+            <div style="text-align: center;">
+                <span class="league-badge">UEFA Champions League - Matchday 4</span>
+            </div>
+            <div class="m-header">
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/86.png" alt="Real Madrid">
+                    <span>Real Madrid</span>
+                </div>
+                <span class="vs">VS</span>
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/364.png" alt="Liverpool">
+                    <span>Liverpool</span>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Tuesday, Nov 5 — 3:00 PM ET — Santiago Bernabéu, Madrid (Paramount+)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>3-Way:</strong> RM +135 / Draw +260 / LIV +190</div>
+                <div class="odds-item"><strong>Spread:</strong> RM -0.5 (+105) / LIV +0.5 (-125)</div>
+                <div class="odds-item"><strong>Total Goals:</strong> O/U 2.5 (-120/+105)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>European Royalty Clash at the Bernabéu</strong></p>
+                <p>Real Madrid and Liverpool renew one of football's great modern rivalries in a pivotal Champions League group stage match. Both clubs have won a combined 20 European Cups/Champions League titles, and their recent history includes the 2022 Champions League Final (Real Madrid 1-0) and the 2018 Final (Real Madrid 3-1). This isn't just a match — it's a statement game for both clubs' European ambitions. Real Madrid enters with 7 points from 3 matches, while Liverpool sits on 9 points with a perfect record. The winner takes control of the group and potentially secures a more favorable Round of 16 draw.</p>
+
+                <p><strong>Kylian Mbappé's El Clásico Hangover</strong></p>
+                <p>Real Madrid comes into this match off a brutal 2-1 El Clásico loss to Barcelona on Saturday, where Kylian Mbappé was caught offside eight times in a disjointed performance. The French superstar has struggled to find chemistry with Vinícius Júnior and Jude Bellingham, often drifting into the same spaces and creating congestion. Carlo Ancelotti's system is still evolving, and the team looks vulnerable defensively without Toni Kroos' metronomic midfield control (retired after Euro 2024). Aurélien Tchouaméni and Federico Valverde are talented, but neither provides the same defensive stability or passing precision. Liverpool's high press will target Real Madrid's midfield transitions.</p>
+
+                <p><strong>Liverpool's Unstoppable Form Under Arne Slot</strong></p>
+                <p>Liverpool has been sensational under new manager Arne Slot, winning 11 of their first 13 matches across all competitions. The Reds lead the Premier League with 28 points from 11 games and haven't conceded more than one goal in a match since September. Mohamed Salah is in vintage form with 10 goals and 7 assists, while Darwin Núñez has finally found consistency (8 goals in 9 games). Liverpool's defensive structure under Slot is more disciplined than Jürgen Klopp's final years, with Virgil van Dijk anchoring a back line that has allowed just 0.91 xG per match in the Champions League.</p>
+
+                <p><strong>Tactical Battle: Ancelotti's Flexibility vs Slot's System</strong></p>
+                <p>Carlo Ancelotti will likely adjust his formation to counter Liverpool's 4-3-3 press. Expect Real Madrid to play a 4-4-2 or 4-2-3-1, with Luka Modrić (39 years old) potentially starting to provide midfield composure and press-breaking passes. The key battle will be in the wide areas — Vinícius Júnior vs Trent Alexander-Arnold is a fascinating duel. Trent's attacking brilliance comes with defensive vulnerabilities, and Vinícius loves to isolate fullbacks in 1v1 situations. On the opposite flank, Mohamed Salah vs Ferland Mendy presents a different challenge; Mendy is defensively solid but offers little going forward, potentially limiting Real Madrid's width.</p>
+
+                <p><strong>Set Pieces and Transition Moments</strong></p>
+                <p>Both teams excel in transition and set-piece situations. Real Madrid scored on the counter in both recent Champions League Finals against Liverpool, using Vinícius' pace and Modrić's through balls to devastating effect. Liverpool, meanwhile, leads the Premier League in goals from set pieces this season (9), with van Dijk and Ibrahima Konaté providing aerial dominance. The team that can limit transition opportunities and defend set pieces effectively will have a massive advantage. Expect both managers to emphasize defensive shape when possession is turned over.</p>
+
+                <p><strong>The Bernabéu Factor and European Pedigree</strong></p>
+                <p>Real Madrid's home record in Champions League knockout rounds is legendary — they've won 15 consecutive home knockout ties dating back to 2011. However, this is group stage, not knockout football, and Liverpool has the quality to win anywhere. The Santiago Bernabéu crowd will create an intimidating atmosphere, but Liverpool's experienced core (van Dijk, Salah, Alexander-Arnold) has thrived in these environments before. The emotional weight of this fixture could favor Liverpool, who are playing with freedom and confidence while Real Madrid carries the pressure of recent domestic struggles.</p>
+
+                <p><strong>Betting the Underdog in a Coin-Flip Match</strong></p>
+                <p>The market has this game priced as a virtual coin flip, with Real Madrid slight favorites at home. However, Liverpool's current form and tactical organization make them the better bet at +190 on the 3-way moneyline. If you prefer safety, Liverpool +0.5 on the spread (-125) ensures a push on a draw and a win if Liverpool win outright. The total of 2.5 goals is intriguing — both teams have elite attackers but also quality defenses. In big Champions League matches, teams often play conservatively, leading to lower-scoring affairs. The under 2.5 at +105 offers value, but this could also be a 3-2 thriller. For the main play, back Liverpool's form and trust Arne Slot's tactical discipline.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">Liverpool FC +0.5 (-125) + Liverpool ML (+190)</div>
+                    <div class="units">2.5 Units (1.5U Spread, 1U ML)</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Game 2: Premier League - Arsenal vs Chelsea -->
+        <article class="matchup">
+            <div style="text-align: center;">
+                <span class="league-badge">English Premier League - Matchweek 11</span>
+            </div>
+            <div class="m-header">
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/359.png" alt="Arsenal">
+                    <span>Arsenal</span>
+                </div>
+                <span class="vs">VS</span>
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/363.png" alt="Chelsea">
+                    <span>Chelsea</span>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Tuesday, Nov 5 — 3:00 PM ET — Emirates Stadium, London (USA Network)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>3-Way:</strong> ARS -155 / Draw +280 / CHE +400</div>
+                <div class="odds-item"><strong>Spread:</strong> ARS -1.5 (+180) / CHE +1.5 (-225)</div>
+                <div class="odds-item"><strong>Total Goals:</strong> O/U 2.5 (-135/+115)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>The London Derby with Title Implications</strong></p>
+                <p>Arsenal enters this North London derby sitting 2nd in the Premier League table with 24 points, just 4 behind leaders Liverpool. Mikel Arteta's side has won 7 of 10 league matches but drew frustratingly against Newcastle and Everton, dropping points that could prove costly. Chelsea, under new manager Mauricio Pochettino, sits in 6th place with 17 points — a respectable start given their squad's youth and transition period. This match represents Arsenal's opportunity to make a statement and keep pace with Liverpool, while Chelsea looks to play spoiler and announce themselves as genuine top-four contenders.</p>
+
+                <p><strong>Arsenal's Attacking Evolution</strong></p>
+                <p>Arteta's Arsenal is no longer just a defensive team that grinds out 1-0 wins. They've added dynamism with the summer signing of Brazilian winger Martinelli's backup, and Bukayo Saka has developed into one of the Premier League's most dangerous attackers (6 goals, 8 assists in 10 games). Gabriel Jesus provides intelligent movement and pressing intensity up top, while Martin Ødegaard orchestrates from the #10 role. Arsenal's buildup is patient and methodical, probing for weaknesses in defensive shape before exploding with quick combinations in the final third. They rank 2nd in the league in expected goals (xG) at 2.1 per game.</p>
+
+                <p><strong>Chelsea's Youth and Inconsistency</strong></p>
+                <p>Chelsea's squad features nine players aged 23 or younger in regular rotation — a testament to their rebuild strategy but also the source of frustrating inconsistency. One week they'll dominate Manchester United 3-0, the next they'll lose to Nottingham Forest. Cole Palmer has been a revelation since his move from Manchester City (5 goals, 4 assists), providing creativity and goal-scoring threat. Raheem Sterling continues to blow hot and cold, while Nicolas Jackson leads the line with pace but questionable finishing. Chelsea's biggest issue is defensive fragility; they've conceded 2+ goals in 5 of 10 league games, often due to individual errors and poor communication.</p>
+
+                <p><strong>Tactical Matchup: Arsenal's Possession vs Chelsea's Counter</strong></p>
+                <p>Arsenal will dominate possession — they average 61.3% in home games — and force Chelsea to defend deep. The Gunners' primary attacking pattern involves overloading one side of the pitch, drawing defensive attention, then quickly switching play to the weak side where Saka or Martinelli have space to attack isolated fullbacks. Chelsea will sit in a mid-block, compact the center, and look to hit Arsenal on the counter through Sterling and Palmer's pace. The key tactical question: can Arsenal break down Chelsea's low block without leaving themselves exposed to transition attacks?</p>
+
+                <p><strong>Set Pieces: Arsenal's Secret Weapon</strong></p>
+                <p>Arsenal leads the Premier League in goals from set pieces (11 this season), with Ødegaard's deliveries finding Gabriel Magalhães and William Saliba repeatedly. Both center-backs are 6'3" and athletic, creating mismatches against smaller defenders. Chelsea has been vulnerable on set pieces all season, conceding 6 goals from corners and free kicks. Expect Arsenal to earn 6-8 corners in this match, and at least two will create dangerous goalscoring opportunities. Chelsea must defend set pieces perfectly to keep this game close.</p>
+
+                <p><strong>The Enzo Fernández Question</strong></p>
+                <p>Chelsea's £106 million midfielder Enzo Fernández has struggled to justify his massive fee, often looking overrun in big matches. Against Arsenal's physical midfield of Declan Rice and Thomas Partey, Fernández will need to be perfect in his positioning and decision-making. If Arsenal can win the midfield battle and limit Fernández's passing angles, Chelsea's transition game collapses. Conversely, if Fernández can find pockets of space and play killer through balls to Palmer and Sterling, Chelsea has a path to goal.</p>
+
+                <p><strong>Betting the Home Favorite to Control and Win</strong></p>
+                <p>Arsenal at -155 on the moneyline is fair value given their home form (7-1-0 in all competitions at Emirates this season) and Chelsea's defensive issues. The spread of Arsenal -1.5 at +180 is tempting but risky — Arsenal tends to win close games rather than blowouts. The total of 2.5 goals is likely to go over given both teams' attacking talent and Chelsea's defensive vulnerabilities. Arsenal should win 2-1 or 3-1, making the straight moneyline the safest play. If you want action on the goal total, take over 2.5 at -135.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">Arsenal FC Moneyline (-155) + Over 2.5 Goals (-135)</div>
+                    <div class="units">2.0 Units (1U each leg)</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Game 3: MLS Playoffs - LAFC vs Seattle Sounders -->
+        <article class="matchup">
+            <div style="text-align: center;">
+                <span class="league-badge">MLS Cup Playoffs - Conference Semifinals</span>
+            </div>
+            <div class="m-header">
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/11613.png" alt="LAFC">
+                    <span>LAFC</span>
+                </div>
+                <span class="vs">VS</span>
+                <div class="team">
+                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/9726.png" alt="Seattle Sounders">
+                    <span>Seattle Sounders</span>
+                </div>
+            </div>
+
+            <div class="m-meta">
+                Tuesday, Nov 5 — 10:00 PM ET — BMO Stadium, Los Angeles (Apple TV)
+            </div>
+
+            <div class="m-odds">
+                <div class="odds-item"><strong>3-Way:</strong> LAFC -125 / Draw +260 / SEA +310</div>
+                <div class="odds-item"><strong>Spread:</strong> LAFC -0.5 (+115) / SEA +0.5 (-140)</div>
+                <div class="odds-item"><strong>Total Goals:</strong> O/U 2.5 (-110/-110)</div>
+            </div>
+
+            <div class="m-body">
+                <p><strong>MLS Playoff Rivalry Renewed</strong></p>
+                <p>LAFC and Seattle Sounders have developed a fierce playoff rivalry, meeting three times in the postseason since LAFC's founding in 2018. Seattle won the 2020 Western Conference Final, while LAFC claimed victory in the 2022 Conference Semifinals. This year's matchup features LAFC as the higher seed (#2 in the West) hosting the Sounders (#5 seed), who scraped into the playoffs on Decision Day. The single-elimination format adds drama — there's no tomorrow if you lose. Both teams have MLS Cup pedigree: LAFC won in 2022, Seattle won in 2016 and 2019.</p>
+
+                <p><strong>LAFC's Attacking Firepower</strong></p>
+                <p>LAFC boasts one of MLS's most potent attacks, led by French striker Olivier Giroud (on loan from AC Milan) and Uruguayan winger Cristian Olivera. Giroud, at 38 years old, is still finding the net regularly with 12 goals in 18 MLS appearances. His hold-up play and movement in the box create space for Olivera and midfielder Mateusz Bogusz to exploit. LAFC scored 65 goals in the regular season (2nd in MLS) and average 2.1 goals per home match at BMO Stadium. Their 3-4-3 formation under head coach Steve Cherundolo overwhelms opponents with width and diagonal runs.</p>
+
+                <p><strong>Seattle's Playoff DNA and Road Warrior Mentality</strong></p>
+                <p>The Sounders finished the regular season with just 47 points, limping into the playoffs with losses in 3 of their final 5 matches. However, playoff Seattle is a different animal. They've made the playoffs in all 15 seasons of MLS existence and have never lost a playoff series before the Conference Finals. Jordan Morris, their homegrown star, has 8 career playoff goals and thrives in high-pressure moments. Seattle's defense, anchored by Nouhou Tolo and Jackson Ragen, excels in compact spaces and transition defending. Their strategy will be to absorb LAFC's pressure, stay organized defensively, and hit on the counter.</p>
+
+                <p><strong>Midfield Battle: Ilie Sánchez vs João Paulo</strong></p>
+                <p>The midfield matchup between LAFC's Ilie Sánchez and Seattle's João Paulo will dictate the flow of this match. Sánchez is LAFC's defensive midfielder and press-breaker, dropping deep to receive the ball from defenders and initiate attacks with his precise passing. Seattle will need to press him aggressively and force turnovers in dangerous areas. João Paulo, recovering from an ACL injury suffered in 2023, has been Seattle's best player since returning in August. His ability to control tempo and spray passes from deep allows Seattle to build attacks patiently and avoid turning the ball over in dangerous areas.</p>
+
+                <p><strong>Set Pieces and Second Balls</strong></p>
+                <p>MLS playoff games are often decided by set pieces and scrappy goals from second balls. LAFC earned 172 corners during the regular season (5th most in MLS), and their height advantage with Giroud and center-back Aaron Long makes them dangerous on deliveries. Seattle, meanwhile, relies on grit and winning second balls in the box. Nouhou's long throw-ins are a legitimate weapon, creating chaos in the penalty area. Expect both teams to have 3-4 genuine scoring chances from set pieces — the team that executes will likely advance.</p>
+
+                <p><strong>BMO Stadium Atmosphere and Home Field Advantage</strong></p>
+                <p>LAFC's home stadium is one of MLS's most intimidating venues, with 22,000 passionate fans creating a cauldron of noise. LAFC is 11-3-3 at home this season with a +19 goal differential. The North End supporters section provides constant energy, and teams that wilt under pressure struggle at BMO Stadium. Seattle, however, has playoff experience on hostile roads — they've won at Portland, Kansas City, and Colorado in previous playoff runs. Their veteran core won't be rattled by the atmosphere. This is as much a mental test as a tactical one.</p>
+
+                <p><strong>Betting the Home Team in Single-Elimination Chaos</strong></p>
+                <p>Single-elimination playoff soccer is unpredictable, but LAFC's quality and home field give them the edge. The moneyline at -125 is reasonable, but the -0.5 spread at +115 offers better value. If the game goes to extra time or penalties, the spread bet pushes, while if LAFC wins in regulation (most likely outcome), you cash at plus-money. Seattle's playoff history is impressive, but their late-season form was abysmal. The total of 2.5 could go either way — playoff games are often tight and low-scoring, but LAFC's attack can explode for 3 goals at any moment. Lean toward the under, but the primary play is LAFC -0.5 in regulation.</p>
+
+                <div class="directive-box">
+                    <div class="pick-label">PRIME DIRECTIVE</div>
+                    <div class="pick">LAFC -0.5 (+115) in Regulation</div>
+                    <div class="units">2.0 Units</div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime. All rights reserved.</p>
+        <p><a href="the-prime-protocol.html">About</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-data-stream.html">Blog</a></p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(234, 248, 255, 0.5);">
+            Gambling problem? Call 1-800-GAMBLER. Must be 21+ to wager.
+        </p>
+    </footer>
+</body>
+</html>
