@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>College Basketball — Sports Betting Prime</title>
+<style>
+    :root{
+      --gold:#ffd700;
+      --gold-strong:#ffff00;
+      --cyan:#00ffff;
+      --ink:#ffffff;      /* site uses light text on dark bg */
+      --muted:#c9c9c9;
+      --rule:#1f2330;
+      --maxw:1140px;
+    }
+
+    /* ==== Base / Background ==== */
+    html,body{height:100%; margin:0;}
+    body{
+      background:#000;
+      color:var(--ink);
+      font-family:"Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.7;
+      /* starry fallback without needing an image */
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.25) 40%, transparent 41%),
+        radial-gradient(1.5px 1.5px at 80% 70%, rgba(255,255,255,.18) 40%, transparent 41%),
+        radial-gradient(1.2px 1.2px at 60% 20%, rgba(255,255,255,.14) 40%, transparent 41%),
+        radial-gradient(2px 2px at 40% 80%, rgba(255,255,255,.20) 40%, transparent 41%),
+        radial-gradient(900px 600px at 50% 40%, rgba(0,0,0,.35), rgba(0,0,0,.9));
+      background-size:auto,auto,auto,auto,cover;
+      background-attachment:fixed;
+    }
+
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 16px;}
+
+    /* ==== Header / Nav ==== */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(0,0,0,.85);
+      backdrop-filter:saturate(120%) blur(2px);
+      border-bottom:1px solid #0a0d17;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+      font-weight:900; letter-spacing:.4px; color:#fff; font-size:18px;
+    }
+    .brand .prime{color:var(--cyan); text-shadow:0 0 6px rgba(0,255,255,.35);}
+    .menu{display:flex; gap:22px; align-items:center;}
+    .menu a{
+      color:#fff; text-decoration:none; font-weight:700; font-size:14px; text-transform:uppercase;
+      opacity:.9;
+    }
+    .menu a:hover{opacity:1;}
+    .menu a.active{color:var(--gold);}
+    .cta{
+      background:var(--gold); color:#000; border:none; border-radius:8px;
+      padding:10px 14px; font-weight:900; text-transform:uppercase; cursor:pointer;
+      box-shadow:0 3px 0 rgba(0,0,0,.35);
+    }
+    .cta:hover{filter:brightness(1.05);}
+
+    /* ==== Hero ==== */
+    .hero{ text-align:center; padding:42px 0 20px;}
+    .hero h1{
+      margin:0;
+      font-size: clamp(28px, 4.2vw, 44px);
+      line-height:1.15;
+      color:var(--gold);
+      text-transform:uppercase;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+    .hero .sub{color:var(--muted); font-size:14px; margin-top:8px;}
+
+    /* ==== Article Card ==== */
+    .card{
+      background:rgba(0,0,0,.55);
+      border:1px solid var(--rule);
+      border-radius:12px;
+      padding:28px 22px;
+      box-shadow:0 2px 16px rgba(0,0,0,.35);
+      margin:0 auto 64px;
+      max-width:900px;
+    }
+    .section-title{
+      display:flex; align-items:center; gap:12px;
+      margin:26px 0 12px;
+      text-transform:uppercase; font-size: clamp(18px, 2.4vw, 24px);
+      font-weight:900; color:var(--cyan); letter-spacing:.25px;
+    }
+    .section-title::before{
+      content:""; width:6px; height:1.2em; background:linear-gradient(var(--cyan), rgba(0,224,255,.6)); border-radius:3px;
+    }
+    p{margin:0 0 16px; font-size:17px;}
+    .list{list-style:none; padding-left:0; margin:0 0 10px;}
+    .list li{
+      position:relative; padding-left:26px; margin:8px 0; font-size:17px;
+    }
+    .list li::before{
+      content:"▶"; position:absolute; left:0; top:2px; color:var(--cyan); font-size:14px;
+    }
+    .hr{
+      height:1px; border:0; margin:20px 0;
+      background:linear-gradient(to right, transparent, #2a3348, transparent);
+    }
+    .pick{
+      border:0;
+      border-radius:12px; padding:20px; text-align:center; margin-top:22px;
+      background:rgba(255,215,0,.08);
+      box-shadow:0 0 0 1px rgba(255,215,0,.35) inset;
+    }
+    .pick .kicker{
+      text-transform:uppercase; color:#c7b200; font-size:13px; margin-bottom:6px;
+      letter-spacing:.25px;
+    }
+    .pick .value{font-size:22px; font-weight:900; color:var(--gold-strong);}
+
+    /* ==== Season Analysis Styles ==== */
+    .season-analysis{
+      background:rgba(0,0,0,.7);
+      border:1px solid rgba(0,224,255,.35);
+      border-radius:15px;
+      padding:35px;
+      margin:30px auto 50px;
+      max-width:1000px;
+    }
+    .analysis-header{
+      text-align:center;
+      color:var(--cyan);
+      font-size:32px;
+      font-weight:900;
+      margin-bottom:30px;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+    .team-breakdown{
+      background:rgba(0,224,255,.08);
+      border-radius:10px;
+      padding:25px;
+      margin:25px 0;
+      border-left:3px solid rgba(0,224,255,.65);
+    }
+    .team-title{
+      color:var(--gold);
+      font-size:24px;
+      font-weight:900;
+      margin-bottom:15px;
+    }
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:15px;
+      margin:15px 0;
+    }
+    .stat-item{
+      background:rgba(0,0,0,.3);
+      padding:12px;
+      border-radius:8px;
+      text-align:center;
+    }
+    .stat-label{color:var(--muted);}
+    .stat-value{color:#fff; font-weight:bold;}
+    .pick-of-day{
+      background:linear-gradient(135deg, rgba(255,215,0,.15), rgba(0,224,255,.1));
+      border:2px solid var(--gold);
+      border-radius:15px;
+      padding:30px;
+      margin:30px 0;
+      text-align:center;
+      box-shadow:0 0 0 1px rgba(0,0,0,.35) inset;
+    }
+    .pod-header{
+      color:var(--gold);
+      font-size:28px;
+      font-weight:900;
+      margin-bottom:20px;
+      text-transform:uppercase;
+    }
+
+    /* ==== Footer ==== */
+    footer{
+      border-top:1px solid #0a0d17;
+      background:rgba(0,0,0,.85);
+      padding:26px 0 36px; color:var(--muted); font-size:14px;
+    }
+    .footnav{
+      display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-bottom:8px;
+    }
+    .footnav a{color:#fff; text-decoration:none; text-transform:uppercase; font-weight:700; font-size:12px; opacity:.9;}
+    .footnav a:hover{opacity:1;}
+    .copy{ text-align:center; font-size:12px; color:#9aa3b2;}
+  </style>
+</head>
+<body>
+<!-- ===== Top Navigation ===== -->
+<div class="topbar">
+<div class="wrap nav">
+<a aria-label="Sports Betting Prime Home" class="brand" href="index.html">
+<span>SPORTS BETTING</span><span class="prime">PRIME</span>
+</a>
+<nav aria-label="Primary" class="menu">
+<a href="index.html">Home</a>
+<a href="mlb-prime-directives.html">MLB</a>
+<a href="nfl-gridiron-oracles.html">NFL</a>
+<a href="nhl-ice-oracles.html">NHL</a>
+<a href="college-football.html">College Football</a>
+<a class="active" href="college-basketball.html">College Basketball</a>
+<a href="the-data-stream.html">Blog</a>
+<a href="performance-telemetry.html">Results</a>
+<a class="cta" href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank">Get Your 350% Bonus</a>
+</nav>
+</div>
+</div>
+
+<!-- ===== Season Preview Section ===== -->
+<section class="wrap">
+<article class="season-analysis">
+  <h2 class="analysis-header">2025-26 College Basketball Season Preview — The Court Returns</h2>
+  <div style="text-align:center; color:var(--muted); margin-bottom:30px;">
+    November 3, 2025 | Season Tip-Off Analysis
+  </div>
+
+  <div style="background:rgba(255,215,0,.1); border-radius:10px; padding:25px; margin:25px 0; border:1px solid var(--gold);">
+    <h3 style="color:var(--gold); margin-bottom:15px; font-size:22px;">The Wait is Over</h3>
+    <p>
+      More than 200 days have passed since Florida cut down the nets as 2024-25 national champions. The college basketball landscape has been reshaped through the transfer portal, NIL deals, and coaching changes. Now, on November 3rd, the 2025-26 season finally tips off with a new set of championship contenders ready to make their mark. The probabilities have been calculated. The data has been analyzed. The court is ready.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">No. 1 Purdue Boilermakers — Historic Preseason Ranking</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">Preseason Ranking</div><div class="stat-value">AP #1 (First Time Ever)</div></div>
+      <div class="stat-item"><div class="stat-label">Key Return</div><div class="stat-value">Braden Smith (All-American)</div></div>
+      <div class="stat-item"><div class="stat-label">Top Scorer</div><div class="stat-value">Trey Kaufman-Renn (20.1 PPG)</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">Big Ten</div></div>
+    </div>
+    <h3 class="section-title">Why Purdue is the Team to Beat</h3>
+    <p>
+      For the first time in program history, Purdue begins the season as the AP #1 preseason team. This isn't hype—it's earned. All-American guard Braden Smith returns as one of the nation's elite facilitators, combining elite court vision with clutch scoring ability. His ability to control tempo and create advantages in halfcourt sets makes Purdue's offense nearly impossible to defend consistently.
+    </p>
+    <p>
+      Trey Kaufman-Renn averaged 20.1 points per game last season while earning All-Big Ten honors. His combination of size, skill, and basketball IQ gives Purdue a true matchup nightmare in the post. He can score on the block, step out for mid-range jumpers, and pass out of double teams. When you pair him with Smith's playmaking, Purdue has the best inside-outside combination in college basketball.
+    </p>
+    <p>
+      The Big Ten will be a gauntlet, but Purdue has championship pedigree and veteran leadership. Matt Painter has built a program that consistently competes at the highest level. This year, with the experience and talent returning, the Boilermakers aren't just contenders—they're favorites.
+    </p>
+
+    <h3 class="section-title">Betting Market Analysis</h3>
+    <p>
+      Purdue will command heavy favoritism in most matchups this season, but the key is identifying spots where the market overvalues their dominance. Early season non-conference games will likely have inflated spreads. The value comes in conference play when fatigue sets in and the grind of Big Ten basketball takes its toll. Watch for spot plays where Purdue is on short rest or playing on the road against tough defensive teams.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">Houston Cougars — Defensive Powerhouse Returns</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">Preseason Ranking</div><div class="stat-value">AP Top 3</div></div>
+      <div class="stat-item"><div class="stat-label">Identity</div><div class="stat-value">Elite Defense</div></div>
+      <div class="stat-item"><div class="stat-label">Coach</div><div class="stat-value">Kelvin Sampson</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">Big 12</div></div>
+    </div>
+    <h3 class="section-title">The Sampson System Reloads</h3>
+    <p>
+      Kelvin Sampson has built Houston into a defensive juggernaut that suffocates opponents with relentless pressure. The Cougars don't just play defense—they weaponize it. Full-court pressure, switching schemes, and physical play at every position create turnovers and easy transition baskets. Houston's defensive efficiency metrics have been elite for years, and this season is no different.
+    </p>
+    <p>
+      The key to Houston's success is their depth and interchangeable parts. Sampson can throw multiple defensive looks at opponents without sacrificing intensity or execution. The Cougars force teams into uncomfortable situations where every possession becomes a battle. When you can't get clean looks in the halfcourt and every entry pass is contested, scoring becomes brutally difficult.
+    </p>
+    <p>
+      Offensively, Houston isn't going to blow you away with flashy playmaking, but they don't need to. They control tempo, limit possessions, and capitalize on opponent mistakes. When you combine elite defense with disciplined offensive execution, you get a team that consistently wins close games and covers spreads.
+    </p>
+
+    <h3 class="section-title">Betting Edge: Under the Total</h3>
+    <p>
+      Houston games consistently go under the total. Their defensive identity and methodical pace reduce possessions and scoring opportunities. When betting Houston, the under is often the strongest play, especially when they face teams that like to push tempo. The Cougars will slow the game down, grind out possessions, and turn games into defensive battles. Look for unders in Big 12 conference play where the competition is fierce and Houston's defense takes over.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">St. John's Red Storm — Rick Pitino's Portal Masterclass</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">CBS Ranking</div><div class="stat-value">#1 Preseason</div></div>
+      <div class="stat-item"><div class="stat-label">Coach</div><div class="stat-value">Rick Pitino</div></div>
+      <div class="stat-item"><div class="stat-label">Key Return</div><div class="stat-value">Zuby Ejiofor</div></div>
+      <div class="stat-item"><div class="stat-label">Transfer Class</div><div class="stat-value">Nation's Best</div></div>
+    </div>
+    <h3 class="section-title">Pitino Does It Again</h3>
+    <p>
+      Rick Pitino is one of the greatest coaches in college basketball history, and he's assembled what many believe is the nation's best transfer portal class. St. John's isn't rebuilding—they're reloading with instant impact players who know how to win. Zuby Ejiofor returns as the anchor, but the additions through the portal give Pitino the pieces to compete for a national championship immediately.
+    </p>
+    <p>
+      Pitino's system thrives on versatility and basketball IQ. He doesn't need five McDonald's All-Americans—he needs players who understand their roles, execute defensively, and make winning plays. The transfer portal allowed him to handpick experienced players who fit his system perfectly. This isn't a team learning to play together—these are veterans who know how to win.
+    </p>
+    <p>
+      The Big East will be a brutal conference, but St. John's has the coaching, talent, and experience to navigate it. Madison Square Garden provides one of the best home court advantages in the sport, and Pitino knows how to leverage it. Expect St. John's to be in the thick of the Big East race all season long.
+    </p>
+
+    <h3 class="section-title">Betting Angle: Home Favorites</h3>
+    <p>
+      St. John's will be dangerous at Madison Square Garden. Pitino-coached teams tend to cover spreads at home, especially early in the season when the system is being installed and opponents are still figuring things out. Look for value on St. John's home spreads, particularly against mid-tier Big East opponents who struggle with the atmosphere and physicality.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">Kentucky Wildcats — Mark Pope's Second Act</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">2024-25 Result</div><div class="stat-value">Sweet Sixteen</div></div>
+      <div class="stat-item"><div class="stat-label">Coach</div><div class="stat-value">Mark Pope (Year 2)</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">SEC</div></div>
+      <div class="stat-item"><div class="stat-label">Outlook</div><div class="stat-value">Championship Contender</div></div>
+    </div>
+    <h3 class="section-title">Year Two Expectations</h3>
+    <p>
+      Mark Pope exceeded expectations in his first season at Kentucky, leading the Wildcats to the Sweet Sixteen. Now, in year two, the expectations are even higher. Pope's system is installed, the players understand his schemes, and Kentucky is positioned to make a deep tournament run. The combination of veteran leadership and elite recruiting makes this team a legitimate national championship threat.
+    </p>
+    <p>
+      Pope's offensive system emphasizes spacing, ball movement, and high-percentage shots. Kentucky will feature a balanced attack with multiple scoring options and the ability to adjust based on matchups. Defensively, Pope demands effort and communication, turning Kentucky into a team that can switch across multiple positions and disrupt opponent offensive flow.
+    </p>
+    <p>
+      The SEC is loaded this season, but Kentucky has the talent and coaching to win the conference. Rupp Arena remains one of the toughest venues in college basketball, and Kentucky will protect home court throughout the season. The question isn't if Kentucky makes the tournament—it's how far they go once they're there.
+    </p>
+
+    <h3 class="section-title">Betting Strategy: Conference Play Value</h3>
+    <p>
+      Kentucky will be overvalued early in the season as casual bettors pile on the Wildcats name brand. The value comes in SEC conference play when the competition stiffens and Kentucky is properly tested. Look for spots where Kentucky is an underdog or getting less than 3 points as a favorite against quality SEC opponents. Pope-coached teams tend to perform well in these competitive environments.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">UConn Huskies — Reloading After Championship Pedigree</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">Recent Success</div><div class="stat-value">2x Champs in 3 Years</div></div>
+      <div class="stat-item"><div class="stat-label">Key Returns</div><div class="stat-value">Alex Karaban, Solo Ball</div></div>
+      <div class="stat-item"><div class="stat-label">Coach</div><div class="stat-value">Dan Hurley</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">Big East</div></div>
+    </div>
+    <h3 class="section-title">Championship DNA</h3>
+    <p>
+      UConn has won two national championships in the last three years. That's not luck—that's a program with championship DNA. Dan Hurley has built a system that develops players, maximizes talent, and performs when it matters most. Alex Karaban and Solo Ball return as the veteran leaders, providing experience and continuity for a program that knows how to win.
+    </p>
+    <p>
+      Karaban is one of the most underrated players in college basketball. He's a versatile forward who can score in multiple ways, defend multiple positions, and make winning plays consistently. Solo Ball brings athleticism and defensive intensity that sets the tone for the entire team. Together, they form a duo that can carry UConn through the toughest stretches of the season.
+    </p>
+    <p>
+      The Big East is loaded, but UConn has proven they can navigate tough conference play and peak at the right time. Hurley's ability to adjust game plans and motivate his team in March is elite. This isn't a team that will dominate the regular season—they'll save their best for when it matters most.
+    </p>
+
+    <h3 class="section-title">Tournament Focus</h3>
+    <p>
+      UConn is built for March. While regular season trends matter, the real value with UConn comes in tournament play when their experience and championship pedigree take over. Don't overreact to regular season losses—this team knows how to peak when it counts.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">BYU Cougars — AJ Dybantsa Hype Train</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">Star Player</div><div class="stat-value">AJ Dybantsa</div></div>
+      <div class="stat-item"><div class="stat-label">Player Profile</div><div class="stat-value">Top Prospect</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">Big 12</div></div>
+      <div class="stat-item"><div class="stat-label">Outlook</div><div class="stat-value">Rising Program</div></div>
+    </div>
+    <h3 class="section-title">The Next NBA Lottery Pick</h3>
+    <p>
+      AJ Dybantsa is one of the most talented players in college basketball this season. His combination of size, athleticism, and skill makes him a nightmare matchup for opposing defenses. BYU landed a legitimate star, and the entire program will benefit from his presence. Dybantsa isn't just a scorer—he's a playmaker who can create for himself and others in critical moments.
+    </p>
+    <p>
+      BYU plays in the competitive Big 12, which means Dybantsa will be tested every night. The key is how the supporting cast around him performs. If BYU can provide adequate spacing and secondary scoring, Dybantsa will have the freedom to dominate. If teams can load up on him and force others to beat them, BYU will struggle.
+    </p>
+    <p>
+      This is a team that will generate significant betting interest because of Dybantsa's star power. The public will overvalue BYU in certain spots, creating fade opportunities when the Cougars are overpriced against quality competition.
+    </p>
+
+    <h3 class="section-title">Betting Fade Spots</h3>
+    <p>
+      Look for opportunities to fade BYU when they're laying big numbers on the road or facing elite defensive teams that can limit Dybantsa's effectiveness. Star power creates inflated lines, and the sharp money knows when to go against the hype.
+    </p>
+  </div>
+
+  <div class="team-breakdown">
+    <div class="team-title">Texas Tech Red Raiders — Elite Defensive Identity</div>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-label">Star Player</div><div class="stat-value">JT Toppin (All-American)</div></div>
+      <div class="stat-item"><div class="stat-label">Lost to Portal</div><div class="stat-value">Darrion Williams</div></div>
+      <div class="stat-item"><div class="stat-label">Conference</div><div class="stat-value">Big 12</div></div>
+      <div class="stat-item"><div class="stat-label">Identity</div><div class="stat-value">Defense & Toughness</div></div>
+    </div>
+    <h3 class="section-title">Toppin's Last Stand</h3>
+    <p>
+      JT Toppin is one of the premier forwards in college basketball. His combination of rebounding, interior defense, and scoring efficiency makes him a cornerstone player. Despite losing Darrion Williams to the transfer portal, Texas Tech still has the pieces to compete in the brutal Big 12. Toppin will need to elevate his game even further, but he has the talent to carry this team.
+    </p>
+    <p>
+      Texas Tech's defensive identity remains intact. They'll pressure the ball, contest every shot, and make you earn everything. The Red Raiders won't beat themselves with turnovers or poor shot selection—they'll grind you down and force you into uncomfortable situations. In a conference as competitive as the Big 12, that defensive foundation keeps Texas Tech in every game.
+    </p>
+
+    <h3 class="section-title">Under Value</h3>
+    <p>
+      Texas Tech games tend to go under the total, especially at home. Their defensive system limits opponent scoring, and their methodical offensive approach reduces possessions. When betting Texas Tech, the under is often the strongest play.
+    </p>
+  </div>
+
+  <div class="pick-of-day">
+    <div class="pod-header">Season-Long Betting Strategy</div>
+    <p style="margin-top:20px; text-align:left;">
+      <strong>Championship Futures Value:</strong> Purdue at the top will command short odds, but the value lies in teams like Houston and St. John's who have the coaching, defense, and experience to make deep runs. Kentucky also presents value as a second-year Pope team hitting its stride.
+    </p>
+    <p style="text-align:left;">
+      <strong>Conference Winner Plays:</strong> In the Big Ten, Purdue is the favorite but watch for value on Michigan State and Illinois as the season progresses. In the Big 12, Houston and Kansas will battle, but don't sleep on Texas Tech's defensive identity. The Big East will be a battle between St. John's, UConn, and Marquette.
+    </p>
+    <p style="text-align:left;">
+      <strong>Regular Season Betting Approach:</strong> Target unders in defensive-oriented matchups (Houston, Texas Tech, Virginia). Fade overvalued star players on the road (BYU with Dybantsa). Look for home underdogs in conference play where familiarity breeds competitive games.
+    </p>
+    <p style="text-align:left;">
+      <strong>March Madness Focus:</strong> Teams with championship experience (UConn, Purdue) and elite coaching (Sampson, Pitino, Hurley, Pope) provide the best value in tournament futures. Experience matters in March, and these programs have proven they can execute under pressure.
+    </p>
+  </div>
+
+  <div style="background:rgba(255,215,0,.1); border-radius:10px; padding:25px; margin:25px 0; border:1px solid var(--gold);">
+    <h3 style="color:var(--gold); margin-bottom:15px; font-size:22px;">The Algorithm Has Spoken</h3>
+    <p>
+      College basketball is back, and the probabilities are loaded in our favor. The 2025-26 season brings championship contenders, NBA lottery picks, and betting value every single night. Purdue enters as the historic #1 preseason team. Houston brings elite defense. St. John's reloads with Pitino magic. Kentucky hits year two of the Pope era. UConn brings championship DNA. The court is set. The lines are loaded. The season tips off November 3rd. Let's hack the matrix and cash tickets.
+    </p>
+  </div>
+
+</article>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+<div class="wrap">
+<nav aria-label="Footer" class="footnav">
+<a href="mlb-prime-directives.html">MLB</a>
+<a href="nfl-gridiron-oracles.html">NFL</a>
+<a href="nhl-ice-oracles.html">NHL</a>
+<a href="college-football.html">College Football</a>
+<a href="college-basketball.html">College Basketball</a>
+<a href="the-data-stream.html">Blog</a>
+<a href="performance-telemetry.html">Results</a>
+<a href="the-prime-protocol.html">About</a>
+</nav>
+<div class="copy">© 2025 Sports Betting Prime. All rights reserved.</div>
+</div>
+</footer>
+</body>
+</html>
