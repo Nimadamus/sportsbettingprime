@@ -1,0 +1,41 @@
+# Security settings for Image Duplicate Detector
+
+# Prevent access to config file
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Prevent direct access to class file
+<Files "ImageDuplicateDetector.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Prevent directory listing
+Options -Indexes
+
+# Only allow specific file types
+<FilesMatch "\.(php|html)$">
+    # PHP files are allowed
+</FilesMatch>
+
+# Enable GZIP compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
+</IfModule>
+
+# Set cache headers for images
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+</IfModule>
+
+# Prevent hotlinking (optional - uncomment to enable)
+# RewriteEngine On
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^https?://(www\.)?realaigirls\.com [NC]
+# RewriteRule \.(jpg|jpeg|png|gif|webp)$ - [F,NC]
