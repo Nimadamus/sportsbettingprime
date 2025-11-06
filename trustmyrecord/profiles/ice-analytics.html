@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Betting Prime - Profile | TrustMyRecord</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QQH4JXHGN3');
+    </script>
+
+    <style>
+        .sport-filter {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .sport-filter:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .sport-filter.active {
+            background: var(--neon-cyan);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">TRUST<span>MY</span>RECORD</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../leaderboard.html">Leaderboard</a></li>
+                    <li><a href="../../index.html">Sports Betting Prime</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="container">
+                <div id="profile-loading" class="loading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 20px;">Loading profile...</p>
+                </div>
+
+                <div id="profile-content" style="display: none;">
+                    <!-- Profile Header -->
+                    <div class="card">
+                        <div class="profile-header">
+                            <img id="profile-avatar" src="" alt="" class="profile-avatar">
+                            <div class="profile-info">
+                                <h1 id="profile-name"></h1>
+                                <div class="profile-meta">
+                                    <div id="verified-badge"></div>
+                                    <div style="color: rgba(234, 248, 255, 0.6);">
+                                        Member since <span id="join-date"></span>
+                                    </div>
+                                </div>
+                                <p id="profile-bio" style="margin-top: 15px; color: rgba(234, 248, 255, 0.8);"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overall Stats -->
+                    <h2 class="text-gold" style="font-family: var(--font-primary); margin: 40px 0 20px;">
+                        Overall Performance
+                    </h2>
+                    <div class="stats-grid" id="overall-stats"></div>
+
+                    <!-- Sport-Specific Stats -->
+                    <h2 class="text-gold" style="font-family: var(--font-primary); margin: 40px 0 20px;">
+                        Performance by Sport
+                    </h2>
+                    <div id="sport-stats"></div>
+
+                    <!-- Recent Selections -->
+                    <div class="card" style="margin-top: 40px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                            <h2 style="font-family: var(--font-primary); color: var(--neon-gold); margin: 0;">
+                                Recent Selections
+                            </h2>
+                            <div id="filter-buttons">
+                                <button class="sport-filter active" data-sport="all">All</button>
+                            </div>
+                        </div>
+
+                        <div id="selections-summary" style="margin-bottom: 25px;"></div>
+
+                        <div id="selections-list" class="loading">
+                            <div class="spinner"></div>
+                            <p style="margin-top: 20px;">Loading selections...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 TrustMyRecord. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../index.html">Home</a> |
+                <a href="../leaderboard.html">Leaderboard</a> |
+                <a href="../../index.html">Sports Betting Prime</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        const HANDICAPPER_SLUG = 'ice-analytics';
+        let allSelections = [];
+        let currentFilter = 'all';
+
+        async function loadProfile() {
+            const handicapper = await TMR_API.getHandicapper(HANDICAPPER_SLUG);
+
+            if (!handicapper) {
+                document.getElementById('profile-loading').innerHTML = '<p class="text-center">Handicapper not found.</p>';
+                return;
+            }
+
+            // Update page title
+            document.title = `${handicapper.name} - Profile | TrustMyRecord`;
+
+            // Fill profile header
+            document.getElementById('profile-avatar').src = handicapper.avatar;
+            document.getElementById('profile-avatar').alt = handicapper.name;
+            document.getElementById('profile-name').textContent = handicapper.name;
+            document.getElementById('profile-bio').textContent = handicapper.bio;
+            document.getElementById('join-date').textContent = TMR_Utils.formatDate(handicapper.joinDate);
+
+            if (handicapper.verified) {
+                document.getElementById('verified-badge').innerHTML = '<div class="verified-badge">✓ Verified</div>';
+            }
+
+            // Overall stats
+            const overall = handicapper.stats.overall;
+            const record = TMR_Utils.getRecordString(overall.wins, overall.losses, overall.pushes);
+            document.getElementById('overall-stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Record</div>
+                    <div class="stat-value">${record}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Win Rate</div>
+                    <div class="stat-value ${overall.winRate >= 60 ? 'positive' : ''}">${TMR_Utils.formatWinRate(overall.winRate)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">ROI</div>
+                    <div class="stat-value ${overall.roi >= 0 ? 'positive' : 'negative'}">${TMR_Utils.formatROI(overall.roi)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Units</div>
+                    <div class="stat-value ${overall.units >= 0 ? 'positive' : 'negative'}">${TMR_Utils.formatUnits(overall.units)}</div>
+                </div>
+            `;
+
+            // Sport-specific stats
+            let sportStatsHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">';
+            const sports = ['mlb', 'nfl', 'nhl', 'cfb'];
+            const sportNames = { mlb: 'MLB', nfl: 'NFL', nhl: 'NHL', cfb: 'College Football' };
+
+            sports.forEach(sport => {
+                if (handicapper.stats[sport]) {
+                    const stats = handicapper.stats[sport];
+                    const sportRecord = TMR_Utils.getRecordString(stats.wins, stats.losses, stats.pushes);
+                    sportStatsHtml += `
+                        <div class="card">
+                            <h3 class="text-cyan" style="font-family: var(--font-primary); margin-bottom: 15px;">
+                                ${sportNames[sport]}
+                            </h3>
+                            <div style="margin-bottom: 10px;">
+                                <strong>Record:</strong> ${sportRecord}
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <strong>Win Rate:</strong> <span class="${stats.winRate >= 60 ? 'text-green' : 'text-cyan'}">${TMR_Utils.formatWinRate(stats.winRate)}</span>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <strong>ROI:</strong> <span class="${stats.roi >= 0 ? 'text-green' : 'text-red'}">${TMR_Utils.formatROI(stats.roi)}</span>
+                            </div>
+                            <div>
+                                <strong>Units:</strong> <span class="${stats.units >= 0 ? 'text-green' : 'text-red'}">${TMR_Utils.formatUnits(stats.units)}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            sportStatsHtml += '</div>';
+            document.getElementById('sport-stats').innerHTML = sportStatsHtml;
+
+            // Show profile content
+            document.getElementById('profile-loading').style.display = 'none';
+            document.getElementById('profile-content').style.display = 'block';
+
+            // Load selections
+            await loadSelections();
+        }
+
+        async function loadSelections() {
+            const data = await TMR_API.getSelections(HANDICAPPER_SLUG);
+            allSelections = data.selections || [];
+
+            // Create filter buttons
+            const sports = [...new Set(allSelections.map(s => s.sport))];
+            let filterHtml = '<button class="sport-filter active" data-sport="all">All</button>';
+            sports.forEach(sport => {
+                filterHtml += `<button class="sport-filter" data-sport="${sport}">${sport}</button>`;
+            });
+            document.getElementById('filter-buttons').innerHTML = filterHtml;
+
+            // Add filter event listeners
+            document.querySelectorAll('.sport-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.sport-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.sport;
+                    renderSelections();
+                });
+            });
+
+            renderSelections();
+        }
+
+        function renderSelections() {
+            const filtered = currentFilter === 'all'
+                ? allSelections
+                : allSelections.filter(s => s.sport === currentFilter);
+
+            // Calculate filtered summary
+            const pending = filtered.filter(s => s.result === 'pending').length;
+            const wins = filtered.filter(s => s.result === 'win').length;
+            const losses = filtered.filter(s => s.result === 'loss').length;
+            const pushes = filtered.filter(s => s.result === 'push').length;
+            const completed = wins + losses + pushes;
+            const winRate = completed > 0 ? ((wins / completed) * 100).toFixed(1) : '0.0';
+
+            document.getElementById('selections-summary').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 20px; background: rgba(0, 255, 255, 0.05); border-radius: 8px;">
+                    <div class="text-center">
+                        <div class="stat-label">Total Picks</div>
+                        <div style="font-weight: 700; font-size: 1.5rem; color: var(--neon-cyan);">${filtered.length}</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stat-label">Wins</div>
+                        <div style="font-weight: 700; font-size: 1.5rem; color: var(--neon-green);">${wins}</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stat-label">Losses</div>
+                        <div style="font-weight: 700; font-size: 1.5rem; color: var(--neon-red);">${losses}</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stat-label">Win Rate</div>
+                        <div style="font-weight: 700; font-size: 1.5rem; color: var(--neon-gold);">${winRate}%</div>
+                    </div>
+                </div>
+            `;
+
+            if (filtered.length === 0) {
+                document.getElementById('selections-list').innerHTML = '<p class="text-center">No selections found.</p>';
+                return;
+            }
+
+            let selectionsHtml = '';
+            filtered.forEach(sel => {
+                selectionsHtml += `
+                    <div class="selection-card">
+                        <div class="selection-header">
+                            <div>
+                                <div style="font-size: 0.85rem; color: rgba(234, 248, 255, 0.6); margin-bottom: 5px;">
+                                    ${TMR_Utils.formatDate(sel.date)} • ${sel.sport}
+                                </div>
+                                <div class="selection-game">${sel.game}</div>
+                                <div class="selection-pick">${sel.pick}</div>
+                            </div>
+                            <div>
+                                ${TMR_Utils.getResultBadge(sel.result)}
+                            </div>
+                        </div>
+
+                        <div class="selection-meta">
+                            <span><strong>Odds:</strong> ${sel.odds > 0 ? '+' : ''}${sel.odds}</span>
+                            <span><strong>Units:</strong> ${sel.units}u</span>
+                            ${sel.confidence ? `<span>${TMR_Utils.getConfidenceBadge(sel.confidence)}</span>` : ''}
+                            ${sel.profit !== undefined ? `<span><strong>Profit:</strong> <span class="${sel.profit >= 0 ? 'text-green' : 'text-red'}">${sel.profit >= 0 ? '+' : ''}${sel.profit.toFixed(2)}u</span></span>` : ''}
+                        </div>
+
+                        ${sel.finalScore ? `<div style="margin-top: 10px; color: rgba(234, 248, 255, 0.7);"><strong>Final:</strong> ${sel.finalScore}</div>` : ''}
+
+                        ${sel.analysis ? `
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 255, 0.2);">
+                                <strong style="color: var(--neon-cyan);">Analysis:</strong>
+                                <p style="margin-top: 8px; color: rgba(234, 248, 255, 0.8); line-height: 1.5;">${sel.analysis}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            document.getElementById('selections-list').innerHTML = selectionsHtml;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>

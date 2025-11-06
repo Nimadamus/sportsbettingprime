@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustMyRecord - Verified Handicapper Performance Tracking</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QQH4JXHGN3');
+    </script>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <div class="content-wrapper">
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="index.html">TRUST<span>MY</span>RECORD</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                    <li><a href="../index.html">Sports Betting Prime</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Trust<span>My</span>Record</h1>
+                <p>
+                    Transparent, verified handicapper performance tracking.
+                    Every pick, every result, every stat — nothing hidden, everything proven.
+                </p>
+                <a href="leaderboard.html" class="btn btn-primary">View Leaderboard</a>
+            </section>
+
+            <div class="container">
+                <div class="card">
+                    <h2 class="text-center text-gold" style="font-family: var(--font-primary); font-size: 2rem; margin-bottom: 30px;">
+                        Top Handicappers
+                    </h2>
+
+                    <div id="top-handicappers" class="loading">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 20px;">Loading top performers...</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="margin-top: 60px;">
+                    <div class="card text-center">
+                        <h3 class="text-cyan" style="font-family: var(--font-primary); margin-bottom: 15px;">
+                            Verified Transparency
+                        </h3>
+                        <p>Every pick tracked and verified. No cherry-picking, no hiding losses. Real results, real accountability.</p>
+                    </div>
+
+                    <div class="card text-center">
+                        <h3 class="text-cyan" style="font-family: var(--font-primary); margin-bottom: 15px;">
+                            Live Performance
+                        </h3>
+                        <p>Track handicapper performance in real-time. See picks before games start, results after they finish.</p>
+                    </div>
+
+                    <div class="card text-center">
+                        <h3 class="text-cyan" style="font-family: var(--font-primary); margin-bottom: 15px;">
+                            Detailed Analytics
+                        </h3>
+                        <p>Win rates, ROI, unit tracking by sport. Compare handicappers with comprehensive performance metrics.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 TrustMyRecord. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="leaderboard.html">Leaderboard</a> |
+                <a href="../index.html">Sports Betting Prime</a> |
+                <a href="#">Terms</a> |
+                <a href="#">Privacy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Load top 3 handicappers on homepage
+        async function loadTopHandicappers() {
+            const data = await TMR_API.getLeaderboard();
+            const container = document.getElementById('top-handicappers');
+
+            if (!data.handicappers || data.handicappers.length === 0) {
+                container.innerHTML = '<p class="text-center">No handicappers available.</p>';
+                return;
+            }
+
+            const topThree = data.handicappers.slice(0, 3);
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">';
+
+            topThree.forEach(h => {
+                const rankBadgeClass = h.rank === 1 ? 'rank-1' : h.rank === 2 ? 'rank-2' : 'rank-3';
+                const record = TMR_Utils.getRecordString(
+                    h.stats.overall.wins,
+                    h.stats.overall.losses,
+                    h.stats.overall.pushes
+                );
+
+                html += `
+                    <div class="card" style="text-align: center;">
+                        <div class="rank-badge ${rankBadgeClass}" style="margin-bottom: 15px;">${h.rank}</div>
+                        <img src="${h.avatar}" alt="${h.name}" class="profile-avatar" style="margin: 0 auto 15px;">
+                        <h3 style="font-family: var(--font-primary); color: var(--neon-gold); margin-bottom: 10px;">
+                            ${h.name}
+                        </h3>
+                        ${h.verified ? '<div class="verified-badge" style="margin: 0 auto 15px; display: inline-flex;">✓ Verified</div>' : ''}
+                        <p style="margin-bottom: 20px; font-size: 0.9rem; color: rgba(234, 248, 255, 0.7);">${h.bio}</p>
+
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                            <div>
+                                <div class="stat-label">Record</div>
+                                <div style="font-weight: 700; color: var(--neon-cyan);">${record}</div>
+                            </div>
+                            <div>
+                                <div class="stat-label">Win Rate</div>
+                                <div style="font-weight: 700; color: var(--neon-green);">${TMR_Utils.formatWinRate(h.stats.overall.winRate)}</div>
+                            </div>
+                            <div>
+                                <div class="stat-label">ROI</div>
+                                <div style="font-weight: 700; color: var(--neon-gold);">${TMR_Utils.formatROI(h.stats.overall.roi)}</div>
+                            </div>
+                        </div>
+
+                        <a href="profiles/${h.slug}.html" class="btn btn-secondary">View Profile</a>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadTopHandicappers);
+    </script>
+</body>
+</html>
