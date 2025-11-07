@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consensus History | SportsBettingPrime</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .subtitle {
+            font-size: 1.3em;
+            color: #ffd700;
+        }
+        .runs-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+        }
+        .run-item {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #ffd700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .run-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .run-item.latest {
+            border-left-color: #00ff00;
+            background: linear-gradient(to right, #f0fff0 0%, #ffffff 100%);
+        }
+        .run-time {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        .run-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .run-links a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .run-links a:hover {
+            background: #ffd700;
+            color: #fff;
+        }
+        .latest-badge {
+            display: inline-block;
+            background: #00ff00;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .back-link a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 30px;
+            background: #ffd700;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Consensus History</h1>
+            <div class="subtitle">All automated runs - Updated every few hours</div>
+        </header>
+
+        <div class="runs-container">
+            <h2 style="margin-bottom: 20px; color: #1e3c72;">Historical Runs (Newest First)</h2>
+
+            <div class="run-item" class="latest">
+                <div class="run-time">November 06, 2025 at 11:44 PM<span class="latest-badge">LATEST</span></div>
+                <div class="run-links">
+                    <a href="history/2025-11-06_23-44/sharp-consensus.html">View Page</a>
+                    <a href="history/2025-11-06_23-44/covers_contest_picks_aggregated.csv">Download CSV</a>
+                    <a href="history/2025-11-06_23-44/covers_contest_picks_summary.txt">View Summary</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="back-link">
+            <a href="../sharp-consensus.html">← Back to Current Consensus</a>
+        </div>
+    </div>
+</body>
+</html>

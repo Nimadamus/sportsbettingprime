@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Sports Consensus Board | SportsBettingPrime</title>
+    <meta name="description" content="Live consensus data from top Covers contestants - Updated every few hours">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .last-updated {
+            font-size: 1em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        .auto-refresh-notice {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sport-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+        }
+
+        .sport-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        .sport-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .pick-count {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .picks-list {
+            list-style: none;
+        }
+
+        .pick-item {
+            background: rgba(255, 255, 255, 0.08);
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        .pick-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(5px);
+        }
+
+        .pick-item.high-consensus {
+            border-left-color: #00ff00;
+            background: rgba(0, 255, 0, 0.08);
+        }
+
+        .pick-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .consensus-badge {
+            background: #ffd700;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .consensus-badge.high {
+            background: #00ff00;
+        }
+
+        .matchup {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .pick-details {
+            color: #ddd;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        .pick-type {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .no-picks {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .view-all-link {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .view-all-link a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .view-all-link a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .refresh-button {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-button:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .sports-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="live-indicator"></span>Live Sports Consensus Board</h1>
+            <div class="last-updated">
+                Last Updated: <span id="lastUpdate">Loading...</span>
+            </div>
+            <div class="auto-refresh-notice">
+                <strong>🔄 Auto-Refresh:</strong> This page updates automatically every 10 minutes
+                <button class="refresh-button" onclick="loadData()">Refresh Now</button>
+            </div>
+        </header>
+
+        <div class="sports-grid" id="sportsGrid">
+            <!-- Sports cards will be loaded here -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">
+                Loading consensus data...
+            </div>
+        </div>
+
+        <div class="view-all-link">
+            <a href="sharp-consensus.html">📊 View Full Consensus Board</a>
+            <a href="history/index.html" style="margin-left: 20px;">📁 View History</a>
+        </div>
+    </div>
+
+    <script>
+        const REFRESH_INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+        async function loadData() {
+            try {
+                // In production, this would fetch from your CSV or JSON endpoint
+                // For now, we'll load from the parent page's data
+
+                const response = await fetch('../covers_contest_picks_aggregated.csv');
+                const csvText = await response.text();
+
+                const picks = parseCSV(csvText);
+                displaySports(picks);
+
+                // Update timestamp
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('sportsGrid').innerHTML =
+                    '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ff6b6b;">Error loading data. Please refresh the page.</div>';
+            }
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            const picks = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                if (values.length >= 5) {
+                    picks.push({
+                        count: parseInt(values[0]),
+                        sport: values[1],
+                        matchup: values[2],
+                        pickType: values[3],
+                        pick: values[4]
+                    });
+                }
+            }
+
+            return picks;
+        }
+
+        function displaySports(picks) {
+            // Group picks by sport
+            const sportGroups = {};
+
+            picks.forEach(pick => {
+                if (!sportGroups[pick.sport]) {
+                    sportGroups[pick.sport] = [];
+                }
+                sportGroups[pick.sport].push(pick);
+            });
+
+            // Sort sports by total picks
+            const sortedSports = Object.keys(sportGroups).sort((a, b) => {
+                return sportGroups[b].length - sportGroups[a].length;
+            });
+
+            // Generate HTML for each sport
+            let html = '';
+
+            sortedSports.forEach(sport => {
+                const sportPicks = sportGroups[sport].slice(0, 5); // Top 5 per sport
+                const totalPicks = sportGroups[sport].length;
+
+                html += `
+                    <div class="sport-card">
+                        <div class="sport-header">
+                            <div class="sport-name">${sport}</div>
+                            <div class="pick-count">${totalPicks} picks</div>
+                        </div>
+                        <ul class="picks-list">
+                `;
+
+                if (sportPicks.length > 0) {
+                    sportPicks.forEach(pick => {
+                        const isHighConsensus = pick.count >= 10;
+                        const consensusClass = isHighConsensus ? ' high-consensus' : '';
+                        const badgeClass = isHighConsensus ? ' high' : '';
+
+                        html += `
+                            <li class="pick-item${consensusClass}">
+                                <div class="pick-header">
+                                    <div class="matchup">${pick.matchup}</div>
+                                    <div class="consensus-badge${badgeClass}">${pick.count}x</div>
+                                </div>
+                                <div class="pick-details">
+                                    <span class="pick-type">${pick.pickType}:</span> ${pick.pick}
+                                </div>
+                            </li>
+                        `;
+                    });
+                } else {
+                    html += '<li class="no-picks">No picks available</li>';
+                }
+
+                html += `
+                        </ul>
+                    </div>
+                `;
+            });
+
+            document.getElementById('sportsGrid').innerHTML = html;
+        }
+
+        // Initial load
+        loadData();
+
+        // Auto-refresh every 10 minutes
+        setInterval(loadData, REFRESH_INTERVAL);
+
+        // Show countdown until next refresh
+        let secondsUntilRefresh = REFRESH_INTERVAL / 1000;
+        setInterval(() => {
+            secondsUntilRefresh--;
+            if (secondsUntilRefresh <= 0) {
+                secondsUntilRefresh = REFRESH_INTERVAL / 1000;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
