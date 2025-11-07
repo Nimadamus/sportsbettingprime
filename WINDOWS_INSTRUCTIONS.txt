@@ -1,0 +1,112 @@
+================================================================================
+                    HOW TO RUN IN WINDOWS POWERSHELL
+================================================================================
+
+STEP 1: Open PowerShell
+================================================================================
+
+Option A - From Desktop:
+  1. Hold Shift key
+  2. Right-click on Desktop folder
+  3. Click "Open PowerShell window here"
+
+Option B - From Start Menu:
+  1. Click Start
+  2. Type "PowerShell"
+  3. Right-click "Windows PowerShell"
+  4. Click "Run as Administrator"
+  5. Type: cd Desktop
+  6. Press Enter
+
+--------------------------------------------------------------------------------
+
+STEP 2: Run the Scraper
+================================================================================
+
+In PowerShell, type this EXACTLY:
+
+  .\run-covers.ps1
+
+Then press Enter.
+
+If you get an error about "execution policy", run this first:
+
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
+
+Then try again:
+
+  .\run-covers.ps1
+
+--------------------------------------------------------------------------------
+
+STEP 3: Alternative (If PowerShell script doesn't work)
+================================================================================
+
+Just run Python directly:
+
+  python quick_covers_scraper.py
+
+That's it! No .\ needed, just the command above.
+
+--------------------------------------------------------------------------------
+
+WHAT YOU'LL SEE:
+================================================================================
+
+The scraper will:
+  ✓ Fetch top 20 contestants
+  ✓ Show their streaks
+  ✓ Save to covers_data.json
+
+Example output:
+  🔥 #1: Baldhead0099              Streak: 13
+  🔥 #2: Aliquippa                 Streak: 12
+  🔥 #3: Ballbuster2008            Streak: 11
+  ...
+
+  ✓ Saved 20 contestants to covers_data.json
+
+--------------------------------------------------------------------------------
+
+TROUBLESHOOTING:
+================================================================================
+
+Error: "python is not recognized"
+  → Install Python from: https://www.python.org/downloads/
+  → During install, check "Add Python to PATH"
+
+Error: "No module named 'requests'"
+  → Run: pip install requests beautifulsoup4 lxml
+
+Error: "cannot be loaded because running scripts is disabled"
+  → Run: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
+
+--------------------------------------------------------------------------------
+
+EASIEST METHOD (Works Every Time):
+================================================================================
+
+Just use Python directly:
+
+  cd Desktop
+  python quick_covers_scraper.py
+
+No PowerShell script needed!
+
+--------------------------------------------------------------------------------
+
+FILES YOU HAVE:
+================================================================================
+
+PowerShell Scripts (for Windows):
+  run-covers.ps1                   ← PowerShell version
+  Get-CoversConsensus.ps1          ← Full version
+
+Python Scripts (work everywhere):
+  quick_covers_scraper.py          ← Use this! Simplest
+  get_active_pickers.sh            ← Linux/Mac version
+
+Just run:
+  python quick_covers_scraper.py
+
+================================================================================
