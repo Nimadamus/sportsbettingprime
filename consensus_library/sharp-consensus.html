@@ -1774,8 +1774,14 @@
             });
         });
 
-        // Initial load
-        loadPicks();
+        // Initial load - wait for DOM to be fully ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                loadPicks();
+            });
+        } else {
+            loadPicks();
+        }
     </script>
 </body>
 </html>
