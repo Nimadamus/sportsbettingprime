@@ -24,6 +24,15 @@ except ImportError:
     print("Please run: pip install -r requirements.txt")
     sys.exit(1)
 
+# Try to import FTP uploader (optional)
+try:
+    from ftp_uploader import FTPUploader
+    FTP_AVAILABLE = True
+except ImportError:
+    FTP_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning("FTP uploader not available. Install ftplib for FTP support.")
+
 
 # Configure logging
 logging.basicConfig(
@@ -59,6 +68,14 @@ class Config:
     AUTO_PUSH = True
     COMMIT_MESSAGE_TEMPLATE = "Auto-upload: Add {} new media file(s)"
 
+    # FTP settings (for GoDaddy or other hosting)
+    FTP_ENABLED = False
+    FTP_HOST = None
+    FTP_USERNAME = None
+    FTP_PASSWORD = None
+    FTP_REMOTE_PATH = "/public_html"
+    FTP_USE_TLS = False
+
     # Gallery settings
     ITEMS_PER_PAGE = 20
     GALLERY_TITLE = "Media Gallery"
@@ -84,7 +101,9 @@ class MediaProcessor:
     def __init__(self, config: Config):
         self.config = config
         self.processed_files: Set[str] = set()
+        self.existing_media_hashes: Dict[str, str] = {}  # hash -> filepath on website
         self.load_processed_files()
+        self.load_existing_media_hashes()
 
     def load_processed_files(self):
         """Load list of already processed files"""
@@ -95,6 +114,20 @@ class MediaProcessor:
                     self.processed_files = set(json.load(f))
             except Exception as e:
                 logger.warning(f"Could not load processed files log: {e}")
+
+    def load_existing_media_hashes(self):
+        """Load hash database of existing media on website"""
+        existing_hashes_file = "media_upload_system/existing_media_hashes.json"
+        if os.path.exists(existing_hashes_file):
+            try:
+                with open(existing_hashes_file, 'r') as f:
+                    self.existing_media_hashes = json.load(f)
+                logger.info(f"Loaded existing media hashes: {len(self.existing_media_hashes)} files")
+            except Exception as e:
+                logger.warning(f"Could not load existing media hashes: {e}")
+        else:
+            logger.warning("No existing media hash database found. Run scan_existing_media.py first!")
+            logger.warning("Without this, duplicate detection will only work for newly uploaded files.")
 
     def save_processed_files(self):
         """Save list of processed files"""
@@ -178,6 +211,22 @@ class MediaProcessor:
         # Check if already processed
         if file_hash in self.processed_files:
             logger.info(f"File already processed (duplicate): {filepath}")
+            return None
+
+        # Check if file already exists on website (CRITICAL DUPLICATE CHECK)
+        if file_hash in self.existing_media_hashes:
+            existing_file = self.existing_media_hashes[file_hash]
+            logger.warning(f"⚠️  DUPLICATE DETECTED! File already exists on website:")
+            logger.warning(f"   New file: {filepath}")
+            logger.warning(f"   Existing: {existing_file}")
+            logger.warning(f"   Skipping upload to prevent duplicate.")
+            # Move to processed folder to avoid reprocessing
+            try:
+                processed_path = f"{self.config.PROCESSED_DIR}/{Path(filepath).name}"
+                shutil.move(filepath, processed_path)
+                self.processed_files.add(file_hash)
+            except Exception as e:
+                logger.error(f"Error moving duplicate file: {e}")
             return None
 
         filename = Path(filepath).name
@@ -542,12 +591,39 @@ class GalleryGenerator:
                 f.write(index_html)
 
 
-class GitManager:
-    """Handles git operations"""
+class DeploymentManager:
+    """Handles deployment (Git or FTP)"""
 
-    @staticmethod
-    def commit_and_push(message: str):
-        """Commit and push changes to git"""
+    def __init__(self, config: Config):
+        self.config = config
+        self.ftp_uploader = None
+
+        # Initialize FTP if enabled
+        if config.FTP_ENABLED and FTP_AVAILABLE:
+            try:
+                self.ftp_uploader = FTPUploader()
+                logger.info("FTP uploader initialized")
+            except Exception as e:
+                logger.error(f"Failed to initialize FTP uploader: {e}")
+
+    def deploy(self, message: str, files_to_upload: List[str] = None) -> bool:
+        """
+        Deploy changes via Git or FTP
+
+        Args:
+            message: Commit message or deployment description
+            files_to_upload: List of files to upload (for FTP mode)
+        """
+        if self.config.FTP_ENABLED and self.ftp_uploader:
+            return self._ftp_deploy(files_to_upload)
+        elif self.config.AUTO_COMMIT:
+            return self._git_deploy(message)
+        else:
+            logger.info("No deployment method enabled")
+            return True
+
+    def _git_deploy(self, message: str) -> bool:
+        """Deploy via Git commit and push"""
         try:
             # Add all changes
             os.system('git add .')
@@ -559,17 +635,19 @@ class GitManager:
             if result == 0:
                 logger.info(f"Committed changes: {message}")
 
-                # Push
-                branch = os.popen('git branch --show-current').read().strip()
-                push_cmd = f'git push -u origin {branch}'
-                push_result = os.system(push_cmd)
+                if self.config.AUTO_PUSH:
+                    # Push
+                    branch = os.popen('git branch --show-current').read().strip()
+                    push_cmd = f'git push -u origin {branch}'
+                    push_result = os.system(push_cmd)
 
-                if push_result == 0:
-                    logger.info(f"Pushed changes to {branch}")
-                    return True
-                else:
-                    logger.error("Failed to push changes")
-                    return False
+                    if push_result == 0:
+                        logger.info(f"Pushed changes to {branch}")
+                        return True
+                    else:
+                        logger.error("Failed to push changes")
+                        return False
+                return True
             else:
                 logger.info("No changes to commit")
                 return True
@@ -577,6 +655,51 @@ class GitManager:
         except Exception as e:
             logger.error(f"Git operation failed: {e}")
             return False
+
+    def _ftp_deploy(self, files_to_upload: List[str]) -> bool:
+        """Deploy via FTP upload"""
+        if not self.ftp_uploader:
+            logger.error("FTP uploader not initialized")
+            return False
+
+        try:
+            # Connect to FTP
+            if not self.ftp_uploader.connect():
+                return False
+
+            success_count = 0
+
+            # Upload each file
+            for local_file in files_to_upload:
+                if os.path.exists(local_file):
+                    # Calculate remote path (relative to current directory)
+                    remote_file = local_file
+
+                    if self.ftp_uploader.upload_file(local_file, remote_file):
+                        success_count += 1
+
+            # Disconnect
+            self.ftp_uploader.disconnect()
+
+            logger.info(f"✓ Uploaded {success_count}/{len(files_to_upload)} files via FTP")
+
+            return success_count > 0
+
+        except Exception as e:
+            logger.error(f"FTP deployment failed: {e}")
+            return False
+
+
+# Keep GitManager for backward compatibility
+class GitManager(DeploymentManager):
+    """Backward compatible Git manager"""
+
+    @staticmethod
+    def commit_and_push(message: str):
+        """Legacy method for backward compatibility"""
+        config = Config()
+        manager = DeploymentManager(config)
+        return manager._git_deploy(message)
 
 
 class MediaWatcher(FileSystemEventHandler):
@@ -587,6 +710,7 @@ class MediaWatcher(FileSystemEventHandler):
         self.gallery = gallery
         self.config = config
         self.processing = False
+        self.deployment_manager = DeploymentManager(config)
 
     def on_created(self, event):
         """Handle new file creation"""
@@ -627,11 +751,25 @@ class MediaWatcher(FileSystemEventHandler):
                 # Save processed files log
                 self.processor.save_processed_files()
 
-                # Commit and push if enabled
-                if self.config.AUTO_COMMIT:
+                # Deploy changes (Git or FTP)
+                if self.config.AUTO_COMMIT or self.config.FTP_ENABLED:
                     commit_message = self.config.COMMIT_MESSAGE_TEMPLATE.format(1)
-                    if self.config.AUTO_PUSH:
-                        GitManager.commit_and_push(commit_message)
+
+                    # Collect files to upload (for FTP mode)
+                    files_to_upload = []
+                    if result.get('path'):
+                        files_to_upload.append(result['path'])
+                    if result.get('thumbnail_path'):
+                        files_to_upload.append(result['thumbnail_path'])
+
+                    # Add all gallery pages
+                    if os.path.exists(self.config.PAGES_DIR):
+                        for page_file in os.listdir(self.config.PAGES_DIR):
+                            if page_file.endswith('.html'):
+                                files_to_upload.append(f"{self.config.PAGES_DIR}/{page_file}")
+
+                    # Deploy
+                    self.deployment_manager.deploy(commit_message, files_to_upload)
 
                 logger.info("✓ File processed successfully!")
 

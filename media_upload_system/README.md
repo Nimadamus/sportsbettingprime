@@ -22,17 +22,35 @@ cd media_upload_system
 pip install -r requirements.txt
 ```
 
-### 2. Run the System
+### 2. IMPORTANT: Scan for Existing Media (First Time Only)
+
+**CRITICAL STEP to prevent duplicates!**
+
+Before uploading any files, scan your website to build a database of existing media:
+
+```bash
+python scan_existing_media.py
+```
+
+This will:
+- Scan your entire website for existing images and videos
+- Build a hash database of all media files
+- Prevent uploading duplicates that already exist on your site
+
+**You only need to run this once**, or whenever you manually add files to your website outside of this system.
+
+### 3. Run the System
 
 ```bash
 python auto_uploader.py
 ```
 
-### 3. Upload Media
+### 4. Upload Media
 
 Simply drag and drop images or videos into the `media_upload_system/upload_here/` folder!
 
 The system will automatically:
+- **Check for duplicates** (against ALL existing media on your site)
 - Optimize and resize images
 - Generate thumbnails
 - Create gallery HTML pages
@@ -220,9 +238,29 @@ Edit `config.json`:
 
 ## Advanced Features
 
-### Duplicate Detection
+### Enhanced Duplicate Detection
 
-The system calculates an MD5 hash of each file. If you try to upload the same file twice (even with a different filename), it will be skipped automatically.
+The system has **two-layer duplicate protection**:
+
+#### Layer 1: Existing Website Media
+- On first run, use `scan_existing_media.py` to scan your entire website
+- Builds a hash database of **all existing images and videos**
+- Before uploading any new file, checks if it already exists **anywhere on your site**
+- **Prevents duplicates even if the file has a different name or is in a different folder**
+
+#### Layer 2: Newly Uploaded Files
+- Tracks all files uploaded through this system
+- Prevents uploading the same file multiple times
+
+**How it works:**
+- Calculates MD5 hash of each file's binary content
+- Two files with identical content will have the same hash, even with different filenames
+- Example: `photo.jpg` and `image_copy_renamed.jpg` with identical pixels will be detected as duplicates
+
+**To rescan your website** (if you manually add files outside this system):
+```bash
+python scan_existing_media.py
+```
 
 ### Auto-generated Filenames
 
