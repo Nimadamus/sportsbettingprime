@@ -1592,10 +1592,27 @@ function extractBetSize(row) {
     if (result === 'W' || result === 'WIN') {
         const profit = Math.abs(units);
 
+        // Special handling: if profit matches a common bet size exactly,
+        // it's likely the user entered the bet size, not the profit
+        if (profit === 0.5 || profit === 1 || profit === 1.5 || profit === 2 || profit === 2.5 || profit === 3) {
+            // Verify with odds - at -110, a 0.5u bet wins ~0.45u
+            if (odds < 0 && Math.abs(odds) <= 130) {
+                // At typical odds (-105 to -130), user likely entered bet size as profit
+                return profit;
+            }
+        }
+
         if (odds < 0) {
             // Negative odds (favorite): betSize = profit × (|odds| / 100)
             // Example: Won 1.0u at -110 → betSize = 1.0 × (110/100) = 1.1u
-            return profit * (Math.abs(odds) / 100);
+            const calculatedSize = profit * (Math.abs(odds) / 100);
+
+            // Round to nearest common bet size (0.5, 1, 1.5, 2, 2.5, 3, etc.)
+            const rounded = Math.round(calculatedSize * 2) / 2;
+            if (Math.abs(calculatedSize - rounded) < 0.15) {
+                return rounded;
+            }
+            return calculatedSize;
         } else {
             // Positive odds (underdog): betSize = profit / (odds / 100)
             // Example: Won 1.5u at +150 → betSize = 1.5 / (150/100) = 1.0u
