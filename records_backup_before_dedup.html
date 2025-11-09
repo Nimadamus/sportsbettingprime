@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BetLegend Complete Performance Records & Analytics Dashboard</title>
+<meta content="Complete auto-updating betting performance analytics: ROI, units won, win percentage breakdown by sport, bet type, month, and confidence level. Live verified records dashboard." name="description"/>
+<meta content="betting records, ROI tracker, sports betting analytics, unit tracking, win percentage, verified picks, bet type breakdown" name="keywords"/>
+<link href="https://www.betlegendpicks.com/newlogo.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://www.betlegendpicks.com/records.html" rel="canonical"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<meta property="og:title" content="BetLegend Performance Records Dashboard">
+<meta property="og:description" content="Live betting analytics with complete breakdowns by sport, bet type, month, and confidence level">
+<meta property="og:url" content="https://www.betlegendpicks.com/records.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.betlegendpicks.com/newlogo.png">
+<style>
+:root {
+    --primary: #0a0a0a;
+    --secondary: #1a1a1a;
+    --accent: #00e0ff;
+    --gold: #FFD700;
+    --green: #39FF14;
+    --red: #FF3131;
+    --text: #ffffff;
+    --muted: #888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+
+          padding-top: 140px;}
+
+.header {
+    background: linear-gradient(135deg, rgba(0, 224, 255, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--accent);
+    text-shadow: 0 0 30px var(--accent);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.header .tagline {
+    font-size: 18px;
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.loading {
+    text-align: center;
+    padding: 100px 20px;
+    font-size: 24px;
+    color: var(--accent);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 224, 255, 0.3);
+    border-color: var(--gold);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 62px;
+    font-weight: 900;
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent);
+    line-height: 1;
+}
+
+.stat-value.positive {
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green);
+}
+
+.stat-value.negative {
+    color: var(--red);
+    text-shadow: 0 0 20px var(--red);
+}
+
+.section {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(0, 224, 255, 0.3);
+    border-radius: 15px;
+    padding: 40px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.section-title::before {
+    content: '';
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 2px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background: linear-gradient(135deg, rgba(0, 224, 255, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+}
+
+th {
+    font-family: 'Orbitron', sans-serif;
+    padding: 22px 20px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--accent);
+}
+
+td {
+    padding: 22px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 20px;
+}
+
+tbody tr {
+    transition: all 0.2s ease;
+}
+
+tbody tr:hover {
+    background: rgba(0, 224, 255, 0.05);
+}
+
+.win {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.loss {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge-nfl { background: rgba(255, 49, 49, 0.2); color: #FF3131; border: 1px solid #FF3131; }
+.badge-nba { background: rgba(0, 224, 255, 0.2); color: var(--accent); border: 1px solid var(--accent); }
+.badge-nhl { background: rgba(255, 215, 0, 0.2); color: var(--gold); border: 1px solid var(--gold); }
+.badge-mlb { background: rgba(57, 255, 20, 0.2); color: var(--green); border: 1px solid var(--green); }
+.badge-ncaaf { background: rgba(255, 105, 180, 0.2); color: #FF69B4; border: 1px solid #FF69B4; }
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(0, 224, 255, 0.1) 100%);
+    border-left: 5px solid var(--green);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 30px 0;
+}
+
+.highlight-box h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--green);
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    background: rgba(0, 224, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 224, 255, 0.2);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.last-updated {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 20px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 25px;
+    }
+
+    .stat-value {
+        font-size: 32px;
+    }
+}
+
+/* Logo */
+.logo-container {
+    position: fixed;
+    top: 20px;
+    left: 40px;
+    z-index: 1000;
+}
+
+.logo-container a {
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.logo-container span {
+    color: var(--neon-cyan);
+    text-shadow:
+        0 0 15px rgba(0, 255, 255, 1),
+        0 0 30px rgba(0, 255, 255, 0.8),
+        0 0 50px rgba(0, 255, 255, 0.6);
+}
+
+/* Navigation */
+.nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    padding: 15px 5% 15px 5%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(0, 224, 255, 0.3);
+    z-index: 999;
+    flex-wrap: wrap;
+}
+
+.nav-links a, .dropdown {
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-links a {
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--neon-gold);
+    text-shadow: 0 0 8px var(--neon-gold);
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown .dropbtn {
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown:hover .dropbtn {
+    color: var(--neon-gold);
+    text-shadow: 0 0 8px var(--neon-gold);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    min-width: 200px;
+    box-shadow: 0px 8px 30px rgba(0, 224, 255, 0.4);
+    z-index: 1000;
+    border: 2px solid rgba(0, 224, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px 0;
+    margin-top: 10px;
+}
+
+.dropdown-content a {
+    color: var(--neon-cyan);
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.95rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    border-left: 3px solid transparent;
+}
+
+.dropdown-content a:hover {
+    background: linear-gradient(90deg, rgba(0, 224, 255, 0.3), rgba(0, 224, 255, 0.1));
+    color: #fff;
+    padding-left: 30px;
+    text-shadow: 0 0 10px var(--glow-color);
+    border-left-color: var(--neon-cyan);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdownFade 0.3s ease;
+}
+        .dropdown.active .dropdown-content {
+            display: block;
+            animation: dropdownFade 0.3s ease;
+        }
+
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px !important;
+    }
+
+    .logo-container {
+        top: 10px;
+        left: 20px;
+    }
+
+    .logo-container a {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    .dropdown-content {
+        min-width: 160px;
+        padding: 10px 0;
+    }
+
+    .dropdown-content a {
+        font-size: 0.85rem;
+        padding: 10px 15px;
+    }
+}
+
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QS8L5TDNLY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QS8L5TDNLY');
+</script>
+
+</head>
+<body>
+
+<!-- Logo -->
+<div class="logo-container">
+    <a href="index.html">BET<span>LEGEND</span></a>
+</div>
+
+<!-- Navigation -->
+    <nav class="nav-links">
+        <a href="blog-page8.html">PICKS & ANALYSIS</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Records</button>
+            <div class="dropdown-content">
+                <a href="records.html">DETAILED BREAKDOWN</a>
+                <a href="betlegend-verified-records.html">MLB</a>
+                <a href="nfl-records.html">NFL</a>
+                <a href="ncaaf-records.html">NCAAF</a>
+                <a href="nhl-records.html">NHL</a>
+                <a href="nba-records.html">NBA</a>
+                <a href="soccer-records.html">Soccer</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Sports</button>
+            <div class="dropdown-content">
+                <a href="nfl.html">NFL</a>
+                <a href="mlb-page2.html">MLB</a>
+                <a href="ncaaf-page2.html">NCAAF</a>
+                <a href="nba.html">NBA</a>
+                <a href="nhl.html">NHL</a>
+                <a href="soccer.html">Soccer</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Resources</button>
+            <div class="dropdown-content">
+                <a href="live-odds.html">Live Odds</a>
+                <a href="howitworks.html">How It Works</a>
+                <a href="bankroll.html">Bankroll</a>
+                <a href="kelly-criterion.html">Kelly Criterion</a>
+                <a href="betting-calculators.html">Betting Calculators</a>
+                <a href="screenshots.html">Screenshots</a>
+                <a href="bestonlinesportsbook.html">Best Sportsbook</a>
+                <a href="betting-glossary.html">Betting Glossary</a>
+                <a href="betting-101.html">Betting 101</a>
+            </div>
+        </div>
+
+        <a href="proofofpicks.html">Proof</a>
+        <a href="news-page3.html">News</a>
+        <a href="featured-game-of-the-day.html">Game of the Day</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Community</button>
+            <div class="dropdown-content">
+                <a href="https://twitter.com/BetLegend2025" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://discord.gg/NbMc3wCV" target="_blank" rel="noopener">Discord</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+
+<div class="header">
+    <h1>🏆 COMPLETE PERFORMANCE DASHBOARD</h1>
+    <p class="tagline">Live-Updating Verified Records & Analytics</p>
+</div>
+
+<div id="loading-screen" class="loading">
+    <p>📊 Loading all records from verified sources...</p>
+    <p style="font-size: 16px; margin-top: 20px;">Aggregating NFL, NBA, NHL, MLB, NCAAF, and Soccer data...</p>
+</div>
+
+<div class="container" id="main-content" style="display: none;">
+
+    <!-- SEO Content Section -->
+    <div style="background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%); border: 2px solid var(--accent); border-radius: 15px; padding: 30px; margin-bottom: 40px;">
+        <h2 style="color: var(--gold); font-size: 28px; margin-bottom: 20px; font-family: 'Orbitron', sans-serif;">Understanding Our Confidence-Based Unit System</h2>
+        <p style="font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
+            At BetLegend, every sports betting pick is assigned a confidence rating from <strong style="color: var(--accent);">1 to 6</strong>, which directly determines the recommended unit sizing for optimal bankroll management. This systematic approach to bet sizing ensures that our most confident plays receive appropriate stake allocation while managing risk across the entire portfolio.
+        </p>
+        <p style="font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
+            Our <strong style="color: var(--gold);">confidence scale breakdown</strong> works as follows: <strong>Confidence 1</strong> represents small plays at <strong>0.5 units</strong>, ideal for speculative opportunities or contrarian positions. <strong>Confidence 2</strong> indicates standard plays at <strong>1 unit</strong>, which form the foundation of our betting portfolio. <strong>Confidence 3</strong> signals above-average conviction at <strong>1.5 units</strong>, reserved for favorable matchups with clear statistical edges.
+        </p>
+        <p style="font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
+            Moving up the confidence ladder, <strong style="color: var(--green);">Confidence 4</strong> represents strong plays at <strong>2 units</strong>, typically backed by multiple converging factors such as injury reports, weather conditions, and historical matchup data. <strong style="color: var(--gold);">Confidence 5</strong> indicates premium plays at <strong>2.5 units</strong>, where extensive research and analysis reveal significant value discrepancies in the betting market.
+        </p>
+        <p style="font-size: 16px; line-height: 1.8; margin-bottom: 0;">
+            Finally, <strong style="color: var(--red);">Confidence 6 plays are our MAX BET selections at 3 units</strong>—these represent the absolute highest conviction picks where we've identified exceptional value through comprehensive statistical modeling, situational analysis, and market inefficiencies. This tiered unit system allows bettors to scale their risk appropriately while maximizing returns on our most thoroughly researched picks across NFL, NBA, NHL, MLB, NCAAF, and Soccer betting markets.
+        </p>
+    </div>
+
+    <!-- Overall Summary Cards -->
+    <div class="summary-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total Record</div>
+            <div class="stat-value" id="total-record">--</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="win-progress" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Win Rate</div>
+            <div class="stat-value" id="win-rate">--</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Total Units</div>
+            <div class="stat-value" id="total-units">--</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">ROI</div>
+            <div class="stat-value" id="total-roi">--</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Avg Odds</div>
+            <div class="stat-value" id="avg-odds">--</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Total Picks</div>
+            <div class="stat-value" id="total-picks">--</div>
+        </div>
+    </div>
+
+    <!-- Sport Breakdown -->
+    <div class="section">
+        <h2 class="section-title">📊 Breakdown by Sport</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sport</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Avg Odds</th>
+                    </tr>
+                </thead>
+                <tbody id="sport-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bet Type Breakdown -->
+    <div class="section">
+        <h2 class="section-title">🎯 Breakdown by Bet Type</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bet Type</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Best Sport</th>
+                    </tr>
+                </thead>
+                <tbody id="bet-type-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Monthly Performance -->
+    <div class="section">
+        <h2 class="section-title">📅 Monthly Performance</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Best Sport</th>
+                    </tr>
+                </thead>
+                <tbody id="monthly-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Unit Sizing Breakdown -->
+    <div class="section">
+        <h2 class="section-title">💰 Unit Sizing & Confidence Levels</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Confidence</th>
+                        <th># of Bets</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Total Units</th>
+                        <th>ROI</th>
+                    </tr>
+                </thead>
+                <tbody id="unit-sizing-breakdown"></tbody>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h3>💡 Bankroll Strategy</h3>
+            <p>We use a <strong>flat unit betting system</strong> with scaled confidence sizing (0.5u to 3u). All records are auto-calculated from verified Google Sheets data.</p>
+        </div>
+    </div>
+
+    <!-- Teaser Breakdown -->
+    <div class="section">
+        <h2 class="section-title">🎲 Teaser Breakdown</h2>
+        <div class="highlight-box" style="border-left-color: var(--gold);">
+            <h3>What Are Teasers?</h3>
+            <p style="margin-top: 10px; line-height: 1.8;">
+                <strong>Teasers</strong> are a type of parlay bet that allows you to adjust the point spread or total in your favor across multiple games. In exchange for better lines, teasers pay out at lower odds than traditional parlays. Common teaser options include 6-point, 6.5-point, and 7-point teasers in football, and 4-point to 5-point teasers in basketball. This breakdown shows our performance on teaser bets compared to standard straight bets, helping you understand which betting style generates better returns.
+            </p>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Best Sport</th>
+                    </tr>
+                </thead>
+                <tbody id="teaser-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 5 Inning Breakdown -->
+    <div class="section">
+        <h2 class="section-title">⚾ 5-Inning Bets Breakdown</h2>
+        <div class="highlight-box" style="border-left-color: var(--green);">
+            <h3>Why Bet First 5 Innings (F5)?</h3>
+            <p style="margin-top: 10px; line-height: 1.8;">
+                <strong>First 5 innings (F5) betting</strong> in baseball focuses exclusively on the starting pitcher matchup and early game performance, eliminating the bullpen variable that can make full-game bets unpredictable. F5 bets settle after 5 innings are complete, offering quicker results and more predictable outcomes based on starting pitcher analytics. This strategy is particularly effective when you have strong data on starter performance but less confidence in team bullpens. Our F5 breakdown shows performance across run lines, moneylines, and totals (over/under) specifically for the first 5 innings.
+            </p>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bet Type</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Avg Odds</th>
+                    </tr>
+                </thead>
+                <tbody id="five-inning-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Total Bets Breakdown -->
+    <div class="section">
+        <h2 class="section-title">📊 Total Bets (Over/Under) Breakdown</h2>
+        <div class="highlight-box" style="border-left-color: var(--accent);">
+            <h3>Mastering Over/Under Total Bets</h3>
+            <p style="margin-top: 10px; line-height: 1.8;">
+                <strong>Total bets (Over/Under)</strong> focus on the combined score of both teams rather than which team wins. You're betting whether the final combined score will be over or under the sportsbook's posted total. Total betting removes the need to predict a winner and instead focuses on game pace, offensive/defensive matchups, weather conditions, and playing style. This breakdown analyzes our performance on all totals combined, plus separate tracking for <strong>Over bets</strong> (expecting high-scoring games) versus <strong>Under bets</strong> (expecting defensive battles or low-scoring contests). Understanding your tendencies on overs vs unders can reveal valuable insights about betting biases and help optimize total bet selection across different sports.
+            </p>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Units</th>
+                        <th>ROI</th>
+                        <th>Best Sport</th>
+                    </tr>
+                </thead>
+                <tbody id="total-bets-breakdown"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="section">
+        <h2 class="section-title">🧠 Methodology & Data Source</h2>
+        <div class="highlight-box" style="border-left-color: var(--accent);">
+            <h3>How This Dashboard Works</h3>
+            <ul style="margin-left: 20px; line-height: 2; margin-top: 15px;">
+                <li><strong>Auto-updating:</strong> All data pulled live from verified Google Sheets</li>
+                <li><strong>Complete transparency:</strong> Every pick tracked with date, result, and units</li>
+                <li><strong>Calculated metrics:</strong> Win %, ROI, and breakdowns generated automatically</li>
+                <li><strong>No manual editing:</strong> Numbers can't be fudged - direct from source</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <p><strong>📢 Records Disclaimer:</strong> Past performance does not guarantee future results. All data auto-generated from verified Google Sheets. Last refreshed on page load.</p>
+        <p class="last-updated" id="last-updated">🕒 Page loaded: <span id="load-time"></span></p>
+        <p style="margin-top: 20px;">
+            <a href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">← Back to Home</a> |
+            <a href="upcomingpicks.html" style="color: var(--accent); text-decoration: none; font-weight: 700; margin-left: 20px;">View Upcoming Picks →</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+// Google Sheets CSV URLs for each sport
+const SHEET_URLS = {
+    'NFL': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQgB4WcyyEpMBp_XI_ya6hC7Y8kRaHzrOvuLMq9voGF0nzfqi4lkmAWVb92nDkxUhLVhzr4RTWtZRxq/pub?output=csv',
+    'NBA': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBoPl-dhj7ZAVpRIafqrFBf10r6sg3jpEKxmuymugAckdoMp-czkj1hscpDnV42GGJsIvNx5EniLVz/pub?output=csv',
+    'NHL': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaRwsGOmbXrqAX0xqrDc9XwRCSaAOkuW68TArz3XQp7SMmLirKbdYqU5-zSM_A-MDNKG6sbdwZac6I/pub?output=csv',
+    'MLB': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQE9RjSNABgl0SxSA1ghp9soUs4gq7teoncN5GLmG5faXmH-sDwXgg0mrk0iQwmSEYExtx6xwFMflXv/pub?output=csv',
+    'NCAAF': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9c45xiuXWNe-fAXYMoNb00kCBHfMf4Yn-Xr2LUqdCIiuoiXXDgrDa5mq1PZqxjg8hx-5KnS0L4uVU/pub?output=csv',
+    'Soccer': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQy0EQskvixsVQb1zzYtCKDa4F1Wl6WU5QuAFMit32vms-c4DxlhLik-k7U_EhuYntQrpw4BI6r0rns/pub?output=csv'
+};
+
+let allData = [];
+
+async function fetchAllData() {
+    const promises = Object.entries(SHEET_URLS).map(async ([sheetSport, url]) => {
+        try {
+            const response = await fetch(url);
+            const csv = await response.text();
+            const rows = parseCSV(csv);
+            // Use the sport from the sheet name as fallback
+            return rows.map(row => {
+                // Fix ALL incorrect dates - force year to 2025 if it's wrong
+                let dateStr = row.Date || row.date || '';
+                if (dateStr) {
+                    const date = new Date(dateStr);
+                    if (!isNaN(date)) {
+                        const year = date.getFullYear();
+                        // Fix any year that's not 2025
+                        if (year !== 2025) {
+                            const correctedDate = new Date(2025, date.getMonth(), date.getDate());
+                            row.Date = correctedDate.toISOString().split('T')[0];
+                            row.date = row.Date;
+                        }
+                    }
+                }
+                return {
+                    ...row,
+                    sport: sheetSport // This maps to the correct sheet
+                };
+            });
+        } catch (error) {
+            console.error(`Error fetching ${sheetSport} data:`, error);
+            return [];
+        }
+    });
+
+    const results = await Promise.all(promises);
+    allData = results.flat();
+    console.log(`✅ Loaded ${allData.length} total picks across all sports`);
+
+    // Debug: Count entries by month
+    const monthCounts = {};
+    allData.forEach(row => {
+        const date = new Date(row.Date || row.date || '');
+        if (!isNaN(date)) {
+            const key = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+            monthCounts[key] = (monthCounts[key] || 0) + 1;
+        }
+    });
+    console.log('📅 Picks by month:', monthCounts);
+
+    // Verify all dates are now 2025
+    const non2025 = allData.filter(row => {
+        const date = new Date(row.Date || row.date || '');
+        return !isNaN(date) && date.getFullYear() !== 2025;
+    });
+    if (non2025.length > 0) {
+        console.warn(`⚠️ WARNING: ${non2025.length} picks still have non-2025 dates!`);
+    } else {
+        console.log('✅ All dates corrected to 2025');
+    }
+}
+
+function parseCSV(csvText) {
+    const lines = csvText.split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    const data = [];
+
+    for (let i = 1; i < lines.length; i++) {
+        if (lines[i].trim() === '') continue;
+
+        const values = parseCSVLine(lines[i]);
+        if (values.length >= headers.length) {
+            const row = {};
+            headers.forEach((header, index) => {
+                row[header] = values[index] || '';
+            });
+            data.push(row);
+        }
+    }
+    return data;
+}
+
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current.trim());
+    return result;
+}
+
+function calculateOverallStats() {
+    // Use actual bet sizes for accurate ROI calculation
+    const stats = calculateStats(allData, true);
+    const totalPicks = stats.wins + stats.losses + stats.pushes;
+
+    // Update display
+    document.getElementById('total-record').textContent = stats.record;
+    document.getElementById('win-rate').textContent = stats.winRate.toFixed(1) + '%';
+    document.getElementById('win-rate').className = `stat-value ${stats.winRate > 50 ? 'positive' : 'negative'}`;
+    document.getElementById('total-units').textContent = (stats.units >= 0 ? '+' : '') + stats.units.toFixed(1) + 'u';
+    document.getElementById('total-units').className = `stat-value ${stats.units >= 0 ? 'positive' : 'negative'}`;
+    document.getElementById('total-roi').textContent = (stats.roi >= 0 ? '+' : '') + stats.roi.toFixed(1) + '%';
+    document.getElementById('total-roi').className = `stat-value ${stats.roi >= 0 ? 'positive' : 'negative'}`;
+    document.getElementById('avg-odds').textContent = stats.avgOdds > 0 ? '+' + stats.avgOdds : stats.avgOdds;
+    document.getElementById('total-picks').textContent = totalPicks;
+    document.getElementById('win-progress').style.width = stats.winRate + '%';
+}
+
+function calculateSportBreakdown() {
+    const sports = ['NFL', 'NBA', 'NHL', 'MLB', 'NCAAF', 'Soccer'];
+    const tbody = document.getElementById('sport-breakdown');
+    tbody.innerHTML = '';
+
+    sports.forEach(sport => {
+        const sportData = allData.filter(row => row.sport === sport);
+        if (sportData.length === 0) return;
+
+        const stats = calculateStats(sportData, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><span class="badge badge-${sport.toLowerCase()}">${sport}</span></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${stats.avgOdds > 0 ? '+' : ''}${stats.avgOdds}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function calculateBetTypeBreakdown() {
+    const tbody = document.getElementById('bet-type-breakdown');
+    tbody.innerHTML = '';
+
+    // Track which bets have been categorized
+    const categorizedIndices = new Set();
+    const allBetTypes = [];
+
+    // Filter bets by type in priority order (mutually exclusive)
+    const betTypes = [
+        { name: 'Teasers', filter: (pick) => pick.includes('teaser') },
+        { name: '5-Inning Bets', filter: (pick) => pick.includes('5 inn') || pick.includes('5-inn') || pick.includes('first 5') || pick.includes('f5') },
+        { name: 'Over', filter: (pick) => pick.includes('over') },
+        { name: 'Under', filter: (pick) => pick.includes('under') },
+        { name: 'Moneyline', filter: (pick) => pick.includes('ml') || pick.includes('moneyline') },
+        { name: 'Spread', filter: (pick) => (pick.includes('+') || pick.includes('-')) }
+    ];
+
+    // Categorize each bet type
+    betTypes.forEach(betType => {
+        const typeData = allData.filter((row, index) => {
+            if (categorizedIndices.has(index)) return false; // Skip already categorized
+
+            const result = (row.Result || row.result || '').toLowerCase().trim();
+            if (!result || result === '' || result === 'pending') return false;
+
+            const pick = (row.Pick || row.pick || '').toLowerCase();
+            const betTypeCol = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+            const searchText = pick + ' ' + betTypeCol;
+
+            if (betType.filter(searchText)) {
+                categorizedIndices.add(index);
+                return true;
+            }
+            return false;
+        });
+
+        if (typeData.length > 0) {
+            allBetTypes.push({ name: betType.name, data: typeData });
+        }
+    });
+
+    // Catch all uncategorized bets as "Other"
+    const uncategorized = allData.filter((row, index) => {
+        if (categorizedIndices.has(index)) return false;
+        const result = (row.Result || row.result || '').toLowerCase().trim();
+        return result && result !== '' && result !== 'pending';
+    });
+
+    if (uncategorized.length > 0) {
+        allBetTypes.push({ name: 'Other', data: uncategorized });
+        console.log('Uncategorized bets:', uncategorized.length, uncategorized);
+    }
+
+    // Display all bet types
+    allBetTypes.forEach(betType => {
+        const stats = calculateStats(betType.data, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${betType.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(betType.data)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    // Debug: Log total categorized vs total bets
+    const totalCategorized = allBetTypes.reduce((sum, bt) => sum + bt.data.length, 0);
+    const totalBets = allData.filter(row => {
+        const result = (row.Result || row.result || '').toLowerCase().trim();
+        return result && result !== '' && result !== 'pending';
+    }).length;
+    console.log(`Bet Type Breakdown: ${totalCategorized} categorized out of ${totalBets} total bets`);
+}
+
+function calculateMonthlyBreakdown() {
+    const monthlyData = {};
+
+    allData.forEach(row => {
+        const dateStr = row.Date || row.date || '';
+        const date = new Date(dateStr);
+        if (isNaN(date)) return;
+
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        const monthName = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+
+        if (!monthlyData[monthKey]) {
+            monthlyData[monthKey] = { name: monthName, data: [] };
+        }
+        monthlyData[monthKey].data.push(row);
+    });
+
+    const tbody = document.getElementById('monthly-breakdown');
+    tbody.innerHTML = '';
+
+    Object.values(monthlyData).reverse().forEach(month => {
+        const stats = calculateStats(month.data, true);
+        const bestSport = findBestSport(month.data);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${month.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${bestSport}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function calculateUnitSizingBreakdown() {
+    const confidenceLevels = [
+        { name: '🔥 MAX PLAY (3u+)', min: 3, max: Infinity },
+        { name: '⭐ HIGH (2u)', min: 2, max: 3 },
+        { name: '✓ STANDARD (1u)', min: 1, max: 2 },
+        { name: '📉 SMALL (0.5u)', min: 0, max: 1 }
+    ];
+
+    const tbody = document.getElementById('unit-sizing-breakdown');
+    tbody.innerHTML = '';
+
+    let totalCategorized = 0;
+
+    console.log('=== UNIT SIZING BREAKDOWN DEBUG ===');
+
+    // First, test extractBetSize on all bets
+    let extractedCount = 0, defaultedCount = 0;
+    const betSizeDistribution = {};
+
+    allData.forEach(row => {
+        const result = (row.Result || row.result || '').toLowerCase();
+        if (!result || result === '' || result === 'pending') return;
+
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+        const unitMatch = searchText.match(/(\d+\.?\d*)\s*u(?!n)/i);
+        const betSize = extractBetSize(row);
+
+        if (unitMatch) {
+            extractedCount++;
+        } else {
+            defaultedCount++;
+            if (defaultedCount <= 5) {
+                console.log(`  Defaulted to 1u: "${pick.substring(0, 50)}..."`);
+            }
+        }
+
+        betSizeDistribution[betSize] = (betSizeDistribution[betSize] || 0) + 1;
+    });
+
+    console.log(`Bet Size Extraction: ${extractedCount} extracted, ${defaultedCount} defaulted to 1u`);
+    console.log('Bet Size Distribution:', betSizeDistribution);
+    console.log('---');
+
+    confidenceLevels.forEach(level => {
+        const levelData = allData.filter(row => {
+            const result = (row.Result || row.result || '').toLowerCase();
+            // Only include bets with results (exclude pending)
+            if (!result || result === '' || result === 'pending') {
+                return false;
+            }
+            // Extract the ACTUAL bet size from the pick text, not the profit/loss
+            const betSize = extractBetSize(row);
+            // Use >= for min to include boundary values
+            return betSize >= level.min && (level.max === Infinity ? true : betSize < level.max);
+        });
+
+        if (levelData.length === 0) return;
+
+        totalCategorized += levelData.length;
+        const stats = calculateStats(levelData, true); // Use actual bet sizes
+        const avgBetSize = levelData.length > 0 ? stats.totalRisked / levelData.length : 0;
+
+        console.log(`${level.name}: ${levelData.length} bets, Avg Bet Size: ${avgBetSize.toFixed(2)}u, Record: ${stats.record}, Profit: ${stats.units.toFixed(1)}u, Total Risked: ${stats.totalRisked.toFixed(1)}u, ROI: ${stats.roi.toFixed(1)}%`);
+
+        // Sample some bets
+        if (levelData.length > 0) {
+            const samples = levelData.slice(0, 3).map(row => {
+                const betSize = extractBetSize(row);
+                const result = row.Result || row.result;
+                const pick = (row.Pick || row.pick || '').substring(0, 30);
+                return `${betSize}u "${pick}" (${result})`;
+            });
+            console.log(`  Sample bets: ${samples.join(', ')}`);
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${level.name}</strong></td>
+            <td>${levelData.length}</td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    console.log(`Total categorized: ${totalCategorized}`);
+    console.log('===================================');
+}
+
+function calculateStats(data, useActualBetSizes = false) {
+    let wins = 0, losses = 0, pushes = 0;
+    let totalUnits = 0;
+    let totalOdds = 0, oddsCount = 0;
+    let totalRisked = 0;
+
+    // Process each row
+    data.forEach(row => {
+        const result = (row.Result || row.result || '').toLowerCase().trim();
+        const units = parseFloat(row.Units || row.units || 0);
+        const line = row.Line || row.line || row.Odds || row.odds || '';
+
+        // Skip pending or empty results
+        if (!result || result === '' || result === 'pending') {
+            return;
+        }
+
+        // Get the actual bet size for accurate ROI
+        const betSize = useActualBetSizes ? extractBetSize(row) : 1;
+        totalRisked += betSize;
+
+        // Count wins, losses, pushes - EXACT MATCH to betlegend-verified-records.html logic
+        const resultUpper = result.toUpperCase();
+        if (resultUpper === 'W' || resultUpper === 'WIN') {
+            wins++;
+            totalUnits += units; // Add units as-is (should be positive for wins)
+        } else if (resultUpper === 'L' || resultUpper === 'LOSS') {
+            losses++;
+            totalUnits += units; // Add units as-is (should be negative for losses)
+        } else if (resultUpper === 'P' || resultUpper === 'PUSH') {
+            pushes++;
+            // Pushes are 0 profit/loss, but still risked capital
+        }
+
+        // Track odds - ONLY for straight bets (exclude parlays/teasers) but INCLUDE pushes
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+
+        // Exclude parlays and teasers from odds calculation
+        const isParlay = searchText.includes('parlay');
+        const isTeaser = searchText.includes('teaser');
+
+        if (!isParlay && !isTeaser) {
+            const odds = extractOdds(line);
+            if (odds) {
+                totalOdds += odds;
+                oddsCount++;
+            }
+        }
+    });
+
+    // Calculate totals
+    const totalBets = wins + losses; // Pushes don't count in win rate
+    const winRate = totalBets > 0 ? (wins / totalBets) * 100 : 0;
+
+    // ROI = profit / total risked
+    const roi = totalRisked > 0 ? (totalUnits / totalRisked) * 100 : 0;
+
+    const avgOdds = oddsCount > 0 ? Math.round(totalOdds / oddsCount) : -110;
+
+    return {
+        record: `${wins}-${losses}${pushes > 0 ? `-${pushes}` : ''}`,
+        wins,
+        losses,
+        pushes,
+        winRate,
+        units: totalUnits,
+        roi,
+        avgOdds,
+        totalRisked
+    };
+}
+
+function findBestSport(data) {
+    const sports = ['NFL', 'NBA', 'NHL', 'MLB', 'NCAAF', 'Soccer'];
+    let bestSport = '';
+    let bestWinRate = 0;
+
+    sports.forEach(sport => {
+        const sportData = data.filter(row => row.sport === sport);
+        if (sportData.length === 0) return;
+
+        const stats = calculateStats(sportData, true);
+        if (stats.winRate > bestWinRate) {
+            bestWinRate = stats.winRate;
+            bestSport = `${sport} (${stats.winRate.toFixed(1)}%)`;
+        }
+    });
+
+    return bestSport || 'N/A';
+}
+
+function calculateTeaserBreakdown() {
+    const tbody = document.getElementById('teaser-breakdown');
+    tbody.innerHTML = '';
+
+    // Define specific teaser types to show
+    const teaserTypes = [
+        { name: '6-Point Teaser', patterns: ['6-point', '6 point', '6pt'] },
+        { name: '6.5-Point Teaser', patterns: ['6.5-point', '6.5 point', '6.5pt'] },
+        { name: '7-Point Teaser', patterns: ['7-point', '7 point', '7pt'] },
+        { name: '10-Point Teaser', patterns: ['10-point', '10 point', '10pt'] },
+        { name: '13-Point Teaser', patterns: ['13-point', '13 point', '13pt'] }
+    ];
+
+    let hasData = false;
+
+    teaserTypes.forEach(teaserType => {
+        const typeData = allData.filter(row => {
+            const pick = (row.Pick || row.pick || '').toLowerCase();
+            const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+            const searchText = pick + ' ' + betType;
+
+            // Check if it's a teaser AND matches this specific type
+            if (!searchText.includes('teaser')) return false;
+
+            return teaserType.patterns.some(pattern => searchText.includes(pattern));
+        });
+
+        if (typeData.length === 0) return;
+
+        hasData = true;
+        const stats = calculateStats(typeData, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${teaserType.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(typeData)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    if (!hasData) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No teaser data available</td></tr>';
+    }
+}
+
+function calculateFiveInningBreakdown() {
+    const fiveInningData = allData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+        return searchText.includes('5 inn') || searchText.includes('5-inn') || searchText.includes('first 5') || searchText.includes('f5');
+    });
+
+    console.log(`5-Inning Breakdown - Found ${fiveInningData.length} five-inning bets`);
+    if (fiveInningData.length > 0) {
+        console.log('Sample 5-inning bet:', fiveInningData[0]);
+    }
+
+    const tbody = document.getElementById('five-inning-breakdown');
+    tbody.innerHTML = '';
+
+    if (fiveInningData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No 5-inning data available</td></tr>';
+        return;
+    }
+
+    // Break down by bet type
+    const betTypes = [
+        { name: 'Spread/Run Line', filter: (pick) => (pick.includes('+') || pick.includes('-')) && !pick.includes('over') && !pick.includes('under') && !pick.includes('ml') && !pick.includes('moneyline') },
+        { name: 'Moneyline', filter: (pick) => pick.includes('ml') || pick.includes('moneyline') },
+        { name: 'Over', filter: (pick) => pick.includes('over') },
+        { name: 'Under', filter: (pick) => pick.includes('under') }
+    ];
+
+    betTypes.forEach(betType => {
+        const typeData = fiveInningData.filter(row => {
+            const pick = (row.Pick || row.pick || '').toLowerCase();
+            return betType.filter(pick);
+        });
+
+        if (typeData.length === 0) return;
+
+        const stats = calculateStats(typeData, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${betType.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${stats.avgOdds > 0 ? '+' : ''}${stats.avgOdds}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function calculateTotalBetsBreakdown() {
+    // Filter for all Over/Under total bets
+    const totalBetsData = allData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+        return searchText.includes('over') || searchText.includes('under') || searchText.includes('total');
+    });
+
+    console.log(`Total Bets Breakdown - Found ${totalBetsData.length} total bets (over/under)`);
+    if (totalBetsData.length > 0) {
+        console.log('Sample total bet:', totalBetsData[0]);
+    }
+
+    const tbody = document.getElementById('total-bets-breakdown');
+    tbody.innerHTML = '';
+
+    if (totalBetsData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No total bets data available</td></tr>';
+        return;
+    }
+
+    // Overall Totals
+    const allTotalsStats = calculateStats(totalBetsData, true);
+    let row = document.createElement('tr');
+    row.innerHTML = `
+        <td><strong>All Total Bets</strong></td>
+        <td class="${allTotalsStats.winRate > 50 ? 'win' : 'loss'}">${allTotalsStats.record}</td>
+        <td class="${allTotalsStats.winRate > 50 ? 'win' : ''}">${allTotalsStats.winRate.toFixed(1)}%</td>
+        <td class="${allTotalsStats.units >= 0 ? 'win' : 'loss'}">${allTotalsStats.units >= 0 ? '+' : ''}${allTotalsStats.units.toFixed(1)}u</td>
+        <td class="${allTotalsStats.roi >= 0 ? 'win' : 'loss'}">${allTotalsStats.roi >= 0 ? '+' : ''}${allTotalsStats.roi.toFixed(1)}%</td>
+        <td>${findBestSport(totalBetsData)}</td>
+    `;
+    tbody.appendChild(row);
+
+    // Over bets
+    const overData = totalBetsData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        return pick.includes('over');
+    });
+
+    if (overData.length > 0) {
+        const overStats = calculateStats(overData, true);
+        row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>Over Bets</strong></td>
+            <td class="${overStats.winRate > 50 ? 'win' : 'loss'}">${overStats.record}</td>
+            <td class="${overStats.winRate > 50 ? 'win' : ''}">${overStats.winRate.toFixed(1)}%</td>
+            <td class="${overStats.units >= 0 ? 'win' : 'loss'}">${overStats.units >= 0 ? '+' : ''}${overStats.units.toFixed(1)}u</td>
+            <td class="${overStats.roi >= 0 ? 'win' : 'loss'}">${overStats.roi >= 0 ? '+' : ''}${overStats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(overData)}</td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    // Under bets
+    const underData = totalBetsData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        return pick.includes('under');
+    });
+
+    if (underData.length > 0) {
+        const underStats = calculateStats(underData, true);
+        row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>Under Bets</strong></td>
+            <td class="${underStats.winRate > 50 ? 'win' : 'loss'}">${underStats.record}</td>
+            <td class="${underStats.winRate > 50 ? 'win' : ''}">${underStats.winRate.toFixed(1)}%</td>
+            <td class="${underStats.units >= 0 ? 'win' : 'loss'}">${underStats.units >= 0 ? '+' : ''}${underStats.units.toFixed(1)}u</td>
+            <td class="${underStats.roi >= 0 ? 'win' : 'loss'}">${underStats.roi >= 0 ? '+' : ''}${underStats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(underData)}</td>
+        `;
+        tbody.appendChild(row);
+    }
+}
+
+function createPerformanceChart() {
+    const sports = ['NFL', 'NBA', 'NHL', 'MLB', 'NCAAF', 'Soccer'];
+    const sportData = sports.map(sport => {
+        const data = allData.filter(row => row.sport === sport);
+        if (data.length === 0) return null;
+        const stats = calculateStats(data);
+        return {
+            sport: sport,
+            winRate: stats.winRate,
+            units: stats.units,
+            roi: stats.roi,
+            record: stats.record
+        };
+    }).filter(item => item !== null);
+
+    // Find max units for scaling (use absolute values)
+    const maxUnits = Math.max(...sportData.map(d => Math.abs(d.units)), 10); // Minimum 10 for scaling
+    const container = document.getElementById('unitsChart');
+    container.innerHTML = '';
+
+    sportData.forEach(sport => {
+        const barHeight = (Math.abs(sport.units) / maxUnits) * 100;
+        const isPositive = sport.units >= 0;
+
+        const barHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 100px;">
+                <div style="
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 26px;
+                    font-weight: 900;
+                    color: ${isPositive ? '#39FF14' : '#FF3131'};
+                    margin-bottom: 10px;
+                    text-shadow: 0 0 10px ${isPositive ? '#39FF14' : '#FF3131'};
+                ">
+                    ${sport.units >= 0 ? '+' : ''}${sport.units.toFixed(1)}u
+                </div>
+                <div style="
+                    width: 80px;
+                    height: ${barHeight}%;
+                    min-height: 40px;
+                    background: ${isPositive ? 'linear-gradient(180deg, #39FF14, #2ecc71)' : 'linear-gradient(180deg, #FF3131, #e74c3c)'};
+                    border-radius: 10px 10px 0 0;
+                    box-shadow: 0 0 30px ${isPositive ? 'rgba(57, 255, 20, 0.6)' : 'rgba(255, 49, 49, 0.6)'};
+                    position: relative;
+                    transition: all 0.5s ease;
+                "></div>
+                <div style="
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #00e0ff;
+                    margin-top: 15px;
+                    text-shadow: 0 0 8px #00e0ff;
+                ">${sport.sport}</div>
+                <div style="
+                    font-size: 14px;
+                    color: #888;
+                    margin-top: 5px;
+                    text-align: center;
+                ">${sport.winRate.toFixed(1)}%</div>
+            </div>
+        `;
+
+        container.innerHTML += barHTML;
+    });
+}
+
+function extractOdds(line) {
+    // Match all numbers with +/- signs, then take the last one (which is typically the odds)
+    const matches = line.match(/([+-]\d+)/g);
+    if (!matches || matches.length === 0) return null;
+
+    // The odds are usually the last +/- number in the line
+    const lastMatch = matches[matches.length - 1];
+    return parseInt(lastMatch);
+}
+
+function extractBetSize(row) {
+    // PRIORITY 1: Check if there's a Confidence column that directly states bet size
+    const confidence = parseFloat(row.Confidence || row.confidence || 0);
+    if (confidence > 0 && confidence <= 10) {
+        // Confidence column exists and has a valid value (0.5, 1, 2, 3, etc.)
+        return confidence;
+    }
+
+    // PRIORITY 2: Try to extract from pick text (e.g., "2u" in the pick)
+    const pick = (row.Pick || row.pick || '').toLowerCase();
+    const betType = (row['Bet Type'] || row['bet type'] || '').toLowerCase();
+    const searchText = pick + ' ' + betType;
+    const unitMatch = searchText.match(/(\d+\.?\d*)\s*u(?!n)/i);
+    if (unitMatch) {
+        const extractedSize = parseFloat(unitMatch[1]);
+        if (extractedSize > 0 && extractedSize <= 10) {
+            return extractedSize;
+        }
+    }
+
+    // PRIORITY 3: CALCULATE bet size from profit/loss + odds (reverse engineering)
+    const result = (row.Result || row.result || '').toUpperCase();
+    const units = parseFloat(row.Units || row.units || 0);
+    const lineStr = row.Line || row.line || '';
+    const odds = extractOdds(lineStr);
+
+    if (!result || isNaN(units) || !odds) {
+        return 1; // Default to 1u if we can't calculate
+    }
+
+    // For LOSSES: calculate actual bet size from loss amount + odds
+    if (result === 'L' || result === 'LOSS') {
+        const lossAmount = Math.abs(units);
+
+        if (odds < 0) {
+            // Negative odds (favorite): betSize = lossAmount / (|odds| / 100)
+            // Example: Lost 1.1u at -110 → betSize = 1.1 / 1.1 = 1u
+            // Example: Lost 0.55u at -110 → betSize = 0.55 / 1.1 = 0.5u
+            return lossAmount / (Math.abs(odds) / 100);
+        } else {
+            // Positive odds (underdog): you lose what you risked
+            // Example: Lost 1u at +150 → betSize = 1u
+            return lossAmount;
+        }
+    }
+
+    // For WINS: calculate bet size from profit + odds
+    if (result === 'W' || result === 'WIN') {
+        const profit = Math.abs(units);
+
+        // Special handling: if profit matches a common bet size exactly,
+        // it's likely the user entered the bet size, not the profit
+        if (profit === 0.5 || profit === 1 || profit === 1.5 || profit === 2 || profit === 2.5 || profit === 3) {
+            // Verify with odds - at -110, a 0.5u bet wins ~0.45u
+            if (odds < 0 && Math.abs(odds) <= 130) {
+                // At typical odds (-105 to -130), user likely entered bet size as profit
+                return profit;
+            }
+        }
+
+        if (odds < 0) {
+            // Negative odds (favorite): betSize = profit × (|odds| / 100)
+            // Example: Won 1.0u at -110 → betSize = 1.0 × (110/100) = 1.1u
+            const calculatedSize = profit * (Math.abs(odds) / 100);
+
+            // Round to nearest common bet size (0.5, 1, 1.5, 2, 2.5, 3, etc.)
+            const rounded = Math.round(calculatedSize * 2) / 2;
+            if (Math.abs(calculatedSize - rounded) < 0.15) {
+                return rounded;
+            }
+            return calculatedSize;
+        } else {
+            // Positive odds (underdog): betSize = profit / (odds / 100)
+            // Example: Won 1.5u at +150 → betSize = 1.5 / (150/100) = 1.0u
+            return profit / (odds / 100);
+        }
+    }
+
+    // For PUSHES: check confidence or default to 1u
+    if (result === 'P' || result === 'PUSH') {
+        return 1;
+    }
+
+    return 1; // Default fallback
+}
+
+
+
+
+// FIXED VERSION - calculateTeaserBreakdown
+ function
+// NOW MORE FLEXIBLE WITH TEASER DETECTION!
+function calculateTeaserBreakdown() {
+    const tbody = document.getElementById('teaser-breakdown');
+    tbody.innerHTML = '';
+
+    // Define specific teaser types to show
+    const teaserTypes = [
+        { name: '6-Point Teaser', patterns: ['6-point', '6 point', '6pt', '6 pt'] },
+        { name: '6.5-Point Teaser', patterns: ['6.5-point', '6.5 point', '6.5pt', '6.5 pt'] },
+        { name: '7-Point Teaser', patterns: ['7-point', '7 point', '7pt', '7 pt'] },
+        { name: '10-Point Teaser', patterns: ['10-point', '10 point', '10pt', '10 pt'] },
+        { name: '13-Point Teaser', patterns: ['13-point', '13 point', '13pt', '13 pt'] },
+        { name: 'Other Teasers', patterns: [] } // Catch-all for teasers without specific points
+    ];
+
+    let hasData = false;
+    let allTeaserData = [];
+
+    teaserTypes.forEach(teaserType => {
+        const typeData = allData.filter(row => {
+            const pick = (row.Pick || row.pick || '').toLowerCase();
+            const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+            const searchText = pick + ' ' + betType;
+
+            // Check if it's a teaser
+            const isTeaser = searchText.includes('teaser') ||
+                             betType === 'teaser' ||
+                             searchText.includes('tsr') ||
+                             searchText.includes('teas');
+
+            if (!isTeaser) return false;
+
+            // For "Other Teasers", include teasers that don't match specific patterns
+            if (teaserType.name === 'Other Teasers') {
+                const matchesSpecific = teaserTypes.slice(0, -1).some(specificType =>
+                    specificType.patterns.some(pattern => searchText.includes(pattern))
+                );
+                return !matchesSpecific;
+            }
+
+            // For specific teaser types, check patterns
+            return teaserType.patterns.length === 0 ||
+                   teaserType.patterns.some(pattern => searchText.includes(pattern));
+        });
+
+        if (typeData.length === 0) return;
+
+        hasData = true;
+        allTeaserData = allTeaserData.concat(typeData);
+        const stats = calculateStats(typeData, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${teaserType.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(typeData)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    // Add total row if we have data
+    if (hasData && allTeaserData.length > 0) {
+        const totalStats = calculateStats(allTeaserData, true);
+        const totalRow = document.createElement('tr');
+        totalRow.style.borderTop = '2px solid var(--accent)';
+        totalRow.style.fontWeight = 'bold';
+        totalRow.innerHTML = `
+            <td><strong>ALL TEASERS TOTAL</strong></td>
+            <td class="${totalStats.winRate > 50 ? 'win' : 'loss'}">${totalStats.record}</td>
+            <td class="${totalStats.winRate > 50 ? 'win' : ''}">${totalStats.winRate.toFixed(1)}%</td>
+            <td class="${totalStats.units >= 0 ? 'win' : 'loss'}">${totalStats.units >= 0 ? '+' : ''}${totalStats.units.toFixed(1)}u</td>
+            <td class="${totalStats.roi >= 0 ? 'win' : 'loss'}">${totalStats.roi >= 0 ? '+' : ''}${totalStats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(allTeaserData)}</td>
+        `;
+        tbody.appendChild(totalRow);
+    }
+
+    if (!hasData) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No teaser data available</td></tr>';
+    }
+
+    console.log(`Teaser Breakdown - Found ${allTeaserData.length} total teaser bets`);
+}
+
+function calculateFiveInningBreakdown() {
+    const fiveInningData = allData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+        return searchText.includes('5 inn') || searchText.includes('5-inn') || searchText.includes('first 5') || searchText.includes('f5');
+    });
+
+    console.log(`5-Inning Breakdown - Found ${fiveInningData.length} five-inning bets`);
+    if (fiveInningData.length > 0) {
+        console.log('Sample 5-inning bet:', fiveInningData[0]);
+    }
+
+    const tbody = document.getElementById('five-inning-breakdown');
+    tbody.innerHTML = '';
+
+    if (fiveInningData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No 5-inning data available</td></tr>';
+        return;
+    }
+
+    // Break down by bet type
+    const betTypes = [
+        { name: 'Spread/Run Line', filter: (pick) => (pick.includes('+') || pick.includes('-')) && !pick.includes('over') && !pick.includes('under') && !pick.includes('ml') && !pick.includes('moneyline') },
+        { name: 'Moneyline', filter: (pick) => pick.includes('ml') || pick.includes('moneyline') },
+        { name: 'Over', filter: (pick) => pick.includes('over') },
+        { name: 'Under', filter: (pick) => pick.includes('under') }
+    ];
+
+    betTypes.forEach(betType => {
+        const typeData = fiveInningData.filter(row => {
+            const pick = (row.Pick || row.pick || '').toLowerCase();
+            return betType.filter(pick);
+        });
+
+        if (typeData.length === 0) return;
+
+        const stats = calculateStats(typeData, true);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${betType.name}</strong></td>
+            <td class="${stats.winRate > 50 ? 'win' : 'loss'}">${stats.record}</td>
+            <td class="${stats.winRate > 50 ? 'win' : ''}">${stats.winRate.toFixed(1)}%</td>
+            <td class="${stats.units >= 0 ? 'win' : 'loss'}">${stats.units >= 0 ? '+' : ''}${stats.units.toFixed(1)}u</td>
+            <td class="${stats.roi >= 0 ? 'win' : 'loss'}">${stats.roi >= 0 ? '+' : ''}${stats.roi.toFixed(1)}%</td>
+            <td>${stats.avgOdds > 0 ? '+' : ''}${stats.avgOdds}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function calculateTotalBetsBreakdown() {
+    // Filter for all Over/Under total bets
+    const totalBetsData = allData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+        const searchText = pick + ' ' + betType;
+        return searchText.includes('over') || searchText.includes('under') || searchText.includes('total');
+    });
+
+    console.log(`Total Bets Breakdown - Found ${totalBetsData.length} total bets (over/under)`);
+    if (totalBetsData.length > 0) {
+        console.log('Sample total bet:', totalBetsData[0]);
+    }
+
+    const tbody = document.getElementById('total-bets-breakdown');
+    tbody.innerHTML = '';
+
+    if (totalBetsData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--muted);">No total bets data available</td></tr>';
+        return;
+    }
+
+    // Overall Totals
+    const allTotalsStats = calculateStats(totalBetsData, true);
+    let row = document.createElement('tr');
+    row.innerHTML = `
+        <td><strong>All Total Bets</strong></td>
+        <td class="${allTotalsStats.winRate > 50 ? 'win' : 'loss'}">${allTotalsStats.record}</td>
+        <td class="${allTotalsStats.winRate > 50 ? 'win' : ''}">${allTotalsStats.winRate.toFixed(1)}%</td>
+        <td class="${allTotalsStats.units >= 0 ? 'win' : 'loss'}">${allTotalsStats.units >= 0 ? '+' : ''}${allTotalsStats.units.toFixed(1)}u</td>
+        <td class="${allTotalsStats.roi >= 0 ? 'win' : 'loss'}">${allTotalsStats.roi >= 0 ? '+' : ''}${allTotalsStats.roi.toFixed(1)}%</td>
+        <td>${findBestSport(totalBetsData)}</td>
+    `;
+    tbody.appendChild(row);
+
+    // Over bets
+    const overData = totalBetsData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        return pick.includes('over');
+    });
+
+    if (overData.length > 0) {
+        const overStats = calculateStats(overData, true);
+        row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>Over Bets</strong></td>
+            <td class="${overStats.winRate > 50 ? 'win' : 'loss'}">${overStats.record}</td>
+            <td class="${overStats.winRate > 50 ? 'win' : ''}">${overStats.winRate.toFixed(1)}%</td>
+            <td class="${overStats.units >= 0 ? 'win' : 'loss'}">${overStats.units >= 0 ? '+' : ''}${overStats.units.toFixed(1)}u</td>
+            <td class="${overStats.roi >= 0 ? 'win' : 'loss'}">${overStats.roi >= 0 ? '+' : ''}${overStats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(overData)}</td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    // Under bets
+    const underData = totalBetsData.filter(row => {
+        const pick = (row.Pick || row.pick || '').toLowerCase();
+        return pick.includes('under');
+    });
+
+    if (underData.length > 0) {
+        const underStats = calculateStats(underData, true);
+        row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>Under Bets</strong></td>
+            <td class="${underStats.winRate > 50 ? 'win' : 'loss'}">${underStats.record}</td>
+            <td class="${underStats.winRate > 50 ? 'win' : ''}">${underStats.winRate.toFixed(1)}%</td>
+            <td class="${underStats.units >= 0 ? 'win' : 'loss'}">${underStats.units >= 0 ? '+' : ''}${underStats.units.toFixed(1)}u</td>
+            <td class="${underStats.roi >= 0 ? 'win' : 'loss'}">${underStats.roi >= 0 ? '+' : ''}${underStats.roi.toFixed(1)}%</td>
+            <td>${findBestSport(underData)}</td>
+        `;
+        tbody.appendChild(row);
+    }
+}
+
+function createPerformanceChart() {
+    const sports = ['NFL', 'NBA', 'NHL', 'MLB', 'NCAAF', 'Soccer'];
+    const sportData = sports.map(sport => {
+        const data = allData.filter(row => row.sport === sport);
+        if (data.length === 0) return null;
+        const stats = calculateStats(data);
+        return {
+            sport: sport,
+            winRate: stats.winRate,
+            units: stats.units,
+            roi: stats.roi,
+            record: stats.record
+        };
+    }).filter(item => item !== null);
+
+    // Find max units for scaling (use absolute values)
+    const maxUnits = Math.max(...sportData.map(d => Math.abs(d.units)), 10); // Minimum 10 for scaling
+    const container = document.getElementById('unitsChart');
+    container.innerHTML = '';
+
+    sportData.forEach(sport => {
+        const barHeight = (Math.abs(sport.units) / maxUnits) * 100;
+        const isPositive = sport.units >= 0;
+
+        const barHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 100px;">
+                <div style="
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 26px;
+                    font-weight: 900;
+                    color: ${isPositive ? '#39FF14' : '#FF3131'};
+                    margin-bottom: 10px;
+                    text-shadow: 0 0 10px ${isPositive ? '#39FF14' : '#FF3131'};
+                ">
+                    ${sport.units >= 0 ? '+' : ''}${sport.units.toFixed(1)}u
+                </div>
+                <div style="
+                    width: 80px;
+                    height: ${barHeight}%;
+                    min-height: 40px;
+                    background: ${isPositive ? 'linear-gradient(180deg, #39FF14, #2ecc71)' : 'linear-gradient(180deg, #FF3131, #e74c3c)'};
+                    border-radius: 10px 10px 0 0;
+                    box-shadow: 0 0 30px ${isPositive ? 'rgba(57, 255, 20, 0.6)' : 'rgba(255, 49, 49, 0.6)'};
+                    position: relative;
+                    transition: all 0.5s ease;
+                "></div>
+                <div style="
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #00e0ff;
+                    margin-top: 15px;
+                    text-shadow: 0 0 8px #00e0ff;
+                ">${sport.sport}</div>
+                <div style="
+                    font-size: 14px;
+                    color: #888;
+                    margin-top: 5px;
+                    text-align: center;
+                ">${sport.winRate.toFixed(1)}%</div>
+            </div>
+        `;
+
+        container.innerHTML += barHTML;
+    });
+}
+
+function extractOdds(line) {
+    // Match all numbers with +/- signs, then take the last one (which is typically the odds)
+    const matches = line.match(/([+-]\d+)/g);
+    if (!matches || matches.length === 0) return null;
+
+    // The odds are usually the last +/- number in the line
+    const lastMatch = matches[matches.length - 1];
+    return parseInt(lastMatch);
+}
+
+function extractBetSize(row) {
+    // CALCULATE bet size from profit/loss + odds (reverse engineering from juice)
+    const result = (row.Result || row.result || '').toUpperCase();
+    const units = parseFloat(row.Units || row.units || 0);
+    const lineStr = row.Line || row.line || '';
+    const odds = extractOdds(lineStr);
+
+    if (!result || isNaN(units) || !odds) {
+        return 1; // Default to 1u if we can't calculate
+    }
+
+    // For LOSSES: the loss amount IS the bet size (you lose what you risked)
+    if (result === 'L' || result === 'LOSS') {
+        return Math.abs(units);
+    }
+
+    // For WINS: calculate bet size from profit + odds
+    if (result === 'W' || result === 'WIN') {
+        const profit = Math.abs(units);
+
+        if (odds < 0) {
+            // Negative odds (favorite): betSize = profit × (|odds| / 100)
+            // Example: Won 1.0u at -110 → betSize = 1.0 × (110/100) = 1.1u
+            return profit * (Math.abs(odds) / 100);
+        } else {
+            // Positive odds (underdog): betSize = profit / (odds / 100)
+            // Example: Won 1.5u at +150 → betSize = 1.5 / (150/100) = 1.0u
+            return profit / (odds / 100);
+        }
+    }
+
+    // For PUSHES: estimate bet size from odds (assume typical 1u bet)
+    if (result === 'P' || result === 'PUSH') {
+        // Can't calculate exactly, but pushes are typically 1u
+        return 1;
+    }
+
+    return 1; // Default fallback
+}
+
+async function init() {
+    try {
+        await fetchAllData();
+
+        // DEBUG: Show first 10 bets with all columns
+        console.log('=== FIRST 10 BETS IN DATASET ===');
+        allData.slice(0, 10).forEach((row, i) => {
+            console.log(`Bet #${i+1}:`, {
+                Sport: row.sport,
+                Date: row.Date || row.date,
+                Pick: (row.Pick || row.pick || '').substring(0, 40),
+                BetType: row['Bet Type'] || row.BetType || row['bet type'],
+                Line: row.Line || row.line,
+                Result: row.Result || row.result,
+                Units: row.Units || row.units,
+                Confidence: row.Confidence || row.confidence,
+                ExtractedSize: extractBetSize(row)
+            });
+        });
+        console.log('=================================');
+
+        // AVG ODDS VERIFICATION - Log detailed breakdown before rendering
+        console.log('=== AVG ODDS CALCULATION VERIFICATION ===');
+        const sports = ['NFL', 'NBA', 'NHL', 'MLB', 'NCAAF', 'Soccer'];
+        sports.forEach(sport => {
+            const sportData = allData.filter(row => row.sport === sport);
+            if (sportData.length === 0) return;
+
+            // Manual calculation for verification
+            let oddsSum = 0, oddsCount = 0, excludedCount = 0, pushCount = 0;
+            const sampleOdds = [];
+
+            sportData.forEach(row => {
+                const result = (row.Result || row.result || '').toUpperCase();
+                const line = row.Line || row.line || row.Odds || row.odds || '';
+                const pick = (row.Pick || row.pick || '').toLowerCase();
+                const betType = (row['Bet Type'] || row['bet type'] || row.BetType || row.betType || '').toLowerCase();
+                const searchText = pick + ' ' + betType;
+
+                // Skip pending
+                if (!result || result === 'PENDING') return;
+
+                // Track pushes but INCLUDE them in average
+                if (result === 'P' || result === 'PUSH') {
+                    pushCount++;
+                }
+
+                // Check for parlay/teaser
+                const isParlay = searchText.includes('parlay');
+                const isTeaser = searchText.includes('teaser');
+
+                if (isParlay || isTeaser) {
+                    excludedCount++;
+                    return;
+                }
+
+                const odds = extractOdds(line);
+                if (odds) {
+                    oddsSum += odds;
+                    oddsCount++;
+                    if (sampleOdds.length < 5) {
+                        sampleOdds.push(`${odds} (${pick.substring(0, 25)}...)`);
+                    }
+                }
+            });
+
+            const avgOdds = oddsCount > 0 ? Math.round(oddsSum / oddsCount) : -110;
+            console.log(`${sport}:`);
+            console.log(`  Total bets: ${sportData.length}`);
+            console.log(`  Included in avg: ${oddsCount}`);
+            console.log(`  Excluded (parlays/teasers): ${excludedCount}`);
+            console.log(`  Pushes (INCLUDED in avg): ${pushCount}`);
+            console.log(`  Avg Odds: ${avgOdds}`);
+            console.log(`  Sample odds: ${sampleOdds.join(', ')}`);
+            console.log(`  Formula: Sum(${oddsSum}) / Count(${oddsCount}) = ${avgOdds}`);
+        });
+        console.log('==========================================\n');
+
+        calculateOverallStats();
+        calculateSportBreakdown();
+        calculateBetTypeBreakdown();
+        calculateMonthlyBreakdown();
+        calculateUnitSizingBreakdown();
+        calculateTeaserBreakdown();
+        calculateFiveInningBreakdown();
+        calculateTotalBetsBreakdown();
+
+        // COMPREHENSIVE MATH VERIFICATION
+        console.log('=== MATH VERIFICATION ===');
+
+        // Overall stats
+        const overallStats = calculateStats(allData, true);
+        console.log(`Overall Record: ${overallStats.record}, Units: ${overallStats.units.toFixed(1)}u, Total Risked: ${overallStats.totalRisked.toFixed(1)}u, ROI: ${overallStats.roi.toFixed(1)}%`);
+
+        // Sport breakdown verification
+        let sportTotalWins = 0, sportTotalLosses = 0, sportTotalPushes = 0, sportTotalUnits = 0;
+        sports.forEach(sport => {
+            const sportData = allData.filter(row => row.sport === sport);
+            if (sportData.length > 0) {
+                const stats = calculateStats(sportData, true);
+                sportTotalWins += stats.wins;
+                sportTotalLosses += stats.losses;
+                sportTotalPushes += stats.pushes;
+                sportTotalUnits += stats.units;
+            }
+        });
+        console.log(`Sport Breakdown Total: ${sportTotalWins}-${sportTotalLosses}-${sportTotalPushes}, Units: ${sportTotalUnits.toFixed(1)}u`);
+        console.log(`Match Overall: ${sportTotalWins === overallStats.wins && sportTotalLosses === overallStats.losses && sportTotalPushes === overallStats.pushes ? '✓ YES' : '✗ NO'}`);
+
+        // Unit sizing verification
+        const confidenceLevels = [
+            { name: 'MAX PLAY', min: 3, max: Infinity },
+            { name: 'HIGH', min: 2, max: 3 },
+            { name: 'STANDARD', min: 1, max: 2 },
+            { name: 'SMALL', min: 0, max: 1 }
+        ];
+        let unitSizingTotalWins = 0, unitSizingTotalLosses = 0, unitSizingTotalPushes = 0, unitSizingTotalCount = 0;
+        confidenceLevels.forEach(level => {
+            const levelData = allData.filter(row => {
+                const result = (row.Result || row.result || '').toLowerCase();
+                if (!result || result === '' || result === 'pending') return false;
+                const betSize = extractBetSize(row);
+                return betSize >= level.min && (level.max === Infinity ? true : betSize < level.max);
+            });
+            if (levelData.length > 0) {
+                const stats = calculateStats(levelData, true);
+                unitSizingTotalWins += stats.wins;
+                unitSizingTotalLosses += stats.losses;
+                unitSizingTotalPushes += stats.pushes;
+                unitSizingTotalCount += levelData.length;
+                console.log(`  ${level.name}: ${stats.wins}-${stats.losses}-${stats.pushes} (${levelData.length} bets)`);
+            }
+        });
+        console.log(`Unit Sizing Total: ${unitSizingTotalWins}-${unitSizingTotalLosses}-${unitSizingTotalPushes} (${unitSizingTotalCount} bets)`);
+        console.log(`Match Overall: ${unitSizingTotalWins === overallStats.wins && unitSizingTotalLosses === overallStats.losses ? '✓ YES' : '✗ NO'}`);
+
+        console.log('=========================');
+
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+
+        const now = new Date();
+        document.getElementById('load-time').textContent = now.toLocaleString();
+    } catch (error) {
+        console.error('Error initializing dashboard:', error);
+        document.getElementById('loading-screen').innerHTML = '<p style="color: var(--red);">Error loading data. Please refresh the page.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// Mobile dropdown menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+        if (dropbtn && dropdownContent) {
+            dropbtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close all other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
+
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+            });
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+});
+    </script>
+
+</body>
+</html>
+<!-- Force rebuild Mon, Oct 27, 2025  4:13:41 PM -->
