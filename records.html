@@ -1923,49 +1923,6 @@ function extractOdds(line) {
     return parseInt(lastMatch);
 }
 
-function extractBetSize(row) {
-    // CALCULATE bet size from profit/loss + odds (reverse engineering from juice)
-    const result = (row.Result || row.result || '').toUpperCase();
-    const units = parseFloat(row.Units || row.units || 0);
-    const lineStr = row.Line || row.line || '';
-    const odds = extractOdds(lineStr);
-
-    if (!result || isNaN(units) || !odds) {
-        return 1; // Default to 1u if we can't calculate
-    }
-
-    // For LOSSES: the loss amount IS the bet size (you lose what you risked)
-    if (result === 'L' || result === 'LOSS') {
-        return Math.abs(units);
-    }
-
-    // For WINS: calculate bet size from profit + odds
-    if (result === 'W' || result === 'WIN') {
-        const profit = Math.abs(units);
-
-        if (odds < 0) {
-            // Negative odds (favorite): betSize = profit × (|odds| / 100)
-            // Example: Won 1.0u at -110 → betSize = 1.0 × (110/100) = 1.1u
-            return profit * (Math.abs(odds) / 100);
-        } else {
-            // Positive odds (underdog): betSize = profit / (odds / 100)
-            // Example: Won 1.5u at +150 → betSize = 1.5 / (150/100) = 1.0u
-            return profit / (odds / 100);
-        }
-    }
-
-    // For PUSHES: estimate bet size from odds (assume typical 1u bet)
-    if (result === 'P' || result === 'PUSH') {
-        // Can't calculate exactly, but pushes are typically 1u
-        return 1;
-    }
-
-    return 1; // Default fallback
-}
-
-async function init() {
-    try {
-        await fetchAllData();
 
         // DEBUG: Show first 10 bets with all columns
         console.log('=== FIRST 10 BETS IN DATASET ===');
