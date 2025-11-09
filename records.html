@@ -1572,9 +1572,20 @@ function extractBetSize(row) {
         return 1; // Default to 1u if we can't calculate
     }
 
-    // For LOSSES: the loss amount IS the bet size (you lose what you risked)
+    // For LOSSES: calculate actual bet size from loss amount + odds
     if (result === 'L' || result === 'LOSS') {
-        return Math.abs(units);
+        const lossAmount = Math.abs(units);
+
+        if (odds < 0) {
+            // Negative odds (favorite): betSize = lossAmount / (|odds| / 100)
+            // Example: Lost 1.1u at -110 → betSize = 1.1 / 1.1 = 1u
+            // Example: Lost 0.55u at -110 → betSize = 0.55 / 1.1 = 0.5u
+            return lossAmount / (Math.abs(odds) / 100);
+        } else {
+            // Positive odds (underdog): you lose what you risked
+            // Example: Lost 1u at +150 → betSize = 1u
+            return lossAmount;
+        }
     }
 
     // For WINS: calculate bet size from profit + odds
