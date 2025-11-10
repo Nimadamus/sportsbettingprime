@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Images - RealAIGirls.com</title>
+    
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    /* Navigation Bar */
+    .navbar {
+        background: rgba(0,0,0,0.3);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+    
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .logo {
+        font-size: 2em;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-link {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.1);
+        transition: all 0.3s;
+        font-size: 0.95em;
+    }
+    
+    .nav-link:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+    
+    .nav-link.active {
+        background: rgba(255,255,255,0.3);
+        font-weight: bold;
+    }
+    
+    /* Container */
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: white;
+        font-size: 3.5em;
+        margin-bottom: 10px;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        animation: fadeIn 1s;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .subtitle {
+        text-align: center;
+        color: rgba(255,255,255,0.95);
+        font-size: 1.3em;
+        margin-bottom: 40px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    /* Category Grid */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .category-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    
+    .category-emoji {
+        font-size: 4em;
+        margin-bottom: 15px;
+    }
+    
+    .category-name {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 10px;
+    }
+    
+    .category-desc {
+        color: #666;
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+    
+    .category-count {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+    
+    /* Gallery Grid */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+    
+    .gallery-item {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+    
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 40px 0;
+        flex-wrap: wrap;
+    }
+    
+    .page-btn {
+        padding: 12px 20px;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        font-size: 1em;
+    }
+    
+    .page-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+    
+    .page-btn.active {
+        background: rgba(255,255,255,0.4);
+        font-weight: bold;
+    }
+    
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.97);
+        animation: fadeIn 0.3s;
+    }
+    
+    .modal-content {
+        position: relative;
+        margin: auto;
+        display: block;
+        max-width: 95%;
+        max-height: 95%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(255,255,255,0.2);
+    }
+    
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        color: white;
+        font-size: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1001;
+        transition: all 0.3s;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .close:hover {
+        color: #ff6b6b;
+        transform: scale(1.2);
+    }
+    
+    /* Stats Badge */
+    .stats-badge {
+        text-align: center;
+        color: #4ade80;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        color: rgba(255,255,255,0.8);
+        margin-top: 60px;
+        padding: 30px;
+        font-size: 0.95em;
+        background: rgba(0,0,0,0.2);
+        border-radius: 15px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        h1 { font-size: 2.5em; }
+        .subtitle { font-size: 1.1em; }
+        .nav-container { flex-direction: column; }
+        .category-grid { grid-template-columns: 1fr; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+    }
+</style>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🎨 RealAIGirls.com</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="all.html" class="nav-link active">All Images</a>
+                <a href="realistic.html" class="nav-link">📸 Realistic</a>
+                <a href="anime.html" class="nav-link">🎌 Anime & Manga</a>
+                <a href="fantasy.html" class="nav-link">🧚 Fantasy</a>
+                <a href="portraits.html" class="nav-link">👤 Portraits</a>
+                <a href="artistic.html" class="nav-link">🎨 Artistic</a>
+                <a href="fashion.html" class="nav-link">👗 Fashion</a>
+                <a href="nature.html" class="nav-link">🌸 Nature</a>
+                <a href="retro.html" class="nav-link">📻 Retro & Vintage</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🖼️ All Images</h1>
+        <div class="subtitle">Complete Gallery • All Categories</div>
+        <div class="stats-badge">✓ Every image from all categories in one place</div>
+
+        <div class="gallery">
+            <!-- All images from all categories will appear here -->
+        </div>
+
+        <div class="pagination">
+            <a href="all.html" class="page-btn active">Page 1</a>
+            <a href="all-2.html" class="page-btn">Page 2</a>
+            <a href="all-3.html" class="page-btn">Page 3</a>
+            <a href="all-4.html" class="page-btn">Page 4</a>
+            <a href="all-5.html" class="page-btn">Page 5</a>
+        </div>
+
+        <div class="footer">
+            <p>🎨 Browse by category for organized viewing</p>
+            <p>✨ All images verified duplicate-free</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    
+<script>
+    function openModal(src) {
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImage').src = src;
+    }
+    
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+
+</body>
+</html>
