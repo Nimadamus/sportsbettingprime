@@ -1,0 +1,115 @@
+============================================================
+NBA PREDICTION MODEL TRAINING - REAL DATA
+============================================================
+Loaded 4978 games from nba_prediction_model/data/outputs/historical_training_data.csv
+Date range: 2021-10-29 00:00:00 to 2025-04-13 00:00:00
+Seasons: ['2021-22' '2022-23' '2024-25']
+
+Train/Test Split by Season:
+  Train: 3231 games (['2021-22' '2022-23'])
+  Test:  1747 games (2024-25)
+  Train date range: 2021-10-29 00:00:00 to 2023-04-09 00:00:00
+  Test date range:  2024-10-22 00:00:00 to 2025-04-13 00:00:00
+
+Feature matrix shape: (3231, 25)
+Features: 25
+
+Feature matrix shape: (1747, 25)
+Features: 25
+
+============================================================
+TRAINING WIN PREDICTION MODEL
+============================================================
+Training win prediction model...
+Train Accuracy: 0.9786
+Test Accuracy: 0.5724
+CV Accuracy: 0.5865 (+/- 0.0249)
+
+Top 10 Most Important Features:
+                    feature  importance
+18          point_diff_diff    0.092883
+19           home_rest_days    0.047766
+15  away_last_10_point_diff    0.047032
+9     away_last_5_avg_score    0.046149
+21           rest_advantage    0.045878
+11   away_last_5_point_diff    0.045400
+7   home_last_10_point_diff    0.045153
+13   away_last_10_avg_score    0.044426
+3    home_last_5_point_diff    0.044349
+12     away_last_10_win_pct    0.044264
+
+============================================================
+TRAINING POINT SPREAD MODEL
+============================================================
+
+Training point spread prediction model...
+Train MAE: 4.19 points
+Test MAE: 11.63 points
+Test RMSE: 14.73 points
+R² Score: 0.0134
+
+Top 10 Most Important Features for Spread:
+                       feature  importance
+18             point_diff_diff    0.174128
+21              rest_advantage    0.056271
+17             win_pct_diff_10    0.052999
+7      home_last_10_point_diff    0.047479
+15     away_last_10_point_diff    0.046786
+3       home_last_5_point_diff    0.044240
+11      away_last_5_point_diff    0.044231
+12        away_last_10_win_pct    0.042783
+6   home_last_10_avg_opp_score    0.041726
+9        away_last_5_avg_score    0.040518
+
+============================================================
+TRAINING TOTAL POINTS MODEL
+============================================================
+
+Training total points prediction model...
+Train MAE: 6.18 points
+Test MAE: 15.66 points
+Test RMSE: 19.99 points
+R² Score: 0.0306
+
+Top 10 Most Important Features for Total:
+                       feature  importance
+6   home_last_10_avg_opp_score    0.074055
+5       home_last_10_avg_score    0.070003
+13      away_last_10_avg_score    0.068865
+16              win_pct_diff_5    0.056719
+18             point_diff_diff    0.054714
+14  away_last_10_avg_opp_score    0.052016
+7      home_last_10_point_diff    0.049806
+20              away_rest_days    0.049207
+10   away_last_5_avg_opp_score    0.048682
+21              rest_advantage    0.047365
+
+============================================================
+GENERATING TEST SET PREDICTIONS
+============================================================
+/usr/local/lib/python3.11/dist-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/user/sportsbettingprime/nba_prediction_model/train_real_model.py", line 303, in <module>
+    main()
+  File "/home/user/sportsbettingprime/nba_prediction_model/train_real_model.py", line 284, in main
+    predictor, report = train_models_real_data(
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/sportsbettingprime/nba_prediction_model/train_real_model.py", line 165, in train_models_real_data
+    pred = predictor.predict_game(row)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/sportsbettingprime/nba_prediction_model/models/predictor.py", line 285, in predict_game
+    features_scaled = self.scaler.transform(features)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_data.py", line 1075, in transform
+    X = validate_data(
+        ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sklearn/utils/validation.py", line 2954, in validate_data
+    out = check_array(X, input_name="X", **check_params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sklearn/utils/validation.py", line 1091, in check_array
+    raise ValueError(msg)
+ValueError: Expected a 2-dimensional container but got <class 'pandas.core.series.Series'> instead. Pass a DataFrame containing a single row (i.e. single sample) or a single column (i.e. single feature) instead.

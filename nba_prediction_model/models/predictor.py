@@ -280,6 +280,8 @@ class NBAPredictor:
         """
         if isinstance(features, dict):
             features = pd.DataFrame([features])
+        elif isinstance(features, pd.Series):
+            features = features.to_frame().T
 
         # Scale features
         features_scaled = self.scaler.transform(features)
