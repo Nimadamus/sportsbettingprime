@@ -2,8 +2,12 @@ name: Update BetLegend Records
 
 on:
   schedule:
-    # Run every 15 minutes
+    # Run every 15 minutes (only on main branch)
     - cron: '*/15 * * * *'
+  push:
+    branches:
+      - main
+      - 'claude/**'  # Also run on claude branches
   workflow_dispatch: # Allow manual trigger
 
 jobs:
