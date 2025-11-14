@@ -1,95 +1,77 @@
-# BetLegend Automation Setup
+# BetLegend Automation - ZERO SETUP REQUIRED
 
-This automation system reads graded picks from the BetLegend Google Sheet and automatically updates the website.
+This automation reads graded picks from the BetLegend Google Sheet and automatically updates the website.
+
+**NO API KEY. NO OAUTH. NO GITHUB SECRETS. NO BULLSHIT.**
 
 ## How It Works
 
-1. **Google Sheet → Script → Website**
-   - Every 15 minutes, a GitHub Action runs
-   - Reads all rows from the BetLegend Picks Tracker sheet
-   - Filters for graded picks (W/L/P in column K, "YES" in column M)
-   - Generates an HTML page with all verified records
-   - Commits and pushes to GitHub
-   - Website updates automatically
+Uses Google Sheets public CSV export endpoint - requires ZERO authentication:
 
-2. **Files Created**
-   - `.github/workflows/update-betlegend.yml` - GitHub Action workflow
-   - `scripts/sync-betlegend.js` - Sync script
-   - `betlegend-records.html` - Generated records page (auto-updated)
-
-## Setup Instructions
-
-### 1. Get Google Sheets API Key
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing
-3. Enable "Google Sheets API"
-4. Go to Credentials → Create Credentials → API Key
-5. Copy the API key
-
-### 2. Add API Key to GitHub
-
-1. Go to your GitHub repository
-2. Click Settings → Secrets and variables → Actions
-3. Click "New repository secret"
-4. Name: `GOOGLE_SHEETS_API_KEY`
-5. Value: Paste your API key
-6. Click "Add secret"
-
-### 3. Make Sheet Public (Read-Only)
-
-1. Open the BetLegend Picks Tracker sheet
-2. Click Share → Change to "Anyone with the link can view"
-3. This allows the API to read without authentication
-
-### 4. Test the Automation
-
-1. Push these files to GitHub
-2. Go to Actions tab
-3. Click "Update BetLegend Records"
-4. Click "Run workflow"
-5. Wait for it to complete
-6. Check if `betlegend-records.html` was created/updated
-
-### 5. View the Results
-
-Once the automation runs:
-- Visit: `https://yourdomain.com/betlegend-records.html`
-- Or: `https://nimadamus.github.io/sportsbettingprime/betlegend-records.html`
-
-## Manual Run
-
-To test locally:
-
-```bash
-# Set API key
-export GOOGLE_SHEETS_API_KEY="your-api-key-here"
-export SHEET_ID="1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv"
-
-# Install dependencies
-npm install googleapis
-
-# Run script
-node scripts/sync-betlegend.js
+```
+https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=0
 ```
 
-## How Grading Works
+## The Complete Pipeline
 
-The script reads from the Google Sheet and looks for:
+```
+1. You grade pick in Google Sheet (W/L/P in column K)
+   ↓
+2. Google Apps Script processes it
+   ↓
+3. Within 15 minutes, GitHub Action runs automatically
+   ↓
+4. Action fetches CSV from public sheet (no API key)
+   ↓
+5. Script parses graded picks
+   ↓
+6. HTML page generated (betlegend-records.html)
+   ↓
+7. Committed and pushed to GitHub
+   ↓
+8. Website updates automatically
+```
 
-- **Column K (11)**: GRADE - Must be W, L, or P
-- **Column M (13)**: PROCESSED - Must be "YES"
+## ONE-TIME SETUP (1 minute)
 
-Only rows meeting both criteria are included in the verified records page.
+**Step 1: Make Sheet Public (View Only)**
+
+1. Open the BetLegend Picks Tracker sheet
+2. Click **Share** button (top right)
+3. Change to: **"Anyone with the link can VIEW"** (NOT edit)
+4. Click **Done**
+
+**That's it. You're done.**
+
+## Files Created
+
+- `.github/workflows/update-betlegend.yml` - Runs every 15 minutes
+- `scripts/sync-betlegend.js` - Fetches CSV, generates HTML
+- `betlegend-records.html` - Auto-generated records page
 
 ## What Gets Updated
 
-The `betlegend-records.html` file contains:
+The `betlegend-records.html` file shows:
 
 - **Overall Stats**: Total record, win rate, net units
-- **Per-League Tables**: Separate sections for NFL, NBA, NHL, NCAAF, UEFA
-- **Individual Pick Details**: Date, pick, odds, units, result, net units
-- **Auto-generated**: Updates every 15 minutes
+- **Per-League Tables**: NFL, NBA, NHL, NCAAF, UEFA (separate sections)
+- **Individual Picks**: Date, pick, odds, units, result, net units
+- **Auto-Updated**: Every 15 minutes
+
+## View Your Records
+
+Once automation runs:
+- `https://yourdomain.com/betlegend-records.html`
+- Or: `https://nimadamus.github.io/sportsbettingprime/betlegend-records.html`
+
+## How Grading Works
+
+Script reads Google Sheet and looks for:
+
+- **Column K (11)**: GRADE - Must be W, L, or P
+- **Column M (13)**: PROCESSED - Must be YES
+
+Only rows with BOTH are included on the verified records page.
 
 ## Customization
 
@@ -101,50 +83,51 @@ Edit `.github/workflows/update-betlegend.yml`:
 on:
   schedule:
     - cron: '*/15 * * * *'  # Every 15 minutes
-    # Change to:
+    # Or change to:
     - cron: '*/30 * * * *'  # Every 30 minutes
     - cron: '0 * * * *'     # Every hour
     - cron: '0 */6 * * *'   # Every 6 hours
 ```
 
-### Change Output File
+### Test Locally
 
-Edit `scripts/sync-betlegend.js`:
+No API key needed:
 
-```javascript
-const OUTPUT_FILE = path.join(__dirname, '..', 'betlegend-records.html');
-// Change to your preferred filename
+```bash
+export SHEET_ID="1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv"
+export GID="0"
+
+node scripts/sync-betlegend.js
 ```
 
-### Modify HTML Styling
-
-The generated HTML includes embedded CSS. Edit the `generateHTML()` function in `scripts/sync-betlegend.js` to customize appearance.
+Output: `betlegend-records.html` (generated in repo root)
 
 ## Troubleshooting
 
-### Workflow Not Running
+### "No graded picks found"
 
-- Check GitHub Actions tab for errors
-- Verify `GOOGLE_SHEETS_API_KEY` secret is set
-- Make sure sheet is public (view-only)
+**Check:**
+- Column K (GRADE) contains W, L, or P
+- Column M (PROCESSED) contains YES
+- Sheet is public ("Anyone with link can view")
 
-### No Records Showing
+### "Sheet is not public" error
 
-- Verify rows in Google Sheet have:
-  - Column K = W, L, or P
-  - Column M = YES
-- Check GitHub Actions logs for errors
+**Fix:**
+1. Open Google Sheet
+2. Share → "Anyone with link can VIEW"
+3. Re-run automation
 
-### API Quota Exceeded
+### GitHub Action not running
 
-Google Sheets API has daily quotas:
-- Free tier: 500 requests/day per project
-- Each workflow run = 1 request
-- If running every 15 min = 96 requests/day (well within limit)
+**Check:**
+- Actions tab in GitHub for errors
+- Workflow file is in `.github/workflows/`
+- Branch is merged to main (actions run on main)
 
 ## Sheet Column Structure
 
-The script expects this exact structure:
+The script expects this EXACT structure:
 
 | Column | Name | Description |
 |--------|------|-------------|
@@ -158,29 +141,60 @@ The script expects this exact structure:
 | H (8) | Ready | Ready flag |
 | I (9) | PostedAt | Posting timestamp |
 | J (10) | Pushed | Push flag |
-| K (11) | **GRADE** | **W/L/P (required)** |
-| L (12) | UNIT_RESULT | Calculated result |
-| M (13) | **PROCESSED** | **YES (required)** |
+| K (11) | **GRADE** | **W/L/P (required for records)** |
+| L (12) | UNIT_RESULT | Calculated by Apps Script |
+| M (13) | **PROCESSED** | **YES (required for records)** |
+
+## Why CSV Export Works
+
+Google Sheets allows public viewing through CSV download without authentication:
+
+- ✅ No API key required
+- ✅ No OAuth required
+- ✅ No service account required
+- ✅ No GitHub secrets required
+- ✅ Just needs sheet to be "view only"
+
+This is Google's built-in feature for public data access.
+
+## What Happens When You Grade
+
+1. Select W/L/P in column K
+2. Apps Script calculates unit result (column L)
+3. Apps Script marks PROCESSED = YES (column M)
+4. Within 15 minutes, automation runs
+5. CSV fetched from public endpoint
+6. HTML generated with graded picks
+7. Committed to GitHub
+8. Website updates
+
+**Fully automatic. Zero manual steps after initial setup.**
+
+## Manual Trigger
+
+To run immediately (without waiting 15 minutes):
+
+1. Go to GitHub → Actions tab
+2. Click "Update BetLegend Records"
+3. Click "Run workflow"
+4. Click green "Run workflow" button
+5. Wait ~30 seconds
+6. Check if `betlegend-records.html` was updated
+
+## Deployment Checklist
+
+- [x] Set sheet to "Anyone with link can view"
+- [x] Merge branch to main
+- [x] Wait 15 minutes (or trigger manually)
+- [x] Check website for updated records
 
 ## Support
 
-If the automation stops working:
+If automation stops:
 
-1. Check GitHub Actions logs
-2. Verify API key is valid
-3. Verify sheet is still public
-4. Check sheet ID hasn't changed
-5. Ensure column structure matches above
+1. Verify sheet is still public
+2. Check GitHub Actions logs
+3. Verify sheet ID hasn't changed
+4. Ensure column structure matches above
 
-## What Happens When You Grade a Pick
-
-1. You select W/L/P in column K of the Google Sheet
-2. Google Apps Script calculates unit result (column L)
-3. Google Apps Script marks row as processed (column M = "YES")
-4. Within 15 minutes, GitHub Action runs
-5. Script reads all processed rows
-6. HTML page is generated
-7. Changes are committed and pushed
-8. Website updates automatically
-
-**The entire process is fully automatic after setup.**
+**The entire system requires ZERO credentials and ZERO manual intervention after setup.**
