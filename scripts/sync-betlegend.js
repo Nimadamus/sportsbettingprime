@@ -445,12 +445,135 @@ ${leagueTables}
 }
 
 /**
+ * League to file mapping
+ */
+const LEAGUE_FILES = {
+  'NFL': path.join(__dirname, '..', 'nfl-gridiron-oracles.html'),
+  'NHL': path.join(__dirname, '..', 'nhl-ice-oracles.html'),
+  'NCAAF': path.join(__dirname, '..', 'college-football.html'),
+  'MLB': path.join(__dirname, '..', 'mlb-prime-directives.html'),
+  'NBA': path.join(__dirname, '..', 'nba.html'), // Create if doesn't exist
+};
+
+/**
+ * Generate BetLegend verified records section for a league
+ */
+function generateLeagueSection(league, picks, stats) {
+  const rows = picks.map(pick => {
+    const gradeClass = pick.grade === 'W' ? 'win' : pick.grade === 'L' ? 'loss' : 'push';
+    const gradeText = pick.grade === 'W' ? 'WIN' : pick.grade === 'L' ? 'LOSS' : 'PUSH';
+    const gradeColor = pick.grade === 'W' ? '#00ff00' : pick.grade === 'L' ? '#ff0040' : '#888';
+    const unitSign = parseFloat(pick.unitResult) > 0 ? '+' : '';
+
+    return `            <tr style="background: rgba(${pick.grade === 'W' ? '0,255,0' : pick.grade === 'L' ? '255,0,64' : '136,136,136'},0.05);">
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">${pick.date}</td>
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">${pick.pick}</td>
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">${pick.odds}</td>
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">${pick.units}</td>
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); color: ${gradeColor}; font-weight: bold;">${gradeText}</td>
+              <td style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: bold; font-size: 1.1rem;">${unitSign}${pick.unitResult}</td>
+            </tr>`;
+  }).join('\n');
+
+  return `<!-- BETLEGEND_RECORDS_START -->
+<section class="section-post" style="padding: 18px 16px 40px;">
+  <div class="post-wrap" style="width: min(100%, var(--wrap, 1200px)); margin: 0 auto;">
+    <div style="background: rgba(16,22,35,0.85); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; border: 1px solid rgba(0,255,255,0.2); margin-bottom: 30px;">
+      <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #FFD700; text-align: center; margin: 0 0 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.5);">
+        BetLegend Verified ${league} Records
+      </h2>
+
+      <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 25px; padding: 20px; background: rgba(0,255,255,0.05); border-radius: 10px;">
+        <div style="text-align: center; padding: 12px 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <div style="font-size: 0.9rem; color: rgba(234,248,255,0.7); margin-bottom: 5px;">Record</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: #FFD700;">${stats.record}</div>
+        </div>
+        <div style="text-align: center; padding: 12px 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <div style="font-size: 0.9rem; color: rgba(234,248,255,0.7); margin-bottom: 5px;">Win Rate</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: #FFD700;">${stats.winRate}%</div>
+        </div>
+        <div style="text-align: center; padding: 12px 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <div style="font-size: 0.9rem; color: rgba(234,248,255,0.7); margin-bottom: 5px;">Net Units</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: ${parseFloat(stats.totalUnits) >= 0 ? '#00ff00' : '#ff0040'};">${parseFloat(stats.totalUnits) > 0 ? '+' : ''}${stats.totalUnits}</div>
+        </div>
+        <div style="text-align: center; padding: 12px 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <div style="font-size: 0.9rem; color: rgba(234,248,255,0.7); margin-bottom: 5px;">Total Picks</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: #FFD700;">${stats.totalPicks}</div>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3);">
+          <thead style="background: rgba(0,255,255,0.1);">
+            <tr>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Date</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Pick</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Odds</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Units</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Result</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; color: #00ffff; border-bottom: 2px solid #00ffff;">Net Units</th>
+            </tr>
+          </thead>
+          <tbody>
+${rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align: center; color: rgba(234,248,255,0.6); font-size: 0.9rem; margin-top: 20px;">
+        Last Updated: ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'full', timeStyle: 'short' })}
+      </p>
+    </div>
+  </div>
+</section>
+<!-- BETLEGEND_RECORDS_END -->
+`;
+}
+
+/**
+ * Update HTML file with BetLegend section
+ */
+function updateHTMLFile(filePath, section) {
+  if (!fs.existsSync(filePath)) {
+    console.log(`⚠️  File not found: ${filePath}`);
+    return false;
+  }
+
+  let html = fs.readFileSync(filePath, 'utf8');
+
+  // Check if BetLegend section already exists
+  const startMarker = '<!-- BETLEGEND_RECORDS_START -->';
+  const endMarker = '<!-- BETLEGEND_RECORDS_END -->';
+
+  if (html.includes(startMarker) && html.includes(endMarker)) {
+    // Replace existing section
+    const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, 'g');
+    html = html.replace(regex, section.trim());
+    console.log(`  ✓ Updated existing BetLegend section`);
+  } else {
+    // Insert new section after the first </section> tag (after hero section)
+    const insertPoint = html.indexOf('</section>');
+    if (insertPoint === -1) {
+      console.log(`  ⚠️  Could not find insertion point in ${filePath}`);
+      return false;
+    }
+
+    const afterHeroSection = insertPoint + '</section>'.length;
+    html = html.slice(0, afterHeroSection) + '\n\n' + section + '\n' + html.slice(afterHeroSection);
+    console.log(`  ✓ Inserted new BetLegend section`);
+  }
+
+  fs.writeFileSync(filePath, html, 'utf8');
+  return true;
+}
+
+/**
  * Main execution
  */
 async function main() {
   try {
-    console.log('BetLegend Sync - Using CSV Export (No API Key Required)');
-    console.log('========================================================\n');
+    console.log('BetLegend Sync - CSV to League Pages');
+    console.log('=====================================\n');
 
     console.log('Fetching CSV from Google Sheets...');
     const csvText = await fetchCSV();
@@ -468,7 +591,6 @@ async function main() {
       console.log('\n⚠️  No graded picks found. Make sure:');
       console.log('   - Column K (GRADE) contains W, L, or P');
       console.log('   - Column M (PROCESSED) contains YES');
-      console.log('   - Sheet is set to "Anyone with link can view"');
       return;
     }
 
@@ -476,39 +598,47 @@ async function main() {
     const groupedPicks = groupByLeague(gradedPicks);
     console.log(`✓ Grouped into ${Object.keys(groupedPicks).length} leagues`);
 
-    console.log('Calculating overall stats...');
+    console.log('\nUpdating league pages...');
+    const updatedFiles = [];
+
+    for (const [league, picks] of Object.entries(groupedPicks)) {
+      const filePath = LEAGUE_FILES[league];
+
+      if (!filePath) {
+        console.log(`  ⚠️  ${league}: No file mapping found, skipping`);
+        continue;
+      }
+
+      const stats = calculateStats(picks);
+      console.log(`\n  ${league}: ${stats.record} (${stats.totalUnits} units)`);
+
+      const section = generateLeagueSection(league, picks, stats);
+      const updated = updateHTMLFile(filePath, section);
+
+      if (updated) {
+        updatedFiles.push(path.basename(filePath));
+      }
+    }
+
+    // Also generate the main betlegend-records.html file
+    console.log('\nGenerating main BetLegend records page...');
     const overallStats = calculateStats(gradedPicks);
-    console.log(`✓ Overall record: ${overallStats.record}, Units: ${overallStats.totalUnits}`);
-
-    console.log('Generating HTML...');
     const html = generateHTML(groupedPicks, overallStats);
-
-    console.log(`Writing to ${OUTPUT_FILE}...`);
     fs.writeFileSync(OUTPUT_FILE, html, 'utf8');
-    console.log('✓ HTML file updated successfully\n');
+    console.log('✓ betlegend-records.html updated');
+    updatedFiles.push('betlegend-records.html');
 
-    console.log('=== SUMMARY ===');
+    console.log('\n=== SUMMARY ===');
     console.log(`Total Picks: ${overallStats.totalPicks}`);
     console.log(`Record: ${overallStats.record}`);
     console.log(`Win Rate: ${overallStats.winRate}%`);
-    console.log(`Net Units: ${overallStats.totalUnits}\n`);
-
-    console.log('Leagues:');
-    for (const league of Object.keys(groupedPicks).sort()) {
-      const stats = calculateStats(groupedPicks[league]);
-      console.log(`  ${league}: ${stats.record} (${stats.totalUnits} units)`);
-    }
-
+    console.log(`Net Units: ${overallStats.totalUnits}`);
+    console.log(`\nUpdated Files: ${updatedFiles.join(', ')}`);
     console.log('\n✅ Sync complete!');
 
   } catch (error) {
     console.error('\n❌ ERROR:', error.message);
-    if (error.message.includes('403') || error.message.includes('401')) {
-      console.error('\nSheet is not public. To fix:');
-      console.error('1. Open the Google Sheet');
-      console.error('2. Click Share → Change to "Anyone with link can VIEW"');
-      console.error('3. Re-run this script');
-    }
+    console.error(error.stack);
     process.exit(1);
   }
 }
