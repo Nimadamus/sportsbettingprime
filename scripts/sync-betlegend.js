@@ -9,10 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-// Configuration
-const SHEET_ID = process.env.SHEET_ID || '1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv';
-const GID = process.env.GID || '0'; // Sheet1 = 0
-const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+// Configuration - Use published CSV URL (no authentication required)
+const CSV_URL = process.env.CSV_URL || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjW2l6hBUafumAiOdJblACLIx3GTtdJDcytUcN1nu2QHJmHnUMN9_5Tp2v7VqMTZaATfdmcJ-SK4jD/pub?output=csv';
 
 // Output HTML file
 const OUTPUT_FILE = path.join(__dirname, '..', 'betlegend-records.html');

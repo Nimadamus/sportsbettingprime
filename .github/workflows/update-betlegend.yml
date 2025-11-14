@@ -21,8 +21,7 @@ jobs:
 
       - name: Run BetLegend sync script (CSV export - no API key needed)
         env:
-          SHEET_ID: '1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv'
-          GID: '0'
+          CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjW2l6hBUafumAiOdJblACLIx3GTtdJDcytUcN1nu2QHJmHnUMN9_5Tp2v7VqMTZaATfdmcJ-SK4jD/pub?output=csv'
         run: node scripts/sync-betlegend.js
 
       - name: Commit and push if changed
