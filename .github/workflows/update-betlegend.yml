@@ -19,20 +19,17 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install googleapis@^118.0.0
-
-      - name: Run BetLegend sync script
+      - name: Run BetLegend sync script (CSV export - no API key needed)
         env:
-          GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
           SHEET_ID: '1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv'
+          GID: '0'
         run: node scripts/sync-betlegend.js
 
       - name: Commit and push if changed
         run: |
           git config --global user.name 'BetLegend Bot'
           git config --global user.email 'bot@betlegend.com'
-          git add .
+          git add betlegend-records.html
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
