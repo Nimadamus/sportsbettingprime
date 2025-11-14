@@ -1,0 +1,41 @@
+name: Update BetLegend Records
+
+on:
+  schedule:
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-records:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install googleapis@^118.0.0
+
+      - name: Run BetLegend sync script
+        env:
+          GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
+          SHEET_ID: '1izhhxwiazn9S8RqcK8QUpE4pWDRIFnPq5yw5ZISMsmv'
+        run: node scripts/sync-betlegend.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'BetLegend Bot'
+          git config --global user.email 'bot@betlegend.com'
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update BetLegend verified records [automated]"
+            git push
+          fi
