@@ -34,9 +34,9 @@ def run_scraper():
     result = run_command(cmd, cwd=SCRIPT_DIR)
 
     if result.returncode == 0:
-        print("✓ Scraper completed successfully!")
+        print("[OK] Scraper completed successfully!")
     else:
-        print("✗ Scraper failed!")
+        print("[ERROR] Scraper failed!")
         sys.exit(1)
 
 def load_consensus_data():
@@ -70,9 +70,9 @@ def load_consensus_data():
             max_consensus = max(max_consensus, int(row['Count']))
             count += 1
 
-    print(f"✓ Loaded {len(data)} picks")
-    print(f"✓ Sports: {', '.join(sorted(sports))}")
-    print(f"✓ Highest consensus: {max_consensus} experts")
+    print(f"[OK] Loaded {len(data)} picks")
+    print(f"[OK] Sports: {', '.join(sorted(sports))}")
+    print(f"[OK] Highest consensus: {max_consensus} experts")
 
     return data, len(sports), max_consensus
 
@@ -175,14 +175,14 @@ def create_dated_page(consensus_data, sport_count, max_consensus):
     with open(new_filepath, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
-    print(f"✓ Created {new_filename}")
+    print(f"[OK] Created {new_filename}")
 
     # Also update main sharp-consensus.html
     main_filepath = os.path.join(SCRIPT_DIR, "sharp-consensus.html")
     with open(main_filepath, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
-    print(f"✓ Updated sharp-consensus.html")
+    print(f"[OK] Updated sharp-consensus.html")
 
     return new_filename, date_str, date_display
 
@@ -207,7 +207,7 @@ def update_index_html(date_str):
     with open(index_path, 'w', encoding='utf-8') as f:
         f.write(content)
 
-    print(f"✓ Updated index.html to point to {date_str}")
+    print(f"[OK] Updated index.html to point to {date_str}")
 
 def commit_and_push(date_display, max_consensus, sport_count):
     """Commit and push changes to GitHub"""
@@ -235,17 +235,17 @@ Co-Authored-By: Claude <noreply@anthropic.com>"""
     result = run_command(f'git commit -m "{commit_msg}"', cwd=REPO_PATH)
 
     if "nothing to commit" in result.stdout:
-        print("✓ No changes to commit")
+        print("[OK] No changes to commit")
     else:
-        print("✓ Changes committed")
+        print("[OK] Changes committed")
 
         # Push
         result = run_command("git push", cwd=REPO_PATH)
 
         if result.returncode == 0:
-            print("✓ Changes pushed to GitHub!")
+            print("[OK] Changes pushed to GitHub!")
         else:
-            print("✗ Failed to push to GitHub")
+            print("[ERROR] Failed to push to GitHub")
             print(result.stderr)
 
 def main():
@@ -271,13 +271,13 @@ def main():
         commit_and_push(date_display, max_consensus, sport_count)
 
         print("\n" + "=" * 60)
-        print("✓ ALL STEPS COMPLETED SUCCESSFULLY!")
+        print("[SUCCESS] ALL STEPS COMPLETED SUCCESSFULLY!")
         print("=" * 60)
         print(f"\nNew page: {new_filename}")
         print(f"URL: https://www.sportsbettingprime.com/consensus_library/{new_filename}")
 
     except Exception as e:
-        print(f"\n✗ ERROR: {e}")
+        print(f"\n[ERROR] {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
