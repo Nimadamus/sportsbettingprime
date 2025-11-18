@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covers Contest Consensus | Sports Betting Prime</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #01000f;
+            --text-color: #eaf8ff;
+            --neon-cyan: #00ffff;
+            --neon-gold: #FFD700;
+            --font-primary: 'Orbitron', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-secondary); background: linear-gradient(135deg, #01000f 0%, #0a0a2e 100%); color: var(--text-color); min-height: 100vh; }
+
+        header { padding: 20px 5%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo a { color: var(--text-color); text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; }
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
+
+        .nav-links { list-style: none; display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; text-transform: uppercase; transition: all 0.3s; }
+        .nav-links a:hover { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .page-header h1 { font-family: var(--font-primary); font-size: 3rem; color: var(--neon-gold); text-shadow: 0 0 20px var(--neon-gold); margin-bottom: 15px; }
+        .page-header p { font-size: 1.2rem; color: rgba(234, 248, 255, 0.8); max-width: 800px; margin: 0 auto; }
+
+        .update-time { text-align: center; margin-bottom: 30px; padding: 15px; background: rgba(0, 255, 255, 0.1); border-radius: 10px; border: 1px solid var(--neon-cyan); }
+        .update-time strong { color: var(--neon-cyan); font-family: var(--font-primary); }
+
+        .sport-section { margin-bottom: 60px; }
+        .sport-section h2 { font-family: var(--font-primary); font-size: 2rem; color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--neon-cyan); }
+
+        .picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+
+        .pick-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 12px; padding: 20px; transition: all 0.3s; }
+        .pick-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3); border-color: var(--neon-cyan); }
+
+        .pick-count { display: inline-block; background: var(--neon-gold); color: #01000f; font-weight: 900; font-family: var(--font-primary); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; margin-bottom: 12px; }
+
+        .matchup { font-size: 1.1rem; font-weight: 600; color: var(--text-color); margin-bottom: 10px; }
+
+        .pick-type { display: inline-block; background: rgba(0, 255, 255, 0.2); color: var(--neon-cyan); padding: 4px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
+
+        .pick-value { font-size: 1.3rem; font-weight: 700; color: var(--neon-gold); text-shadow: 0 0 10px var(--neon-gold); }
+
+        footer { text-align: center; padding: 30px 20px; background: rgba(0, 0, 0, 0.5); margin-top: 60px; }
+        footer p { color: rgba(234, 248, 255, 0.7); font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .picks-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QQH4JXHGN3');
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="consensus_library/sharp-consensus.html?v=20251117">Sharp Consensus</a></li>
+                <li><a href="covers-consensus.html" class="active">Covers Consensus</a></li>
+                <li><a href="performance-telemetry.html">Results</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>COVERS CONTEST CONSENSUS</h1>
+            <p>Top picks from Covers.com King of Covers contest leaders. These are the plays selected by the highest performing handicappers in multiple sports contests.</p>
+        </div>
+
+        <div class="update-time">
+            <strong>Last Updated:</strong> November 18, 2025 - 9:47 AM EST
+        </div>
+
+        <!-- Pagination Navigation -->
+        <div class="archive-link" style="margin-bottom: 30px;">
+            <h3 style="color: var(--neon-cyan); text-align: center; margin-bottom: 20px; font-family: var(--font-primary);">📅 Historical Archives</h3>
+            <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <a href="covers-consensus.html" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #01000f; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 700;">Nov 18, 2025 (Today)</a>
+                <a href="consensus_library/covers-consensus.html" style="background: rgba(0, 255, 255, 0.1); color: #00ffff; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; border: 1px solid rgba(0, 255, 255, 0.3);">Nov 16, 2025</a>
+            </div>
+        </div>
+
+        <!-- NFL Section -->
+        <div class="sport-section">
+            <h2>🏈 NFL</h2>
+            <div class="picks-grid">
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">Buffalo @ Houston</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">BUF -2.5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NBA Section -->
+        <div class="sport-section">
+            <h2>🏀 NBA</h2>
+            <div class="picks-grid">
+                <div class="pick-card">
+                    <span class="pick-count">14 CAPPERS</span>
+                    <div class="matchup">Memphis @ San Antonio</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">SA -6.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">13 CAPPERS</span>
+                    <div class="matchup">Golden State @ Orlando</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">GS -3.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">Boston @ Brooklyn</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">BOS -10.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">Boston @ Brooklyn</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">BK +10.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">7 CAPPERS</span>
+                    <div class="matchup">Utah @ L.A. Lakers</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">LAL -12.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">Phoenix @ Portland</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 236.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">Boston @ Brooklyn</div>
+                    <span class="pick-type">Total (Over)</span>
+                    <div class="pick-value">Over 224.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">5 CAPPERS</span>
+                    <div class="matchup">Detroit @ Atlanta</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">DET -1.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">5 CAPPERS</span>
+                    <div class="matchup">Phoenix @ Portland</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">POR -2.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">5 CAPPERS</span>
+                    <div class="matchup">Golden State @ Orlando</div>
+                    <span class="pick-type">Total (Over)</span>
+                    <div class="pick-value">Over 223.0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NHL Section -->
+        <div class="sport-section">
+            <h2>🏒 NHL</h2>
+            <div class="picks-grid">
+                <div class="pick-card">
+                    <span class="pick-count">9 CAPPERS</span>
+                    <div class="matchup">NY Islanders @ Dallas</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 6.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">New Jersey @ Tampa Bay</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">TB -170</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">7 CAPPERS</span>
+                    <div class="matchup">NY Islanders @ Dallas</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">NYI +140</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">St. Louis @ Toronto</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">STL +105</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">Seattle @ Detroit</div>
+                    <span class="pick-type">Total (Over)</span>
+                    <div class="pick-value">Over 6.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">New Jersey @ Tampa Bay</div>
+                    <span class="pick-type">Total (Over)</span>
+                    <div class="pick-value">Over 6.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">NY Islanders @ Dallas</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">DAL -165</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">6 CAPPERS</span>
+                    <div class="matchup">Calgary @ Chicago</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">CHI -110</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- College Basketball Section -->
+        <div class="sport-section">
+            <h2>🏀 COLLEGE BASKETBALL</h2>
+            <div class="picks-grid">
+                <div class="pick-card">
+                    <span class="pick-count">11 CAPPERS</span>
+                    <div class="matchup">Wichita St. @ Boise St.</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">WICH +9.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">10 CAPPERS</span>
+                    <div class="matchup">American U. @ Rutgers</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 145.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">10 CAPPERS</span>
+                    <div class="matchup">Texas-Arlington @ Evansville</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">EVAN -2.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">9 CAPPERS</span>
+                    <div class="matchup">Towson @ James Madison</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">TOWS -2.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">Grambling State @ San Diego</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 152.0</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">American U. @ Rutgers</div>
+                    <span class="pick-type">Spread (ATS)</span>
+                    <div class="pick-value">AMER +16.5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- College Football Section -->
+        <div class="sport-section">
+            <h2>🏈 COLLEGE FOOTBALL</h2>
+            <div class="picks-grid">
+                <div class="pick-card">
+                    <span class="pick-count">8 CAPPERS</span>
+                    <div class="matchup">Western Michigan @ NIU</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 38.5</div>
+                </div>
+
+                <div class="pick-card">
+                    <span class="pick-count">7 CAPPERS</span>
+                    <div class="matchup">UMass @ Ohio</div>
+                    <span class="pick-type">Total (Under)</span>
+                    <div class="pick-value">Under 51.5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime. Data sourced from Covers.com King of Covers contests.</p>
+    </footer>
+</body>
+</html>
