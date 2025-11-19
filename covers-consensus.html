@@ -29,7 +29,7 @@
 
         .nav-links { list-style: none; display: flex; gap: 25px; }
         .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; text-transform: uppercase; transition: all 0.3s; }
-        .nav-links a:hover { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
 
@@ -40,8 +40,15 @@
         .update-time { text-align: center; margin-bottom: 30px; padding: 15px; background: rgba(0, 255, 255, 0.1); border-radius: 10px; border: 1px solid var(--neon-cyan); }
         .update-time strong { color: var(--neon-cyan); font-family: var(--font-primary); }
 
-        .sport-section { margin-bottom: 60px; }
-        .sport-section h2 { font-family: var(--font-primary); font-size: 2rem; color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--neon-cyan); }
+        /* Sport Tabs */
+        .sport-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .sport-tab { padding: 15px 30px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 255, 255, 0.3); border-radius: 10px; color: var(--text-color); font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: var(--font-primary); }
+        .sport-tab:hover { background: rgba(0, 255, 255, 0.1); border-color: var(--neon-cyan); }
+        .sport-tab.active { background: var(--neon-gold); color: #01000f; border-color: var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); }
+
+        /* Sport Sections */
+        .sport-section { display: none; }
+        .sport-section.active { display: block; }
 
         .picks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
 
@@ -62,10 +69,11 @@
         @media (max-width: 768px) {
             .picks-grid { grid-template-columns: 1fr; }
             .page-header h1 { font-size: 2rem; }
+            .sport-tabs { gap: 10px; }
+            .sport-tab { padding: 12px 20px; font-size: 0.9rem; }
         }
     </style>
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -92,15 +100,22 @@
     <div class="container">
         <div class="page-header">
             <h1>COVERS CONTEST CONSENSUS</h1>
-            <p>Top picks from Covers.com King of Covers contest leaders. These are the plays selected by the highest performing handicappers in multiple sports contests.</p>
+            <p>Top picks from Covers.com King of Covers contest leaders. Click a sport to view consensus picks.</p>
         </div>
 
         <div class="update-time">
-            <strong>Last Updated:</strong> November 19, 2025 - 12:26 PM ET
+            <strong>Last Updated:</strong> November 19, 2025 - 12:53 PM ET
         </div>
 
-        <div class="sport-section">
-            <h2>NFL</h2>
+        <div class="sport-tabs">
+            <div class="sport-tab active" onclick="showSport('NFL')">NFL</div>
+            <div class="sport-tab" onclick="showSport('NBA')">NBA</div>
+            <div class="sport-tab" onclick="showSport('NHL')">NHL</div>
+            <div class="sport-tab" onclick="showSport('College Football')">College Football</div>
+            <div class="sport-tab" onclick="showSport('College Basketball')">College Basketball</div>
+        </div>
+
+        <div class="sport-section active" id="NFL">
             <div class="picks-grid">
                 <div class="pick-card">
                     <div class="pick-count">6 Experts</div>
@@ -129,8 +144,7 @@
             </div>
         </div>
 
-        <div class="sport-section">
-            <h2>NBA</h2>
+        <div class="sport-section" id="NBA">
             <div class="picks-grid">
                 <div class="pick-card">
                     <div class="pick-count">11 Experts</div>
@@ -351,8 +365,7 @@
             </div>
         </div>
 
-        <div class="sport-section">
-            <h2>NHL</h2>
+        <div class="sport-section" id="NHL">
             <div class="picks-grid">
                 <div class="pick-card">
                     <div class="pick-count">10 Experts</div>
@@ -441,8 +454,7 @@
             </div>
         </div>
 
-        <div class="sport-section">
-            <h2>College Football</h2>
+        <div class="sport-section" id="College Football">
             <div class="picks-grid">
                 <div class="pick-card">
                     <div class="pick-count">8 Experts</div>
@@ -465,8 +477,7 @@
             </div>
         </div>
 
-        <div class="sport-section">
-            <h2>College Basketball</h2>
+        <div class="sport-section" id="College Basketball">
             <div class="picks-grid">
                 <div class="pick-card">
                     <div class="pick-count">11 Experts</div>
@@ -729,8 +740,23 @@
             </div>
         </div>
 
-        <footer>
-        <p>&copy; 2025 Sports Betting Prime. Data sourced from Covers.com King of Covers contests.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime. Data sourced from Covers.com contest leaderboards.</p>
     </footer>
+
+    <script>
+        function showSport(sportName) {
+            const sections = document.querySelectorAll('.sport-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.sport-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(sportName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
