@@ -1,545 +1,836 @@
-
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Week 8 NFL Gridiron Oracles</title>
-<link href="https://a.espncdn.com" rel="preconnect"/>
-<style>
-:root{ --wrap:1200px; --bg:#0b0f1c; --panel:rgba(16,22,35,.78); --text:#eaf8ff; --muted:rgba(234,248,255,.72); --neon:#00ffd5; --gold:#ffb612; }
-*{box-sizing:border-box} html,body{margin:0;padding:0;background:#000;color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-body::before{content:"";position:fixed;inset:0;z-index:-1;background-image:url('https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1920');background-size:cover;background-position:center;filter:brightness(.6) saturate(1.1);}
-a{color:inherit;text-decoration:none}
-.hero{display:grid;place-items:center;text-align:center;padding:40px 16px 6px;min-height:240px}
-.hero .hero-wrap{width:min(100%,var(--wrap));margin:0 auto}
-.hero .slogan{font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);text-shadow:0 0 18px rgba(0,255,213,.35);margin-bottom:6px}
-.hero .title{font-size:clamp(28px,4.2vw,48px);margin:0 0 4px 0;text-shadow:0 0 22px rgba(0,255,213,.25)}
-.hero .subtitle{color:var(--muted);margin:0}
-.section-post{position:relative;z-index:2;padding:18px 16px 60px}
-.section-post .post-wrap{width:min(100%,var(--wrap));margin:0 auto}
-.featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:18px 0 24px}
-.feature-card{position:relative;border-radius:16px;overflow:hidden;background:rgba(10,12,24,.85);border:1px solid rgba(0,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.feature-card .img{aspect-ratio:16/9;background-size:cover;background-position:center;position:relative}
-.feature-card .img.gradient{background-image: radial-gradient(circle at 30% 10%, rgba(0,255,170,.18), transparent 40%), linear-gradient(135deg, #07121f, #0c0a1a);}
-.logo-stack{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:18px}
-.logo-stack img{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));background:rgba(255,255,255,.03);border-radius:50%;border:1px solid rgba(255,255,255,.12);padding:8px}
-.feature-card .tag{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);font-size:.78rem}
-.feature-card .body{padding:14px 14px 18px}
-.feature-card h4{margin:0 0 6px 0}
-.matchup{margin:24px 0;border-radius:16px;overflow:hidden;border:1px solid rgba(0,255,255,.12);background:linear-gradient(90deg, rgba(0,20,35,.85), rgba(10,8,20,.85));box-shadow:0 10px 28px rgba(0,0,0,.45)}
-.m-header{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;padding:16px;color:#fff;position:relative}
-.m-header::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);background-size:18px 18px;pointer-events:none}
-.m-team{display:flex;align-items:center;gap:10px;min-width:0}
-.m-team img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.35))}
-.m-team .name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vs{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
-.m-meta{padding:0 16px 10px;color:var(--muted);font-size:.95rem}
-.m-odds{padding:0 16px 12px;font-size:.98rem}
-.m-odds b{color:var(--gold)}
-.hr{height:1px;background:linear-gradient(90deg, transparent, rgba(0,255,255,.25), transparent);margin:12px 0}
-.m-body{padding:0 16px 18px;display:grid;gap:10px}
-.m-body p{margin:0;color:#e9f7ff}
-@media (min-width:1300px){ .hero .title{font-size:56px} }
-header{padding:20px 5%;position:sticky;top:0;z-index:1000;background:rgba(1,0,15,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,255,255,0.2)}
-nav{display:flex;justify-content:space-between;align-items:center}
-.nav-left{flex:1}
-.nav-center{flex:2;display:flex;justify-content:center}
-.nav-right{flex:1;display:flex;justify-content:flex-end}
-.logo a{color:inherit;text-decoration:none;font-weight:900;font-size:1.6rem;text-transform:uppercase}
-.logo span{color:var(--neon);text-shadow:0 0 12px var(--neon)}
-.nav-links{list-style:none !important;display:flex !important;align-items:center;gap:25px;margin:0;padding:0}
-.nav-links li{list-style:none;display:block}
-.nav-links a{display:inline-block;text-decoration:none;color:#eaf8ff !important;font-weight:600;font-size:1rem;text-transform:uppercase;letter-spacing:1px;padding:8px 10px;border-radius:5px;transition:all 0.3s ease;text-shadow:0 0 5px rgba(0,0,0,0.8)}
-.nav-links a:hover,.nav-links a.active{color:#ffb612 !important;text-shadow:0 0 8px #ffb612}
-.btn-primary{padding:12px 30px;border-radius:8px;text-decoration:none;font-weight:700;font-size:1rem;background-color:var(--gold);color:#01000f;border:1px solid var(--gold);box-shadow:0 0 20px var(--gold);animation:pulse-button 2s infinite;transition:all 0.3s ease}
-.btn-primary:hover{box-shadow:0 0 35px var(--gold),0 0 10px #fff;filter:brightness(1.2)}
-@keyframes pulse-button{50%{transform:scale(1.05)}}
-footer{text-align:center;background:transparent;padding:40px 5%;margin-top:60px;border-top:1px solid rgba(0,255,255,0.2)}
-footer p{color:rgba(234,248,255,0.7);margin-bottom:8px;font-size:0.9rem}
-footer .footer-links a{color:var(--neon);text-decoration:none;margin:0 10px;font-size:0.9rem}
-</style>
-</head><body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Gridiron Oracles | Sports Betting Prime</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
 
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0066FF;
+            --primary-hover: #0052CC;
+            --gold: #FFD700;
+            --gold-bright: #FFC700;
+            --cyan: #00FFFF;
+            --dark: #0A0E1A;
+            --darker: #050810;
+            --card-bg: rgba(15, 20, 35, 0.95);
+            --light: #F8FAFC;
+            --text: #E2E8F0;
+            --text-dim: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(0, 102, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0A0E1A 0%, #1a1f35 50%, #0A0E1A 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px) saturate(150%);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--light);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo .prime {
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            padding: 0.625rem 1.125rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .nav-links a.active {
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+            font-weight: 700;
+            box-shadow: 0 4px 15px var(--glow);
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        .slogan {
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--light);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .page-header .subtitle {
+            color: var(--text-dim);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Matchup Cards */
+        .matchup {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 2rem auto;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 1000px;
+        }
+
+        .matchup:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--primary);
+        }
+
+        .m-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(255, 215, 0, 0.05) 100%);
+        }
+
+        .m-team {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            min-width: 0;
+        }
+
+        .m-team img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .m-team .name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .m-team:last-child {
+            justify-content: flex-end;
+        }
+
+        .vs {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.875rem;
+            font-weight: 800;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .m-meta {
+            padding: 0.75rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9375rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .m-odds {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .m-odds b {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .m-body {
+            padding: 2rem;
+        }
+
+        .m-body p {
+            margin-bottom: 1.25rem;
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        .m-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .m-body strong {
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        /* Section Titles */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 800;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 1.5em;
+            background: linear-gradient(180deg, var(--cyan), var(--primary));
+            border-radius: 3px;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card p {
+            margin-bottom: 1.25rem;
+            line-height: 1.75;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1.5rem; }
+            .page-header h1 { font-size: 2rem; }
+            .m-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+            .m-team { justify-content: center; }
+            .m-team:last-child { justify-content: center; }
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="covers-consensus.html" class="">Consensus</a></li>
+                <li><a href="nfl-gridiron-oracles.html" class="active">NFL</a></li>
+                <li><a href="nhl-ice-oracles.html" class="">NHL</a></li>
+                <li><a href="college-football.html" class="">NCAAF</a></li>
+                <li><a href="mlb-prime-directives.html" class="">MLB</a></li>
+                <li><a href="performance-telemetry.html" class="">Results</a></li>
+                <li><a href="the-data-stream.html" class="">Blog</a></li>
+                <li><a href="the-prime-protocol.html" class="">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    <div class="page-header">
+        <div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+        <h1>NFL Gridiron Oracles</h1>
+        <p class="subtitle">Advanced NFL analysis powered by data science</p>
+    </div>
+<main>
+<div class="page-header">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1>NFL Gridiron Oracles</h1>
+<p class="subtitle">Advanced NFL analysis powered by data science</p>
+</div>
+<body>
 <header>
-  <nav>
-    <div class="nav-left">
-      <div class="logo">
-        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-      </div>
-    </div>
-    <div class="nav-center">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="mlb-prime-directives.html">MLB</a></li>
-        <li><a href="nfl-gridiron-oracles.html" class="active">NFL</a></li>
-        <li><a href="nhl-ice-oracles.html">NHL</a></li>
-        <li><a href="college-football.html">College Football</a></li>
-        <li><a href="the-data-stream.html">Blog</a></li>
-        <li><a href="performance-telemetry.html">Results</a></li>
-        <li><a href="the-prime-protocol.html">About</a></li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-primary">GET YOUR 350% BONUS</a>
-    </div>
-  </nav>
+<nav>
+<div class="nav-left">
+<div class="logo">
+<a href="index.html">SPORTS BETTING <span>PRIME</span></a>
+</div>
+</div>
+<div class="nav-center">
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="mlb-prime-directives.html">MLB</a></li>
+<li><a class="active" href="nfl-gridiron-oracles.html">NFL</a></li>
+<li><a href="nhl-ice-oracles.html">NHL</a></li>
+<li><a href="college-football.html">College Football</a></li>
+<li><a href="the-data-stream.html">Blog</a></li>
+<li><a href="performance-telemetry.html">Results</a></li>
+<li><a href="the-prime-protocol.html">About</a></li>
+</ul>
+</div>
+<div class="nav-right">
+<a class="btn-primary" href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank">GET YOUR 350% BONUS</a>
+</div>
+</nav>
 </header>
-
 <section class="hero">
-  <div class="hero-wrap">
-    <div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
-    <h1 class="title">WEEK 11 — NOVEMBER 10, 2025</h1>
-    <p class="subtitle">Updated Nov 10, 2025 — Eagles @ Packers Deep Dive Analysis</p>
-  </div>
+<div class="hero-wrap">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1 class="title">WEEK 11 — NOVEMBER 10, 2025</h1>
+<p class="subtitle">Updated Nov 10, 2025 — Eagles @ Packers Deep Dive Analysis</p>
+</div>
 </section>
-
 <section class="section-post" id="week11-eagles-packers">
-  <div class="post-wrap">
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" alt="Eagles"/>
-          <div class="name">Philadelphia Eagles</div>
-        </div>
-        <div class="vs">@</div>
-        <div class="m-team">
-          <img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" alt="Packers"/>
-          <div class="name">Green Bay Packers</div>
-        </div>
-      </div>
-      <div class="m-meta">📅 Sunday, November 10, 2025 • 4:25 PM ET • Lambeau Field</div>
-      <div class="m-odds"><b>PICK: GREEN BAY PACKERS (PK)</b> • O/U 46.0</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><strong>THE SETUP:</strong> Two 7-2 juggernauts clash at Lambeau in what might be the best game of Week 11. The Eagles arrive riding a six-game win streak, but face their toughest test yet against a Packers team that's been quietly dominant at home (4-0 this season).</p>
-
-        <p><strong>WHY GREEN BAY AT PICK'EM:</strong></p>
-
-        <p><strong>1. HOME FIELD ADVANTAGE IS REAL</strong><br/>
+<div class="post-wrap">
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Eagles" src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png"/>
+<div class="name">Philadelphia Eagles</div>
+</div>
+<div class="vs">@</div>
+<div class="m-team">
+<img alt="Packers" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
+<div class="name">Green Bay Packers</div>
+</div>
+</div>
+<div class="m-meta">📅 Sunday, November 10, 2025 • 4:25 PM ET • Lambeau Field</div>
+<div class="m-odds"><b>PICK: GREEN BAY PACKERS (PK)</b> • O/U 46.0</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><strong>THE SETUP:</strong> Two 7-2 juggernauts clash at Lambeau in what might be the best game of Week 11. The Eagles arrive riding a six-game win streak, but face their toughest test yet against a Packers team that's been quietly dominant at home (4-0 this season).</p>
+<p><strong>WHY GREEN BAY AT PICK'EM:</strong></p>
+<p><strong>1. HOME FIELD ADVANTAGE IS REAL</strong><br/>
         The Packers are 4-0 straight up and 3-1 ATS at Lambeau this season. Jordan Love thrives in the frozen tundra—completing 68.2% of his passes for 9.8 yards per attempt at home versus 62.1% and 7.4 YPA on the road. When you're getting a team this good at home as a pick'em, you take it.</p>
-
-        <p><strong>2. PHILADELPHIA'S ROAD STRUGGLES</strong><br/>
+<p><strong>2. PHILADELPHIA'S ROAD STRUGGLES</strong><br/>
         The Eagles are 2-2 on the road this year, and both wins came against mediocre opponents (Saints, Rams). Their road losses? Both came against teams with winning records. Green Bay presents the toughest road environment they've faced all season. Philly's offense averages 4.2 fewer points per game away from Lincoln Financial Field.</p>
-
-        <p><strong>3. MATCHUP DYNAMICS FAVOR GREEN BAY</strong><br/>
+<p><strong>3. MATCHUP DYNAMICS FAVOR GREEN BAY</strong><br/>
         The Packers' secondary has been elite against the pass (ranked 5th in DVOA), which directly counters Philly's strength. Meanwhile, Green Bay's run defense (12th in rush DVOA) can be exploited—but Saquon Barkley is dealing with a ankle issue that limited him in practice this week. If Barkley isn't 100%, the Eagles lose their most dynamic offensive weapon.</p>
-
-        <p><strong>4. JORDAN LOVE'S ASCENSION</strong><br/>
+<p><strong>4. JORDAN LOVE'S ASCENSION</strong><br/>
         Love has thrown for 300+ yards in 4 of his last 5 games, with a ridiculous 14:2 TD:INT ratio over that stretch. He's got elite weapons in Jayden Reed (averaging 76 yards/game) and Romeo Doubs, plus Josh Jacobs providing balance on the ground (892 rushing yards, 4.7 YPC). This offense is firing on all cylinders.</p>
-
-        <p><strong>5. THE SHARP MONEY AGREES</strong><br/>
+<p><strong>5. THE SHARP MONEY AGREES</strong><br/>
         Our consensus data shows <strong>12 of the top 50 Covers.com experts are on Packers-related plays</strong> (7 on PHI +3, 6 on GB -2.5, multiple totals). When sharp bettors are split on a game this close, the home team at a pick'em is the statistically superior play.</p>
-
-        <p><strong>THE CASE AGAINST:</strong> Jalen Hurts is playing MVP-caliber football (18 total TDs in last 6 games). The Eagles' defense is legit (1st in sacks, 3rd in takeaways). But in a game this tight, give me the team that doesn't have to travel, the team that's proven they can win shootouts at home, and the team getting disrespected by the market.</p>
-
-        <p><strong>FINAL VERDICT:</strong> This feels like a coin flip game that should favor the road favorite slightly—but when I'm getting the home team as basically a pick'em, I'm taking them 10 times out of 10. Lambeau will be rocking, the weather could be a factor (30s and possible rain), and Jordan Love has shown he can go toe-to-toe with anyone.</p>
-
-        <p><strong>PLAY: GREEN BAY PACKERS (PK) for 2 units</strong><br/>
+<p><strong>THE CASE AGAINST:</strong> Jalen Hurts is playing MVP-caliber football (18 total TDs in last 6 games). The Eagles' defense is legit (1st in sacks, 3rd in takeaways). But in a game this tight, give me the team that doesn't have to travel, the team that's proven they can win shootouts at home, and the team getting disrespected by the market.</p>
+<p><strong>FINAL VERDICT:</strong> This feels like a coin flip game that should favor the road favorite slightly—but when I'm getting the home team as basically a pick'em, I'm taking them 10 times out of 10. Lambeau will be rocking, the weather could be a factor (30s and possible rain), and Jordan Love has shown he can go toe-to-toe with anyone.</p>
+<p><strong>PLAY: GREEN BAY PACKERS (PK) for 2 units</strong><br/>
         Lean: OVER 46.0 (Both offenses too explosive, I expect 27-24 type game)</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Kansas City Chiefs logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png"/>
-          <div class="name">Kansas City Chiefs</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Buffalo Bills logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/>
-          <div class="name">Buffalo Bills</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 4:25 PM ET — Highmark Stadium (CBS)</div>
-      <div class="m-odds"><b>Line:</b> Chiefs -1.5 | Bills +1.5   •   <b>Total:</b> 52.5   •   <b>ML:</b> KC -125 / BUF +104</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>The Rematch Everyone's Been Waiting For:</b> This is the marquee matchup of Week 9—an AFC power clash between Patrick Mahomes and Josh Allen that feels like a playoff game in early November. The Bills are slight home underdogs (+1.5) despite hosting, which should raise eyebrows. In regular season meetings, Buffalo owns a 4-1 straight-up record in their last five against Kansas City, yet the Chiefs have dominated when it matters most—winning critical postseason battles. The spread reflects the market's uncertainty: which version shows up, the regular-season Bills who handle Kansas City, or the playoff Chiefs who consistently find ways to win close games?</p>
-        <p><b>Patrick Mahomes vs. Josh Allen — The QB Duel of the Decade:</b> Mahomes enters this game playing at an MVP level, having thrown a touchdown pass in all eight games this season with 17 TDs against just 4 INTs. He's also added 280 rushing yards on 46 carries, showcasing the dual-threat dimension that makes him nearly impossible to defend. Allen counters with his own elite production—1,560 passing yards (222.9 per game), 12 TDs, 4 INTs, and a blistering 68% completion rate. On the ground, Allen has been even more dangerous, scoring five rushing touchdowns and racking up 261 yards. When these two meet, the game often comes down to who can make one more play in crunch time. Both quarterbacks elevate in big spots, which makes the 52.5 total tantalizing—expect fireworks.</p>
-        <p><b>Defensive Matchups and Schematic Chess:</b> Kansas City's defense will deploy a two-high safety look to limit Buffalo's explosive plays downfield, forcing Allen to take underneath checkdowns and work methodically down the field. The Chiefs' pass rush has been inconsistent this season, which could allow Allen time to dissect coverages and exploit mismatches with tight end Dalton Kincaid and slot receiver Khalil Shakir. Buffalo's defense, conversely, must generate pressure on Mahomes without blitzing excessively—easier said than done. Von Miller and Ed Oliver will be critical in collapsing the pocket and disrupting Mahomes' timing. If Buffalo can force third-and-long situations, they can unleash their pass rush and rattle Mahomes into mistakes.</p>
-        <p><b>Situational Football and Clock Management:</b> This game will likely be decided by situational execution—third down conversions, red zone efficiency, and two-minute drill execution. Both offenses rank in the top 10 in red zone touchdown percentage, meaning scoring opportunities will be capitalized. The team that wins the turnover battle and limits penalties will control the game's tempo. Buffalo's home-field advantage at Highmark Stadium cannot be overstated—the crowd noise, cold November weather, and familiarity with wind conditions all favor the Bills. Kansas City, however, thrives in hostile environments and has the championship pedigree to withstand adversity.</p>
-        <p><b>Betting Trends and Sharp Money:</b> Public money is relatively split on this game, but sharp bettors have been quietly backing Buffalo at home. The Bills' regular-season success against Mahomes suggests this is more than just home cooking—there's a schematic advantage Buffalo possesses that disrupts Kansas City's rhythm. The total of 52.5 is one of the highest of the week, reflecting both teams' offensive firepower and defensive vulnerabilities. Given the quarterbacks involved and the pace both offenses play at, this game has legitimate shootout potential. A 31-27 type game favoring either side wouldn't be shocking.</p>
-        <p><b>The Pick:</b> This game screams "take the home underdog." Buffalo has proven they can beat Kansas City in the regular season, and getting points at home in a coin-flip game is valuable. The Bills' offense is clicking, Allen is playing at an MVP level, and the home crowd will create chaos for Kansas City's communication. Mahomes will keep it close, but Allen delivers in a thriller. <b>Buffalo Bills +1.5 (-106)</b> is the play, with a lean toward the Over 52.5 if you're feeling aggressive.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Minnesota Vikings logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png"/>
-          <div class="name">Minnesota Vikings</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Detroit Lions logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png"/>
-          <div class="name">Detroit Lions</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Ford Field (FOX)</div>
-      <div class="m-odds"><b>Line:</b> Lions -9.5 | Vikings +9.5   •   <b>Total:</b> 48.5   •   <b>ML:</b> MIN +370 / DET -480</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>NFC North Dominance on Display:</b> The Detroit Lions (5-2) are rolling, having won five consecutive games against Minnesota and going 9-0 ATS in their last nine meetings with the Vikings. This isn't just a winning streak—it's complete domination. Detroit's offense is averaging 30.7 points per game (3rd in NFL), and Jared Goff is orchestrating one of the league's most efficient attacks. The Lions have everything clicking: a dominant offensive line, explosive playmakers, and a defense that forces turnovers at critical moments. Minnesota (3-4), meanwhile, is in transition with rookie quarterback J.J. McCarthy, who struggled mightily in seven of his eight quarters played this season. The 9.5-point spread reflects a massive talent gap.</p>
-        <p><b>J.J. McCarthy's Growing Pains:</b> McCarthy was drafted to be Minnesota's franchise quarterback of the future, but his rookie season has been a harsh education. Expert R.J. White (37-15-3 on Vikings ATS picks) has been fading Minnesota all season, noting that McCarthy "was terrible for seven of his eight quarters played" and lacks the composure to handle pressure. Detroit's defense will blitz aggressively, disguise coverages, and force McCarthy into quick decisions. If the Vikings fall behind early, McCarthy will be asked to carry the offense through the air—an assignment he's not yet equipped to handle. Turnovers are inevitable, and Detroit will capitalize.</p>
-        <p><b>Detroit's Offensive Firepower in a Dome:</b> Ford Field's domed environment eliminates weather variables and allows Detroit's offense to play fast and clean. Jared Goff thrives in this setting, utilizing play-action to freeze linebackers and hitting tight end Sam LaPorta and receiver Amon-Ra St. Brown on precision routes. Minnesota's defense ranks middle-of-the-pack and struggles to generate consistent pressure without blitzing. If Goff has time, he'll pick apart Minnesota's secondary and build an insurmountable lead. The Lions should lead by double-digits entering the third quarter, which forces Minnesota into desperate mode.</p>
-        <p><b>Historical Trends and Market Perception:</b> Detroit has won five straight against Minnesota and covered the spread in nine consecutive matchups—this level of dominance suggests a systemic advantage, not just variance. The 9.5-point line feels steep, but the Lions have been covering large spreads all season. Public money is heavily on Detroit (85% of ATS handle), and sharp money hasn't faded them. When both the public and sharps align, it's usually a signal that the line is accurate and the favorite will dominate.</p>
-        <p><b>Path to the Cover:</b> Detroit scores touchdowns on three of their first four possessions, building a 24-7 halftime lead. Minnesota shows flashes but cannot sustain drives against Detroit's disciplined defense. The Lions add a field goal and another touchdown in the second half, cruising to a 34-17 victory. Even with conservative play-calling late, Detroit covers 9.5 comfortably. This is a statement game for the Lions as they assert themselves as the NFC North's dominant force.</p>
-        <p><b>The Pick: Detroit Lions -9.5 (-110).</b> Lay the points with confidence. Detroit's offense is too explosive, their defense too opportunistic, and Minnesota's quarterback situation too shaky to keep this game competitive into the fourth quarter.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="San Francisco 49ers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png"/>
-          <div class="name">San Francisco 49ers</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="New York Giants logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png"/>
-          <div class="name">New York Giants</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — MetLife Stadium (FOX)</div>
-      <div class="m-odds"><b>Line:</b> 49ers -2.5 | Giants +2.5   •   <b>Total:</b> 48.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Brock Purdy's Injury Creates Uncertainty:</b> The 49ers (5-3) are slight 2.5-point road favorites, but Brock Purdy's lingering toe injury has thrown this game into uncertainty. Purdy is officially questionable after being limited in practice all week, and head coach Kyle Shanahan has announced that Mac Jones will start. This marks the first time since Week 4 that Purdy hasn't been ruled out completely, suggesting he could serve as Jones' backup if needed. The market initially set this line assuming Purdy would play—his absence shifts the advantage toward the Giants. Jones is a capable backup, but he lacks Purdy's command of Shanahan's complex system and the chemistry Purdy has built with receivers.</p>
-        <p><b>Mac Jones Steps In for San Francisco:</b> Jones has NFL starting experience from his time in New England, but stepping into Shanahan's offense mid-season is a massive challenge. Shanahan's play-action scheme requires precise timing, anticipation, and trust between quarterback and receivers. Jones will rely heavily on Christian McCaffrey's versatility to create easy throws, but if the Giants stack the box and force Jones to beat them downfield, the 49ers' offense could stall. Expect a more conservative game plan—shorter passes, heavy play-action, and reliance on the run game to control tempo.</p>
-        <p><b>Giants' Rookie QB Jaxson Dart Provides Hope:</b> New York (2-6) is led by rookie quarterback Jaxson Dart, who was named NFL Rookie of the Month for October (Weeks 5-8). Dart has exceeded expectations, providing stability and playmaking ability that the Giants desperately needed after years of quarterback struggles. He won't be intimidated by San Francisco's defense, and playing at home gives him a familiarity advantage. If Dart can connect with his receivers early and establish rhythm, the Giants can exploit San Francisco's secondary, which has been vulnerable to deep shots this season.</p>
-        <p><b>Defensive Matchups Favor the 49ers:</b> Even with Jones at quarterback, San Francisco's defense remains elite. Nick Bosa and the defensive line will generate pressure on Dart, forcing quick throws and potential mistakes. The 49ers' secondary can lock down New York's receivers in man coverage, taking away Dart's primary reads. If San Francisco jumps ahead early, they can pin their ears back and unleash their pass rush, turning this into a one-sided affair. The Giants' offensive line has struggled all season—allowing Bosa to wreak havoc could derail any offensive momentum.</p>
-        <p><b>The Injury Factor and Line Movement:</b> The 49ers opened as 3.5-point favorites when Purdy was expected to play. The line has moved to -2.5 following the Mac Jones announcement, suggesting the market values Purdy at roughly 1 point. Sharp bettors are circling this game—if they believe Jones can execute Shanahan's system adequately, the 49ers at -2.5 offer value. Conversely, if Jones struggles early, the Giants could exploit the uncertainty and cover easily. This line feels like a coin flip, making it a potential stay-away or a small lean toward the home underdog.</p>
-        <p><b>The Pick:</b> With Purdy out and Mac Jones making his first start in Shanahan's system, there's too much uncertainty to confidently back San Francisco on the road. The Giants have a competent rookie QB, home-field advantage, and a chance to exploit the 49ers' offensive limitations. <b>New York Giants +2.5</b> is the play. If the Giants can keep this game close into the fourth quarter, Dart's playmaking ability could steal an outright win.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Denver Broncos logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png"/>
-          <div class="name">Denver Broncos</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Houston Texans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png"/>
-          <div class="name">Houston Texans</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — NRG Stadium (CBS)</div>
-      <div class="m-odds"><b>Line:</b> Texans -1.5 | Broncos +1.5   •   <b>Total:</b> 40.5   •   <b>ML:</b> DEN +106 / HOU -124</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Two Hot Teams Collide in Houston:</b> The Denver Broncos (6-2) ride into Houston on a five-game winning streak, while the Texans have won three of their last four. This is a battle between two of the AFC's most surprising teams—Denver's resurgence under rookie QB Bo Nix and Houston's continued ascent with CJ Stroud leading the charge. The 1.5-point spread suggests a virtual pick'em, with Houston getting minimal home-field advantage. The total of 40.5 is one of the lowest of the week, reflecting both teams' strong defensive units and methodical, clock-controlling offensive approaches.</p>
-        <p><b>Bo Nix's Rookie Season Exceeds Expectations:</b> Bo Nix has been a revelation for Denver, throwing for 1,803 yards (8th in NFL), 15 touchdowns (6th in NFL), and just 5 interceptions while completing 62.8% of his passes. He's averaging 225.4 yards per game and has led the Broncos to a 6-2 record—far exceeding preseason projections. Nix's mobility, poise in the pocket, and ability to make quick decisions have transformed Denver's offense. Sean Payton's play-calling has evolved to maximize Nix's strengths, utilizing quick-game concepts, RPOs, and play-action to keep defenses off-balance. If Nix can eclipse 205.5 passing yards (-114 is a popular prop bet), Denver's offense will have moved the ball effectively enough to stay competitive.</p>
-        <p><b>CJ Stroud's Bounce-Back Performance:</b> After a slow start to the season, CJ Stroud delivered arguably his best game of 2025 in Week 8, throwing for 318 yards and two touchdowns against San Francisco. Stroud has passed for 1,623 yards, 11 TDs, and 5 INTs this season, and he's beginning to recapture the magic from his spectacular rookie campaign. Houston's offense relies on Stroud's arm talent and pre-snap recognition—he identifies defensive rotations quickly and attacks mismatches. If Stroud can exploit Denver's secondary with deep shots to Nico Collins and Tank Dell, Houston's offense can control this game.</p>
-        <p><b>Defensive Battle in the Trenches:</b> Denver's defense has been the backbone of their winning streak, generating pressure without blitzing and forcing quarterbacks into uncomfortable throws. Houston's offensive line has been inconsistent in pass protection, which could allow Denver's edge rushers to collapse the pocket on Stroud. Conversely, Houston's defense ranks in the top 10 in several categories and will challenge Nix to make tight-window throws under duress. This game will be won in the trenches—whichever offensive line holds up better will give their quarterback the time needed to execute.</p>
-        <p><b>Low-Scoring Slugfest Expected:</b> The 40.5 total suggests the market expects a defensive struggle, and both teams' recent performances support that projection. Denver's offense is efficient but not explosive, preferring to methodically move the chains and control time of possession. Houston's defense can stifle that approach by stuffing the run and forcing third-and-long. If this game becomes a field position battle with multiple punts, the under could cash comfortably. However, if either offense finds rhythm early, 40.5 might be vulnerable to a late push over.</p>
-        <p><b>The Pick:</b> Denver is the better team right now—riding momentum, playing elite defense, and getting quality quarterback play from a rookie. Getting points on the road in a near pick'em is valuable. <b>Denver Broncos +1.5 (+106)</b> is the play. This game stays close throughout, and Denver's defense makes one more stop late to secure a gritty road victory or a cover in a narrow loss.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Carolina Panthers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png"/>
-          <div class="name">Carolina Panthers</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
-          <div class="name">Green Bay Packers</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Lambeau Field (FOX)</div>
-      <div class="m-odds"><b>Line:</b> Packers -13.5 | Panthers +13.5   •   <b>Total:</b> 44.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Massive Mismatch at Lambeau:</b> The Green Bay Packers (5-1-1) are coming off their bye week and hosting a Carolina Panthers (4-4) team that's been inconsistent all season. The 13.5-point spread is one of the largest of Week 9, reflecting the chasm in talent and execution between these two squads. Green Bay's offense is humming—Jordan Love has thrown for 1,798 yards (9th in NFL), 13 TDs, and just 2 INTs while completing 70.9% of his passes and averaging 256.9 yards per game. The Packers have the offensive firepower, home-field advantage, and rest advantage to blow this game open.</p>
-        <p><b>Bryce Young's Return from Injury:</b> Panthers quarterback Bryce Young returns after missing last week with an ankle injury. Young was a full participant in practice all week, signaling he's healthy and ready to play. Through seven games, Young has thrown for 1,288 yards, 11 TDs, and 5 INTs while completing 61.6% of his passes. Young has shown flashes of competence but remains wildly inconsistent—he struggles under pressure, makes errant throws downfield, and doesn't yet command the offense with authority. Against a Packers defense that can generate pressure with four-man rushes, Young will be forced into quick decisions that could lead to turnovers.</p>
-        <p><b>Green Bay's Offensive Dominance:</b> Jordan Love is playing at an MVP-caliber level, utilizing his arm talent to attack defenses vertically and horizontally. Love's connection with Christian Watson, Jayden Reed, and tight end Luke Musgrave gives Green Bay multiple weapons to exploit Carolina's middling secondary. The Packers' offensive line has been stellar in pass protection, giving Love clean pockets to survey the field and deliver strikes. If Green Bay scores on three of their first four possessions, this game could be over by halftime. Expert Nejad (145-106-5 since 2023) is backing Green Bay to cover, noting the "Packers are at home" against an "injury ravaged offensive line" and the offense "looks to be clicking off the bye."</p>
-        <p><b>Carolina's Injury-Ravaged Offensive Line:</b> The Panthers' offensive line has been decimated by injuries all season, and the unit ranks among the league's worst in pass protection and run blocking. Green Bay's defensive front, led by Rashan Gary and Kenny Clark, will generate pressure consistently and force Young into hurried throws. If Carolina cannot establish the run game, they'll become one-dimensional and predictable. Green Bay's secondary can play man coverage and take away Carolina's top receivers, forcing Young to hold the ball and take sacks.</p>
-        <p><b>Weather and Home-Field Edge:</b> Early November at Lambeau Field can bring unpredictable weather—cold temperatures, potential wind, and the possibility of rain or snow. Green Bay thrives in these conditions, having practiced and played in them for years. Carolina, a warm-weather team, will struggle with the elements and the hostile crowd noise. The Packers' implied win probability based on the moneyline is 90.9%, while the Panthers have just a 13.3% chance—this is as lopsided as Week 9 gets.</p>
-        <p><b>The Pick:</b> Green Bay is better in every phase of the game—quarterback play, offensive line, defensive front, coaching, and home-field advantage. The Packers cover double-digit spreads when they're motivated, and coming off a bye gives them extra preparation time. <b>Green Bay Packers -13.5 (-110)</b> is the play. Expect a 34-13 type victory where Green Bay pulls away in the third quarter and coasts to an easy cover.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Chicago Bears logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"/>
-          <div class="name">Chicago Bears</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Cincinnati Bengals logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"/>
-          <div class="name">Cincinnati Bengals</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Paycor Stadium (FOX)</div>
-      <div class="m-odds"><b>Line:</b> Bears -3 | Bengals +3   •   <b>Total:</b> 51</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Joe Burrow's Absence Changes Everything:</b> The Cincinnati Bengals will be without franchise quarterback Joe Burrow, who is sidelined with injury. In his place, the Bengals turn to veteran Joe Flacco, who has thrown for 1,599 yards, 9 TDs, and 6 INTs this season. However, Flacco is listed as questionable with a shoulder injury. If Flacco cannot play, Cincinnati would turn to backup Jake Browning, who is 0-3 as a starter this year. This quarterback uncertainty has caused the line to shift dramatically—the Bears opened as slight underdogs but are now favored by 3 points on the road. The total remains high at 51, reflecting both offenses' explosive potential despite the Bengals' quarterback issues.</p>
-        <p><b>Caleb Williams' Development Arc:</b> Chicago's rookie quarterback Caleb Williams has thrown for 1,636 yards through seven games, averaging 233.7 per game with a 61.9% completion rate, 9 TDs, and 4 INTs. Williams has shown flashes of brilliance—his arm talent is undeniable, and he can make throws that few quarterbacks in the league can replicate. However, he's also struggled with consistency, decision-making under pressure, and avoiding costly turnovers. Against Cincinnati's league-worst defense (allowing 407.9 yards per game), Williams should have opportunities to put up big numbers. If he can exploit the Bengals' secondary with deep shots to DJ Moore and Rome Odunze, Chicago's offense will control this game.</p>
-        <p><b>Cincinnati's Defensive Catastrophe:</b> The Bengals are allowing a league-worst 407.9 yards per game through eight contests—a staggering number that reflects systemic issues across all three levels of their defense. They cannot stop the run, cannot generate consistent pressure, and cannot cover in the secondary. This creates a perfect environment for Williams to gain confidence and put together a complete performance. Chicago's offensive line has been solid in pass protection, giving Williams time to work through progressions and deliver strikes. If the Bears can establish the run early with D'Andre Swift (who is ruled out with a groin injury) or his replacement, they can control tempo and put the Bengals' defense on its heels.</p>
-        <p><b>Flacco's Experience vs. Chicago's Defense:</b> Joe Flacco has been in the NFL long enough to know how to manage games and avoid catastrophic mistakes. His arm strength has diminished, but he can still make the necessary throws to keep Cincinnati competitive. The Bengals' offense features explosive weapons like Ja'Marr Chase and Tee Higgins, who can create separation and turn short passes into big gains. If Flacco (or Browning) can get the ball to these playmakers in space, Cincinnati's offense has the talent to put up points even without Burrow. Chicago's defense will need to generate pressure and force turnovers to tilt this game decisively in their favor.</p>
-        <p><b>High-Scoring Shootout Potential:</b> The 51-point total is one of the highest of the week, and both offenses have the weapons to light up the scoreboard. Chicago's offense should exploit Cincinnati's porous defense, while the Bengals' skill-position talent can create explosive plays even with a backup quarterback. Expect a back-and-forth game with multiple lead changes and limited defensive stops. A 31-27 type game is very much in play, making the over an intriguing option.</p>
-        <p><b>The Pick:</b> The Bears are the better team with the better quarterback situation. Getting Chicago at -3 on the road against a Burrow-less Bengals squad offers value. Caleb Williams should have his best game of the season against Cincinnati's historically bad defense. <b>Chicago Bears -3 (-110)</b> is the play, with a lean toward the Over 51 if you want action on the total.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Los Angeles Chargers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png"/>
-          <div class="name">Los Angeles Chargers</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Tennessee Titans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/>
-          <div class="name">Tennessee Titans</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Nissan Stadium (CBS)</div>
-      <div class="m-odds"><b>Line:</b> Chargers -9.5 | Titans +9.5   •   <b>Total:</b> 42.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Jim Harbaugh's Chargers Rolling:</b> The Los Angeles Chargers (5-3) under new head coach Jim Harbaugh have found offensive balance and defensive tenacity, ranking top 5 in passing efficiency and top 10 in rushing success rate. Harbaugh's culture has transformed this franchise—the Chargers are disciplined, physical, and play complementary football in all three phases. Public bettors love the Chargers in this spot, with 86% of early ATS money backing Los Angeles to cover the 9.5-point spread. This is one of the most lopsided public plays of the week, and it's not hard to see why—the Chargers are superior in every measurable category.</p>
-        <p><b>Tennessee's Season in Freefall:</b> The Titans (1-7) are one of the NFL's worst teams, scoring the fewest points per game in the league and struggling mightily on both sides of the ball. Quarterback Will Levis will miss the entire 2025 season after undergoing surgery on his throwing shoulder, leaving rookie Cam Ward as the starter. Ward has shown flashes but has been under siege all year—he's completing just 57.7% of his throws, been sacked 34 times, and thrown more turnovers (11) than touchdowns (5). Against a disciplined Chargers defense that can generate pressure with four-man rushes, Ward will be forced into mistakes that lead to short fields and easy scoring opportunities for Los Angeles.</p>
-        <p><b>Chargers' Defensive Dominance:</b> Los Angeles' defense has been one of the league's most underrated units, stifling opposing offenses with a mix of pressure and coverage. Khalil Mack and Joey Bosa can wreck game plans by themselves, and the secondary has been excellent in limiting explosive plays. Tennessee's offensive line has been porous all season, ranking near the bottom in pass protection and run blocking. If the Chargers jump ahead early, they can pin their ears back and unleash their pass rush, turning this into a blowout.</p>
-        <p><b>RB Kimani Vidal's Emergence:</b> Chargers running back Kimani Vidal has been superb since taking over the starting role, providing a dynamic rushing attack that opens up play-action opportunities for Justin Herbert. Tennessee's defense allows the third-most fantasy points per game to running backs, suggesting Vidal could have a massive day on the ground. If the Chargers can establish the run early, they'll control the clock, keep Ward on the sideline, and methodically build an insurmountable lead.</p>
-        <p><b>Double-Digit Spread in a Mismatch:</b> The 9.5-point spread is large but justified given the talent disparity. SportsLine's model projects the Chargers to cover this spread well over 50% of the time, suggesting value exists even with public money hammering Los Angeles. Favorites dominated last week, going 11-2 ATS—the best cover rate (84.6%) since Week 16 in 1985. The trend of favorites continuing to roll is very much in play, and the Chargers fit the profile perfectly. Expect a 27-10 type victory where Los Angeles jumps ahead early and cruises to an easy cover.</p>
-        <p><b>The Pick: Los Angeles Chargers -9.5 (-110).</b> Lay the points with confidence. Tennessee cannot score enough to keep this game competitive, and the Chargers' defense will force multiple turnovers that lead to short fields and easy scores. This is a statement win for Harbaugh's squad as they position themselves for a playoff run.</p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Seattle Seahawks logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"/>
-          <div class="name">Seattle Seahawks</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
-          <div class="name">Washington Commanders</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Nov 2 — 8:20 PM ET — Commanders Field (NBC — Sunday Night Football)</div>
-      <div class="m-odds"><b>Line:</b> Seahawks -2.5 | Commanders +2.5   •   <b>Total:</b> 48.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p><b>Sunday Night Showcase:</b> The primetime spotlight shines on this NFC clash between the Seattle Seahawks (5-2) and Washington Commanders (3-5). Seattle enters as 2.5-point road favorites despite Washington playing at home—a testament to the Seahawks' superior form and Washington's recent struggles. The Commanders have lost three straight games and are reeling after a tough Monday Night Football loss to Kansas City. The return of rookie quarterback Jayden Daniels from a hamstring injury provides a spark of hope for Washington, but Seattle's balanced attack and opportunistic defense make them dangerous in any environment.</p>
-        <p><b>Jayden Daniels Returns from Injury:</b> Washington quarterback Jayden Daniels will start Sunday night after missing the Monday night game against Kansas City with a hamstring injury. Daniels was a full participant in practice this week and showed no signs of limitations, clearing the way for his return. When healthy, Daniels has been one of the NFL's most exciting rookies—his dual-threat ability forces defenses to account for the run and pass on every snap, and his playmaking creates explosive opportunities downfield. Washington's offense operates at a completely different level with Daniels under center compared to backup Marcus Mariota. If Daniels can stay healthy throughout the game and avoid re-aggravating the hamstring, the Commanders have a legitimate chance to pull the upset.</p>
-        <p><b>Geno Smith's Steady Hand for Seattle:</b> Seahawks quarterback Geno Smith has been one of the league's most underrated players over the past two seasons. While he doesn't possess elite arm talent or mobility, Smith makes smart decisions, avoids turnovers, and executes offensive coordinator Shane Waldron's system efficiently. Last season, Seattle struggled to protect Smith—he was sacked 50 times in 17 starts, with the Seahawks allowing the third-most sacks of any team in the NFL. This year, the offensive line has improved significantly, giving Smith cleaner pockets and more time to work through progressions. If Seattle can establish the run with Kenneth Walker III and open up play-action shots downfield, Smith will dissect Washington's secondary.</p>
-        <p><b>Washington's Three-Game Losing Streak:</b> The Commanders have lost three in a row and are spiraling after a promising start to the season. Following this Sunday night matchup, they face a loaded Detroit Lions team, creating a brutal two-week stretch that could define their playoff hopes. Washington's defense has been inconsistent—they can generate pressure in spurts but struggle to cover receivers downfield and force turnovers. Seattle's offense, with DK Metcalf and Tyler Lockett on the perimeter, will attack Washington's secondary vertically and test their ability to cover elite route runners.</p>
-        <p><b>Primetime Pressure and Home-Field Energy:</b> Playing under the Sunday Night Football lights brings added pressure, and Washington needs to channel the energy of their home crowd to jumpstart momentum. If the Commanders score early and silence Seattle's offense, they can build confidence and ride Daniels' playmaking to an upset. However, if Seattle jumps ahead and forces Washington into obvious passing situations, the Commanders' offensive line could struggle to protect Daniels against Seattle's pass rush. Turnovers and field position will be critical in a game this evenly matched.</p>
-        <p><b>The Pick:</b> This line feels tight, and Seattle's 2.5-point edge as road favorites reflects uncertainty about Daniels' health and effectiveness. Washington is desperate for a win, playing at home, and getting their franchise quarterback back. The Commanders are live underdogs in a primetime spot where they can steal a victory. <b>Washington Commanders +2.5</b> is the play. If Daniels stays healthy and makes a few explosive plays, Washington covers and potentially wins outright in a thrilling Sunday night finish.</p>
-      </div>
-    </div>
-
-  </div>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Kansas City Chiefs logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png"/>
+<div class="name">Kansas City Chiefs</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Buffalo Bills logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/>
+<div class="name">Buffalo Bills</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 4:25 PM ET — Highmark Stadium (CBS)</div>
+<div class="m-odds"><b>Line:</b> Chiefs -1.5 | Bills +1.5   •   <b>Total:</b> 52.5   •   <b>ML:</b> KC -125 / BUF +104</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>The Rematch Everyone's Been Waiting For:</b> This is the marquee matchup of Week 9—an AFC power clash between Patrick Mahomes and Josh Allen that feels like a playoff game in early November. The Bills are slight home underdogs (+1.5) despite hosting, which should raise eyebrows. In regular season meetings, Buffalo owns a 4-1 straight-up record in their last five against Kansas City, yet the Chiefs have dominated when it matters most—winning critical postseason battles. The spread reflects the market's uncertainty: which version shows up, the regular-season Bills who handle Kansas City, or the playoff Chiefs who consistently find ways to win close games?</p>
+<p><b>Patrick Mahomes vs. Josh Allen — The QB Duel of the Decade:</b> Mahomes enters this game playing at an MVP level, having thrown a touchdown pass in all eight games this season with 17 TDs against just 4 INTs. He's also added 280 rushing yards on 46 carries, showcasing the dual-threat dimension that makes him nearly impossible to defend. Allen counters with his own elite production—1,560 passing yards (222.9 per game), 12 TDs, 4 INTs, and a blistering 68% completion rate. On the ground, Allen has been even more dangerous, scoring five rushing touchdowns and racking up 261 yards. When these two meet, the game often comes down to who can make one more play in crunch time. Both quarterbacks elevate in big spots, which makes the 52.5 total tantalizing—expect fireworks.</p>
+<p><b>Defensive Matchups and Schematic Chess:</b> Kansas City's defense will deploy a two-high safety look to limit Buffalo's explosive plays downfield, forcing Allen to take underneath checkdowns and work methodically down the field. The Chiefs' pass rush has been inconsistent this season, which could allow Allen time to dissect coverages and exploit mismatches with tight end Dalton Kincaid and slot receiver Khalil Shakir. Buffalo's defense, conversely, must generate pressure on Mahomes without blitzing excessively—easier said than done. Von Miller and Ed Oliver will be critical in collapsing the pocket and disrupting Mahomes' timing. If Buffalo can force third-and-long situations, they can unleash their pass rush and rattle Mahomes into mistakes.</p>
+<p><b>Situational Football and Clock Management:</b> This game will likely be decided by situational execution—third down conversions, red zone efficiency, and two-minute drill execution. Both offenses rank in the top 10 in red zone touchdown percentage, meaning scoring opportunities will be capitalized. The team that wins the turnover battle and limits penalties will control the game's tempo. Buffalo's home-field advantage at Highmark Stadium cannot be overstated—the crowd noise, cold November weather, and familiarity with wind conditions all favor the Bills. Kansas City, however, thrives in hostile environments and has the championship pedigree to withstand adversity.</p>
+<p><b>Betting Trends and Sharp Money:</b> Public money is relatively split on this game, but sharp bettors have been quietly backing Buffalo at home. The Bills' regular-season success against Mahomes suggests this is more than just home cooking—there's a schematic advantage Buffalo possesses that disrupts Kansas City's rhythm. The total of 52.5 is one of the highest of the week, reflecting both teams' offensive firepower and defensive vulnerabilities. Given the quarterbacks involved and the pace both offenses play at, this game has legitimate shootout potential. A 31-27 type game favoring either side wouldn't be shocking.</p>
+<p><b>The Pick:</b> This game screams "take the home underdog." Buffalo has proven they can beat Kansas City in the regular season, and getting points at home in a coin-flip game is valuable. The Bills' offense is clicking, Allen is playing at an MVP level, and the home crowd will create chaos for Kansas City's communication. Mahomes will keep it close, but Allen delivers in a thriller. <b>Buffalo Bills +1.5 (-106)</b> is the play, with a lean toward the Over 52.5 if you're feeling aggressive.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Minnesota Vikings logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png"/>
+<div class="name">Minnesota Vikings</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Detroit Lions logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png"/>
+<div class="name">Detroit Lions</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Ford Field (FOX)</div>
+<div class="m-odds"><b>Line:</b> Lions -9.5 | Vikings +9.5   •   <b>Total:</b> 48.5   •   <b>ML:</b> MIN +370 / DET -480</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>NFC North Dominance on Display:</b> The Detroit Lions (5-2) are rolling, having won five consecutive games against Minnesota and going 9-0 ATS in their last nine meetings with the Vikings. This isn't just a winning streak—it's complete domination. Detroit's offense is averaging 30.7 points per game (3rd in NFL), and Jared Goff is orchestrating one of the league's most efficient attacks. The Lions have everything clicking: a dominant offensive line, explosive playmakers, and a defense that forces turnovers at critical moments. Minnesota (3-4), meanwhile, is in transition with rookie quarterback J.J. McCarthy, who struggled mightily in seven of his eight quarters played this season. The 9.5-point spread reflects a massive talent gap.</p>
+<p><b>J.J. McCarthy's Growing Pains:</b> McCarthy was drafted to be Minnesota's franchise quarterback of the future, but his rookie season has been a harsh education. Expert R.J. White (37-15-3 on Vikings ATS picks) has been fading Minnesota all season, noting that McCarthy "was terrible for seven of his eight quarters played" and lacks the composure to handle pressure. Detroit's defense will blitz aggressively, disguise coverages, and force McCarthy into quick decisions. If the Vikings fall behind early, McCarthy will be asked to carry the offense through the air—an assignment he's not yet equipped to handle. Turnovers are inevitable, and Detroit will capitalize.</p>
+<p><b>Detroit's Offensive Firepower in a Dome:</b> Ford Field's domed environment eliminates weather variables and allows Detroit's offense to play fast and clean. Jared Goff thrives in this setting, utilizing play-action to freeze linebackers and hitting tight end Sam LaPorta and receiver Amon-Ra St. Brown on precision routes. Minnesota's defense ranks middle-of-the-pack and struggles to generate consistent pressure without blitzing. If Goff has time, he'll pick apart Minnesota's secondary and build an insurmountable lead. The Lions should lead by double-digits entering the third quarter, which forces Minnesota into desperate mode.</p>
+<p><b>Historical Trends and Market Perception:</b> Detroit has won five straight against Minnesota and covered the spread in nine consecutive matchups—this level of dominance suggests a systemic advantage, not just variance. The 9.5-point line feels steep, but the Lions have been covering large spreads all season. Public money is heavily on Detroit (85% of ATS handle), and sharp money hasn't faded them. When both the public and sharps align, it's usually a signal that the line is accurate and the favorite will dominate.</p>
+<p><b>Path to the Cover:</b> Detroit scores touchdowns on three of their first four possessions, building a 24-7 halftime lead. Minnesota shows flashes but cannot sustain drives against Detroit's disciplined defense. The Lions add a field goal and another touchdown in the second half, cruising to a 34-17 victory. Even with conservative play-calling late, Detroit covers 9.5 comfortably. This is a statement game for the Lions as they assert themselves as the NFC North's dominant force.</p>
+<p><b>The Pick: Detroit Lions -9.5 (-110).</b> Lay the points with confidence. Detroit's offense is too explosive, their defense too opportunistic, and Minnesota's quarterback situation too shaky to keep this game competitive into the fourth quarter.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="San Francisco 49ers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png"/>
+<div class="name">San Francisco 49ers</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="New York Giants logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png"/>
+<div class="name">New York Giants</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — MetLife Stadium (FOX)</div>
+<div class="m-odds"><b>Line:</b> 49ers -2.5 | Giants +2.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Brock Purdy's Injury Creates Uncertainty:</b> The 49ers (5-3) are slight 2.5-point road favorites, but Brock Purdy's lingering toe injury has thrown this game into uncertainty. Purdy is officially questionable after being limited in practice all week, and head coach Kyle Shanahan has announced that Mac Jones will start. This marks the first time since Week 4 that Purdy hasn't been ruled out completely, suggesting he could serve as Jones' backup if needed. The market initially set this line assuming Purdy would play—his absence shifts the advantage toward the Giants. Jones is a capable backup, but he lacks Purdy's command of Shanahan's complex system and the chemistry Purdy has built with receivers.</p>
+<p><b>Mac Jones Steps In for San Francisco:</b> Jones has NFL starting experience from his time in New England, but stepping into Shanahan's offense mid-season is a massive challenge. Shanahan's play-action scheme requires precise timing, anticipation, and trust between quarterback and receivers. Jones will rely heavily on Christian McCaffrey's versatility to create easy throws, but if the Giants stack the box and force Jones to beat them downfield, the 49ers' offense could stall. Expect a more conservative game plan—shorter passes, heavy play-action, and reliance on the run game to control tempo.</p>
+<p><b>Giants' Rookie QB Jaxson Dart Provides Hope:</b> New York (2-6) is led by rookie quarterback Jaxson Dart, who was named NFL Rookie of the Month for October (Weeks 5-8). Dart has exceeded expectations, providing stability and playmaking ability that the Giants desperately needed after years of quarterback struggles. He won't be intimidated by San Francisco's defense, and playing at home gives him a familiarity advantage. If Dart can connect with his receivers early and establish rhythm, the Giants can exploit San Francisco's secondary, which has been vulnerable to deep shots this season.</p>
+<p><b>Defensive Matchups Favor the 49ers:</b> Even with Jones at quarterback, San Francisco's defense remains elite. Nick Bosa and the defensive line will generate pressure on Dart, forcing quick throws and potential mistakes. The 49ers' secondary can lock down New York's receivers in man coverage, taking away Dart's primary reads. If San Francisco jumps ahead early, they can pin their ears back and unleash their pass rush, turning this into a one-sided affair. The Giants' offensive line has struggled all season—allowing Bosa to wreak havoc could derail any offensive momentum.</p>
+<p><b>The Injury Factor and Line Movement:</b> The 49ers opened as 3.5-point favorites when Purdy was expected to play. The line has moved to -2.5 following the Mac Jones announcement, suggesting the market values Purdy at roughly 1 point. Sharp bettors are circling this game—if they believe Jones can execute Shanahan's system adequately, the 49ers at -2.5 offer value. Conversely, if Jones struggles early, the Giants could exploit the uncertainty and cover easily. This line feels like a coin flip, making it a potential stay-away or a small lean toward the home underdog.</p>
+<p><b>The Pick:</b> With Purdy out and Mac Jones making his first start in Shanahan's system, there's too much uncertainty to confidently back San Francisco on the road. The Giants have a competent rookie QB, home-field advantage, and a chance to exploit the 49ers' offensive limitations. <b>New York Giants +2.5</b> is the play. If the Giants can keep this game close into the fourth quarter, Dart's playmaking ability could steal an outright win.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Denver Broncos logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png"/>
+<div class="name">Denver Broncos</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Houston Texans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png"/>
+<div class="name">Houston Texans</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — NRG Stadium (CBS)</div>
+<div class="m-odds"><b>Line:</b> Texans -1.5 | Broncos +1.5   •   <b>Total:</b> 40.5   •   <b>ML:</b> DEN +106 / HOU -124</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Two Hot Teams Collide in Houston:</b> The Denver Broncos (6-2) ride into Houston on a five-game winning streak, while the Texans have won three of their last four. This is a battle between two of the AFC's most surprising teams—Denver's resurgence under rookie QB Bo Nix and Houston's continued ascent with CJ Stroud leading the charge. The 1.5-point spread suggests a virtual pick'em, with Houston getting minimal home-field advantage. The total of 40.5 is one of the lowest of the week, reflecting both teams' strong defensive units and methodical, clock-controlling offensive approaches.</p>
+<p><b>Bo Nix's Rookie Season Exceeds Expectations:</b> Bo Nix has been a revelation for Denver, throwing for 1,803 yards (8th in NFL), 15 touchdowns (6th in NFL), and just 5 interceptions while completing 62.8% of his passes. He's averaging 225.4 yards per game and has led the Broncos to a 6-2 record—far exceeding preseason projections. Nix's mobility, poise in the pocket, and ability to make quick decisions have transformed Denver's offense. Sean Payton's play-calling has evolved to maximize Nix's strengths, utilizing quick-game concepts, RPOs, and play-action to keep defenses off-balance. If Nix can eclipse 205.5 passing yards (-114 is a popular prop bet), Denver's offense will have moved the ball effectively enough to stay competitive.</p>
+<p><b>CJ Stroud's Bounce-Back Performance:</b> After a slow start to the season, CJ Stroud delivered arguably his best game of 2025 in Week 8, throwing for 318 yards and two touchdowns against San Francisco. Stroud has passed for 1,623 yards, 11 TDs, and 5 INTs this season, and he's beginning to recapture the magic from his spectacular rookie campaign. Houston's offense relies on Stroud's arm talent and pre-snap recognition—he identifies defensive rotations quickly and attacks mismatches. If Stroud can exploit Denver's secondary with deep shots to Nico Collins and Tank Dell, Houston's offense can control this game.</p>
+<p><b>Defensive Battle in the Trenches:</b> Denver's defense has been the backbone of their winning streak, generating pressure without blitzing and forcing quarterbacks into uncomfortable throws. Houston's offensive line has been inconsistent in pass protection, which could allow Denver's edge rushers to collapse the pocket on Stroud. Conversely, Houston's defense ranks in the top 10 in several categories and will challenge Nix to make tight-window throws under duress. This game will be won in the trenches—whichever offensive line holds up better will give their quarterback the time needed to execute.</p>
+<p><b>Low-Scoring Slugfest Expected:</b> The 40.5 total suggests the market expects a defensive struggle, and both teams' recent performances support that projection. Denver's offense is efficient but not explosive, preferring to methodically move the chains and control time of possession. Houston's defense can stifle that approach by stuffing the run and forcing third-and-long. If this game becomes a field position battle with multiple punts, the under could cash comfortably. However, if either offense finds rhythm early, 40.5 might be vulnerable to a late push over.</p>
+<p><b>The Pick:</b> Denver is the better team right now—riding momentum, playing elite defense, and getting quality quarterback play from a rookie. Getting points on the road in a near pick'em is valuable. <b>Denver Broncos +1.5 (+106)</b> is the play. This game stays close throughout, and Denver's defense makes one more stop late to secure a gritty road victory or a cover in a narrow loss.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Carolina Panthers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png"/>
+<div class="name">Carolina Panthers</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
+<div class="name">Green Bay Packers</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Lambeau Field (FOX)</div>
+<div class="m-odds"><b>Line:</b> Packers -13.5 | Panthers +13.5   •   <b>Total:</b> 44.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Massive Mismatch at Lambeau:</b> The Green Bay Packers (5-1-1) are coming off their bye week and hosting a Carolina Panthers (4-4) team that's been inconsistent all season. The 13.5-point spread is one of the largest of Week 9, reflecting the chasm in talent and execution between these two squads. Green Bay's offense is humming—Jordan Love has thrown for 1,798 yards (9th in NFL), 13 TDs, and just 2 INTs while completing 70.9% of his passes and averaging 256.9 yards per game. The Packers have the offensive firepower, home-field advantage, and rest advantage to blow this game open.</p>
+<p><b>Bryce Young's Return from Injury:</b> Panthers quarterback Bryce Young returns after missing last week with an ankle injury. Young was a full participant in practice all week, signaling he's healthy and ready to play. Through seven games, Young has thrown for 1,288 yards, 11 TDs, and 5 INTs while completing 61.6% of his passes. Young has shown flashes of competence but remains wildly inconsistent—he struggles under pressure, makes errant throws downfield, and doesn't yet command the offense with authority. Against a Packers defense that can generate pressure with four-man rushes, Young will be forced into quick decisions that could lead to turnovers.</p>
+<p><b>Green Bay's Offensive Dominance:</b> Jordan Love is playing at an MVP-caliber level, utilizing his arm talent to attack defenses vertically and horizontally. Love's connection with Christian Watson, Jayden Reed, and tight end Luke Musgrave gives Green Bay multiple weapons to exploit Carolina's middling secondary. The Packers' offensive line has been stellar in pass protection, giving Love clean pockets to survey the field and deliver strikes. If Green Bay scores on three of their first four possessions, this game could be over by halftime. Expert Nejad (145-106-5 since 2023) is backing Green Bay to cover, noting the "Packers are at home" against an "injury ravaged offensive line" and the offense "looks to be clicking off the bye."</p>
+<p><b>Carolina's Injury-Ravaged Offensive Line:</b> The Panthers' offensive line has been decimated by injuries all season, and the unit ranks among the league's worst in pass protection and run blocking. Green Bay's defensive front, led by Rashan Gary and Kenny Clark, will generate pressure consistently and force Young into hurried throws. If Carolina cannot establish the run game, they'll become one-dimensional and predictable. Green Bay's secondary can play man coverage and take away Carolina's top receivers, forcing Young to hold the ball and take sacks.</p>
+<p><b>Weather and Home-Field Edge:</b> Early November at Lambeau Field can bring unpredictable weather—cold temperatures, potential wind, and the possibility of rain or snow. Green Bay thrives in these conditions, having practiced and played in them for years. Carolina, a warm-weather team, will struggle with the elements and the hostile crowd noise. The Packers' implied win probability based on the moneyline is 90.9%, while the Panthers have just a 13.3% chance—this is as lopsided as Week 9 gets.</p>
+<p><b>The Pick:</b> Green Bay is better in every phase of the game—quarterback play, offensive line, defensive front, coaching, and home-field advantage. The Packers cover double-digit spreads when they're motivated, and coming off a bye gives them extra preparation time. <b>Green Bay Packers -13.5 (-110)</b> is the play. Expect a 34-13 type victory where Green Bay pulls away in the third quarter and coasts to an easy cover.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Chicago Bears logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"/>
+<div class="name">Chicago Bears</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Cincinnati Bengals logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"/>
+<div class="name">Cincinnati Bengals</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Paycor Stadium (FOX)</div>
+<div class="m-odds"><b>Line:</b> Bears -3 | Bengals +3   •   <b>Total:</b> 51</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Joe Burrow's Absence Changes Everything:</b> The Cincinnati Bengals will be without franchise quarterback Joe Burrow, who is sidelined with injury. In his place, the Bengals turn to veteran Joe Flacco, who has thrown for 1,599 yards, 9 TDs, and 6 INTs this season. However, Flacco is listed as questionable with a shoulder injury. If Flacco cannot play, Cincinnati would turn to backup Jake Browning, who is 0-3 as a starter this year. This quarterback uncertainty has caused the line to shift dramatically—the Bears opened as slight underdogs but are now favored by 3 points on the road. The total remains high at 51, reflecting both offenses' explosive potential despite the Bengals' quarterback issues.</p>
+<p><b>Caleb Williams' Development Arc:</b> Chicago's rookie quarterback Caleb Williams has thrown for 1,636 yards through seven games, averaging 233.7 per game with a 61.9% completion rate, 9 TDs, and 4 INTs. Williams has shown flashes of brilliance—his arm talent is undeniable, and he can make throws that few quarterbacks in the league can replicate. However, he's also struggled with consistency, decision-making under pressure, and avoiding costly turnovers. Against Cincinnati's league-worst defense (allowing 407.9 yards per game), Williams should have opportunities to put up big numbers. If he can exploit the Bengals' secondary with deep shots to DJ Moore and Rome Odunze, Chicago's offense will control this game.</p>
+<p><b>Cincinnati's Defensive Catastrophe:</b> The Bengals are allowing a league-worst 407.9 yards per game through eight contests—a staggering number that reflects systemic issues across all three levels of their defense. They cannot stop the run, cannot generate consistent pressure, and cannot cover in the secondary. This creates a perfect environment for Williams to gain confidence and put together a complete performance. Chicago's offensive line has been solid in pass protection, giving Williams time to work through progressions and deliver strikes. If the Bears can establish the run early with D'Andre Swift (who is ruled out with a groin injury) or his replacement, they can control tempo and put the Bengals' defense on its heels.</p>
+<p><b>Flacco's Experience vs. Chicago's Defense:</b> Joe Flacco has been in the NFL long enough to know how to manage games and avoid catastrophic mistakes. His arm strength has diminished, but he can still make the necessary throws to keep Cincinnati competitive. The Bengals' offense features explosive weapons like Ja'Marr Chase and Tee Higgins, who can create separation and turn short passes into big gains. If Flacco (or Browning) can get the ball to these playmakers in space, Cincinnati's offense has the talent to put up points even without Burrow. Chicago's defense will need to generate pressure and force turnovers to tilt this game decisively in their favor.</p>
+<p><b>High-Scoring Shootout Potential:</b> The 51-point total is one of the highest of the week, and both offenses have the weapons to light up the scoreboard. Chicago's offense should exploit Cincinnati's porous defense, while the Bengals' skill-position talent can create explosive plays even with a backup quarterback. Expect a back-and-forth game with multiple lead changes and limited defensive stops. A 31-27 type game is very much in play, making the over an intriguing option.</p>
+<p><b>The Pick:</b> The Bears are the better team with the better quarterback situation. Getting Chicago at -3 on the road against a Burrow-less Bengals squad offers value. Caleb Williams should have his best game of the season against Cincinnati's historically bad defense. <b>Chicago Bears -3 (-110)</b> is the play, with a lean toward the Over 51 if you want action on the total.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Los Angeles Chargers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png"/>
+<div class="name">Los Angeles Chargers</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Tennessee Titans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/>
+<div class="name">Tennessee Titans</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 1:00 PM ET — Nissan Stadium (CBS)</div>
+<div class="m-odds"><b>Line:</b> Chargers -9.5 | Titans +9.5   •   <b>Total:</b> 42.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Jim Harbaugh's Chargers Rolling:</b> The Los Angeles Chargers (5-3) under new head coach Jim Harbaugh have found offensive balance and defensive tenacity, ranking top 5 in passing efficiency and top 10 in rushing success rate. Harbaugh's culture has transformed this franchise—the Chargers are disciplined, physical, and play complementary football in all three phases. Public bettors love the Chargers in this spot, with 86% of early ATS money backing Los Angeles to cover the 9.5-point spread. This is one of the most lopsided public plays of the week, and it's not hard to see why—the Chargers are superior in every measurable category.</p>
+<p><b>Tennessee's Season in Freefall:</b> The Titans (1-7) are one of the NFL's worst teams, scoring the fewest points per game in the league and struggling mightily on both sides of the ball. Quarterback Will Levis will miss the entire 2025 season after undergoing surgery on his throwing shoulder, leaving rookie Cam Ward as the starter. Ward has shown flashes but has been under siege all year—he's completing just 57.7% of his throws, been sacked 34 times, and thrown more turnovers (11) than touchdowns (5). Against a disciplined Chargers defense that can generate pressure with four-man rushes, Ward will be forced into mistakes that lead to short fields and easy scoring opportunities for Los Angeles.</p>
+<p><b>Chargers' Defensive Dominance:</b> Los Angeles' defense has been one of the league's most underrated units, stifling opposing offenses with a mix of pressure and coverage. Khalil Mack and Joey Bosa can wreck game plans by themselves, and the secondary has been excellent in limiting explosive plays. Tennessee's offensive line has been porous all season, ranking near the bottom in pass protection and run blocking. If the Chargers jump ahead early, they can pin their ears back and unleash their pass rush, turning this into a blowout.</p>
+<p><b>RB Kimani Vidal's Emergence:</b> Chargers running back Kimani Vidal has been superb since taking over the starting role, providing a dynamic rushing attack that opens up play-action opportunities for Justin Herbert. Tennessee's defense allows the third-most fantasy points per game to running backs, suggesting Vidal could have a massive day on the ground. If the Chargers can establish the run early, they'll control the clock, keep Ward on the sideline, and methodically build an insurmountable lead.</p>
+<p><b>Double-Digit Spread in a Mismatch:</b> The 9.5-point spread is large but justified given the talent disparity. SportsLine's model projects the Chargers to cover this spread well over 50% of the time, suggesting value exists even with public money hammering Los Angeles. Favorites dominated last week, going 11-2 ATS—the best cover rate (84.6%) since Week 16 in 1985. The trend of favorites continuing to roll is very much in play, and the Chargers fit the profile perfectly. Expect a 27-10 type victory where Los Angeles jumps ahead early and cruises to an easy cover.</p>
+<p><b>The Pick: Los Angeles Chargers -9.5 (-110).</b> Lay the points with confidence. Tennessee cannot score enough to keep this game competitive, and the Chargers' defense will force multiple turnovers that lead to short fields and easy scores. This is a statement win for Harbaugh's squad as they position themselves for a playoff run.</p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Seattle Seahawks logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"/>
+<div class="name">Seattle Seahawks</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
+<div class="name">Washington Commanders</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Nov 2 — 8:20 PM ET — Commanders Field (NBC — Sunday Night Football)</div>
+<div class="m-odds"><b>Line:</b> Seahawks -2.5 | Commanders +2.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p><b>Sunday Night Showcase:</b> The primetime spotlight shines on this NFC clash between the Seattle Seahawks (5-2) and Washington Commanders (3-5). Seattle enters as 2.5-point road favorites despite Washington playing at home—a testament to the Seahawks' superior form and Washington's recent struggles. The Commanders have lost three straight games and are reeling after a tough Monday Night Football loss to Kansas City. The return of rookie quarterback Jayden Daniels from a hamstring injury provides a spark of hope for Washington, but Seattle's balanced attack and opportunistic defense make them dangerous in any environment.</p>
+<p><b>Jayden Daniels Returns from Injury:</b> Washington quarterback Jayden Daniels will start Sunday night after missing the Monday night game against Kansas City with a hamstring injury. Daniels was a full participant in practice this week and showed no signs of limitations, clearing the way for his return. When healthy, Daniels has been one of the NFL's most exciting rookies—his dual-threat ability forces defenses to account for the run and pass on every snap, and his playmaking creates explosive opportunities downfield. Washington's offense operates at a completely different level with Daniels under center compared to backup Marcus Mariota. If Daniels can stay healthy throughout the game and avoid re-aggravating the hamstring, the Commanders have a legitimate chance to pull the upset.</p>
+<p><b>Geno Smith's Steady Hand for Seattle:</b> Seahawks quarterback Geno Smith has been one of the league's most underrated players over the past two seasons. While he doesn't possess elite arm talent or mobility, Smith makes smart decisions, avoids turnovers, and executes offensive coordinator Shane Waldron's system efficiently. Last season, Seattle struggled to protect Smith—he was sacked 50 times in 17 starts, with the Seahawks allowing the third-most sacks of any team in the NFL. This year, the offensive line has improved significantly, giving Smith cleaner pockets and more time to work through progressions. If Seattle can establish the run with Kenneth Walker III and open up play-action shots downfield, Smith will dissect Washington's secondary.</p>
+<p><b>Washington's Three-Game Losing Streak:</b> The Commanders have lost three in a row and are spiraling after a promising start to the season. Following this Sunday night matchup, they face a loaded Detroit Lions team, creating a brutal two-week stretch that could define their playoff hopes. Washington's defense has been inconsistent—they can generate pressure in spurts but struggle to cover receivers downfield and force turnovers. Seattle's offense, with DK Metcalf and Tyler Lockett on the perimeter, will attack Washington's secondary vertically and test their ability to cover elite route runners.</p>
+<p><b>Primetime Pressure and Home-Field Energy:</b> Playing under the Sunday Night Football lights brings added pressure, and Washington needs to channel the energy of their home crowd to jumpstart momentum. If the Commanders score early and silence Seattle's offense, they can build confidence and ride Daniels' playmaking to an upset. However, if Seattle jumps ahead and forces Washington into obvious passing situations, the Commanders' offensive line could struggle to protect Daniels against Seattle's pass rush. Turnovers and field position will be critical in a game this evenly matched.</p>
+<p><b>The Pick:</b> This line feels tight, and Seattle's 2.5-point edge as road favorites reflects uncertainty about Daniels' health and effectiveness. Washington is desperate for a win, playing at home, and getting their franchise quarterback back. The Commanders are live underdogs in a primetime spot where they can steal a victory. <b>Washington Commanders +2.5</b> is the play. If Daniels stays healthy and makes a few explosive plays, Washington covers and potentially wins outright in a thrilling Sunday night finish.</p>
+</div>
+</div>
+</div>
 </section>
-
 <section class="hero">
-  <div class="hero-wrap">
-    <div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
-    <h1 class="title">WEEK 9 NFL GRIDIRON ORACLES</h1>
-    <p class="subtitle">Posted Oct 30, 2025 — Featured: Ravens -7.5, Over 50.5</p>
-  </div>
+<div class="hero-wrap">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1 class="title">WEEK 9 NFL GRIDIRON ORACLES</h1>
+<p class="subtitle">Posted Oct 30, 2025 — Featured: Ravens -7.5, Over 50.5</p>
+</div>
 </section>
-
 <section class="section-post" id="week9">
-  <div class="post-wrap">
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
-          <div class="name">Baltimore Ravens</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
-          <div class="name">Miami Dolphins</div>
-        </div>
-      </div>
-      <div class="m-meta">Thursday, Oct 30 — 8:15 PM ET — Hard Rock Stadium (Amazon Prime)</div>
-      <div class="m-odds"><b>Line:</b> Baltimore -7.5 | Miami +7.5   •   <b>Total:</b> 50.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market context: Baltimore is laying 7.5 points on the road in a prime time divisional clash. Both teams are 2-5 and desperate for a win. The spread reflects Baltimore's superior talent and Miami's offensive limitations without Tua Tagovailoa. The total sits at 50.5, which suggests the market expects both offenses to move the ball despite defensive struggles on both sides.</p>
-        <p>Lamar Jackson's return changes everything: Jackson missed the Ravens' last three games with injury, and his return immediately elevates Baltimore's offensive ceiling. The dual-threat quarterback forces defenses to account for both the run and pass on every snap. Miami's defense has struggled to contain mobile quarterbacks all season, allowing 28.4 points per game. Jackson's ability to extend plays with his legs and create explosive plays through the air gives Baltimore a massive advantage.</p>
-        <p>Miami's quarterback situation is dire: Without Tua, Miami has cycled through backup quarterbacks who cannot execute the Dolphins' speed-based offensive system. The backups lack the timing and anticipation to hit receivers in stride on quick-game concepts. Miami's offense has been anemic, averaging just 15.2 points per game over their last four contests. Baltimore's defense will load the box, force the backup to beat them through the air, and capitalize on mistakes.</p>
-        <p>Offensive line mismatches favor Baltimore: The Ravens' defensive front generates pressure with four-man rushes, which allows them to drop seven into coverage and take away Miami's speed receivers. Miami's offensive line has been porous in pass protection, surrendering 3.2 sacks per game. If Baltimore can collapse the pocket quickly and force errant throws, Miami's offense will stall repeatedly.</p>
-        <p>Baltimore's offensive firepower: The Ravens have playmakers at every level—Derrick Henry in the backfield, Mark Andrews at tight end, and explosive receivers on the perimeter. When Jackson is healthy, this offense can score in bunches. Miami's defense ranks 28th in points allowed and has been gashed by teams that can run the ball effectively. Baltimore will establish the run with Henry, then attack Miami's secondary with play-action shots downfield.</p>
-        <p>Pace and possessions: Baltimore controls tempo with their run-first approach. If the Ravens jump ahead early, Miami will be forced to abandon the run and throw on obvious passing downs. That plays directly into Baltimore's hands—the Ravens can pin their ears back, rush the passer, and create turnovers. Short fields from turnovers compound Miami's problems quickly.</p>
-        <p>Path to the cover: Baltimore scores on three of their first four possessions to build a 21-7 lead by halftime. Miami shows fight early but cannot sustain drives against Baltimore's pressure. The Ravens add a field goal and another touchdown in the second half, cruising to a 31-14 victory. Even with conservative play-calling late, Baltimore covers 7.5 comfortably.</p>
-        <p><b>The pick: Baltimore Ravens -7.5 -110</b></p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
-          <div class="name">Ravens/Dolphins</div>
-        </div>
-        <div class="vs">O/U</div>
-        <div class="m-team">
-          <img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
-          <div class="name">Total: 50.5</div>
-        </div>
-      </div>
-      <div class="m-meta">Thursday, Oct 30 — 8:15 PM ET — Hard Rock Stadium (Amazon Prime)</div>
-      <div class="m-odds"><b>Total:</b> Over 50.5 -110</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market context: The total at 50.5 reflects both teams' defensive vulnerabilities and Baltimore's explosive offensive potential with Lamar Jackson back. The market is begging you to take the under because Miami's offense has been anemic. That's exactly why the over is the play. Baltimore will score enough by themselves to push this total over.</p>
-        <p>Baltimore's offensive ceiling is sky-high: With Jackson healthy, the Ravens can score 30+ points against a defense as weak as Miami's. Baltimore averaged 28.7 points per game when Jackson played earlier this season. They have multiple scoring threats, elite play-calling, and the ability to attack defenses both on the ground and through the air. Miami ranks 28th in points allowed—they give up explosive plays, struggle in the red zone, and cannot generate consistent pressure. Baltimore will put up points in bunches.</p>
-        <p>Garbage time scoring matters: Even if Miami falls behind early, they'll be forced to throw the ball to keep pace. Garbage time touchdowns count toward the total. If Baltimore builds a 24-7 lead by the third quarter, Miami will abandon the run and attack Baltimore's prevent defense. The Ravens have been susceptible to giving up late scores when protecting leads. A backdoor touchdown from Miami late in the fourth quarter could be the difference between 49 and 52 total points.</p>
-        <p>Pace of play favors the over: Baltimore wants to run the ball and control the clock, but when they jump ahead, Miami will speed up the game by throwing incomplete passes and stopping the clock. More possessions mean more opportunities to score. If Baltimore scores quickly on their first few drives, Miami will be forced into hurry-up mode, which creates more plays and more scoring chances for both teams.</p>
-        <p>Defensive breakdowns in prime time: Thursday night games often feature sloppy defense as teams play on short rest. Tackling suffers, coverage assignments break down, and big plays happen. Both defenses are vulnerable, and in a fast-paced game with offensive weapons on both sides, explosive plays can add up quickly.</p>
-        <p>Path to the over: Baltimore scores 28-31 points through efficient offensive execution and a short-field score off a turnover. Miami scrapes together 17-21 points through a mix of early competitiveness and late garbage time drives. The total sails over 50.5, landing around 52-55 total points. Even in a lopsided game, the over cashes.</p>
-        <p><b>The pick: Over 50.5 -110</b></p>
-      </div>
-    </div>
-
-  </div>
+<div class="post-wrap">
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
+<div class="name">Baltimore Ravens</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
+<div class="name">Miami Dolphins</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Oct 30 — 8:15 PM ET — Hard Rock Stadium (Amazon Prime)</div>
+<div class="m-odds"><b>Line:</b> Baltimore -7.5 | Miami +7.5   •   <b>Total:</b> 50.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market context: Baltimore is laying 7.5 points on the road in a prime time divisional clash. Both teams are 2-5 and desperate for a win. The spread reflects Baltimore's superior talent and Miami's offensive limitations without Tua Tagovailoa. The total sits at 50.5, which suggests the market expects both offenses to move the ball despite defensive struggles on both sides.</p>
+<p>Lamar Jackson's return changes everything: Jackson missed the Ravens' last three games with injury, and his return immediately elevates Baltimore's offensive ceiling. The dual-threat quarterback forces defenses to account for both the run and pass on every snap. Miami's defense has struggled to contain mobile quarterbacks all season, allowing 28.4 points per game. Jackson's ability to extend plays with his legs and create explosive plays through the air gives Baltimore a massive advantage.</p>
+<p>Miami's quarterback situation is dire: Without Tua, Miami has cycled through backup quarterbacks who cannot execute the Dolphins' speed-based offensive system. The backups lack the timing and anticipation to hit receivers in stride on quick-game concepts. Miami's offense has been anemic, averaging just 15.2 points per game over their last four contests. Baltimore's defense will load the box, force the backup to beat them through the air, and capitalize on mistakes.</p>
+<p>Offensive line mismatches favor Baltimore: The Ravens' defensive front generates pressure with four-man rushes, which allows them to drop seven into coverage and take away Miami's speed receivers. Miami's offensive line has been porous in pass protection, surrendering 3.2 sacks per game. If Baltimore can collapse the pocket quickly and force errant throws, Miami's offense will stall repeatedly.</p>
+<p>Baltimore's offensive firepower: The Ravens have playmakers at every level—Derrick Henry in the backfield, Mark Andrews at tight end, and explosive receivers on the perimeter. When Jackson is healthy, this offense can score in bunches. Miami's defense ranks 28th in points allowed and has been gashed by teams that can run the ball effectively. Baltimore will establish the run with Henry, then attack Miami's secondary with play-action shots downfield.</p>
+<p>Pace and possessions: Baltimore controls tempo with their run-first approach. If the Ravens jump ahead early, Miami will be forced to abandon the run and throw on obvious passing downs. That plays directly into Baltimore's hands—the Ravens can pin their ears back, rush the passer, and create turnovers. Short fields from turnovers compound Miami's problems quickly.</p>
+<p>Path to the cover: Baltimore scores on three of their first four possessions to build a 21-7 lead by halftime. Miami shows fight early but cannot sustain drives against Baltimore's pressure. The Ravens add a field goal and another touchdown in the second half, cruising to a 31-14 victory. Even with conservative play-calling late, Baltimore covers 7.5 comfortably.</p>
+<p><b>The pick: Baltimore Ravens -7.5 -110</b></p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
+<div class="name">Ravens/Dolphins</div>
+</div>
+<div class="vs">O/U</div>
+<div class="m-team">
+<img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
+<div class="name">Total: 50.5</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Oct 30 — 8:15 PM ET — Hard Rock Stadium (Amazon Prime)</div>
+<div class="m-odds"><b>Total:</b> Over 50.5 -110</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market context: The total at 50.5 reflects both teams' defensive vulnerabilities and Baltimore's explosive offensive potential with Lamar Jackson back. The market is begging you to take the under because Miami's offense has been anemic. That's exactly why the over is the play. Baltimore will score enough by themselves to push this total over.</p>
+<p>Baltimore's offensive ceiling is sky-high: With Jackson healthy, the Ravens can score 30+ points against a defense as weak as Miami's. Baltimore averaged 28.7 points per game when Jackson played earlier this season. They have multiple scoring threats, elite play-calling, and the ability to attack defenses both on the ground and through the air. Miami ranks 28th in points allowed—they give up explosive plays, struggle in the red zone, and cannot generate consistent pressure. Baltimore will put up points in bunches.</p>
+<p>Garbage time scoring matters: Even if Miami falls behind early, they'll be forced to throw the ball to keep pace. Garbage time touchdowns count toward the total. If Baltimore builds a 24-7 lead by the third quarter, Miami will abandon the run and attack Baltimore's prevent defense. The Ravens have been susceptible to giving up late scores when protecting leads. A backdoor touchdown from Miami late in the fourth quarter could be the difference between 49 and 52 total points.</p>
+<p>Pace of play favors the over: Baltimore wants to run the ball and control the clock, but when they jump ahead, Miami will speed up the game by throwing incomplete passes and stopping the clock. More possessions mean more opportunities to score. If Baltimore scores quickly on their first few drives, Miami will be forced into hurry-up mode, which creates more plays and more scoring chances for both teams.</p>
+<p>Defensive breakdowns in prime time: Thursday night games often feature sloppy defense as teams play on short rest. Tackling suffers, coverage assignments break down, and big plays happen. Both defenses are vulnerable, and in a fast-paced game with offensive weapons on both sides, explosive plays can add up quickly.</p>
+<p>Path to the over: Baltimore scores 28-31 points through efficient offensive execution and a short-field score off a turnover. Miami scrapes together 17-21 points through a mix of early competitiveness and late garbage time drives. The total sails over 50.5, landing around 52-55 total points. Even in a lopsided game, the over cashes.</p>
+<p><b>The pick: Over 50.5 -110</b></p>
+</div>
+</div>
+</div>
 </section>
-
 <section class="hero">
-  <div class="hero-wrap">
-    <div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
-    <h1 class="title">WEEK 8 NFL GRIDIRON ORACLES</h1>
-    <p class="subtitle">Posted Oct 25, 2025 11:35 PM — Featured: Colts -14.5, Bears +6.5</p>
-  </div>
+<div class="hero-wrap">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1 class="title">WEEK 8 NFL GRIDIRON ORACLES</h1>
+<p class="subtitle">Posted Oct 25, 2025 11:35 PM — Featured: Colts -14.5, Bears +6.5</p>
+</div>
 </section>
 <section class="section-post" id="week8">
-  <div class="post-wrap">
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Tennessee Titans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/>
-          <div class="name">Tennessee Titans</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Indianapolis Colts logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png"/>
-          <div class="name">Indianapolis Colts</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Oct 26 — 4:25 PM ET — Lucas Oil Stadium, Indianapolis, IN</div>
-      <div class="m-odds"><b>Line:</b> Indianapolis -14.5 | Tennessee +14.5   •   <b>Total:</b> 48.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market context: The spread living at two touchdowns tells you everything about the distance between these rosters. Indianapolis owns the No. 2 total offense in the league and leads in explosive plays of fifteen yards or more. Tennessee sits dead last at thirty two in offensive output and has surrendered the second most sacks. This is not a matchup. It is an execution drill.</p>
-        <p>Offensive architecture: The Colts run multiple personnel groups and force defenses to declare coverage before the snap. They motion to create leverage reads and attack space with tempo. Tennessee cannot generate consistent pressure with four and gets picked apart when they bring five or six. Indianapolis methodically converts third downs, scores in the red zone, and avoids drive killers. The Titans do the opposite.</p>
-        <p>Pace and possessions: Indianapolis controls tempo at home. When they build a two score lead early, the call sheet opens up and the defense can pin ears back. Tennessee will be forced into obvious passing downs where protection breaks and turnover variance spikes. Short fields from mistakes compound quickly.</p>
-        <p>Situational edges: The Colts convert inside the twenty at an elite rate. Tennessee does not force three and outs or create negative plays on defense. This combination leads to long possessions for Indianapolis and quick punts for the Titans. Field position alone can account for a ten point swing.</p>
-        <p>Personnel mismatches: Indianapolis has speed on the perimeter and size in the middle. Tennessee has a secondary that gets stretched horizontally and a front seven that gives up chunk yardage when offenses stay on schedule. The Colts will stay on schedule.</p>
-        <p>Path to the cover: Indianapolis scores on four of their first six drives to build a twenty one point cushion by halftime. Tennessee shows flashes but cannot sustain. The Colts bleed clock in the second half with the ground game, tack on a field goal, and win by three scores. Even with a conservative fourth quarter, the math supports the number.</p>
-        <p><b>The pick: Indianapolis Colts -14.5 -110</b></p>
-      </div>
-    </div>
-
-    <div class="matchup">
-      <div class="m-header">
-        <div class="m-team">
-          <img alt="Chicago Bears logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"/>
-          <div class="name">Chicago Bears</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
-          <div class="name">Baltimore Ravens</div>
-        </div>
-      </div>
-      <div class="m-meta">Sunday, Oct 26 — 1:00 PM ET — M&T Bank Stadium, Baltimore, MD</div>
-      <div class="m-odds"><b>Line:</b> Baltimore -6.5 | Chicago +6.5   •   <b>Total:</b> 49.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market: The spread opened at six and moved to six and a half, which means the market respects Baltimore but also hesitates to stretch this number past a touchdown. The Ravens sit at one and five after dropping four straight. Chicago has won four consecutive games and sits at four and two. This line reflects talent over form, and that creates opportunity on the dog.</p>
-        <p>Quarterback context: Lamar Jackson returns from a hamstring issue following the bye week. He brings dual threat value and keeps defenses honest with designed runs and scramble ability. But coming off injury in a compressed timeline against a defense that has been generating pressure and forcing negative plays raises questions about rhythm and explosive rate. Chicago will bring varied looks and make Jackson hold the ball.</p>
-        <p>Offensive balance: Baltimore wants to establish the run and set up play action, but their offensive line has struggled with consistency and protection. Chicago brings a front that can compress pockets with four and rally to mobile quarterbacks. If the Ravens fall behind early, their pass protection issues get exposed and the call sheet tightens.</p>
-        <p>Chicago offense vs Baltimore defense: The Bears have methodically moved the ball during their win streak by staying on schedule and avoiding negative plays. Baltimore has given up chunk yardage when offenses execute on early downs. Chicago does not need explosive plays to sustain drives. They can stack completions, convert third and manageable, and bleed clock. That style shortens the game and keeps the margin close.</p>
-        <p>Situational edges: Chicago is disciplined in situational football. They protect leads, manage the clock, and do not give away short fields through turnovers. Baltimore has been sloppy in recent weeks, scoring just thirteen points in each of their last two games. If the Ravens stall in the red zone or turn the ball over in plus territory, Chicago can flip field position and control tempo.</p>
-        <p>Path to the cover: Chicago builds an early lead through methodical drives and forces Baltimore into obvious passing downs. The Ravens respond with a scoring drive but cannot sustain consistency. The Bears control the second half with the ground game and limit possessions. Final score lives around a field goal. The hook makes all the difference.</p>
-        <p><b>The pick: Chicago Bears +6.5 -110</b></p>
-      </div>
-    </div>
-
-  </div>
+<div class="post-wrap">
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Tennessee Titans logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"/>
+<div class="name">Tennessee Titans</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Indianapolis Colts logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png"/>
+<div class="name">Indianapolis Colts</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Oct 26 — 4:25 PM ET — Lucas Oil Stadium, Indianapolis, IN</div>
+<div class="m-odds"><b>Line:</b> Indianapolis -14.5 | Tennessee +14.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market context: The spread living at two touchdowns tells you everything about the distance between these rosters. Indianapolis owns the No. 2 total offense in the league and leads in explosive plays of fifteen yards or more. Tennessee sits dead last at thirty two in offensive output and has surrendered the second most sacks. This is not a matchup. It is an execution drill.</p>
+<p>Offensive architecture: The Colts run multiple personnel groups and force defenses to declare coverage before the snap. They motion to create leverage reads and attack space with tempo. Tennessee cannot generate consistent pressure with four and gets picked apart when they bring five or six. Indianapolis methodically converts third downs, scores in the red zone, and avoids drive killers. The Titans do the opposite.</p>
+<p>Pace and possessions: Indianapolis controls tempo at home. When they build a two score lead early, the call sheet opens up and the defense can pin ears back. Tennessee will be forced into obvious passing downs where protection breaks and turnover variance spikes. Short fields from mistakes compound quickly.</p>
+<p>Situational edges: The Colts convert inside the twenty at an elite rate. Tennessee does not force three and outs or create negative plays on defense. This combination leads to long possessions for Indianapolis and quick punts for the Titans. Field position alone can account for a ten point swing.</p>
+<p>Personnel mismatches: Indianapolis has speed on the perimeter and size in the middle. Tennessee has a secondary that gets stretched horizontally and a front seven that gives up chunk yardage when offenses stay on schedule. The Colts will stay on schedule.</p>
+<p>Path to the cover: Indianapolis scores on four of their first six drives to build a twenty one point cushion by halftime. Tennessee shows flashes but cannot sustain. The Colts bleed clock in the second half with the ground game, tack on a field goal, and win by three scores. Even with a conservative fourth quarter, the math supports the number.</p>
+<p><b>The pick: Indianapolis Colts -14.5 -110</b></p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header">
+<div class="m-team">
+<img alt="Chicago Bears logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"/>
+<div class="name">Chicago Bears</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Baltimore Ravens logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"/>
+<div class="name">Baltimore Ravens</div>
+</div>
+</div>
+<div class="m-meta">Sunday, Oct 26 — 1:00 PM ET — M&amp;T Bank Stadium, Baltimore, MD</div>
+<div class="m-odds"><b>Line:</b> Baltimore -6.5 | Chicago +6.5   •   <b>Total:</b> 49.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: The spread opened at six and moved to six and a half, which means the market respects Baltimore but also hesitates to stretch this number past a touchdown. The Ravens sit at one and five after dropping four straight. Chicago has won four consecutive games and sits at four and two. This line reflects talent over form, and that creates opportunity on the dog.</p>
+<p>Quarterback context: Lamar Jackson returns from a hamstring issue following the bye week. He brings dual threat value and keeps defenses honest with designed runs and scramble ability. But coming off injury in a compressed timeline against a defense that has been generating pressure and forcing negative plays raises questions about rhythm and explosive rate. Chicago will bring varied looks and make Jackson hold the ball.</p>
+<p>Offensive balance: Baltimore wants to establish the run and set up play action, but their offensive line has struggled with consistency and protection. Chicago brings a front that can compress pockets with four and rally to mobile quarterbacks. If the Ravens fall behind early, their pass protection issues get exposed and the call sheet tightens.</p>
+<p>Chicago offense vs Baltimore defense: The Bears have methodically moved the ball during their win streak by staying on schedule and avoiding negative plays. Baltimore has given up chunk yardage when offenses execute on early downs. Chicago does not need explosive plays to sustain drives. They can stack completions, convert third and manageable, and bleed clock. That style shortens the game and keeps the margin close.</p>
+<p>Situational edges: Chicago is disciplined in situational football. They protect leads, manage the clock, and do not give away short fields through turnovers. Baltimore has been sloppy in recent weeks, scoring just thirteen points in each of their last two games. If the Ravens stall in the red zone or turn the ball over in plus territory, Chicago can flip field position and control tempo.</p>
+<p>Path to the cover: Chicago builds an early lead through methodical drives and forces Baltimore into obvious passing downs. The Ravens respond with a scoring drive but cannot sustain consistency. The Bears control the second half with the ground game and limit possessions. Final score lives around a field goal. The hook makes all the difference.</p>
+<p><b>The pick: Chicago Bears +6.5 -110</b></p>
+</div>
+</div>
+</div>
 </section>
 <section class="hero">
-  <div class="hero-wrap">
-    <div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
-    <h1 class="title">WEEK 2 NFL GRIDIRON ORACLES</h1>
-    <p class="subtitle">Posted Sep 11, 2025 03:25 PM — Featured: Washington +3.5 -128</p>
-  </div>
+<div class="hero-wrap">
+<div class="slogan">THE GRIDIRON ALGORITHM IS COMPUTING…</div>
+<h1 class="title">WEEK 2 NFL GRIDIRON ORACLES</h1>
+<p class="subtitle">Posted Sep 11, 2025 03:25 PM — Featured: Washington +3.5 -128</p>
+</div>
 </section>
 <section class="section-post" id="week2">
-  <div class="post-wrap">
-
-    <div class="matchup">
-      <div class="m-header" style="--away:#008e97;--home:#00338d;">
-        <div class="m-team">
-          <img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
-          <div class="name">Miami Dolphins</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Buffalo Bills logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/>
-          <div class="name">Buffalo Bills</div>
-        </div>
-      </div>
-      <div class="m-meta">Thursday, Sep 18 — 8:15 PM ET — Highmark Stadium, Orchard Park, NY</div>
-      <div class="m-odds"><b>Line:</b> Buffalo -11.5 | Miami +11.5   •   <b>Total:</b> 50.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market context: Team totals derive from spread and full game total. With Buffalo a strong home favorite near double digits and a total in the low fifties, the implied lane already places the Bills scoring in the low thirties before any bonus possessions from turnovers or special teams.</p>
-        <p>Offense vs defense: Buffalo can stretch Miami horizontally with motion and speed, then hit the second level with play action and layered concepts. Positive rate on early downs keeps the call sheet open and sets up explosives. Miami has speed and talent but can be moved by tempo and spacing, especially if the edge does not close quickly.</p>
-        <p>Quarterback profile: Josh Allen adds designed runs and scramble value that turns red zone snaps into touchdowns instead of field goals. That conversion swing alone is worth several points in this script.</p>
-        <p>Protection and matchups: With solid tackle play, Allen can access deeper routes to veteran targets and punish man coverage with crossers. If Miami brings pressure, Allen has outlet answers and the legs to create off schedule. If Miami sits in zone, he can stack completions and move chains.</p>
-        <p>Pace and possessions: As a home favorite, Buffalo often presses tempo early to build separation, then lives on short fields through field position and hidden yards. A lead forces Miami to throw, which raises sack and turnover chances and hands the Bills extra plus territory opportunities.</p>
-        <p>Red zone and situational edges: Inside the ten, Buffalo uses motion, tight splits, and play action to create clean releases and easy throwing windows. The quarterback run threat near the goal line forces defenders to respect two options and reduces field goal outcomes.</p>
-        <p>Weather and environment: Early fall in Orchard Park typically brings cool air and manageable wind. Nothing here signals a heavy weather tax on deep balls or kicks.</p>
-        <p>Paths to 31 plus: Two scripted drives with tempo, one short field from a takeaway, one explosive to a receiver or tight end, and a late field goal after a clock drive. If Buffalo reaches twenty one by halftime, the second half still supports multiple scoring trips through pace and field position.</p>
-        <p>Risk check: A sloppy turnover day or red zone stalls can slow the climb, but the spread and matchup flow create several routes to the number even with one quiet quarter.</p>
-        <p><b>The pick: Bills Team Total Over 30.5 -122</b></p>
-      </div>
-    </div>
-
-
-    <div class="matchup">
-      <div class="m-header" style="--away:#5a1414;--home:#203731;">
-        <div class="m-team">
-          <img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
-          <div class="name">Washington Commanders</div>
-        </div>
-        <div class="vs">at</div>
-        <div class="m-team">
-          <img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
-          <div class="name">Green Bay Packers</div>
-        </div>
-      </div>
-      <div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
-      <div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
-      <div class="hr"></div>
-      <div class="m-body">
-        <p>Market: We are grabbing the hook with Washington. The spread living at three and a half in a game where Green Bay is juggling offensive line availability is telling. Totals have hovered in the high forties, but any late confirmation of missing starters up front for the Packers favors a slightly lower scoring texture and makes every possession margin matter a little more.</p>
-        <p>Protection and trenches: This handicap starts with Green Bay protection. When you swap starters on the offensive line, the playbook tightens, timing changes, and drive finishing suffers. Washington’s front is built to compress pockets with four and rally to the quarterback on longer downs. If the Packers are forced into more quick game and fewer under center shots, the explosive ceiling drops and the path to a tight margin grows.</p>
-        <p>Washington offense vs GB defense: Washington’s run game presents multiple looks, motions, and quarterback keepers that punish bad leverage. They do not need to recreate a two hundred yard rushing day to control tempo. Four to five yards on early downs keeps the call sheet open and sets play action later. Green Bay’s front is tough, but if Washington stays on schedule and avoids the penalty spikes that stalled drives last week, they can string together long possessions.</p>
-        <p>Love vs zone shells: Green Bay wants balance and rhythm, but against a reworked line the launches get shallower and reads get faster. Washington will sit in zone, close windows, and make Love stack completions. That tends to bleed clock and shorten the game, especially in the first half while both staffs probe for leverage.</p>
-        <p>Hidden yards and situational edges: Field position and special teams matter in a one score script. Short fields flip outcomes in games like this, so Washington’s negative plays and flags need to be trimmed. On fourth and medium in plus territory, expect a conservative lean that preserves the hook.</p>
-        <p>Environment: Lambeau at night with mild temps and light wind puts the outcome back on execution. No weather outs here. If Washington wins early downs and limits freebies, Green Bay faces more third and sevens than they like, and the game lives around one possession for four quarters.</p>
-        <p><b>The pick: Washington +3.5 -128</b></p>
-      </div>
-    </div>
-
-  </div>
+<div class="post-wrap">
+<div class="matchup">
+<div class="m-header" style="--away:#008e97;--home:#00338d;">
+<div class="m-team">
+<img alt="Miami Dolphins logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"/>
+<div class="name">Miami Dolphins</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Buffalo Bills logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"/>
+<div class="name">Buffalo Bills</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Sep 18 — 8:15 PM ET — Highmark Stadium, Orchard Park, NY</div>
+<div class="m-odds"><b>Line:</b> Buffalo -11.5 | Miami +11.5   •   <b>Total:</b> 50.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market context: Team totals derive from spread and full game total. With Buffalo a strong home favorite near double digits and a total in the low fifties, the implied lane already places the Bills scoring in the low thirties before any bonus possessions from turnovers or special teams.</p>
+<p>Offense vs defense: Buffalo can stretch Miami horizontally with motion and speed, then hit the second level with play action and layered concepts. Positive rate on early downs keeps the call sheet open and sets up explosives. Miami has speed and talent but can be moved by tempo and spacing, especially if the edge does not close quickly.</p>
+<p>Quarterback profile: Josh Allen adds designed runs and scramble value that turns red zone snaps into touchdowns instead of field goals. That conversion swing alone is worth several points in this script.</p>
+<p>Protection and matchups: With solid tackle play, Allen can access deeper routes to veteran targets and punish man coverage with crossers. If Miami brings pressure, Allen has outlet answers and the legs to create off schedule. If Miami sits in zone, he can stack completions and move chains.</p>
+<p>Pace and possessions: As a home favorite, Buffalo often presses tempo early to build separation, then lives on short fields through field position and hidden yards. A lead forces Miami to throw, which raises sack and turnover chances and hands the Bills extra plus territory opportunities.</p>
+<p>Red zone and situational edges: Inside the ten, Buffalo uses motion, tight splits, and play action to create clean releases and easy throwing windows. The quarterback run threat near the goal line forces defenders to respect two options and reduces field goal outcomes.</p>
+<p>Weather and environment: Early fall in Orchard Park typically brings cool air and manageable wind. Nothing here signals a heavy weather tax on deep balls or kicks.</p>
+<p>Paths to 31 plus: Two scripted drives with tempo, one short field from a takeaway, one explosive to a receiver or tight end, and a late field goal after a clock drive. If Buffalo reaches twenty one by halftime, the second half still supports multiple scoring trips through pace and field position.</p>
+<p>Risk check: A sloppy turnover day or red zone stalls can slow the climb, but the spread and matchup flow create several routes to the number even with one quiet quarter.</p>
+<p><b>The pick: Bills Team Total Over 30.5 -122</b></p>
+</div>
+</div>
+<div class="matchup">
+<div class="m-header" style="--away:#5a1414;--home:#203731;">
+<div class="m-team">
+<img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
+<div class="name">Washington Commanders</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
+<div class="name">Green Bay Packers</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
+<div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: We are grabbing the hook with Washington. The spread living at three and a half in a game where Green Bay is juggling offensive line availability is telling. Totals have hovered in the high forties, but any late confirmation of missing starters up front for the Packers favors a slightly lower scoring texture and makes every possession margin matter a little more.</p>
+<p>Protection and trenches: This handicap starts with Green Bay protection. When you swap starters on the offensive line, the playbook tightens, timing changes, and drive finishing suffers. Washington’s front is built to compress pockets with four and rally to the quarterback on longer downs. If the Packers are forced into more quick game and fewer under center shots, the explosive ceiling drops and the path to a tight margin grows.</p>
+<p>Washington offense vs GB defense: Washington’s run game presents multiple looks, motions, and quarterback keepers that punish bad leverage. They do not need to recreate a two hundred yard rushing day to control tempo. Four to five yards on early downs keeps the call sheet open and sets play action later. Green Bay’s front is tough, but if Washington stays on schedule and avoids the penalty spikes that stalled drives last week, they can string together long possessions.</p>
+<p>Love vs zone shells: Green Bay wants balance and rhythm, but against a reworked line the launches get shallower and reads get faster. Washington will sit in zone, close windows, and make Love stack completions. That tends to bleed clock and shorten the game, especially in the first half while both staffs probe for leverage.</p>
+<p>Hidden yards and situational edges: Field position and special teams matter in a one score script. Short fields flip outcomes in games like this, so Washington’s negative plays and flags need to be trimmed. On fourth and medium in plus territory, expect a conservative lean that preserves the hook.</p>
+<p>Environment: Lambeau at night with mild temps and light wind puts the outcome back on execution. No weather outs here. If Washington wins early downs and limits freebies, Green Bay faces more third and sevens than they like, and the game lives around one possession for four quarters.</p>
+<p><b>The pick: Washington +3.5 -128</b></p>
+</div>
+</div>
+</div>
 </section>
 <section class="hero">
 <div class="hero-wrap">
@@ -567,55 +858,53 @@ footer .footer-links a{color:var(--neon);text-decoration:none;margin:0 10px;font
 <div class="body"><h4>Under 38 — Steelers @ Jets</h4><p>Wind + conservative scripts lower the explosive rate.</p></div>
 </div>
 </div>
-
 <h2 class="week-header">Week 2</h2>
-
 <div class="matchup">
-  <div class="m-header" style="--away:#5a1414;--home:#203731;">
-    <div class="m-team">
-      <img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
-      <div class="name">Washington Commanders</div>
-    </div>
-    <div class="vs">at</div>
-    <div class="m-team">
-      <img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
-      <div class="name">Green Bay Packers</div>
-    </div>
-  </div>
-  <div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
-  <div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
-  <div class="hr"></div>
-  <div class="m-body">
-    <p>Green Bay comes into this one with the spread leaning their way, but the big storyline is the state of their offensive line. Missing key starters has forced reshuffles and it changes the way they can call the game. That alone tilts a lot of small edges toward Washington.</p>
-    <p>Market wise, the number has hovered between three and three and a half. The hook at +3.5 has been snapped up quickly. Totals have been bouncing around forty eight and a half as bettors weigh Washington’s rushing strength against Green Bay’s defensive front.</p>
-    <p>Scheme wise, the Packers are going to have to rely more on the quick passing game, with fewer deep play action attempts if the line cannot hold. Washington’s front showed in Week 1 that they can collapse pockets even if the sack numbers did not explode. The mobility of Jayden Daniels also extends plays and adds stress to a defense built to sit in zone and force patience.</p>
-    <p>Washington’s run game was dominant in their opener, piling up over two hundred rushing yards. Green Bay shut down Detroit’s ground attack last week, so it will not be easy, but Washington does not need to repeat that output. They only need enough success to keep the offense balanced and the Packers defense honest.</p>
-    <p>Special teams and discipline could also be an under the radar factor. Washington was heavily penalized last week, and cleaning that up could be the hidden yardage that swings a close game. Lambeau weather is mild with little wind, so the field conditions will not interfere. This one comes down to execution in the trenches and red zone efficiency.</p>
-    <p>The game sets up as a grind, with Washington having a real chance to keep it within one score throughout. If the Packers cannot protect, this turns into a low scoring, possession battle where the points are worth their weight.</p>
-    <p><b>The pick: Washington +3.5 -128</b></p>
-  </div>
+<div class="m-header" style="--away:#5a1414;--home:#203731;">
+<div class="m-team">
+<img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
+<div class="name">Washington Commanders</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
+<div class="name">Green Bay Packers</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
+<div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Green Bay comes into this one with the spread leaning their way, but the big storyline is the state of their offensive line. Missing key starters has forced reshuffles and it changes the way they can call the game. That alone tilts a lot of small edges toward Washington.</p>
+<p>Market wise, the number has hovered between three and three and a half. The hook at +3.5 has been snapped up quickly. Totals have been bouncing around forty eight and a half as bettors weigh Washington’s rushing strength against Green Bay’s defensive front.</p>
+<p>Scheme wise, the Packers are going to have to rely more on the quick passing game, with fewer deep play action attempts if the line cannot hold. Washington’s front showed in Week 1 that they can collapse pockets even if the sack numbers did not explode. The mobility of Jayden Daniels also extends plays and adds stress to a defense built to sit in zone and force patience.</p>
+<p>Washington’s run game was dominant in their opener, piling up over two hundred rushing yards. Green Bay shut down Detroit’s ground attack last week, so it will not be easy, but Washington does not need to repeat that output. They only need enough success to keep the offense balanced and the Packers defense honest.</p>
+<p>Special teams and discipline could also be an under the radar factor. Washington was heavily penalized last week, and cleaning that up could be the hidden yardage that swings a close game. Lambeau weather is mild with little wind, so the field conditions will not interfere. This one comes down to execution in the trenches and red zone efficiency.</p>
+<p>The game sets up as a grind, with Washington having a real chance to keep it within one score throughout. If the Packers cannot protect, this turns into a low scoring, possession battle where the points are worth their weight.</p>
+<p><b>The pick: Washington +3.5 -128</b></p>
+</div>
 </div>
 <div class="matchup">
-  <div class="m-header" style="--away:#5a1414;--home:#203731;">
-    <div class="m-team">
-      <img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
-      <div class="name">Washington Commanders</div>
-    </div>
-    <div class="vs">at</div>
-    <div class="m-team">
-      <img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
-      <div class="name">Green Bay Packers</div>
-    </div>
-  </div>
-  <div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
-  <div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
-  <div class="hr"></div>
-  <div class="m-body">
-    <p>Market: Spread hanging above a field goal despite Green Bay’s O‑line uncertainty. The +3.5 hook has been valuable all week; totals nudged around the high‑40s.</p>
-    <p>Scheme: Packers missing or shuffling starters up front compresses the play menu—more quick game, fewer deep play‑action shots. Washington’s front thrives against reworked protections, while Jayden Daniels’ legs extend drives and keep the script low‑variance.</p>
-    <p>Environment: Mild Lambeau night, little wind. This comes down to trenches and 3rd‑and‑long prevention. If Washington wins early downs, Green Bay faces long fields and stalled drives.</p>
-    <p><b>The pick: Washington +3.5 -128</b></p>
-  </div>
+<div class="m-header" style="--away:#5a1414;--home:#203731;">
+<div class="m-team">
+<img alt="Washington Commanders logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"/>
+<div class="name">Washington Commanders</div>
+</div>
+<div class="vs">at</div>
+<div class="m-team">
+<img alt="Green Bay Packers logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"/>
+<div class="name">Green Bay Packers</div>
+</div>
+</div>
+<div class="m-meta">Thursday, Sep 11 — 8:15 PM ET — Lambeau Field, Green Bay, WI</div>
+<div class="m-odds"><b>Line:</b> Green Bay -3.5 | Washington +3.5   •   <b>Total:</b> 48.5</div>
+<div class="hr"></div>
+<div class="m-body">
+<p>Market: Spread hanging above a field goal despite Green Bay’s O‑line uncertainty. The +3.5 hook has been valuable all week; totals nudged around the high‑40s.</p>
+<p>Scheme: Packers missing or shuffling starters up front compresses the play menu—more quick game, fewer deep play‑action shots. Washington’s front thrives against reworked protections, while Jayden Daniels’ legs extend drives and keep the script low‑variance.</p>
+<p>Environment: Mild Lambeau night, little wind. This comes down to trenches and 3rd‑and‑long prevention. If Washington wins early downs, Green Bay faces long fields and stalled drives.</p>
+<p><b>The pick: Washington +3.5 -128</b></p>
+</div>
 </div>
 <div class="matchup">
 <div class="m-header" style="--away:#ffb612;--home:#125740;">
@@ -828,12 +1117,16 @@ footer .footer-links a{color:var(--neon);text-decoration:none;margin:0 10px;font
 </div>
 </div>
 </div></section>
-
 <footer>
-  <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
-  <p class="footer-links">
-    <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
-  </p>
+<p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
+<p class="footer-links">
+<a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
+</p>
 </footer>
+</body></main></main>
 
-</body></html>
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime | Professional Sports Analysis & Insights</p>
+    </footer>
+</body>
+</html>
