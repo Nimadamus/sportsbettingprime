@@ -13,8 +13,8 @@ from datetime import datetime
 
 # Configuration
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SCRAPER_PATH = r"C:\Users\Nima\Desktop\Scripts\covers_contest_scraper.py"
-REPO_PATH = r"C:\Users\Nima\Documents\GitHub\sportsbettingprime"
+SCRAPER_PATH = os.path.join(SCRIPT_DIR, "covers_contest_scraper.py")
+REPO_PATH = os.path.dirname(SCRIPT_DIR)  # Parent directory of consensus_library
 
 def run_command(cmd, cwd=None):
     """Run a shell command and return output"""
@@ -102,8 +102,15 @@ def create_dated_page(consensus_data, sport_count, max_consensus):
     new_filename = f"sharp-consensus-{date_str}.html"
     new_filepath = os.path.join(SCRIPT_DIR, new_filename)
 
-    # Read template
-    template_path = os.path.join(SCRIPT_DIR, "sharp-consensus-2025-11-14.html")
+    # Read template - use the most recent sharp-consensus file or the main one
+    template_path = os.path.join(SCRIPT_DIR, "sharp-consensus.html")
+    if not os.path.exists(template_path):
+        # Fall back to finding the most recent dated file
+        import glob
+        dated_files = glob.glob(os.path.join(SCRIPT_DIR, "sharp-consensus-*.html"))
+        if dated_files:
+            template_path = max(dated_files)  # Most recent by filename
+
     with open(template_path, 'r', encoding='utf-8') as f:
         html_content = f.read()
 
