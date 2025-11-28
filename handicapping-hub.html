@@ -1,0 +1,2559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handicapping Hub - Professional Sports Analysis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #15202b 0%, #0a0e1a 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        /* FIXED HEADER - From Covers */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(21, 32, 43, 0.98);
+            border-bottom: 2px solid #fd5000;
+            padding: 15px 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #fd5000;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        /* PILL-STYLE FILTERS - From ScoresAndOdds */
+        .sport-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(244, 194, 85, 0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #f4c255;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .pill-btn:hover {
+            background: rgba(244, 194, 85, 0.2);
+            border-color: #f4c255;
+            transform: translateY(-1px);
+        }
+
+        .pill-btn.active {
+            background: linear-gradient(135deg, #fd5000, #ff7a00);
+            border-color: #fd5000;
+            color: white;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* EVENT CARD SYSTEM - From ScoresAndOdds */
+        .game-card {
+            background: linear-gradient(135deg, rgba(30, 35, 50, 0.95), rgba(20, 25, 40, 0.95));
+            border: 2px solid rgba(244, 194, 85, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-card:hover {
+            border-color: #f4c255;
+            box-shadow: 0 8px 30px rgba(244, 194, 85, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* LIVE INDICATOR - From ScoresAndOdds */
+        .game-card.live {
+            border-color: #00bfff;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .status-badge.scheduled {
+            background: rgba(244, 194, 85, 0.2);
+            color: #f4c255;
+            border: 1px solid #f4c255;
+        }
+
+        .status-badge.live {
+            background: rgba(0, 191, 255, 0.2);
+            color: #00bfff;
+            border: 1px solid #00bfff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* GAME LAYOUT */
+        .game-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(244, 194, 85, 0.1);
+        }
+
+        .teams-section {
+            min-width: 300px;
+        }
+
+        .team-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .team-row:hover {
+            background: rgba(244, 194, 85, 0.1);
+            border-left-color: #f4c255;
+        }
+
+        .team-row.away { border-left-color: #fd5000; }
+        .team-row.home { border-left-color: #00bfff; }
+
+        .team-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 6px;
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+
+        .team-record {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* STICKY STATS TABLE - From VegasInsider */
+        .stats-table-container {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 13px;
+        }
+
+        .stats-table thead {
+            position: sticky;
+            top: 80px;
+            background: rgba(21, 32, 43, 0.95);
+            z-index: 10;
+        }
+
+        .stats-table th {
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(244, 194, 85, 0.3);
+            position: sticky;
+            background: inherit;
+        }
+
+        .stats-table th:first-child {
+            left: 0;
+            z-index: 11;
+            text-align: left;
+        }
+
+        .stats-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-table td:first-child {
+            position: sticky;
+            left: 0;
+            background: linear-gradient(90deg, rgba(30, 35, 50, 0.98), rgba(30, 35, 50, 0.8));
+            font-weight: 600;
+            text-align: left;
+            z-index: 9;
+        }
+
+        /* ALTERNATING ROWS - From VegasInsider */
+        .stats-table tbody tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .stats-table tbody tr:hover {
+            background: rgba(244, 194, 85, 0.1);
+        }
+
+        /* COLOR CODING - From VegasInsider */
+        .stat-good { color: #4ade80; font-weight: 600; }
+        .stat-bad { color: #f87171; font-weight: 600; }
+        .stat-neutral { color: #f4c255; }
+
+        /* POWER SCORE DISPLAY */
+        .power-scores {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .power-label {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .power-score {
+            font-size: 36px;
+            font-weight: 900;
+            display: block;
+            margin: 8px 0;
+            text-shadow: 0 0 15px currentColor;
+        }
+
+        .power-score.high { color: #4ade80; }
+        .power-score.medium { color: #f4c255; }
+        .power-score.low { color: #f87171; }
+
+        /* INFO TABS */
+        .info-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(244, 194, 85, 0.2);
+        }
+
+        .info-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .info-tab:hover {
+            color: #f4c255;
+        }
+
+        .info-tab.active {
+            color: #fd5000;
+            border-bottom-color: #fd5000;
+        }
+
+        .info-panel {
+            display: none;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .info-panel.active {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 8px 0;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .info-item strong {
+            color: #f4c255;
+            margin-right: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid rgba(244, 194, 85, 0.1);
+            margin-top: 40px;
+        }
+
+        .footer strong {
+            color: #f4c255;
+        }
+    </style>
+</head>
+<body>
+    <!-- FIXED HEADER -->
+    <div class="header">
+        <h1>🎯 HANDICAPPING HUB</h1>
+        <p style="color: #f4c255; font-size: 14px; margin-top: 5px;">Professional Sports Analysis & Betting Intelligence</p>
+        <div class="sport-filters">
+            <button class="pill-btn active">🏀 NBA</button>
+            <button class="pill-btn">🏈 NFL</button>
+            <button class="pill-btn">⚾ MLB</button>
+            <button class="pill-btn">🏒 NHL</button>
+            <button class="pill-btn">🏀 NCAAB</button>
+            <button class="pill-btn">🏈 NCAAF</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/cle.png" class="team-logo" alt="Cleveland Cavaliers">
+                        <div class="team-info">
+                            <div class="team-name">Cleveland Cavaliers</div>
+                            <div class="team-record">12-7</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">55.3</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/atl.png" class="team-logo" alt="Atlanta Hawks">
+                        <div class="team-info">
+                            <div class="team-name">Atlanta Hawks</div>
+                            <div class="team-record">11-8</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">53.2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CLE</strong></td>
+                                <td class="stat-neutral">12-7</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ATL</strong></td>
+                                <td class="stat-neutral">11-8</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">5.5</div>
+                            <div style="color: #888; font-size: 10px;">(-108)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">CLE: -210</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">ATL: 176</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">240.5</div>
+                            <div style="color: #888; font-size: 10px;">(-112)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-0')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-0')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-0')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-0')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-0" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Cleveland Cavaliers @ Atlanta Hawks</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> State Farm Arena</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-0" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CLE Record:</strong> 12-7 (Season)</div>
+                    <div class="info-item"><strong>ATL Record:</strong> 11-8 (Season)</div>
+                    <div class="info-item"><strong>CLE Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>ATL Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CLE ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>ATL ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>CLE ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>ATL ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>CLE ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>ATL ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-0" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CLE Power Score:</strong> 55.3/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>ATL Power Score:</strong> 53.2/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Cleveland Cavaliers (+2.1 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Atlanta Hawks (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Atlanta Hawks (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Atlanta Hawks (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Atlanta Hawks (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>CLE SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>ATL SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-0" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Atlanta Hawks playing at State Farm Arena</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CLE Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>ATL Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> CLE 0 vs ATL 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> CLE 0 vs ATL 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> CLE 0% vs ATL 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/phi.png" class="team-logo" alt="Philadelphia 76ers">
+                        <div class="team-info">
+                            <div class="team-name">Philadelphia 76ers</div>
+                            <div class="team-record">9-8</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">51.2</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/bkn.png" class="team-logo" alt="Brooklyn Nets">
+                        <div class="team-info">
+                            <div class="team-name">Brooklyn Nets</div>
+                            <div class="team-record">3-14</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">37.1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PHI</strong></td>
+                                <td class="stat-neutral">9-8</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BKN</strong></td>
+                                <td class="stat-neutral">3-14</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">7.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">PHI: -270</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">BKN: 220</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">225.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-1')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-1')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-1')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-1')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-1" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Philadelphia 76ers @ Brooklyn Nets</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Barclays Center</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-1" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHI Record:</strong> 9-8 (Season)</div>
+                    <div class="info-item"><strong>BKN Record:</strong> 3-14 (Season)</div>
+                    <div class="info-item"><strong>PHI Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>BKN Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHI ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>BKN ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>PHI ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>BKN ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>PHI ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>BKN ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-1" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHI Power Score:</strong> 51.2/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>BKN Power Score:</strong> 37.1/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Philadelphia 76ers (+14.1 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Brooklyn Nets (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Brooklyn Nets (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Brooklyn Nets (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Brooklyn Nets (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>PHI SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>BKN SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-1" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Brooklyn Nets playing at Barclays Center</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHI Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>BKN Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> PHI 0 vs BKN 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> PHI 0 vs BKN 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> PHI 0% vs BKN 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/chi.png" class="team-logo" alt="Chicago Bulls">
+                        <div class="team-info">
+                            <div class="team-name">Chicago Bulls</div>
+                            <div class="team-record">9-8</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">51.2</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/cha.png" class="team-logo" alt="Charlotte Hornets">
+                        <div class="team-info">
+                            <div class="team-name">Charlotte Hornets</div>
+                            <div class="team-record">4-14</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">38.9</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CHI</strong></td>
+                                <td class="stat-neutral">9-8</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CHA</strong></td>
+                                <td class="stat-neutral">4-14</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">2.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">CHI: -136</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">CHA: 116</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">247.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-2')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-2')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-2')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-2')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-2" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Chicago Bulls @ Charlotte Hornets</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Spectrum Center</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-2" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CHI Record:</strong> 9-8 (Season)</div>
+                    <div class="info-item"><strong>CHA Record:</strong> 4-14 (Season)</div>
+                    <div class="info-item"><strong>CHI Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>CHA Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CHI ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>CHA ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>CHI ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>CHA ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>CHI ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>CHA ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-2" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CHI Power Score:</strong> 51.2/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>CHA Power Score:</strong> 38.9/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Chicago Bulls (+12.3 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Charlotte Hornets (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Charlotte Hornets (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Charlotte Hornets (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Charlotte Hornets (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>CHI SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>CHA SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-2" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Charlotte Hornets playing at Spectrum Center</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>CHI Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>CHA Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> CHI 0 vs CHA 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> CHI 0 vs CHA 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> CHI 0% vs CHA 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/orl.png" class="team-logo" alt="Orlando Magic">
+                        <div class="team-info">
+                            <div class="team-name">Orlando Magic</div>
+                            <div class="team-record">11-8</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">53.2</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/det.png" class="team-logo" alt="Detroit Pistons">
+                        <div class="team-info">
+                            <div class="team-name">Detroit Pistons</div>
+                            <div class="team-record">15-3</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">63.3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ORL</strong></td>
+                                <td class="stat-neutral">11-8</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DET</strong></td>
+                                <td class="stat-neutral">15-3</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-1.5</div>
+                            <div style="color: #888; font-size: 10px;">(-112)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">ORL: 108</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">DET: -126</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">233.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-3')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-3')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-3')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-3')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-3" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Orlando Magic @ Detroit Pistons</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Little Caesars Arena</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-3" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>ORL Record:</strong> 11-8 (Season)</div>
+                    <div class="info-item"><strong>DET Record:</strong> 15-3 (Season)</div>
+                    <div class="info-item"><strong>ORL Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>DET Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>ORL ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>DET ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>ORL ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>DET ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>ORL ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>DET ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-3" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>ORL Power Score:</strong> 53.2/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>DET Power Score:</strong> 63.3/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Detroit Pistons (+10.1 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Detroit Pistons (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Detroit Pistons (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Detroit Pistons (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Detroit Pistons (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>ORL SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>DET SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-3" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Detroit Pistons playing at Little Caesars Arena</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>ORL Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>DET Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> ORL 0 vs DET 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> ORL 0 vs DET 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> ORL 0% vs DET 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/wsh.png" class="team-logo" alt="Washington Wizards">
+                        <div class="team-info">
+                            <div class="team-name">Washington Wizards</div>
+                            <div class="team-record">2-15</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">34.7</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/ind.png" class="team-logo" alt="Indiana Pacers">
+                        <div class="team-info">
+                            <div class="team-name">Indiana Pacers</div>
+                            <div class="team-record">2-16</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">34.4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>WSH</strong></td>
+                                <td class="stat-neutral">2-15</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IND</strong></td>
+                                <td class="stat-neutral">2-16</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-6.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">WSH: 215</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">IND: -260</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">240.5</div>
+                            <div style="color: #888; font-size: 10px;">(-106)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-4')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-4')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-4')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-4')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-4" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Washington Wizards @ Indiana Pacers</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Gainbridge Fieldhouse</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-4" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>WSH Record:</strong> 2-15 (Season)</div>
+                    <div class="info-item"><strong>IND Record:</strong> 2-16 (Season)</div>
+                    <div class="info-item"><strong>WSH Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>IND Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>WSH ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>IND ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>WSH ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>IND ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>WSH ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>IND ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-4" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>WSH Power Score:</strong> 34.7/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>IND Power Score:</strong> 34.4/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Washington Wizards (+0.3 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Indiana Pacers (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Indiana Pacers (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Indiana Pacers (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Indiana Pacers (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>WSH SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>IND SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-4" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Indiana Pacers playing at Gainbridge Fieldhouse</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>WSH Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>IND Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> WSH 0 vs IND 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> WSH 0 vs IND 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> WSH 0% vs IND 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/mil.png" class="team-logo" alt="Milwaukee Bucks">
+                        <div class="team-info">
+                            <div class="team-name">Milwaukee Bucks</div>
+                            <div class="team-record">8-11</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">46.8</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/ny.png" class="team-logo" alt="New York Knicks">
+                        <div class="team-info">
+                            <div class="team-name">New York Knicks</div>
+                            <div class="team-record">11-6</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">55.9</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>MIL</strong></td>
+                                <td class="stat-neutral">8-11</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NY</strong></td>
+                                <td class="stat-neutral">11-6</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-7.5</div>
+                            <div style="color: #888; font-size: 10px;">(-108)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">MIL: 240</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">NY: -298</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">233.5</div>
+                            <div style="color: #888; font-size: 10px;">(-115)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via DraftKings</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-5')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-5')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-5')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-5')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-5" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Milwaukee Bucks @ New York Knicks</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Madison Square Garden</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-5" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MIL Record:</strong> 8-11 (Season)</div>
+                    <div class="info-item"><strong>NY Record:</strong> 11-6 (Season)</div>
+                    <div class="info-item"><strong>MIL Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>NY Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MIL ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>NY ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>MIL ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>NY ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>MIL ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>NY ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-5" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MIL Power Score:</strong> 46.8/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>NY Power Score:</strong> 55.9/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> New York Knicks (+9.1 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> New York Knicks (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> New York Knicks (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> New York Knicks (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> New York Knicks (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>MIL SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>NY SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-5" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> New York Knicks playing at Madison Square Garden</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MIL Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>NY Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> MIL 0 vs NY 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> MIL 0 vs NY 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> MIL 0% vs NY 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/phx.png" class="team-logo" alt="Phoenix Suns">
+                        <div class="team-info">
+                            <div class="team-name">Phoenix Suns</div>
+                            <div class="team-record">12-7</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">55.3</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/okc.png" class="team-logo" alt="Oklahoma City Thunder">
+                        <div class="team-info">
+                            <div class="team-name">Oklahoma City Thunder</div>
+                            <div class="team-record">18-1</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #4ade80, #22c55e); color: white; display: inline-block;">67.9</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PHX</strong></td>
+                                <td class="stat-neutral">12-7</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>OKC</strong></td>
+                                <td class="stat-neutral">18-1</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-15.5</div>
+                            <div style="color: #888; font-size: 10px;">(-112)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">PHX: 750</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">OKC: -1200</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">227.5</div>
+                            <div style="color: #888; font-size: 10px;">(-114)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-6')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-6')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-6')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-6')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-6" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Phoenix Suns @ Oklahoma City Thunder</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Paycom Center</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-6" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHX Record:</strong> 12-7 (Season)</div>
+                    <div class="info-item"><strong>OKC Record:</strong> 18-1 (Season)</div>
+                    <div class="info-item"><strong>PHX Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>OKC Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHX ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>OKC ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>PHX ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>OKC ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>PHX ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>OKC ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-6" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHX Power Score:</strong> 55.3/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>OKC Power Score:</strong> 67.9/100 <span class="stat-good">(Elite)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Oklahoma City Thunder (+12.6 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Oklahoma City Thunder (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Oklahoma City Thunder (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Oklahoma City Thunder (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Oklahoma City Thunder (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>PHX SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>OKC SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-6" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Oklahoma City Thunder playing at Paycom Center</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>PHX Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>OKC Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> PHX 0 vs OKC 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> PHX 0 vs OKC 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> PHX 0% vs OKC 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/sa.png" class="team-logo" alt="San Antonio Spurs">
+                        <div class="team-info">
+                            <div class="team-name">San Antonio Spurs</div>
+                            <div class="team-record">12-5</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">58.2</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/den.png" class="team-logo" alt="Denver Nuggets">
+                        <div class="team-info">
+                            <div class="team-name">Denver Nuggets</div>
+                            <div class="team-record">13-4</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">60.6</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SA</strong></td>
+                                <td class="stat-neutral">12-5</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DEN</strong></td>
+                                <td class="stat-neutral">13-4</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-8.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">SA: 275</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">DEN: -340</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">237.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-7')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-7')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-7')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-7')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-7" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> San Antonio Spurs @ Denver Nuggets</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Ball Arena</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-7" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SA Record:</strong> 12-5 (Season)</div>
+                    <div class="info-item"><strong>DEN Record:</strong> 13-4 (Season)</div>
+                    <div class="info-item"><strong>SA Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>DEN Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SA ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>DEN ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>SA ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>DEN ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>SA ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>DEN ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-7" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SA Power Score:</strong> 58.2/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>DEN Power Score:</strong> 60.6/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Denver Nuggets (+2.4 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Denver Nuggets (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Denver Nuggets (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Denver Nuggets (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Denver Nuggets (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>SA SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>DEN SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-7" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Denver Nuggets playing at Ball Arena</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SA Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>DEN Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> SA 0 vs DEN 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> SA 0 vs DEN 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> SA 0% vs DEN 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/sac.png" class="team-logo" alt="Sacramento Kings">
+                        <div class="team-info">
+                            <div class="team-name">Sacramento Kings</div>
+                            <div class="team-record">5-14</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">40.5</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/utah.png" class="team-logo" alt="Utah Jazz">
+                        <div class="team-info">
+                            <div class="team-name">Utah Jazz</div>
+                            <div class="team-record">5-12</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">41.8</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SAC</strong></td>
+                                <td class="stat-neutral">5-14</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>UTAH</strong></td>
+                                <td class="stat-neutral">5-12</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-1.5</div>
+                            <div style="color: #888; font-size: 10px;">(-110)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">SAC: 102</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">UTAH: -120</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">239.5</div>
+                            <div style="color: #888; font-size: 10px;">(-114)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via FanDuel</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-8')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-8')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-8')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-8')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-8" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Sacramento Kings @ Utah Jazz</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Delta Center</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-8" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SAC Record:</strong> 5-14 (Season)</div>
+                    <div class="info-item"><strong>UTAH Record:</strong> 5-12 (Season)</div>
+                    <div class="info-item"><strong>SAC Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>UTAH Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SAC ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>UTAH ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>SAC ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>UTAH ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>SAC ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>UTAH ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-8" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SAC Power Score:</strong> 40.5/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>UTAH Power Score:</strong> 41.8/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Utah Jazz (+1.3 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Utah Jazz (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Utah Jazz (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Utah Jazz (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Utah Jazz (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>SAC SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>UTAH SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-8" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Utah Jazz playing at Delta Center</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>SAC Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>UTAH Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> SAC 0 vs UTAH 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> SAC 0 vs UTAH 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> SAC 0% vs UTAH 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/dal.png" class="team-logo" alt="Dallas Mavericks">
+                        <div class="team-info">
+                            <div class="team-name">Dallas Mavericks</div>
+                            <div class="team-record">5-14</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">40.5</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" class="team-logo" alt="Los Angeles Lakers">
+                        <div class="team-info">
+                            <div class="team-name">Los Angeles Lakers</div>
+                            <div class="team-record">13-4</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f4c255, #eab308); color: white; display: inline-block;">60.6</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>DAL</strong></td>
+                                <td class="stat-neutral">5-14</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LAL</strong></td>
+                                <td class="stat-neutral">13-4</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">-10.5</div>
+                            <div style="color: #888; font-size: 10px;">(-105)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">DAL: 370</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">LAL: -485</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">231.5</div>
+                            <div style="color: #888; font-size: 10px;">(-105)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via DraftKings</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-9')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-9')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-9')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-9')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-9" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Dallas Mavericks @ Los Angeles Lakers</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> crypto.com Arena</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-9" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>DAL Record:</strong> 5-14 (Season)</div>
+                    <div class="info-item"><strong>LAL Record:</strong> 13-4 (Season)</div>
+                    <div class="info-item"><strong>DAL Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>LAL Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>DAL ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>LAL ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>DAL ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>LAL ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>DAL ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>LAL ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-9" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>DAL Power Score:</strong> 40.5/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>LAL Power Score:</strong> 60.6/100 <span class="stat-neutral">(Good)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Los Angeles Lakers (+20.1 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> Los Angeles Lakers (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> Los Angeles Lakers (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> Los Angeles Lakers (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> Los Angeles Lakers (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>DAL SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>LAL SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-9" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> Los Angeles Lakers playing at crypto.com Arena</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>DAL Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>LAL Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> DAL 0 vs LAL 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> DAL 0 vs LAL 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> DAL 0% vs LAL 0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT CARD -->
+        <div class="game-card ">
+            <span class="status-badge scheduled">⏰ Scheduled</span>
+
+            <div class="game-header">
+                <!-- TEAMS -->
+                <div class="teams-section">
+                    <div class="team-row away">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/mem.png" class="team-logo" alt="Memphis Grizzlies">
+                        <div class="team-info">
+                            <div class="team-name">Memphis Grizzlies</div>
+                            <div class="team-record">7-12</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">44.7</div>
+                        </div>
+                    </div>
+                    <div class="team-row home">
+                        <img src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png" class="team-logo" alt="LA Clippers">
+                        <div class="team-info">
+                            <div class="team-name">LA Clippers</div>
+                            <div class="team-record">5-13</div>
+                        </div>
+                        <div style="text-align: right; margin-left: auto;">
+                            <div style="font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Power Score</div>
+                            <div style="font-size: 16px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: linear-gradient(135deg, #f87171, #dc2626); color: white; display: inline-block;">41.1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS TABLE -->
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Record</th>
+                                <th>PPG</th>
+                                <th>OPP PPG</th>
+                                <th>FG%</th>
+                                <th>3P%</th>
+                                <th>FT%</th>
+                                <th>RPG</th>
+                                <th>APG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>MEM</strong></td>
+                                <td class="stat-neutral">7-12</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LAC</strong></td>
+                                <td class="stat-neutral">5-13</td>
+                                <td class="stat-good">0</td>
+                                <td class="stat-neutral">0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BETTING LINES -->
+                <div class="betting-lines" style="background: linear-gradient(135deg, rgba(253, 80, 0, 0.1), rgba(244, 194, 85, 0.1)); border: 1px solid rgba(253, 80, 0, 0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #fd5000; margin-bottom: 10px; font-size: 14px; text-align: center;">📊 LIVE BETTING LINES</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">SPREAD</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">N/A</div>
+                            <div style="color: #888; font-size: 10px;">(N/A)</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">MONEYLINE</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">MEM: N/A</div>
+                            <div style="color: white; font-size: 14px; font-weight: 600;">LAC: N/A</div>
+                        </div>
+                        <div>
+                            <div style="color: #f4c255; font-size: 11px; font-weight: 600; margin-bottom: 5px;">TOTAL</div>
+                            <div style="color: white; font-size: 16px; font-weight: 700;">N/A</div>
+                            <div style="color: #888; font-size: 10px;">(N/A)</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; color: #888; font-size: 10px;">via N/A</div>
+                </div>
+
+            </div>
+
+            <!-- INFO TABS -->
+            <div class="info-tabs">
+                <button class="info-tab active" onclick="showTab(event, 'overview-10')">📊 Overview</button>
+                <button class="info-tab" onclick="showTab(event, 'trends-10')">📈 Trends & Records</button>
+                <button class="info-tab" onclick="showTab(event, 'analysis-10')">⚡ Power Analysis</button>
+                <button class="info-tab" onclick="showTab(event, 'matchup-10')">🔥 Matchup Details</button>
+            </div>
+
+            <!-- OVERVIEW TAB -->
+            <div id="overview-10" class="info-panel active">
+                <div class="info-grid">
+                    <div class="info-item"><strong>Matchup:</strong> Memphis Grizzlies @ LA Clippers</div>
+                    <div class="info-item"><strong>Status:</strong> Scheduled</div>
+                    <div class="info-item"><strong>Venue:</strong> Intuit Dome</div>
+                    <div class="info-item"><strong>Combined PPG:</strong> 0.0</div>
+                    <div class="info-item"><strong>Total O/U Est:</strong> ~0</div>
+                    <div class="info-item"><strong>Pace:</strong> Up-tempo (both teams averaging 0.0 PPG)</div>
+                </div>
+            </div>
+
+            <!-- TRENDS & RECORDS TAB -->
+            <div id="trends-10" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Season Records & Performance</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MEM Record:</strong> 7-12 (Season)</div>
+                    <div class="info-item"><strong>LAC Record:</strong> 5-13 (Season)</div>
+                    <div class="info-item"><strong>MEM Last 10:</strong> N/A</div>
+                    <div class="info-item"><strong>LAC Last 10:</strong> N/A</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">💰 ATS (Against The Spread)</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MEM ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>LAC ATS Overall:</strong> Covering trends available via premium data</div>
+                    <div class="info-item"><strong>MEM ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>LAC ATS Last 10:</strong> Recent covering performance</div>
+                    <div class="info-item"><strong>MEM ATS Away:</strong> Road ATS record</div>
+                    <div class="info-item"><strong>LAC ATS Home:</strong> Home ATS record</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📉 Betting Trends</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>O/U Trend:</strong> Both teams averaging high-scoring games</div>
+                    <div class="info-item"><strong>Line Movement:</strong> Available on game day</div>
+                    <div class="info-item"><strong>Public Betting:</strong> Consensus data via premium sources</div>
+                </div>
+            </div>
+
+            <!-- POWER ANALYSIS TAB -->
+            <div id="analysis-10" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">⚡ Power Score Breakdown</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MEM Power Score:</strong> 44.7/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>LAC Power Score:</strong> 41.1/100 <span class="stat-bad">(Below Average)</span></div>
+                    <div class="info-item"><strong>Power Advantage:</strong> Memphis Grizzlies (+3.6 points)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🎯 Key Factors</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Offensive Edge:</strong> LA Clippers (0.0 PPG)</div>
+                    <div class="info-item"><strong>Defensive Edge:</strong> LA Clippers (0.0 OPP PPG)</div>
+                    <div class="info-item"><strong>Shooting Edge:</strong> LA Clippers (0.0% FG)</div>
+                    <div class="info-item"><strong>3PT Edge:</strong> LA Clippers (0.0% 3PT)</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏆 Strength of Schedule</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>MEM SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>LAC SOS Rank:</strong> Schedule difficulty analysis</div>
+                    <div class="info-item"><strong>Quality Wins:</strong> Wins vs top 25 opponents tracked</div>
+                </div>
+            </div>
+
+            <!-- MATCHUP DETAILS TAB -->
+            <div id="matchup-10" class="info-panel">
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🔥 Head-to-Head & Injuries</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>Season Series:</strong> First meeting / Check for previous games</div>
+                    <div class="info-item"><strong>Last Meeting:</strong> Historical data available</div>
+                    <div class="info-item"><strong>Home Team Advantage:</strong> LA Clippers playing at Intuit Dome</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">🏥 Injury Report</h4>
+                <div class="info-grid" style="margin-bottom: 20px;">
+                    <div class="info-item"><strong>MEM Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>LAC Injuries:</strong> No injuries reported</div>
+                    <div class="info-item"><strong>Impact:</strong> Monitor starting lineup changes</div>
+                </div>
+
+                <h4 style="color: #f4c255; margin-bottom: 12px; font-size: 14px;">📊 Statistical Comparison</h4>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Pace Factor:</strong> Both teams play at moderate pace</div>
+                    <div class="info-item"><strong>Rebounding Battle:</strong> MEM 0 vs LAC 0</div>
+                    <div class="info-item"><strong>Ball Movement:</strong> MEM 0 vs LAC 0</div>
+                    <div class="info-item"><strong>Free Throw Shooting:</strong> MEM 0% vs LAC 0%</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <strong>🏆 Pro Edition</strong> • Combining the best of Covers, VegasInsider, ScoresAndOdds & DonBest<br>
+        Last Updated: 2025-11-28 00:33:56 | Data Source: ESPN API
+    </div>
+
+    <script>
+        function showTab(event, tabId) {
+            // Hide all panels in this game card
+            const card = event.target.closest('.game-card');
+            card.querySelectorAll('.info-panel').forEach(panel => panel.classList.remove('active'));
+            card.querySelectorAll('.info-tab').forEach(tab => tab.classList.remove('active'));
+
+            // Show selected panel
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
