@@ -3,136 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPORTS BETTING PRIME - The Universe of Probabilities Has Just Been Hacked.</title>
-    
+    <title>Sports Betting Prime | Sharp Analysis & Expert Picks</title>
+    <meta name="description" content="Data-driven sports betting analysis, expert picks, and live consensus from top performers. NFL, NBA, NHL, MLB, and College Football coverage.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
-            --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
-        
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-            background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate;
-        }
-        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
 
-        header { padding: 20px 5%; position: absolute; top: 0; width: 100%; z-index: 100; }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { flex: 1; }
-        .nav-center { flex: 2; display: flex; justify-content: center; }
-        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
-        
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
-        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a {
-            font-family: var(--font-secondary); text-decoration: none; color: var(--text-color);
-            font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
-            padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a24;
+            --accent-primary: #ff6b35;
+            --accent-secondary: #00d4aa;
+            --accent-blue: #3b82f6;
+            --text-bright: #ffffff;
+            --text-dim: #71717a;
+            --border: #27272a;
+            --gradient-orange: linear-gradient(135deg, #ff6b35, #ff8f65);
+            --gradient-teal: linear-gradient(135deg, #00d4aa, #00f5c4);
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-bright);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-bright);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-bright);
+            background: var(--bg-elevated);
+        }
+
+        .btn-cta {
+            background: var(--gradient-orange);
+            color: white !important;
+            font-weight: 700;
+            padding: 0.7rem 1.5rem !important;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            background: var(--gradient-orange) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 2rem 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        /* Grid pattern */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         .btn-primary {
-            padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem;
-            background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold);
-            animation: pulse-button 2s infinite; transition: all 0.3s ease;
+            background: var(--gradient-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            transition: all 0.2s;
         }
-        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
-        @keyframes pulse-button { 50% { transform: scale(1.05); } }
 
-        .content-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; min-height: 100vh; }
-        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding-top: 85px; }
-        .hero { text-align: center; padding: 20px; }
-        .hero h1 { font-family: var(--font-primary); font-size: 4.2rem; font-weight: 700; text-shadow: 0 0 20px rgba(234, 248, 255, 0.5); line-height: 1.2; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero h1 span { color: var(--neon-gold); font-weight: 900; text-shadow: 0 0 25px var(--neon-gold); animation: flicker 3s linear infinite; }
-        @keyframes flicker { 0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 25px var(--neon-gold), 0 0 50px var(--neon-gold);} 20%, 24%, 55% { text-shadow: none; filter: brightness(0.8); } }
-        .hero p { font-size: 1.3rem; margin-bottom: 3rem; color: rgba(234, 248, 255, 0.8); max-width: 800px; margin-left: auto; margin-right: auto; }
-        .hero .btn-learn-more { font-size: 1.2rem; padding: 15px 40px; display: inline-block; }
-        
-        footer { text-align: center; background: transparent; padding: 20px 5%; width: 100%; }
-        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
-        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-bright);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-primary);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Sports Section */
+        .sports-section {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .sport-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-bright);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-orange);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .sport-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .sport-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .sport-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .sport-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .sport-card .arrow {
+            color: var(--accent-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 2rem;
+            background: var(--bg-card);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .cta-section p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 2rem 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-bright);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-bottom p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .responsible-gaming {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .stat-value { font-size: 2rem; }
+        }
     </style>
-    
-    <!-- Google tag (gtag.js) -->
+
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-QQH4JXHGN3');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
     </script>
-    
 </head>
 <body>
-    <div class="background-container"></div>
-    <div class="content-wrapper">
-        <header>
-            <nav>
-                <div class="nav-left">
-                    <div class="logo">
-                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-                    </div>
-                </div>
-                <div class="nav-center">
-                    <ul class="nav-links">
-                        <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="covers-consensus.html">Consensus</a></li>
-                        <li><a href="mlb-prime-directives.html">MLB</a></li>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="performance-telemetry.html">Results</a></li>
+                <li><a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-cta">350% Bonus</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Live Consensus Updated Daily
+            </div>
+            <h1>Sharp Betting <span class="highlight">Intelligence</span></h1>
+            <p>Data-driven analysis and expert picks across all major sports. See what the sharpest minds in sports betting are playing.</p>
+            <div class="hero-buttons">
+                <a href="covers-consensus.html" class="btn-primary">
+                    📊 View Today's Consensus
+                </a>
+                <a href="nfl-gridiron-oracles.html" class="btn-secondary">
+                    🏈 NFL Sunday Analysis
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">200+</div>
+                <div class="stat-label">Daily Picks Tracked</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Sports Covered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">62%</div>
+                <div class="stat-label">Win Rate YTD</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">+24.5</div>
+                <div class="stat-label">Units Profit</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports Section -->
+    <section class="sports-section">
+        <div class="section-header">
+            <h2>Expert Analysis by Sport</h2>
+            <p>Deep-dive breakdowns and picks for every game on the board</p>
+        </div>
+
+        <div class="sports-grid">
+            <a href="nfl-gridiron-oracles.html" class="sport-card">
+                <div class="sport-icon">🏈</div>
+                <h3>NFL</h3>
+                <p>11 games today. Full spread, total, and prop analysis for NFL Sunday.</p>
+                <span class="arrow">View Analysis →</span>
+            </a>
+
+            <a href="nba-court-vision.html" class="sport-card">
+                <div class="sport-icon">🏀</div>
+                <h3>NBA</h3>
+                <p>8 games tonight. Expert picks on spreads and totals with key injury updates.</p>
+                <span class="arrow">View Analysis →</span>
+            </a>
+
+            <a href="nhl-ice-oracles.html" class="sport-card">
+                <div class="sport-icon">🏒</div>
+                <h3>NHL</h3>
+                <p>4 games today. Puck line and goal total breakdowns from sharp bettors.</p>
+                <span class="arrow">View Analysis →</span>
+            </a>
+
+            <a href="mlb-prime-directives.html" class="sport-card">
+                <div class="sport-icon">⚾</div>
+                <h3>MLB</h3>
+                <p>Comprehensive baseball analysis. Run lines, totals, and first 5 innings.</p>
+                <span class="arrow">View Analysis →</span>
+            </a>
+
+            <a href="college-football.html" class="sport-card">
+                <div class="sport-icon">🎓</div>
+                <h3>College Football</h3>
+                <p>NCAAF spreads and totals. Conference breakdowns and rivalry analysis.</p>
+                <span class="arrow">View Analysis →</span>
+            </a>
+
+            <a href="covers-consensus.html" class="sport-card">
+                <div class="sport-icon">📊</div>
+                <h3>Consensus</h3>
+                <p>Top 200 picks from elite handicappers across all sports, updated daily.</p>
+                <span class="arrow">View Consensus →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="section-header">
+            <h2>Why Sports Betting Prime?</h2>
+            <p>The tools and insights you need to bet smarter</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Data-Driven Analysis</h3>
+                <p>Every pick is backed by statistical analysis, trends, and situational factors. No gut feelings, just data.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Expert Consensus</h3>
+                <p>See what the top 200 handicappers on Covers.com are betting. Follow the sharp money.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Daily Updates</h3>
+                <p>Fresh analysis every morning. Line movement tracking and injury updates throughout the day.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>All Sports Covered</h3>
+                <p>NFL, NBA, NHL, MLB, and College Football. One destination for all your betting research.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Transparent Results</h3>
+                <p>Full tracking of all picks and results. See our season-long performance in real-time.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Free Access</h3>
+                <p>All analysis and picks available at no cost. No subscriptions, no paywalls.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Bet Smarter?</h2>
+            <p>Join thousands of bettors using our analysis to make more informed decisions.</p>
+            <a href="covers-consensus.html" class="btn-primary">
+                Get Today's Picks →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Sports</h4>
+                    <ul>
                         <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                        <li><a href="nba-court-vision.html">NBA</a></li>
                         <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                        <li><a href="mlb-prime-directives.html">MLB</a></li>
                         <li><a href="college-football.html">College Football</a></li>
-                        <li><a href="the-data-stream.html">Blog</a></li>
-                        <li><a href="performance-telemetry.html">Results</a></li>
-                        <li><a href="the-prime-protocol.html">About</a></li>
                     </ul>
                 </div>
-                <div class="nav-right">
-                    <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-primary">GET YOUR 350% BONUS</a>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="covers-consensus.html">Daily Consensus</a></li>
+                        <li><a href="the-data-stream.html">Blog</a></li>
+                        <li><a href="performance-telemetry.html">Results</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
-
-        <main>
-            <section class="hero">
-                <div>
-                    <h1>Sharp Betting <span>Intelligence</span></h1>
-                    <p>Data-Driven Analysis • Expert Picks • Live Consensus from Top Performers</p>
-                    <a href="mlb-prime-directives.html" class="btn-primary btn-learn-more">VIEW TODAY'S ANALYSIS</a>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="the-prime-protocol.html">About Us</a></li>
+                        <li><a href="the-prime-protocol.html">Contact</a></li>
+                        <li><a href="the-prime-protocol.html">Terms of Use</a></li>
+                    </ul>
                 </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p class="footer-links">
-                <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
-            </p>
-        </footer>
-    </div>
+                <div class="footer-col">
+                    <h4>Partners</h4>
+                    <ul>
+                        <li><a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank">YouWager - 350% Bonus</a></li>
+                    </ul>
+                </div>
+            </div>
 
-<div class="affiliate-banner" style="position:fixed; bottom:20px; left:20px; width:320px; text-align:center; padding:20px; background:linear-gradient(135deg, #000033, #001166, #000033); border:2px solid #00ffff; border-radius:12px; box-shadow:0 0 20px rgba(0,255,255,0.3); z-index:9999;">
-  <h2 style="color:#FFD700; font-family:'Orbitron', sans-serif; font-size:1.2rem; margin-bottom:10px; text-shadow:0 0 8px #FFD700;">
-    Join YouWager — 350% Bonus!
-  </h2>
-  <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank"
-     style="background:#FFD700; color:#000; padding:10px 18px; font-size:1rem; font-weight:bold; border-radius:6px; text-decoration:none; box-shadow:0 0 12px rgba(255,215,0,0.6); display:inline-block;">
-    Claim Your Bonus
-  </a>
-</div>
-
+            <div class="footer-bottom">
+                <p>© 2025 Sports Betting Prime. All rights reserved.</p>
+                <div class="responsible-gaming">
+                    <strong>Responsible Gaming:</strong> Sports betting should be entertaining. Please gamble responsibly. If you or someone you know has a gambling problem, call 1-800-GAMBLER. Must be 21+ to participate. Void where prohibited.
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
