@@ -7,57 +7,73 @@
     <meta name="description" content="Complete sitemap of Sports Betting Prime - Navigate all our sports betting analysis, picks, and resources.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #0f1419;
-            --bg-secondary: #192734;
-            --bg-card: #22303c;
-            --accent-orange: #ff6b35;
-            --accent-blue: #1da1f2;
-            --text-primary: #ffffff;
-            --text-secondary: #8899a6;
-            --border-color: #38444d;
+            --primary: #00f0ff;
+            --primary-dark: #00b8cc;
+            --accent: #ff00ff;
+            --gold: #ffd700;
+            --bg-dark: #0a0e1a;
+            --bg-darker: #050810;
+            --card-bg: rgba(15, 20, 40, 0.85);
+            --text: #e8f4f8;
+            --text-dim: #8fa8b8;
+            --border: rgba(0, 240, 255, 0.15);
+            --glow-cyan: rgba(0, 240, 255, 0.4);
+            --glow-magenta: rgba(255, 0, 255, 0.3);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text);
+            line-height: 1.7;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background:
-                radial-gradient(ellipse at 0% 0%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 100% 100%, rgba(29, 161, 242, 0.08) 0%, transparent 50%),
-                var(--bg-primary);
+                radial-gradient(ellipse at 20% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0e1a 0%, #050810 100%);
             z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
         }
 
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.1);
         }
 
         nav {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.25rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -65,180 +81,282 @@
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text);
             text-decoration: none;
-            letter-spacing: -0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--glow-cyan);
         }
 
-        .logo span { color: var(--accent-orange); }
+        .logo .prime { color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 0.25rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-dim);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover { background: var(--bg-secondary); color: var(--text-primary); }
+        .nav-links a:hover {
+            color: var(--text);
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
 
-        .container {
-            max-width: 1200px;
+        .nav-links a.active {
+            color: var(--bg-dark);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 0 25px var(--glow-cyan);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 0 2rem 4rem;
         }
 
         .page-header {
             text-align: center;
-            margin-bottom: 4rem;
+            padding: 4rem 2rem 3rem;
+            margin-bottom: 3rem;
         }
 
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
+        .slogan {
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-size: 0.875rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-orange), #ff9f6b);
+            text-shadow: 0 0 20px var(--glow-cyan);
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+        .page-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
-        .page-header p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
+        .page-header .subtitle {
+            color: var(--text-dim);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .sitemap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         .sitemap-section {
-            background: var(--bg-secondary);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 2rem;
-            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
+        .sitemap-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .sitemap-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .sitemap-section:hover::before { opacity: 1; }
+
         .sitemap-section h2 {
-            font-size: 1.3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--accent-orange);
+            border-bottom: 2px solid var(--primary);
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        .sitemap-section ul {
-            list-style: none;
+        .sitemap-section h2 .icon {
+            font-size: 1.5rem;
         }
 
-        .sitemap-section li {
-            margin-bottom: 0.75rem;
-        }
+        .sitemap-section ul { list-style: none; }
+
+        .sitemap-section li { margin-bottom: 0.5rem; }
 
         .sitemap-section a {
-            color: var(--text-secondary);
+            color: var(--text-dim);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             padding: 0.75rem 1rem;
-            border-radius: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
             transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         .sitemap-section a:hover {
-            background: var(--bg-card);
-            color: var(--accent-orange);
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--primary);
             transform: translateX(5px);
+            border-color: var(--border);
         }
 
         .sitemap-section a::before {
-            content: '→';
-            color: var(--accent-orange);
+            content: '>';
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
         }
 
         .badge {
-            font-size: 0.7rem;
-            background: var(--accent-orange);
-            color: white;
+            font-size: 0.65rem;
             padding: 0.2rem 0.5rem;
-            border-radius: 9999px;
+            border-radius: 20px;
             margin-left: auto;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .badge.new { background: #17bf63; }
-        .badge.updated { background: var(--accent-blue); }
+        .badge.new {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: var(--bg-dark);
+        }
+
+        .badge.live {
+            background: linear-gradient(135deg, var(--gold), #ffaa00);
+            color: var(--bg-dark);
+            animation: pulse 2s infinite;
+        }
+
+        .badge.updated {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
         footer {
-            margin-top: 4rem;
-            padding: 2rem;
             text-align: center;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            margin-top: 3rem;
         }
 
-        footer a { color: var(--accent-orange); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-shadow: 0 0 10px var(--glow-cyan); }
 
         @media (max-width: 768px) {
-            .page-header h1 { font-size: 2rem; }
-            nav { flex-direction: column; }
+            .nav-links { justify-content: center; }
+            .sitemap-grid { grid-template-columns: 1fr; }
         }
     </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
+    </script>
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="mlb-prime-directives.html">MLB</a></li>
                 <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
                 <li><a href="nba-court-vision.html">NBA</a></li>
                 <li><a href="nhl-ice-oracles.html">NHL</a></li>
                 <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="performance-telemetry.html">Results</a></li>
+                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="the-prime-protocol.html">About</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="container">
+    <main>
         <div class="page-header">
-            <h1>📍 Site Map</h1>
-            <p>Navigate the complete Sports Betting Prime experience</p>
+            <div class="slogan">NAVIGATION MATRIX INITIALIZED...</div>
+            <h1>Site Map</h1>
+            <p class="subtitle">Navigate the complete Sports Betting Prime experience</p>
         </div>
 
         <div class="sitemap-grid">
             <!-- Main Pages -->
             <div class="sitemap-section">
-                <h2>🏠 Main Pages</h2>
+                <h2><span class="icon">&#127968;</span> Main Pages</h2>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="the-prime-protocol.html">About Us</a></li>
-                    <li><a href="performance-telemetry.html">Results & Records</a></li>
-                    <li><a href="the-data-stream.html">Blog / Analysis</a></li>
+                    <li><a href="the-prime-protocol.html">About Us / The Prime Protocol</a></li>
+                    <li><a href="performance-telemetry.html">Results & Performance</a></li>
+                    <li><a href="the-data-stream.html">Blog / The Data Stream</a></li>
                 </ul>
             </div>
 
             <!-- Sports Analysis -->
             <div class="sitemap-section">
-                <h2>🏆 Sports Analysis</h2>
+                <h2><span class="icon">&#127942;</span> Sports Analysis</h2>
                 <ul>
-                    <li><a href="nfl-gridiron-oracles.html">NFL - Gridiron Oracles <span class="badge updated">Updated</span></a></li>
+                    <li><a href="nfl-gridiron-oracles.html">NFL - Gridiron Oracles</a></li>
                     <li><a href="nba-court-vision.html">NBA - Court Vision <span class="badge new">New</span></a></li>
                     <li><a href="nhl-ice-oracles.html">NHL - Ice Oracles</a></li>
                     <li><a href="mlb-prime-directives.html">MLB - Prime Directives</a></li>
@@ -249,9 +367,9 @@
 
             <!-- Consensus & Data -->
             <div class="sitemap-section">
-                <h2>📊 Consensus & Data</h2>
+                <h2><span class="icon">&#128202;</span> Consensus & Data</h2>
                 <ul>
-                    <li><a href="covers-consensus.html">Today's Consensus <span class="badge updated">Live</span></a></li>
+                    <li><a href="covers-consensus.html">Today's Consensus <span class="badge live">Live</span></a></li>
                     <li><a href="covers-consensus-2025-11-29.html">Nov 29 Archive</a></li>
                     <li><a href="covers-consensus-2025-11-28.html">Nov 28 Archive</a></li>
                     <li><a href="covers-consensus-2025-11-27.html">Nov 27 Archive</a></li>
@@ -267,9 +385,9 @@
 
             <!-- Resources -->
             <div class="sitemap-section">
-                <h2>📚 Resources</h2>
+                <h2><span class="icon">&#128218;</span> Resources</h2>
                 <ul>
-                    <li><a href="performance-telemetry.html">Performance Tracking</a></li>
+                    <li><a href="performance-telemetry.html">Performance Telemetry</a></li>
                     <li><a href="the-data-stream.html">The Data Stream (Blog)</a></li>
                     <li><a href="the-prime-protocol.html">The Prime Protocol</a></li>
                 </ul>
@@ -277,7 +395,7 @@
 
             <!-- Quick Links -->
             <div class="sitemap-section">
-                <h2>⚡ Quick Access</h2>
+                <h2><span class="icon">&#9889;</span> Quick Access</h2>
                 <ul>
                     <li><a href="covers-consensus.html">Today's Top Picks</a></li>
                     <li><a href="nfl-gridiron-oracles.html">NFL Sunday Analysis</a></li>
@@ -288,7 +406,7 @@
 
             <!-- Legal -->
             <div class="sitemap-section">
-                <h2>⚖️ Legal & Info</h2>
+                <h2><span class="icon">&#9878;</span> Legal & Info</h2>
                 <ul>
                     <li><a href="the-prime-protocol.html">Terms of Use</a></li>
                     <li><a href="the-prime-protocol.html">Disclaimer</a></li>
@@ -296,10 +414,10 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
-        <p>© 2025 Sports Betting Prime. All rights reserved.</p>
+        <p>&copy; 2025 Sports Betting Prime. All rights reserved.</p>
         <p style="margin-top: 1rem;">
             <a href="index.html">Home</a> |
             <a href="covers-consensus.html">Consensus</a> |
