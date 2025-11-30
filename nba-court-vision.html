@@ -4,65 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Court Vision | Sports Betting Prime</title>
-    <meta name="description" content="Expert NBA betting analysis, picks, and predictions. Data-driven insights on spreads, totals, and player props.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #0f1419;
-            --bg-secondary: #192734;
-            --bg-card: #22303c;
-            --accent-orange: #ff6b35;
-            --accent-blue: #1da1f2;
-            --accent-green: #17bf63;
-            --accent-red: #e0245e;
-            --text-primary: #ffffff;
-            --text-secondary: #8899a6;
-            --border-color: #38444d;
-            --glow-orange: rgba(255, 107, 53, 0.3);
+            --primary: #00f0ff;
+            --primary-dark: #00b8cc;
+            --accent: #ff00ff;
+            --gold: #ffd700;
+            --bg-dark: #0a0e1a;
+            --bg-darker: #050810;
+            --card-bg: rgba(15, 20, 40, 0.85);
+            --text: #e8f4f8;
+            --text-dim: #8fa8b8;
+            --border: rgba(0, 240, 255, 0.15);
+            --glow-cyan: rgba(0, 240, 255, 0.4);
+            --glow-magenta: rgba(255, 0, 255, 0.3);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text);
+            line-height: 1.7;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Modern gradient background */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background:
-                radial-gradient(ellipse at 0% 0%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 100% 100%, rgba(29, 161, 242, 0.08) 0%, transparent 50%),
-                var(--bg-primary);
+                radial-gradient(ellipse at 20% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0e1a 0%, #050810 100%);
             z-index: -1;
         }
 
-        /* Header */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.1);
         }
 
         nav {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.25rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -70,338 +80,349 @@
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text);
             text-decoration: none;
-            letter-spacing: -0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--glow-cyan);
         }
 
-        .logo span {
-            color: var(--accent-orange);
-        }
+        .logo .prime { color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 0.25rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-dim);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
+        .nav-links a:hover {
+            color: var(--text);
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
 
         .nav-links a.active {
-            background: var(--accent-orange);
-            color: white;
+            color: var(--bg-dark);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 0 25px var(--glow-cyan);
         }
 
-        /* Main Container */
-        .container {
+        main {
+            position: relative;
+            z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem 4rem;
         }
 
-        /* Page Header */
         .page-header {
             text-align: center;
+            padding: 4rem 2rem 3rem;
             margin-bottom: 3rem;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
         }
 
-        .page-header::before {
-            content: '🏀';
-            position: absolute;
-            font-size: 15rem;
-            opacity: 0.03;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .slogan {
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--glow-cyan);
+            animation: glow-pulse 3s ease-in-out infinite;
         }
+
+        @keyframes glow-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 
         .page-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--accent-orange), #ff9f6b);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
         .page-header .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
+            color: var(--text-dim);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .date-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--primary);
             font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
+            letter-spacing: 1px;
         }
 
-        /* Stats Overview */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
         .stat-card {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            border: 1px solid var(--border-color);
+            padding: 1.5rem;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+            border-color: var(--primary);
         }
 
         .stat-card .value {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-orange);
-            font-family: 'JetBrains Mono', monospace;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         .stat-card .label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
         }
 
         /* Game Cards */
-        .games-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 2.5rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+            position: relative;
         }
 
-        .game-card {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 2rem;
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .game-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.2);
         }
 
+        .game-card:hover::before { opacity: 1; }
+
+        .game-card.featured { border-color: var(--gold); }
+        .game-card.featured::before { background: linear-gradient(90deg, transparent, var(--gold), var(--accent), var(--gold), transparent); opacity: 1; }
+
         .game-header {
-            background: var(--bg-card);
-            padding: 1.25rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, rgba(255, 0, 255, 0.05) 100%);
+            border-bottom: 1px solid var(--border);
         }
 
         .game-time {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            color: var(--accent-blue);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .game-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-featured {
+            background: linear-gradient(135deg, var(--gold), #ffaa00);
+            color: var(--bg-dark);
         }
 
         .game-matchup {
-            padding: 1.5rem;
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            gap: 1rem;
+            gap: 2rem;
             align-items: center;
+            padding: 2rem;
         }
 
-        .team {
-            text-align: center;
-        }
+        .team { text-align: center; }
+        .team:last-child { text-align: center; }
 
         .team-name {
-            font-size: 1.4rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
             font-weight: 700;
+            color: var(--text);
             margin-bottom: 0.25rem;
         }
 
-        .team-record {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+        .team-record { color: var(--text-dim); font-size: 0.875rem; }
 
         .vs-badge {
-            background: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--glow-cyan);
             padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            font-weight: 700;
-            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .betting-lines {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            padding: 1rem 1.5rem;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .line-item {
-            text-align: center;
-        }
+        .line-item { text-align: center; }
+        .line-label { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+        .line-value { font-family: 'Orbitron', sans-serif; font-size: 1.125rem; font-weight: 700; color: var(--gold); }
 
-        .line-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .line-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent-green);
-        }
-
-        /* Analysis Section */
         .analysis {
-            padding: 1.5rem;
-            border-top: 1px solid var(--border-color);
+            padding: 2rem;
         }
 
         .analysis h3 {
-            font-size: 1rem;
-            color: var(--accent-orange);
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.125rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .analysis p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
+            color: var(--text);
             margin-bottom: 1rem;
+            font-size: 1rem;
+            line-height: 1.8;
         }
 
-        .analysis p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Pick Badge */
-        .pick-section {
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 107, 53, 0.05));
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-top: 1rem;
-        }
-
-        .pick-label {
-            font-size: 0.75rem;
-            color: var(--accent-orange);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .pick-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .pick-confidence {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--accent-green);
-        }
-
-        /* Key Factors */
         .key-factors {
-            display: grid;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .factor {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem;
-            background: var(--bg-primary);
-            border-radius: 8px;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
         }
 
-        .factor-icon {
-            font-size: 1.2rem;
-        }
+        .factor:last-child { border-bottom: none; }
+        .factor-icon { font-size: 1.25rem; }
+        .factor-text { color: var(--text); font-weight: 500; }
 
-        .factor-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 4rem;
-            padding: 2rem;
+        .pick-section {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(255, 0, 255, 0.1) 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
             text-align: center;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
         }
 
-        footer a {
-            color: var(--accent-orange);
-            text-decoration: none;
+        .pick-label {
+            color: var(--primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
         }
 
-        /* Responsive */
+        .pick-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .pick-confidence {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-shadow: 0 0 10px var(--glow-cyan); }
+
         @media (max-width: 768px) {
-            .page-header h1 { font-size: 2rem; }
-            .game-matchup { grid-template-columns: 1fr; text-align: center; }
+            .nav-links { justify-content: center; }
+            .game-matchup { grid-template-columns: 1fr; gap: 1rem; }
             .betting-lines { grid-template-columns: 1fr; }
-            nav { flex-direction: column; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -413,32 +434,30 @@
 <body>
     <header>
         <nav>
-            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="mlb-prime-directives.html">MLB</a></li>
                 <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
                 <li><a href="nba-court-vision.html" class="active">NBA</a></li>
                 <li><a href="nhl-ice-oracles.html">NHL</a></li>
                 <li><a href="college-football.html">NCAAF</a></li>
-                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
                 <li><a href="performance-telemetry.html">Results</a></li>
+                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="the-prime-protocol.html">About</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="container">
-        <!-- Page Header -->
+    <main>
         <div class="page-header">
+            <div class="slogan">THE COURT ALGORITHM IS COMPUTING…</div>
             <h1>NBA Court Vision</h1>
-            <p class="subtitle">Data-Driven Basketball Intelligence</p>
-            <div class="date-badge">
-                📅 Sunday, November 30, 2025
-            </div>
+            <p class="subtitle">Advanced NBA analysis powered by data science and predictive algorithms</p>
+            <div class="date-badge">SUNDAY, NOVEMBER 30, 2025</div>
         </div>
 
-        <!-- Stats Overview -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="value">8</div>
@@ -458,498 +477,456 @@
             </div>
         </div>
 
-        <!-- Games Section -->
-        <section class="games-section">
-            <h2>📊 Today's Full Slate Analysis</h2>
-
-            <!-- Game 1: Rockets @ Jazz -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕐 3:00 PM ET</div>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Early Window</span>
+        <!-- Game 1: Rockets @ Jazz -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">3:00 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">Early Window</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Houston Rockets</div>
+                    <div class="team-record">Road Team</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Houston Rockets</div>
-                        <div class="team-record">Road Team</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Utah Jazz</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
-                </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">HOU -12.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 235.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">HOU -650</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>The Rockets have been on a tear since acquiring Kevin Durant in the blockbuster July trade. Houston enters this game riding momentum with KD fully integrated into Ime Udoka's system. The Jazz are in a clear rebuilding phase, having traded away their remaining veteran pieces to focus on developing young talent.</p>
-                    <p>Utah ranks near the bottom in defensive efficiency and has struggled particularly against high-powered offenses. Houston's three-headed attack of Durant, Jalen Green, and Alperen Sengun creates matchup nightmares that Utah simply cannot solve with their young roster.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Rockets 8-2 ATS in last 10 road games</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Jazz 3-9 ATS as home underdogs this season</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">⚠️</span>
-                            <span class="factor-text">Large spread creates backdoor cover risk</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Houston Rockets -12.5</div>
-                        <div class="pick-confidence">⭐⭐⭐ 3-Unit Play</div>
-                    </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Utah Jazz</div>
+                    <div class="team-record">Home Team</div>
                 </div>
             </div>
-
-            <!-- Game 2: Celtics @ Cavaliers -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕕 6:00 PM ET</div>
-                    <span style="color: var(--accent-orange); font-size: 0.85rem;">🔥 FEATURED GAME</span>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">HOU -12.5</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Boston Celtics</div>
-                        <div class="team-record">Road Team</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Cleveland Cavaliers</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 235.5</div>
                 </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">CLE -7.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 233.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">CLE -300</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>This is a fascinating matchup between two Eastern Conference powerhouses, but the Celtics are dealing with a devastating blow. Jayson Tatum remains out with his Achilles injury suffered earlier this season, leaving Boston without their MVP-caliber star. The Cavaliers, meanwhile, are fully healthy and playing some of the best basketball in the NBA.</p>
-                    <p>Cleveland's home court advantage at Rocket Mortgage FieldHouse has been immense - they're 11-2 at home this season. Donovan Mitchell is playing at an All-NBA level, and the supporting cast of Darius Garland, Evan Mobley, and Jarrett Allen gives them elite depth.</p>
-                    <p>Without Tatum, the Celtics lean heavily on Jaylen Brown and Derrick White. While Boston still has quality players, the offensive ceiling is significantly lower, and Cleveland's length and defensive versatility should be able to contain Brown.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">🚨</span>
-                            <span class="factor-text">Jayson Tatum OUT (Achilles) - massive loss</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Cavaliers 11-2 at home this season</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Mitchell averaging 28.4 PPG in November</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Cleveland Cavaliers -7.5</div>
-                        <div class="pick-confidence">⭐⭐⭐⭐ 4-Unit Play</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">HOU -650</div>
                 </div>
             </div>
-
-            <!-- Game 3: Raptors @ Knicks -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕕 6:00 PM ET</div>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Madison Square Garden</span>
-                </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Toronto Raptors</div>
-                        <div class="team-record">Road Team</div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The Rockets have been on a tear since acquiring Kevin Durant in the blockbuster July trade. Houston enters this game riding momentum with KD fully integrated into Ime Udoka's system. The Jazz are in a clear rebuilding phase, having traded away their remaining veteran pieces to focus on developing young talent.</p>
+                <p>Utah ranks near the bottom in defensive efficiency and has struggled particularly against high-powered offenses. Houston's three-headed attack of Durant, Jalen Green, and Alperen Sengun creates matchup nightmares that Utah simply cannot solve with their young roster.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Rockets 8-2 ATS in last 10 road games</span>
                     </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">New York Knicks</div>
-                        <div class="team-record">Home Team</div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Jazz 3-9 ATS as home underdogs this season</span>
                     </div>
-                </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">NYK -7.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 231.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">NYK -320</div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Large spread creates backdoor cover risk</span>
                     </div>
                 </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>The Raptors acquired Brandon Ingram in the February trade, giving them a legitimate scoring option to pair with Scottie Barnes. However, Toronto is still figuring out their chemistry and sits in the lower half of the Eastern Conference standings. The Knicks, playing at MSG, have been one of the best home teams in basketball.</p>
-                    <p>New York's physicality and depth create problems for Toronto. The Villanova trio of Jalen Brunson, Mikal Bridges, and the supporting cast have meshed beautifully. Look for the Knicks to control the pace and grind out a comfortable win in front of their home crowd.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Knicks 9-3 ATS at Madison Square Garden</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Toronto struggling on the road (4-8)</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">⚠️</span>
-                            <span class="factor-text">Ingram questionable with knee soreness</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">New York Knicks -7.5</div>
-                        <div class="pick-confidence">⭐⭐⭐ 3-Unit Play</div>
-                    </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">Houston Rockets -12.5</div>
+                    <div class="pick-confidence">★★★ 3-Unit Play</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Game 4: Hawks @ 76ers -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕕 6:00 PM ET</div>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Wells Fargo Center</span>
+        <!-- Game 2: Celtics @ Cavaliers (Featured) -->
+        <div class="game-card featured">
+            <div class="game-header">
+                <div class="game-time">6:00 PM ET</div>
+                <span class="game-badge badge-featured">FEATURED GAME</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Boston Celtics</div>
+                    <div class="team-record">Road Team</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Atlanta Hawks</div>
-                        <div class="team-record">Road Team</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Philadelphia 76ers</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
-                </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">PHI -1.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 233.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">PHI -125</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>This is nearly a pick'em game, and for good reason. The 76ers have been a disappointment this season, plagued by Joel Embiid's ongoing injury issues. Atlanta, led by Trae Young's elite playmaking, has been competitive but inconsistent.</p>
-                    <p>The small spread suggests oddsmakers aren't confident in either team. The Hawks actually have value here as small road underdogs - Trae Young tends to perform well in nationally televised games, and Atlanta's pace should create scoring opportunities against Philly's porous defense.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">🚨</span>
-                            <span class="factor-text">Embiid status uncertain (knee management)</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Hawks 6-4 ATS as road underdogs</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">📊</span>
-                            <span class="factor-text">Trae Young averaging 31.2 PPG vs PHI career</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Atlanta Hawks +1.5</div>
-                        <div class="pick-confidence">⭐⭐ 2-Unit Play</div>
-                    </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Cleveland Cavaliers</div>
+                    <div class="team-record">Home Team</div>
                 </div>
             </div>
-
-            <!-- Game 5: Thunder @ Trail Blazers -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕕 6:00 PM ET</div>
-                    <span style="color: var(--accent-green); font-size: 0.85rem;">🏆 Defending Champs</span>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">CLE -7.5</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Oklahoma City Thunder</div>
-                        <div class="team-record">2025 NBA Champions</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Portland Trail Blazers</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 233.5</div>
                 </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">OKC -12.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 231.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">OKC -700</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>The defending NBA Champions visit Portland in what should be a mismatch on paper. OKC's incredible core of Shai Gilgeous-Alexander, Chet Holmgren, and Jalen Williams has only gotten better after their championship run. The Thunder's elite defense and transition offense make them a nightmare matchup.</p>
-                    <p>Portland is in full tank mode, developing young players while accumulating losses. Scoot Henderson shows flashes but the roster around him lacks NBA-caliber talent. The 12.5 spread is large, but OKC has been covering comfortably against inferior competition.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">🏆</span>
-                            <span class="factor-text">OKC 2025 NBA Champions - championship confidence</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Thunder 7-1 ATS vs teams under .400</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Portland allowing 118+ PPG past 5 games</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Oklahoma City Thunder -12.5</div>
-                        <div class="pick-confidence">⭐⭐⭐⭐ 4-Unit Play</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">CLE -300</div>
                 </div>
             </div>
-
-            <!-- Game 6: Spurs @ Timberwolves -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕖 7:00 PM ET</div>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Target Center</span>
-                </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">San Antonio Spurs</div>
-                        <div class="team-record">Road Team</div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>This is a fascinating matchup between two Eastern Conference powerhouses, but the Celtics are dealing with a devastating blow. Jayson Tatum remains out with his Achilles injury suffered earlier this season, leaving Boston without their MVP-caliber star. The Cavaliers, meanwhile, are fully healthy and playing some of the best basketball in the NBA.</p>
+                <p>Cleveland's home court advantage at Rocket Mortgage FieldHouse has been immense - they're 11-2 at home this season. Donovan Mitchell is playing at an All-NBA level, and the supporting cast of Darius Garland, Evan Mobley, and Jarrett Allen gives them elite depth.</p>
+                <p>Without Tatum, the Celtics lean heavily on Jaylen Brown and Derrick White. While Boston still has quality players, the offensive ceiling is significantly lower, and Cleveland's length and defensive versatility should be able to contain Brown.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">🚨</span>
+                        <span class="factor-text">Jayson Tatum OUT (Achilles) - massive loss</span>
                     </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Minnesota Timberwolves</div>
-                        <div class="team-record">Home Team</div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Cavaliers 11-2 at home this season</span>
                     </div>
-                </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">MIN -3.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 232.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">MIN -160</div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Mitchell averaging 28.4 PPG in November</span>
                     </div>
                 </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>Victor Wembanyama vs. Anthony Edwards is always appointment television. Wemby has lived up to every bit of the hype, but the Spurs are still developing around him. Minnesota, while losing Karl-Anthony Towns in the offseason, has Rudy Gobert providing elite rim protection to complement Edwards' scoring.</p>
-                    <p>The Timberwolves' home court has been a fortress this season. Edwards plays his best basketball in Minnesota, and the crowd energy at Target Center elevates the team's intensity. San Antonio keeps games close with Wembanyama's impact, but Minnesota should pull away late.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Wolves 8-2 at home this season</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">📊</span>
-                            <span class="factor-text">Edwards averaging 29.1 PPG at home</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">⚠️</span>
-                            <span class="factor-text">Wembanyama makes every game competitive</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Minnesota Timberwolves -3.5</div>
-                        <div class="pick-confidence">⭐⭐⭐ 3-Unit Play</div>
-                    </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">Cleveland Cavaliers -7.5</div>
+                    <div class="pick-confidence">★★★★ 4-Unit Play</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Game 7: Grizzlies @ Kings -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕘 9:00 PM ET</div>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Golden 1 Center</span>
+        <!-- Game 3: Raptors @ Knicks -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">6:00 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">Madison Square Garden</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Toronto Raptors</div>
+                    <div class="team-record">Road Team</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">Memphis Grizzlies</div>
-                        <div class="team-record">Road Team</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Sacramento Kings</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
-                </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">MEM -3.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 233.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">MEM -155</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>Ja Morant is back and healthy, terrorizing defenses once again. The Grizzlies are the most entertaining team in basketball when fully healthy, playing at a frenetic pace with elite athleticism. Sacramento's offense-first approach creates high-scoring affairs, but they struggle to get stops.</p>
-                    <p>De'Aaron Fox and Domantas Sabonis give Sacramento hope, but the Kings' defensive issues persist. Memphis brings more physicality and depth, and Morant's ability to take over late games gives them an edge in close contests.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Ja Morant fully healthy and dominant</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Grizzlies 7-3 ATS on the road</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">⚠️</span>
-                            <span class="factor-text">Kings play better at home (6-4)</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Memphis Grizzlies -3.5</div>
-                        <div class="pick-confidence">⭐⭐⭐ 3-Unit Play</div>
-                    </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">New York Knicks</div>
+                    <div class="team-record">Home Team</div>
                 </div>
             </div>
-
-            <!-- Game 8: Pelicans @ Lakers -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="game-time">🕤 9:30 PM ET</div>
-                    <span style="color: var(--accent-orange); font-size: 0.85rem;">🌟 Primetime</span>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">NYK -9.5</div>
                 </div>
-                <div class="game-matchup">
-                    <div class="team">
-                        <div class="team-name">New Orleans Pelicans</div>
-                        <div class="team-record">Road Team</div>
-                    </div>
-                    <div class="vs-badge">@</div>
-                    <div class="team">
-                        <div class="team-name">Los Angeles Lakers</div>
-                        <div class="team-record">Home Team</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 224.5</div>
                 </div>
-                <div class="betting-lines">
-                    <div class="line-item">
-                        <div class="line-label">Spread</div>
-                        <div class="line-value">LAL -14.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Total</div>
-                        <div class="line-value">O/U 233.5</div>
-                    </div>
-                    <div class="line-item">
-                        <div class="line-label">Moneyline</div>
-                        <div class="line-value">LAL -850</div>
-                    </div>
-                </div>
-                <div class="analysis">
-                    <h3>📈 Analysis</h3>
-                    <p>The Pelicans have been decimated by injuries. Zion Williamson's availability remains a constant concern, and the supporting cast has been ravaged. New Orleans ranks among the worst teams in the West right now, unable to put together consistent lineups.</p>
-                    <p>The Lakers, with LeBron James and Anthony Davis, are too talented to lose at home against a depleted New Orleans squad. While 14.5 points is a large spread, LA has been covering big numbers against inferior opponents this season.</p>
-
-                    <div class="key-factors">
-                        <div class="factor">
-                            <span class="factor-icon">🚨</span>
-                            <span class="factor-text">Pelicans missing multiple starters</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">✅</span>
-                            <span class="factor-text">Lakers 10-2 at Crypto.com Arena</span>
-                        </div>
-                        <div class="factor">
-                            <span class="factor-icon">⚠️</span>
-                            <span class="factor-text">LeBron load management possible on back-to-back</span>
-                        </div>
-                    </div>
-
-                    <div class="pick-section">
-                        <div class="pick-label">🎯 The Pick</div>
-                        <div class="pick-value">Los Angeles Lakers -14.5</div>
-                        <div class="pick-confidence">⭐⭐ 2-Unit Play</div>
-                    </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">NYK -450</div>
                 </div>
             </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The Raptors acquired Brandon Ingram in the February trade and have been building around him, but this young Toronto team is still figuring things out. They face a tough road test at MSG against a Knicks squad that has embraced the physical, defensive identity Tom Thibodeau demands.</p>
+                <p>New York's defense has been suffocating at home, particularly in the paint where their frontcourt of Karl-Anthony Towns and Mitchell Robinson creates problems for opposing offenses. The Knicks are also getting strong play from Jalen Brunson, who has elevated his game as a primary ball-handler.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Knicks 9-3 ATS at home this season</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Toronto struggling on road (4-8)</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Ingram questionable with minor knee issue</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">New York Knicks -9.5</div>
+                    <div class="pick-confidence">★★★ 3-Unit Play</div>
+                </div>
+            </div>
+        </div>
 
-        </section>
-    </div>
+        <!-- Game 4: Lakers @ Thunder -->
+        <div class="game-card featured">
+            <div class="game-header">
+                <div class="game-time">7:00 PM ET</div>
+                <span class="game-badge badge-featured">DEFENDING CHAMPS</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Los Angeles Lakers</div>
+                    <div class="team-record">Road Team</div>
+                </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Oklahoma City Thunder</div>
+                    <div class="team-record">Home Team</div>
+                </div>
+            </div>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">OKC -6.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 228.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">OKC -250</div>
+                </div>
+            </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The defending NBA champions host LeBron James and the Lakers in what should be a marquee matchup. OKC won it all last season, defeating the Pacers in 7 games, and they've picked up right where they left off. Shai Gilgeous-Alexander is putting together another MVP-caliber campaign, and the Thunder's depth is even better than last year.</p>
+                <p>The Lakers have been competitive with LeBron continuing to defy Father Time at age 40, but their road record against elite teams has been concerning. Anthony Davis remains the key - when he's dominant, the Lakers can beat anyone. But OKC's defensive versatility and home crowd advantage should be too much.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">🏆</span>
+                        <span class="factor-text">Thunder are defending NBA champions</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">OKC 13-1 at home this season</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Lakers 5-7 vs teams .500 or better</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">Oklahoma City Thunder -6.5</div>
+                    <div class="pick-confidence">★★★★ 4-Unit Play</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 5: Warriors @ Kings -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">8:00 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">California Rivalry</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Golden State Warriors</div>
+                    <div class="team-record">Road Team</div>
+                </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Sacramento Kings</div>
+                    <div class="team-record">Home Team</div>
+                </div>
+            </div>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">SAC -3.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 232.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">SAC -155</div>
+                </div>
+            </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The NorCal rivalry continues with two teams heading in different directions. The Warriors are in transition mode with Stephen Curry carrying a heavier load than ever. The Kings have the more balanced roster with De'Aaron Fox and Domantas Sabonis leading a potent offense that ranks top-5 in pace.</p>
+                <p>Sacramento's home court at Golden 1 Center has become one of the toughest environments in the West. This game should be high-scoring given both teams' up-tempo styles.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Kings 7-2 in rivalry games vs Warriors recently</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Curry always dangerous in rivalry games</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">OVER 232.5</div>
+                    <div class="pick-confidence">★★★ 3-Unit Play</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 6: Pelicans @ Mavericks -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">8:30 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">Southwest Division</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">New Orleans Pelicans</div>
+                    <div class="team-record">Road Team</div>
+                </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Dallas Mavericks</div>
+                    <div class="team-record">Home Team</div>
+                </div>
+            </div>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">DAL -8.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 226.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">DAL -380</div>
+                </div>
+            </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>Zion Williamson and the Pelicans travel to Dallas to face Luka Doncic's Mavericks in a Southwest Division matchup. The Mavs have been excellent at home while New Orleans has been dealing with inconsistency and injury issues throughout the early season.</p>
+                <p>Luka has been on a tear, posting multiple triple-doubles in November. The Pelicans' defense has struggled to contain elite guards, which spells trouble against Doncic's playmaking ability.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Doncic averaging 32/10/9 in November</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Pelicans 3-2 ATS as road dogs</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">Dallas Mavericks -8.5</div>
+                    <div class="pick-confidence">★★ 2-Unit Play</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 7: Pistons @ Suns -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">9:00 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">Late Slate</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">Detroit Pistons</div>
+                    <div class="team-record">Road Team</div>
+                </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Phoenix Suns</div>
+                    <div class="team-record">Home Team</div>
+                </div>
+            </div>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">PHX -11.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 227.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">PHX -700</div>
+                </div>
+            </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The young Pistons travel west to face the veteran Suns in a significant mismatch on paper. Detroit's rebuilding efforts under Cade Cunningham's leadership have shown flashes, but they're still not ready to compete with playoff-caliber teams, especially on the road.</p>
+                <p>Phoenix's Big Three of Devin Booker, Bradley Beal, and the emerging young core has been clicking. The Suns should control this one from start to finish.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Suns 10-2 at home this season</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Large spreads can be dangerous</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">Phoenix Suns -11.5</div>
+                    <div class="pick-confidence">★★ 2-Unit Play</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 8: Clippers @ Trail Blazers -->
+        <div class="game-card">
+            <div class="game-header">
+                <div class="game-time">10:00 PM ET</div>
+                <span class="game-badge" style="background: rgba(0,240,255,0.2); color: var(--primary);">West Coast Finale</span>
+            </div>
+            <div class="game-matchup">
+                <div class="team">
+                    <div class="team-name">LA Clippers</div>
+                    <div class="team-record">Road Team</div>
+                </div>
+                <div class="vs-badge">@</div>
+                <div class="team">
+                    <div class="team-name">Portland Trail Blazers</div>
+                    <div class="team-record">Home Team</div>
+                </div>
+            </div>
+            <div class="betting-lines">
+                <div class="line-item">
+                    <div class="line-label">Spread</div>
+                    <div class="line-value">LAC -4.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Total</div>
+                    <div class="line-value">O/U 219.5</div>
+                </div>
+                <div class="line-item">
+                    <div class="line-label">Moneyline</div>
+                    <div class="line-value">LAC -185</div>
+                </div>
+            </div>
+            <div class="analysis">
+                <h3>Analysis</h3>
+                <p>The Clippers continue their road trip against a rebuilding Portland squad. Without Kawhi Leonard (still managing his knee), the Clippers rely on their depth and James Harden's playmaking. Portland has been competitive at home but lacks the firepower to hang with playoff teams consistently.</p>
+                <p>This could be a lower-scoring affair with Portland's deliberate pace meeting the Clippers' half-court oriented offense.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <span class="factor-icon">✅</span>
+                        <span class="factor-text">Clippers 6-3 ATS on the road</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-icon">⚠️</span>
+                        <span class="factor-text">Portland plays hard at home</span>
+                    </div>
+                </div>
+                <div class="pick-section">
+                    <div class="pick-label">THE PICK</div>
+                    <div class="pick-value">UNDER 219.5</div>
+                    <div class="pick-confidence">★★★ 3-Unit Play</div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <footer>
         <p>© 2025 Sports Betting Prime. All rights reserved.</p>
-        <p>
-            <a href="mlb-prime-directives.html">MLB</a> |
+        <p style="margin-top: 1rem;">
+            <a href="index.html">Home</a> |
+            <a href="covers-consensus.html">Consensus</a> |
             <a href="nfl-gridiron-oracles.html">NFL</a> |
-            <a href="nba-court-vision.html">NBA</a> |
             <a href="nhl-ice-oracles.html">NHL</a> |
-            <a href="college-football.html">NCAAF</a> |
-            <a href="sitemap.html">Sitemap</a>
-        </p>
-        <p style="margin-top: 1rem; font-size: 0.8rem;">
-            Please gamble responsibly. If you or someone you know has a gambling problem, call 1-800-GAMBLER.
+            <a href="the-prime-protocol.html">About</a>
         </p>
     </footer>
 </body>
