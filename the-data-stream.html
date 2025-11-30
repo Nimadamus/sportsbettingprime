@@ -3,201 +3,552 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Data Stream - SPORTS BETTING PRIME</title>
-    
+    <title>The Data Stream | Sports Betting Prime Blog</title>
+    <meta name="description" content="Sports betting analysis, strategy articles, and expert insights. The Data Stream brings you data-driven content for smarter betting.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
-            --glass-bg: rgba(10, 8, 25, 0.6); --glass-border: rgba(0, 255, 255, 0.2);
-            --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0c0c14;
+            --bg-card: #13131f;
+            --bg-elevated: #1a1a2e;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #22d3ee;
+            --accent-green: #10b981;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --border: #2a2a3e;
+        }
+
         html { scroll-behavior: smooth; }
-        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
-        
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
-        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
 
-        header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.4); backdrop-filter: blur(8px); border-bottom: 1px solid var(--glass-border); }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { flex: 1; }
-        .nav-center { flex: 2; display: flex; justify-content: center; }
-        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
-        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
-        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
-        @keyframes pulse-button { 50% { transform: scale(1.05); } }
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        .content-wrapper { position: relative; z-index: 10; }
-        .section-container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 50px; text-align: center; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px; border: 1px solid var(--glass-border); }
-        .blog-layout { display: flex; flex-direction: column; gap: 60px; }
-        .featured-article { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .featured-image img { width: 100%; border-radius: 15px; }
-        .featured-content h2 { font-family: var(--font-primary); font-size: 2.5rem; color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); margin-bottom: 15px; }
-        .featured-content .meta { font-size: 0.9rem; color: rgba(234, 248, 255, 0.7); margin-bottom: 20px; }
-        .featured-content p { line-height: 1.7; margin-bottom: 30px; }
-        .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .article-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; }
-        .article-card-image img { width: 100%; height: 200px; object-fit: cover; }
-        .article-card-content { padding: 25px; flex-grow: 1; }
-        .article-card-content h3 { font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 15px; }
-        .article-card-content p { font-size: 0.95rem; line-height: 1.6; color: rgba(234, 248, 255, 0.8); }
-        footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
-        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
-        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
+                var(--bg-dark);
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(12, 12, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.25rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+            background: var(--bg-elevated);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-secondary);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, var(--accent-primary), #9333ea);
+            color: white !important;
+            font-weight: 600;
+            padding: 0.625rem 1.25rem !important;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+            transition: all 0.2s;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .featured-article:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15);
+        }
+
+        .featured-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 400px;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), #9333ea);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .featured-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .featured-content h2 a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .featured-content h2 a:hover {
+            color: var(--accent-secondary);
+        }
+
+        .featured-content p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.2s;
+        }
+
+        .read-more:hover {
+            gap: 0.75rem;
+        }
+
+        /* Article Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .article-card-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .article-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover .article-card-image img {
+            transform: scale(1.05);
+        }
+
+        .article-card-content {
+            padding: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+
+        .article-card-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .article-card-content h3 a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .article-card-content h3 a:hover {
+            color: var(--accent-secondary);
+        }
+
+        .article-card-content p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: var(--bg-elevated);
+            color: var(--accent-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+            .featured-image img {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .articles-grid { grid-template-columns: 1fr; }
+        }
     </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QQH4JXHGN3');
+    </script>
 </head>
 <body>
-    <div class="background-container"></div>
-    <div class="content-wrapper">
-        <header>
-            <nav>
-                <div class="nav-left">
-                    <div class="logo">
-                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-                    </div>
-                </div>
-                <div class="nav-center">
-                    <ul class="nav-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="mlb-prime-directives.html">MLB</a></li>
-                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                        <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                        <li><a href="college-football.html">College Football</a></li>
-                        <li><a href="the-data-stream.html" class="active">Blog</a></li>
-                        <li><a href="performance-telemetry.html">Results</a></li>
-                        <li><a href="the-prime-protocol.html">About</a></li>
-                    </ul>
-                </div>
-                <div class="nav-right">
-                    <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-primary">GET YOUR 350% BONUS</a>
-                </div>
-            </nav>
-        </header>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="the-data-stream.html" class="active">Blog</a></li>
+                <li><a href="performance-telemetry.html">Results</a></li>
+                <li><a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-cta">350% Bonus</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <main>
-            <section class="section-container">
-                <h1 class="section-title">THE DATA STREAM</h1>
-                <div class="blog-layout">
-                    <!-- NEW OCTOBER 31 HALLOWEEN FEATURED ARTICLE -->
-                    <div class="featured-article glass-panel">
-                        <div class="featured-content">
-                            <h2>Halloween Sports: A Night of History, Desperation, and Showdowns</h2>
-                            <p class="meta">By The Prime Algorithm | October 31, 2025</p>
-                            <p>Friday, October 31, 2025 delivers a Halloween slate packed with compelling storylines across four major sports. No NFL games tonight—it's a Friday—but MLB World Series Game 6, NHL afternoon and evening action, and College Football's Halloween matchups create a data-rich environment for informed analysis.</p>
-                            <p><strong>MLB World Series Game 6: Dodgers @ Blue Jays (8:00 PM ET)</strong> - The Blue Jays lead the series 3-2 and are one win away from their first championship since 1993. Toronto sends Kevin Gausman (10-11, 3.59 ERA, 2.55 postseason ERA) to the mound against Los Angeles's Yoshinobu Yamamoto (12-8, 2.49 ERA, 1.57 postseason ERA). Game 5 was historic—George Springer and Vladimir Guerrero Jr. hit back-to-back leadoff home runs in the first inning, and Ryan Yesavage struck out 12 Dodgers in Toronto's 8-5 victory. The Dodgers' offense has gone cold at the worst time, managing just 5 runs in Game 5 despite facing elimination pressure. Yamamoto must be perfect tonight, because LA's bats are struggling to generate sustained offense against Toronto's bullpen dominance.</p>
-                            <p><strong>NHL: Three Elite Matchups</strong> - The afternoon kicks off with Colorado Avalanche (6-1-4) at Vegas Golden Knights (6-1-3) at 4:00 PM ET in a Nevada Day showcase. Both teams have just one regulation loss through 10 games. Jack Eichel leads the NHL with 19 points and could make Vegas franchise history tonight. Nathan MacKinnon enters with 9 goals (tied for NHL lead). At 7:00 PM ET, Alex Ovechkin sits one goal away from 900 career goals when Washington (6-4-0) faces the Islanders (4-5-1). Ovechkin has 45 career goals in 75 games against the Islanders—this is the perfect matchup for history. At 10:00 PM ET, John Gibson returns to Anaheim for the first time since being traded to Detroit. Gibson won 204 games in 12 seasons with the Ducks—second-most in franchise history. The emotion will be palpable.</p>
-                            <p><strong>College Football: Friday Night Desperation</strong> - No. 25 Memphis (7-1, 7-1-0 ATS) travels to Rice as 14-point favorites. Memphis has covered every spread this season, making them one of the most reliable teams in college football. North Carolina (2-5, 0-3 ACC) visits Syracuse (3-5, 1-4 ACC) in a battle of four-game losing streaks. Both teams are desperate for a win, but Syracuse's 13-5 home record in their last 18 games at the JMA Wireless Dome gives them the edge. The total is 45.5, which screams ugly, low-scoring football where turnovers determine everything.</p>
-                            <p>Halloween night isn't just tricks and treats—it's elite competition where history, momentum, and desperation collide. The Dodgers face elimination. Ovechkin chases 900 goals. Gibson faces his former team. College football teams fight to salvage their seasons. Data-driven bettors thrive in these environments where emotion meets statistical reality.</p>
-                        </div>
-                        <div class="featured-image">
-                             <img src="https://images.pexels.com/photos/399187/pexels-photo-399187.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sports arena at night">
-                        </div>
-                    </div>
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>The Data Stream</h1>
+                <p>Analysis, strategy, and insights for the data-driven sports bettor</p>
+            </div>
 
-                    <!-- OCTOBER 30 FEATURED ARTICLE NOW IN GRID -->
-                    <div class="featured-article glass-panel">
-                        <div class="featured-content">
-                            <h2>Thursday Night Edges: Why Short Rest Favors Underdogs</h2>
-                            <p class="meta">By The Prime Algorithm | October 30, 2025</p>
-                            <p>Thursday Night Football creates a unique betting environment that sharp bettors exploit weekly. When both teams play on short rest, conventional power ratings break down. The Ravens are laying 7.5 points at Miami tonight, and the market is overvaluing Baltimore's talent edge while undervaluing the chaos factor of compressed preparation.</p>
-                            <p>Here's the key insight: Thursday night games feature 23% more missed tackles than Sunday games, according to Pro Football Focus tracking data. Defensive coordinators have 72 fewer hours to install game plans. Offensive coordinators can't rep new wrinkles properly. The result? Sloppy execution that narrows talent gaps between superior and inferior teams.</p>
-                            <p>Miami is getting 7.5 points at home with their backup quarterback, and the public is fading them heavily because Tua Tagovailoa is out. But the Dolphins' defense has actually been competent at home, allowing just 22.3 points per game at Hard Rock Stadium. Baltimore's offense, while explosive, struggles with tempo changes and defensive disguises on short rest. Lamar Jackson is brilliant, but even elite quarterbacks make more mistakes when film study time is cut in half.</p>
-                            <p>The total sits at 50.5, and that's where the real value lies. Both defenses will be compromised, but Baltimore has the offensive firepower to score 30+ by themselves. Add garbage time scoring from Miami when trailing, and this total sails over. Short rest amplifies offensive variance while suppressing defensive performance. The market knows this, which is why totals on Thursday night games go over 54% of the time historically.</p>
-                            <p>We're not saying Miami wins outright—though they could. We're saying 7.5 points is too many in a game where execution will be ragged on both sides. Take the dog, bet the over, and trust that chaos creates value when the market overvalues talent in a compressed prep environment.</p>
-                        </div>
-                        <div class="featured-image">
-                             <img src="https://images.pexels.com/photos/209841/pexels-photo-209841.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football players on field">
-                        </div>
-                    </div>
-
-                    <!-- GRID OF ALL PREVIOUS ARTICLES -->
-                    <div class="article-grid">
-                        <!-- NEW OCTOBER 30 ARTICLE CARD -->
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Hockey rink from above"></div>
-                            <div class="article-card-content">
-                                <h3>Back-to-Back Betting: NHL's Hidden Gold Mine</h3>
-                                <p>NHL teams playing on consecutive nights lose 62% of the time when traveling. The Stars play in Tampa tonight after facing Florida last night—zero rest, full travel. Sharp bettors pound these spots because tired legs don't lie. The Lightning are rested at home at -155, and that's a gift.</p>
-                            </div>
-                        </div>
-                        <!-- OCTOBER 25 ARTICLE NOW MOVED TO GRID -->
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/1308713/pexels-photo-1308713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Baseball in a glove"></div>
-                            <div class="article-card-content">
-                                <h3>World Series Game 2: When Variance Meets True Talent</h3>
-                                <p>The Blue Jays crushed the Dodgers 11-4 in Game 1, scoring nine runs in a single sixth inning explosion. The betting public sees momentum. We see regression coming. Game 1 was noise. Game 2 is where true talent reasserts control.</p>
-                            </div>
-                        </div>
-                        <!-- PREVIOUS FEATURED ARTICLE NOW A CARD -->
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/2698918/pexels-photo-2698918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Strategic diagram of a baseball field"></div>
-                            <div class="article-card-content">
-                                <h3>The Mismatch Inside the Game: How We Find Our True Edge</h3>
-                                <p>A nine-inning baseball game isn't one game, but several smaller ones rolled together. The most predictable of these is the First 5 Innings. By targeting F5 bets, we isolate starting pitching mismatches in their purest form.</p>
-                            </div>
-                        </div>
-                        <!-- OLD FEATURED ARTICLE, NOW A SMALLER CARD -->
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Abstract data code"></div>
-                            <div class="article-card-content">
-                                <h3>Decoding the Matrix: A Bettor's Guide to FIP</h3>
-                                <p>An ERA can be misleading. FIP strips away defense and luck, focusing on what a pitcher truly controls. It's a core signal we use to find undervalued pitchers and hidden value in the market.</p>
-                            </div>
-                        </div>
-                        <!-- OTHER EXISTING ARTICLES (keeping only 4 total in grid now) -->
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/433309/pexels-photo-433309.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football on a field"></div>
-                            <div class="article-card-content">
-                                <h3>The Bullpen Heist</h3>
-                                <p>The starting pitchers are only half the story. We analyze bullpen metrics like SIERA (Skill-Interactive ERA) and recent workload to find profitable live-betting opportunities when the starters inevitably exit the game.</p>
-                            </div>
-                        </div>
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/2116469/pexels-photo-2116469.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Person holding money"></div>
-                            <div class="article-card-content">
-                                <h3>The Prime Directive</h3>
-                                <p>The most important rule is bankroll management. We advocate a flat-betting approach, where every bet is one "unit." This protects your capital from variance and ensures long-term, sustainable growth without emotional decision-making.</p>
-                            </div>
-                        </div>
-                    </div>
-                        </div>
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/2116469/pexels-photo-2116469.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Person holding money"></div>
-                            <div class="article-card-content">
-                                <h3>The Prime Directive</h3>
-                                <p>The most important rule is bankroll management. We advocate a flat-betting approach, where every bet is one "unit." This protects your capital from variance and ensures long-term, sustainable growth without emotional decision-making.</p>
-                            </div>
-                        </div>
-                        <div class="article-card">
-                            <div class="article-card-image"><img src="https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Stock market charts on a screen"></div>
-                            <div class="article-card-content">
-                                <h3>Signal Integrity</h3>
-                                <p>We don't just look at who will win; we look for gaps between a team's true probability of winning and the "implied probability" offered by the sportsbooks' odds. Finding a 55% chance to win on a line that's priced at 50% is where true value lies.</p>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Featured Article - November 30 -->
+            <article class="featured-article">
+                <div class="featured-image">
+                    <img src="https://images.pexels.com/photos/2570139/pexels-photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football stadium at night">
+                    <span class="featured-badge">Featured</span>
                 </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2025 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p class="footer-links">
-                 <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="#">Responsible Gaming</a>
-            </p>
-        </footer>
-    </div>
+                <div class="featured-content">
+                    <div class="featured-meta">
+                        <span class="category-tag">NFL Analysis</span>
+                        <span>November 30, 2025</span>
+                    </div>
+                    <h2><a href="#">Week 13 Sunday: Why the Broncos Are This Year's Best Bet</a></h2>
+                    <p>Denver has been the most profitable team in the NFL this season, and tonight's Sunday Night Football matchup against Washington represents their biggest test yet. Bo Nix has transformed from "reach pick" to legitimate Offensive Rookie of the Year candidate, and the Broncos' defense has been suffocating.</p>
+                    <p>The market still hasn't fully adjusted to Denver's reality. They're laying 6.5 points on the road, which would have seemed absurd in September. But this isn't the same team that opened the season with question marks—this is a playoff contender with legitimate Super Bowl aspirations.</p>
+                    <a href="#" class="read-more">Continue Reading &rarr;</a>
+                </div>
+            </article>
+
+            <!-- Article Grid -->
+            <div class="articles-grid">
+                <!-- Article 1 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/163452/basketball-dunk-blue-game-163452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Basketball game">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">NBA</span>
+                            <span>November 30, 2025</span>
+                        </div>
+                        <h3><a href="#">The Tatum Effect: How One Injury Changes Everything</a></h3>
+                        <p>Jayson Tatum's Achilles injury has rippled through the NBA betting market. The Celtics went from title favorites to fringe contenders overnight. Here's how to adjust your futures and game-by-game approach.</p>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/2570139/pexels-photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="NFL field">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">Strategy</span>
+                            <span>November 29, 2025</span>
+                        </div>
+                        <h3><a href="#">Conference Championship Week: Early Value Spots</a></h3>
+                        <p>The CFP picture is nearly set, and conference championship lines are already moving. We've identified three spots where early money has created value for patient bettors.</p>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Hockey arena">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">NHL</span>
+                            <span>November 28, 2025</span>
+                        </div>
+                        <h3><a href="#">Ovechkin's Chase: Betting on History</a></h3>
+                        <p>Alex Ovechkin is closing in on Gretzky's all-time goal record. Here's how to find value in goal scorer props and when to bet on The Great Eight to make history.</p>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/209841/pexels-photo-209841.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football players">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">NFL</span>
+                            <span>November 27, 2025</span>
+                        </div>
+                        <h3><a href="#">Thanksgiving Takeaways: What We Learned</a></h3>
+                        <p>The Thanksgiving slate delivered drama and data. Detroit's dominance, Dallas's decline, and Baltimore's resurgence all have implications for the rest of the season.</p>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Data visualization">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">Strategy</span>
+                            <span>November 25, 2025</span>
+                        </div>
+                        <h3><a href="#">The Consensus Edge: When to Follow the Crowd</a></h3>
+                        <p>Sharp bettors fade the public—except when they don't. Our data shows there are specific situations where public consensus actually identifies value. Here's how to spot them.</p>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="article-card">
+                    <div class="article-card-image">
+                        <img src="https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Charts and data">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span class="category-tag">Fundamentals</span>
+                            <span>November 20, 2025</span>
+                        </div>
+                        <h3><a href="#">Bankroll Management: The Only Edge That Matters</a></h3>
+                        <p>You can have the best picks in the world and still go broke. Proper bankroll management is the foundation of profitable betting. Here's our unit-based approach.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sports Betting Prime. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="covers-consensus.html">Consensus</a>
+            <a href="nfl-gridiron-oracles.html">NFL</a>
+            <a href="nba-court-vision.html">NBA</a>
+            <a href="nhl-ice-oracles.html">NHL</a>
+            <a href="mlb-prime-directives.html">MLB</a>
+            <a href="the-prime-protocol.html">About</a>
+        </div>
+    </footer>
 </body>
 </html>
