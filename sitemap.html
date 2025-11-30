@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap | Sports Betting Prime</title>
+    <meta name="description" content="Complete sitemap of Sports Betting Prime - Navigate all our sports betting analysis, picks, and resources.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #192734;
+            --bg-card: #22303c;
+            --accent-orange: #ff6b35;
+            --accent-blue: #1da1f2;
+            --text-primary: #ffffff;
+            --text-secondary: #8899a6;
+            --border-color: #38444d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 0% 0%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(29, 161, 242, 0.08) 0%, transparent 50%),
+                var(--bg-primary);
+            z-index: -1;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent-orange); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-orange), #ff9f6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .sitemap-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .sitemap-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-orange);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sitemap-section ul {
+            list-style: none;
+        }
+
+        .sitemap-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .sitemap-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .sitemap-section a:hover {
+            background: var(--bg-card);
+            color: var(--accent-orange);
+            transform: translateX(5px);
+        }
+
+        .sitemap-section a::before {
+            content: '→';
+            color: var(--accent-orange);
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            background: var(--accent-orange);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            margin-left: auto;
+        }
+
+        .badge.new { background: #17bf63; }
+        .badge.updated { background: var(--accent-blue); }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        footer a { color: var(--accent-orange); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            nav { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📍 Site Map</h1>
+            <p>Navigate the complete Sports Betting Prime experience</p>
+        </div>
+
+        <div class="sitemap-grid">
+            <!-- Main Pages -->
+            <div class="sitemap-section">
+                <h2>🏠 Main Pages</h2>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="the-prime-protocol.html">About Us</a></li>
+                    <li><a href="performance-telemetry.html">Results & Records</a></li>
+                    <li><a href="the-data-stream.html">Blog / Analysis</a></li>
+                </ul>
+            </div>
+
+            <!-- Sports Analysis -->
+            <div class="sitemap-section">
+                <h2>🏆 Sports Analysis</h2>
+                <ul>
+                    <li><a href="nfl-gridiron-oracles.html">NFL - Gridiron Oracles <span class="badge updated">Updated</span></a></li>
+                    <li><a href="nba-court-vision.html">NBA - Court Vision <span class="badge new">New</span></a></li>
+                    <li><a href="nhl-ice-oracles.html">NHL - Ice Oracles</a></li>
+                    <li><a href="mlb-prime-directives.html">MLB - Prime Directives</a></li>
+                    <li><a href="mlb-prime-directives-page2.html">MLB Archive (Page 2)</a></li>
+                    <li><a href="college-football.html">College Football</a></li>
+                </ul>
+            </div>
+
+            <!-- Consensus & Data -->
+            <div class="sitemap-section">
+                <h2>📊 Consensus & Data</h2>
+                <ul>
+                    <li><a href="covers-consensus.html">Today's Consensus <span class="badge updated">Live</span></a></li>
+                    <li><a href="covers-consensus-2025-11-29.html">Nov 29 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-28.html">Nov 28 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-27.html">Nov 27 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-26.html">Nov 26 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-25.html">Nov 25 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-24.html">Nov 24 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-23.html">Nov 23 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-22.html">Nov 22 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-21.html">Nov 21 Archive</a></li>
+                    <li><a href="covers-consensus-2025-11-20.html">Nov 20 Archive</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="sitemap-section">
+                <h2>📚 Resources</h2>
+                <ul>
+                    <li><a href="performance-telemetry.html">Performance Tracking</a></li>
+                    <li><a href="the-data-stream.html">The Data Stream (Blog)</a></li>
+                    <li><a href="the-prime-protocol.html">The Prime Protocol</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="sitemap-section">
+                <h2>⚡ Quick Access</h2>
+                <ul>
+                    <li><a href="covers-consensus.html">Today's Top Picks</a></li>
+                    <li><a href="nfl-gridiron-oracles.html">NFL Sunday Analysis</a></li>
+                    <li><a href="nba-court-vision.html">NBA Daily Picks</a></li>
+                    <li><a href="nhl-ice-oracles.html">NHL Game Breakdowns</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="sitemap-section">
+                <h2>⚖️ Legal & Info</h2>
+                <ul>
+                    <li><a href="the-prime-protocol.html">Terms of Use</a></li>
+                    <li><a href="the-prime-protocol.html">Disclaimer</a></li>
+                    <li><a href="the-prime-protocol.html">Responsible Gaming</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Sports Betting Prime. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            <a href="index.html">Home</a> |
+            <a href="covers-consensus.html">Consensus</a> |
+            <a href="nfl-gridiron-oracles.html">NFL</a> |
+            <a href="nba-court-vision.html">NBA</a> |
+            <a href="nhl-ice-oracles.html">NHL</a>
+        </p>
+    </footer>
+</body>
+</html>
