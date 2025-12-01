@@ -237,12 +237,20 @@
         }
         .injury-list li:last-child { border-bottom: none; }
         .injury-list .status {
-            color: #dc2626;
-            font-weight: 600;
+            font-weight: 700;
             margin-left: 8px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
         }
-        .injury-list .status.questionable { color: #ca8a04; }
-        .injury-list .status.probable { color: #16a34a; }
+        .injury-list .status.out { background: #dc2626; color: #fff; }
+        .injury-list .status.doubtful { background: #ea580c; color: #fff; }
+        .injury-list .status.questionable { background: #ca8a04; color: #fff; }
+        .injury-list .status.gtd { background: #d97706; color: #fff; }
+        .injury-list .status.day-to-day { background: #0284c7; color: #fff; }
+        .injury-list .status.probable { background: #16a34a; color: #fff; }
+        .injury-list .status.ir { background: #6b7280; color: #fff; }
         .no-injuries {
             color: #888;
             font-size: 13px;
@@ -348,7 +356,7 @@
         <div class="header-content">
             <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
             <h1>HANDICAPPING <span>HUB</span></h1>
-            <div class="timestamp">Last updated: December 01, 2025 at 11:55 AM &bull; Data from ESPN</div>
+            <div class="timestamp">Last updated: December 01, 2025 at 12:02 PM &bull; Data from ESPN</div>
             <div class="tabs">
             <button class="tab active" onclick="showSection('NBA')">NBA (9)</button>
             <button class="tab" onclick="showSection('NFL')">NFL (1)</button>
@@ -424,21 +432,21 @@
                         <div class="injury-column">
                             <h5>Atlanta Hawks</h5>
                             <ul class="injury-list">
-                                <li>N'Faly Dante (C) <span class="status">Out</span></li>
-                                <li>Nikola Durisic (F) <span class="status">Out</span></li>
-                                <li>Kristaps Porzingis (C) <span class="status">Out</span></li>
-                                <li>Jacob Toppin (F) <span class="status">Out</span></li>
-                                <li>Trae Young (G) <span class="status">Out</span></li>
+                                <li>N'Faly Dante (C) <span class="status out">Out</span></li>
+                                <li>Nikola Durisic (F) <span class="status out">Out</span></li>
+                                <li>Kristaps Porzingis (C) <span class="status out">Out</span></li>
+                                <li>Jacob Toppin (F) <span class="status out">Out</span></li>
+                                <li>Trae Young (G) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Detroit Pistons</h5>
                             <ul class="injury-list">
-                                <li>Jalen Duren (C) <span class="status probable">Day-To-Day</span></li>
-                                <li>Bobi Klintman (F) <span class="status">Out</span></li>
-                                <li>Caris LeVert (G) <span class="status probable">Day-To-Day</span></li>
-                                <li>Duncan Robinson (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Marcus Sasser (G) <span class="status">Out</span></li>
+                                <li>Bobi Klintman (F) <span class="status out">Out</span></li>
+                                <li>Marcus Sasser (G) <span class="status out">Out</span></li>
+                                <li>Jalen Duren (C) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Caris LeVert (G) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Duncan Robinson (F) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                     </div>
@@ -501,8 +509,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">ATL +330</div>
-                                    <div class="value">DET -420</div>
+                                    <div class="value">ATL +320</div>
+                                    <div class="value">DET -405</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -576,23 +584,23 @@
                         <div class="injury-column">
                             <h5>Cleveland Cavaliers</h5>
                             <ul class="injury-list">
-                                <li>Jarrett Allen (C) <span class="status">Out</span></li>
-                                <li>Lonzo Ball (G) <span class="status">Out</span></li>
-                                <li>Darius Garland (G) <span class="status">Out</span></li>
-                                <li>Sam Merrill (G) <span class="status">Out</span></li>
-                                <li>Larry Nance Jr. (F) <span class="status">Out</span></li>
-                                <li>Max Strus (G) <span class="status">Out</span></li>
+                                <li>Jarrett Allen (C) <span class="status out">Out</span></li>
+                                <li>Lonzo Ball (G) <span class="status out">Out</span></li>
+                                <li>Darius Garland (G) <span class="status out">Out</span></li>
+                                <li>Sam Merrill (G) <span class="status out">Out</span></li>
+                                <li>Larry Nance Jr. (F) <span class="status out">Out</span></li>
+                                <li>Max Strus (G) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Indiana Pacers</h5>
                             <ul class="injury-list">
-                                <li>Johnny Furphy (G) <span class="status">Out</span></li>
-                                <li>Tyrese Haliburton (G) <span class="status">Out</span></li>
-                                <li>Quenton Jackson (G) <span class="status">Out</span></li>
-                                <li>Kam Jones (G) <span class="status">Out</span></li>
-                                <li>Aaron Nesmith (G) <span class="status">Out</span></li>
-                                <li>Obi Toppin (F) <span class="status">Out</span></li>
+                                <li>Johnny Furphy (G) <span class="status out">Out</span></li>
+                                <li>Tyrese Haliburton (G) <span class="status out">Out</span></li>
+                                <li>Quenton Jackson (G) <span class="status out">Out</span></li>
+                                <li>Kam Jones (G) <span class="status out">Out</span></li>
+                                <li>Aaron Nesmith (G) <span class="status out">Out</span></li>
+                                <li>Obi Toppin (F) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                     </div>
@@ -730,18 +738,18 @@
                         <div class="injury-column">
                             <h5>Milwaukee Bucks</h5>
                             <ul class="injury-list">
-                                <li>Giannis Antetokounmpo (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Taurean Prince (F) <span class="status">Out</span></li>
-                                <li>Gary Trent Jr. (G) <span class="status probable">Day-To-Day</span></li>
+                                <li>Taurean Prince (F) <span class="status out">Out</span></li>
+                                <li>Giannis Antetokounmpo (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Gary Trent Jr. (G) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Washington Wizards</h5>
                             <ul class="injury-list">
-                                <li>Sharife Cooper (G) <span class="status">Out</span></li>
-                                <li>Tre Johnson (G) <span class="status">Out</span></li>
-                                <li>Corey Kispert (F) <span class="status">Out</span></li>
-                                <li>Alex Sarr (C) <span class="status">Out</span></li>
+                                <li>Sharife Cooper (G) <span class="status out">Out</span></li>
+                                <li>Tre Johnson (G) <span class="status out">Out</span></li>
+                                <li>Corey Kispert (F) <span class="status out">Out</span></li>
+                                <li>Alex Sarr (C) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                     </div>
@@ -879,18 +887,18 @@
                         <div class="injury-column">
                             <h5>Charlotte Hornets</h5>
                             <ul class="injury-list">
-                                <li>Pat Connaughton (G) <span class="status">Out</span></li>
-                                <li>Josh Green (G) <span class="status">Out</span></li>
-                                <li>Tre Mann (G) <span class="status probable">Day-To-Day</span></li>
-                                <li>Grant Williams (F) <span class="status">Out</span></li>
+                                <li>Pat Connaughton (G) <span class="status out">Out</span></li>
+                                <li>Josh Green (G) <span class="status out">Out</span></li>
+                                <li>Grant Williams (F) <span class="status out">Out</span></li>
+                                <li>Tre Mann (G) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Brooklyn Nets</h5>
                             <ul class="injury-list">
-                                <li>Haywood Highsmith (F) <span class="status">Out</span></li>
-                                <li>Terance Mann (G) <span class="status">Out</span></li>
-                                <li>Cam Thomas (G) <span class="status">Out</span></li>
+                                <li>Haywood Highsmith (F) <span class="status out">Out</span></li>
+                                <li>Terance Mann (G) <span class="status out">Out</span></li>
+                                <li>Cam Thomas (G) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                     </div>
@@ -953,8 +961,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">CHA -186</div>
-                                    <div class="value">BKN +156</div>
+                                    <div class="value">CHA -190</div>
+                                    <div class="value">BKN +160</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -1028,17 +1036,17 @@
                         <div class="injury-column">
                             <h5>LA Clippers</h5>
                             <ul class="injury-list">
-                                <li>Bradley Beal (G) <span class="status">Out</span></li>
-                                <li>Bogdan Bogdanovic (G) <span class="status">Out</span></li>
-                                <li>Derrick Jones Jr. (F) <span class="status">Out</span></li>
+                                <li>Bradley Beal (G) <span class="status out">Out</span></li>
+                                <li>Bogdan Bogdanovic (G) <span class="status out">Out</span></li>
+                                <li>Derrick Jones Jr. (F) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Miami Heat</h5>
                             <ul class="injury-list">
-                                <li>Jaime Jaquez Jr. (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Keshad Johnson (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Terry Rozier (G) <span class="status">Out</span></li>
+                                <li>Terry Rozier (G) <span class="status out">Out</span></li>
+                                <li>Jaime Jaquez Jr. (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Keshad Johnson (F) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1176,22 +1184,22 @@
                         <div class="injury-column">
                             <h5>Chicago Bulls</h5>
                             <ul class="injury-list">
-                                <li>Zach Collins (F) <span class="status">Out</span></li>
-                                <li>Noa Essengue (F) <span class="status">Out</span></li>
-                                <li>Isaac Okoro (F) <span class="status">Out</span></li>
-                                <li>Lachlan Olbrich (C) <span class="status probable">Day-To-Day</span></li>
-                                <li>Julian Phillips (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Jalen Smith (F) <span class="status">Out</span></li>
-                                <li>Dalen Terry (F) <span class="status">Out</span></li>
-                                <li>Coby White (G) <span class="status probable">Day-To-Day</span></li>
+                                <li>Zach Collins (F) <span class="status out">Out</span></li>
+                                <li>Noa Essengue (F) <span class="status out">Out</span></li>
+                                <li>Isaac Okoro (F) <span class="status out">Out</span></li>
+                                <li>Jalen Smith (F) <span class="status out">Out</span></li>
+                                <li>Dalen Terry (F) <span class="status out">Out</span></li>
+                                <li>Lachlan Olbrich (C) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Julian Phillips (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Coby White (G) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Orlando Magic</h5>
                             <ul class="injury-list">
-                                <li>Paolo Banchero (F) <span class="status">Out</span></li>
-                                <li>Colin Castleton (C) <span class="status">Out</span></li>
-                                <li>Moritz Wagner (F) <span class="status">Out</span></li>
+                                <li>Paolo Banchero (F) <span class="status out">Out</span></li>
+                                <li>Colin Castleton (C) <span class="status out">Out</span></li>
+                                <li>Moritz Wagner (F) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1329,23 +1337,23 @@
                         <div class="injury-column">
                             <h5>Dallas Mavericks</h5>
                             <ul class="injury-list">
-                                <li>Anthony Davis (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Dante Exum (G) <span class="status">Out</span></li>
-                                <li>Daniel Gafford (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Kyrie Irving (G) <span class="status">Out</span></li>
-                                <li>Dereck Lively II (C) <span class="status">Out</span></li>
-                                <li>P.J. Washington (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Brandon Williams (G) <span class="status probable">Day-To-Day</span></li>
+                                <li>Dante Exum (G) <span class="status out">Out</span></li>
+                                <li>Kyrie Irving (G) <span class="status out">Out</span></li>
+                                <li>Dereck Lively II (C) <span class="status out">Out</span></li>
+                                <li>Anthony Davis (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Daniel Gafford (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>P.J. Washington (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Brandon Williams (G) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Denver Nuggets</h5>
                             <ul class="injury-list">
-                                <li>Christian Braun (G) <span class="status">Out</span></li>
-                                <li>Bruce Brown (G) <span class="status probable">Day-To-Day</span></li>
-                                <li>Aaron Gordon (F) <span class="status">Out</span></li>
-                                <li>Nikola Jokic (C) <span class="status probable">Day-To-Day</span></li>
-                                <li>Julian Strawther (G) <span class="status">Out</span></li>
+                                <li>Christian Braun (G) <span class="status out">Out</span></li>
+                                <li>Aaron Gordon (F) <span class="status out">Out</span></li>
+                                <li>Julian Strawther (G) <span class="status out">Out</span></li>
+                                <li>Bruce Brown (G) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Nikola Jokic (C) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1483,18 +1491,18 @@
                         <div class="injury-column">
                             <h5>Houston Rockets</h5>
                             <ul class="injury-list">
-                                <li>Tari Eason (F) <span class="status">Out</span></li>
-                                <li>Dorian Finney-Smith (F) <span class="status">Out</span></li>
-                                <li>Fred VanVleet (G) <span class="status">Out</span></li>
+                                <li>Tari Eason (F) <span class="status out">Out</span></li>
+                                <li>Dorian Finney-Smith (F) <span class="status out">Out</span></li>
+                                <li>Fred VanVleet (G) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Utah Jazz</h5>
                             <ul class="injury-list">
-                                <li>Walker Kessler (C) <span class="status">Out</span></li>
-                                <li>Kevin Love (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Georges Niang (F) <span class="status">Out</span></li>
-                                <li>Oscar Tshiebwe (C) <span class="status probable">Day-To-Day</span></li>
+                                <li>Walker Kessler (C) <span class="status out">Out</span></li>
+                                <li>Georges Niang (F) <span class="status out">Out</span></li>
+                                <li>Kevin Love (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Oscar Tshiebwe (C) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1632,17 +1640,17 @@
                         <div class="injury-column">
                             <h5>Phoenix Suns</h5>
                             <ul class="injury-list">
-                                <li>Ryan Dunn (F) <span class="status">Out</span></li>
-                                <li>Jalen Green (G) <span class="status">Out</span></li>
-                                <li>Isaiah Livers (F) <span class="status">Out</span></li>
+                                <li>Ryan Dunn (F) <span class="status out">Out</span></li>
+                                <li>Jalen Green (G) <span class="status out">Out</span></li>
+                                <li>Isaiah Livers (F) <span class="status out">Out</span></li>
                             </ul>
                         </div>
                         <div class="injury-column">
                             <h5>Los Angeles Lakers</h5>
                             <ul class="injury-list">
-                                <li>Deandre Ayton (C) <span class="status probable">Day-To-Day</span></li>
-                                <li>LeBron James (F) <span class="status probable">Day-To-Day</span></li>
-                                <li>Marcus Smart (G) <span class="status probable">Day-To-Day</span></li>
+                                <li>Deandre Ayton (C) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>LeBron James (F) <span class="status day-to-day">Day-To-Day</span></li>
+                                <li>Marcus Smart (G) <span class="status day-to-day">Day-To-Day</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1785,11 +1793,35 @@
                     <div class="injury-grid">
                         <div class="injury-column">
                             <h5>New York Giants</h5>
-                            <div class="no-injuries">No reported injuries</div>
+                            <ul class="injury-list">
+                                <li>Kayvon Thibodeaux (LB) <span class="status out">Out</span></li>
+                                <li>Anthony Johnson Jr. (S) <span class="status out">Out</span></li>
+                                <li>Korie Black (CB) <span class="status questionable">Questionable</span></li>
+                                <li>Victor Dimukeje (LB) <span class="status questionable">Questionable</span></li>
+                                <li>Demetrius Flannigan-Fowles (LB) <span class="status questionable">Questionable</span></li>
+                                <li>Chris Board (LB) <span class="status ir">Injured Reserve</span></li>
+                                <li>Beaux Collins (WR) <span class="status ir">Injured Reserve</span></li>
+                                <li>Joshua Ezeudu (G) <span class="status ir">Injured Reserve</span></li>
+                                <li>Da'Quan Felton (WR) <span class="status ir">Injured Reserve</span></li>
+                                <li>Thomas Fidone II (TE) <span class="status ir">Injured Reserve</span></li>
+                                <li style="color:#888;font-style:italic;">+9 more...</li>
+                            </ul>
                         </div>
                         <div class="injury-column">
                             <h5>New England Patriots</h5>
-                            <div class="no-injuries">No reported injuries</div>
+                            <ul class="injury-list">
+                                <li>Jared Wilson (C) <span class="status out">Out</span></li>
+                                <li>Brenden Schooler (S) <span class="status out">Out</span></li>
+                                <li>Jashaun Corbin (RB) <span class="status out">Out</span></li>
+                                <li>Darius Harris (LB) <span class="status out">Out</span></li>
+                                <li>Garrett Bradbury (C) <span class="status questionable">Questionable</span></li>
+                                <li>Harold Landry III (LB) <span class="status questionable">Questionable</span></li>
+                                <li>Khyiris Tonga (DT) <span class="status questionable">Questionable</span></li>
+                                <li>Will Campbell (OT) <span class="status ir">Injured Reserve</span></li>
+                                <li>Alex Austin (CB) <span class="status ir">Injured Reserve</span></li>
+                                <li>Marcellas Dial Jr. (CB) <span class="status ir">Injured Reserve</span></li>
+                                <li style="color:#888;font-style:italic;">+8 more...</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -4011,15 +4043,15 @@
                             <div class="line-box">
                                 <div class="type">Spread</div>
                                 <div class="values">
-                                    <div class="value">UAB -2.5</div>
-                                    <div class="value">MTSU +2.5</div>
+                                    <div class="value">UAB -1.5</div>
+                                    <div class="value">MTSU +1.5</div>
                                 </div>
                             </div>
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">UAB -140</div>
-                                    <div class="value">MTSU +116</div>
+                                    <div class="value">UAB -125</div>
+                                    <div class="value">MTSU +102</div>
                                 </div>
                             </div>
                             <div class="line-box">
