@@ -103,6 +103,49 @@
             color: white;
             box-shadow: 0 4px 15px rgba(253,80,0,0.4);
         }
+
+        /* Stats Grid */
+        .stats-comparison {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .stats-comparison .stat-label {
+            text-align: center;
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .stats-comparison .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 8px 0;
+        }
+        .stats-comparison .away-stat { text-align: right; }
+        .stats-comparison .home-stat { text-align: left; }
+        .stats-comparison .stat-value.better { color: #00ff88; }
+        .stats-comparison .stat-value.worse { color: #ff6b6b; }
+        .stats-comparison .stat-value.neutral { color: #f4c255; }
+
+        /* Stats Categories */
+        .stats-section {
+            margin-bottom: 15px;
+        }
+        .stats-section-title {
+            color: #fd5000;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(253,80,0,0.3);
+        }
+
         .power-ratings {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -120,6 +163,7 @@
         .power-box .score.high { color: #00ff88; }
         .power-box .score.mid { color: #f4c255; }
         .power-box .score.low { color: #ff4444; }
+
         .betting-lines {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -133,6 +177,7 @@
         .line-box .values { display: flex; flex-direction: column; gap: 5px; }
         .line-box .value { color: #00ff88; font-weight: 700; font-size: 14px; }
         .line-box .value.na { color: #666; }
+
         .back-link {
             display: inline-block;
             margin-bottom: 15px;
@@ -141,12 +186,15 @@
             font-weight: 600;
         }
         .back-link:hover { text-decoration: underline; }
+
         @media (max-width: 768px) {
             .matchup-header { grid-template-columns: 1fr; gap: 15px; }
             .team-box, .team-box.home { flex-direction: column; text-align: center; }
             .vs-badge { margin: 10px auto; }
             .power-ratings { grid-template-columns: 1fr; }
             .betting-lines { grid-template-columns: 1fr; }
+            .stats-comparison { grid-template-columns: 1fr; gap: 5px; }
+            .stats-comparison .away-stat, .stats-comparison .home-stat { text-align: center; }
         }
     </style>
 </head>
@@ -154,7 +202,7 @@
     <div class="header">
         <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
         <h1>HANDICAPPING HUB</h1>
-        <div class="timestamp">Last updated: December 01, 2025 at 10:37 AM</div>
+        <div class="timestamp">Last updated: December 01, 2025 at 11:00 AM</div>
         <div class="tabs">
             <button class="tab active" onclick="showSection('NBA')">NBA (9)</button>
             <button class="tab" onclick="showSection('NFL')">NFL (1)</button>
@@ -177,6 +225,7 @@
                             <h3>Atlanta Hawks</h3>
                             <div class="team-records">
                                 <span class="overall">13-8</span>
+                                <br>Away: 9-4
                             </div>
                         </div>
                     </div>
@@ -187,8 +236,46 @@
                             <h3>Detroit Pistons</h3>
                             <div class="team-records">
                                 <span class="overall">16-4</span>
+                                <br>Home: 7-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">118.9</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">119.8</div>
+                        <div class="stat-value away-stat neutral">48.8%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat neutral">48.8%</div>
+                        <div class="stat-value away-stat better">37.0%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">35.9%</div>
+                        <div class="stat-value away-stat worse">42.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">46.4</div>
+                        <div class="stat-value away-stat better">31.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">26.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">9.3</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">9.8</div>
+                        <div class="stat-value away-stat worse">5.5</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">6.0</div>
+                        <div class="stat-value away-stat better">14.2</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">15.1</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -212,8 +299,8 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">ATL: +340</div>
-                            <div class="value">DET: -430</div>
+                            <div class="value">ATL: +330</div>
+                            <div class="value">DET: -420</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -232,6 +319,7 @@
                             <h3>Cleveland Cavaliers</h3>
                             <div class="team-records">
                                 <span class="overall">12-9</span>
+                                <br>Away: 4-5
                             </div>
                         </div>
                     </div>
@@ -242,8 +330,46 @@
                             <h3>Indiana Pacers</h3>
                             <div class="team-records">
                                 <span class="overall">4-16</span>
+                                <br>Home: 4-6
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">118.8</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">109.8</div>
+                        <div class="stat-value away-stat better">46.0%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">42.4%</div>
+                        <div class="stat-value away-stat better">35.4%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">31.7%</div>
+                        <div class="stat-value away-stat worse">43.7</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">45.2</div>
+                        <div class="stat-value away-stat better">27.2</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">23.6</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">9.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.0</div>
+                        <div class="stat-value away-stat neutral">5.4</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat neutral">5.4</div>
+                        <div class="stat-value away-stat worse">13.8</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">13.7</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -260,15 +386,15 @@
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value">CLE: -6.0</div>
-                            <div class="value">IND: +6.0</div>
+                            <div class="value">CLE: -5.5</div>
+                            <div class="value">IND: +5.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CLE: -215</div>
-                            <div class="value">IND: +180</div>
+                            <div class="value">CLE: -200</div>
+                            <div class="value">IND: +168</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -287,6 +413,7 @@
                             <h3>Milwaukee Bucks</h3>
                             <div class="team-records">
                                 <span class="overall">9-12</span>
+                                <br>Away: 3-6
                             </div>
                         </div>
                     </div>
@@ -297,8 +424,46 @@
                             <h3>Washington Wizards</h3>
                             <div class="team-records">
                                 <span class="overall">2-16</span>
+                                <br>Home: 1-6
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">115.5</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">112.5</div>
+                        <div class="stat-value away-stat better">49.2%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">46.2%</div>
+                        <div class="stat-value away-stat better">41.0%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">37.4%</div>
+                        <div class="stat-value away-stat worse">39.9</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">43.1</div>
+                        <div class="stat-value away-stat better">27.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">25.6</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">8.3</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.1</div>
+                        <div class="stat-value away-stat worse">4.3</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">5.7</div>
+                        <div class="stat-value away-stat better">13.8</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">16.3</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -342,6 +507,7 @@
                             <h3>Charlotte Hornets</h3>
                             <div class="team-records">
                                 <span class="overall">6-14</span>
+                                <br>Away: 1-8
                             </div>
                         </div>
                     </div>
@@ -352,8 +518,46 @@
                             <h3>Brooklyn Nets</h3>
                             <div class="team-records">
                                 <span class="overall">3-16</span>
+                                <br>Home: 0-9
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">115.8</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">108.4</div>
+                        <div class="stat-value away-stat better">45.4%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">43.9%</div>
+                        <div class="stat-value away-stat better">34.4%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">33.6%</div>
+                        <div class="stat-value away-stat better">44.5</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">39.0</div>
+                        <div class="stat-value away-stat better">25.6</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">24.3</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">6.8</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.7</div>
+                        <div class="stat-value away-stat better">4.8</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.7</div>
+                        <div class="stat-value away-stat worse">14.8</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.6</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -377,8 +581,8 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CHA: -194</div>
-                            <div class="value">BKN: +162</div>
+                            <div class="value">CHA: -188</div>
+                            <div class="value">BKN: +158</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -397,6 +601,7 @@
                             <h3>LA Clippers</h3>
                             <div class="team-records">
                                 <span class="overall">5-15</span>
+                                <br>Away: 2-8
                             </div>
                         </div>
                     </div>
@@ -407,8 +612,46 @@
                             <h3>Miami Heat</h3>
                             <div class="team-records">
                                 <span class="overall">13-7</span>
+                                <br>Home: 9-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">111.8</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">123.5</div>
+                        <div class="stat-value away-stat worse">47.0%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">48.0%</div>
+                        <div class="stat-value away-stat worse">35.9%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat better">37.3%</div>
+                        <div class="stat-value away-stat worse">40.9</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">46.0</div>
+                        <div class="stat-value away-stat worse">23.8</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">30.1</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">8.4</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">9.2</div>
+                        <div class="stat-value away-stat better">4.8</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">4.3</div>
+                        <div class="stat-value away-stat worse">15.1</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.2</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -452,6 +695,7 @@
                             <h3>Chicago Bulls</h3>
                             <div class="team-records">
                                 <span class="overall">9-10</span>
+                                <br>Away: 3-8
                             </div>
                         </div>
                     </div>
@@ -462,8 +706,46 @@
                             <h3>Orlando Magic</h3>
                             <div class="team-records">
                                 <span class="overall">12-8</span>
+                                <br>Home: 7-3
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">119.9</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">119.2</div>
+                        <div class="stat-value away-stat worse">47.3%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">47.6%</div>
+                        <div class="stat-value away-stat better">37.3%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">34.7%</div>
+                        <div class="stat-value away-stat better">46.2</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">44.8</div>
+                        <div class="stat-value away-stat better">29.4</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">25.6</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">7.5</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">8.4</div>
+                        <div class="stat-value away-stat neutral">5.2</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat neutral">5.2</div>
+                        <div class="stat-value away-stat worse">14.4</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.3</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -487,8 +769,8 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CHI: +315</div>
-                            <div class="value">ORL: -400</div>
+                            <div class="value">CHI: +310</div>
+                            <div class="value">ORL: -390</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -507,6 +789,7 @@
                             <h3>Dallas Mavericks</h3>
                             <div class="team-records">
                                 <span class="overall">6-15</span>
+                                <br>Away: 2-5
                             </div>
                         </div>
                     </div>
@@ -517,8 +800,46 @@
                             <h3>Denver Nuggets</h3>
                             <div class="team-records">
                                 <span class="overall">14-5</span>
+                                <br>Home: 6-3
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">110.2</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">124.8</div>
+                        <div class="stat-value away-stat worse">44.4%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">51.1%</div>
+                        <div class="stat-value away-stat worse">32.2%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat better">39.2%</div>
+                        <div class="stat-value away-stat worse">44.8</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">45.7</div>
+                        <div class="stat-value away-stat worse">24.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">29.5</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">8.5</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.0</div>
+                        <div class="stat-value away-stat better">6.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.9</div>
+                        <div class="stat-value away-stat worse">15.7</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">13.4</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -542,7 +863,7 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">DAL: +440</div>
+                            <div class="value">DAL: +430</div>
                             <div class="value">DEN: -590</div>
                         </div>
                     </div>
@@ -562,6 +883,7 @@
                             <h3>Houston Rockets</h3>
                             <div class="team-records">
                                 <span class="overall">13-4</span>
+                                <br>Away: 8-2
                             </div>
                         </div>
                     </div>
@@ -572,8 +894,46 @@
                             <h3>Utah Jazz</h3>
                             <div class="team-records">
                                 <span class="overall">6-13</span>
+                                <br>Home: 5-6
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">121.6</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">117.7</div>
+                        <div class="stat-value away-stat better">48.2%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">45.2%</div>
+                        <div class="stat-value away-stat better">40.6%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">33.2%</div>
+                        <div class="stat-value away-stat better">49.4</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">46.0</div>
+                        <div class="stat-value away-stat worse">25.5</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">29.8</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">9.6</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.9</div>
+                        <div class="stat-value away-stat better">4.9</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.8</div>
+                        <div class="stat-value away-stat better">14.2</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">16.6</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -617,6 +977,7 @@
                             <h3>Phoenix Suns</h3>
                             <div class="team-records">
                                 <span class="overall">12-9</span>
+                                <br>Away: 4-5
                             </div>
                         </div>
                     </div>
@@ -627,8 +988,46 @@
                             <h3>Los Angeles Lakers</h3>
                             <div class="team-records">
                                 <span class="overall">15-4</span>
+                                <br>Home: 7-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">116.7</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">119.6</div>
+                        <div class="stat-value away-stat worse">46.7%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">51.3%</div>
+                        <div class="stat-value away-stat better">37.4%</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat worse">35.0%</div>
+                        <div class="stat-value away-stat better">43.4</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">41.1</div>
+                        <div class="stat-value away-stat worse">25.5</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">26.1</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">10.6</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">8.8</div>
+                        <div class="stat-value away-stat better">4.4</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.8</div>
+                        <div class="stat-value away-stat worse">15.5</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">15.1</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -652,8 +1051,8 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">PHX: +162</div>
-                            <div class="value">LAL: -194</div>
+                            <div class="value">PHX: +164</div>
+                            <div class="value">LAL: -196</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -678,6 +1077,7 @@
                             <h3>New York Giants</h3>
                             <div class="team-records">
                                 <span class="overall">2-10</span>
+                                <br>Away: 0-7
                             </div>
                         </div>
                     </div>
@@ -688,8 +1088,43 @@
                             <h3>New England Patriots</h3>
                             <div class="team-records">
                                 <span class="overall">10-2</span>
+                                <br>Home: 4-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">4342.0</div>
+                        <div class="stat-label">YPG</div>
+                        <div class="stat-value home-stat better">4491.0</div>
+                        <div class="stat-value away-stat worse">2688.0</div>
+                        <div class="stat-label">PASS YPG</div>
+                        <div class="stat-value home-stat better">2970.0</div>
+                        <div class="stat-value away-stat better">1494.0</div>
+                        <div class="stat-label">RUSH YPG</div>
+                        <div class="stat-value home-stat worse">1349.0</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">26</div>
+                        <div class="stat-label">SACKS</div>
+                        <div class="stat-value home-stat worse">25</div>
+                        <div class="stat-value away-stat worse">5</div>
+                        <div class="stat-label">INTs</div>
+                        <div class="stat-value home-stat better">8</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GIVEAWAYS</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -739,6 +1174,7 @@
                             <h3>Columbus Blue Jackets</h3>
                             <div class="team-records">
                                 <span class="overall">11-9-5</span>
+                                <br>Away: 6-6-2
                             </div>
                         </div>
                     </div>
@@ -749,8 +1185,40 @@
                             <h3>New Jersey Devils</h3>
                             <div class="team-records">
                                 <span class="overall">16-8-1</span>
+                                <br>Home: 9-1-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">SHOTS/G</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PP%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">FO%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">81.0</div>
+                        <div class="stat-label">OPP GPG</div>
+                        <div class="stat-value home-stat better">74.0</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PK%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">89.8%</div>
+                        <div class="stat-label">SV%</div>
+                        <div class="stat-value home-stat better">90.1%</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -794,6 +1262,7 @@
                             <h3>Pittsburgh Penguins</h3>
                             <div class="team-records">
                                 <span class="overall">12-7-5</span>
+                                <br>Away: 6-3-3
                             </div>
                         </div>
                     </div>
@@ -804,8 +1273,40 @@
                             <h3>Philadelphia Flyers</h3>
                             <div class="team-records">
                                 <span class="overall">14-7-3</span>
+                                <br>Home: 8-3-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">SHOTS/G</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PP%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">FO%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">67.0</div>
+                        <div class="stat-label">OPP GPG</div>
+                        <div class="stat-value home-stat neutral">67.0</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PK%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">90.3%</div>
+                        <div class="stat-label">SV%</div>
+                        <div class="stat-value home-stat worse">89.7%</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -849,6 +1350,7 @@
                             <h3>Winnipeg Jets</h3>
                             <div class="team-records">
                                 <span class="overall">13-11-0</span>
+                                <br>Away: 7-6-0
                             </div>
                         </div>
                     </div>
@@ -859,8 +1361,40 @@
                             <h3>Buffalo Sabres</h3>
                             <div class="team-records">
                                 <span class="overall">10-11-4</span>
+                                <br>Home: 8-5-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">SHOTS/G</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PP%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">FO%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">70.0</div>
+                        <div class="stat-label">OPP GPG</div>
+                        <div class="stat-value home-stat worse">86.0</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PK%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">90.6%</div>
+                        <div class="stat-label">SV%</div>
+                        <div class="stat-value home-stat worse">89.7%</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -904,6 +1438,7 @@
                             <h3>Anaheim Ducks</h3>
                             <div class="team-records">
                                 <span class="overall">15-9-1</span>
+                                <br>Away: 6-6-1
                             </div>
                         </div>
                     </div>
@@ -914,8 +1449,40 @@
                             <h3>St. Louis Blues</h3>
                             <div class="team-records">
                                 <span class="overall">9-10-7</span>
+                                <br>Home: 5-5-4
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">SHOTS/G</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PP%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">FO%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">83.0</div>
+                        <div class="stat-label">OPP GPG</div>
+                        <div class="stat-value home-stat worse">89.0</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PK%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">89.3%</div>
+                        <div class="stat-label">SV%</div>
+                        <div class="stat-value home-stat worse">88.0%</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -959,6 +1526,7 @@
                             <h3>Utah Mammoth</h3>
                             <div class="team-records">
                                 <span class="overall">12-11-3</span>
+                                <br>Away: 5-8-2
                             </div>
                         </div>
                     </div>
@@ -969,8 +1537,40 @@
                             <h3>San Jose Sharks</h3>
                             <div class="team-records">
                                 <span class="overall">12-11-3</span>
+                                <br>Home: 8-4-3
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">GPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">SHOTS/G</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PP%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">FO%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">77.0</div>
+                        <div class="stat-label">OPP GPG</div>
+                        <div class="stat-value home-stat worse">83.0</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">PK%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">88.2%</div>
+                        <div class="stat-label">SV%</div>
+                        <div class="stat-value home-stat better">90.4%</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1029,9 +1629,47 @@
                         <div class="team-details">
                             <h3>Chicago State Cougars</h3>
                             <div class="team-records">
-                                <span class="overall">0-8</span>
+                                <span class="overall">1-8</span>
+                                <br>Home: 1-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">58.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">65.8</div>
+                        <div class="stat-value away-stat worse">35.5%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">41.5%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">30.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">29.8</div>
+                        <div class="stat-value away-stat better">11.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">9.8</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">13.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">8.1</div>
+                        <div class="stat-value away-stat better">2.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">0.8</div>
+                        <div class="stat-value away-stat worse">22.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">13.8</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1084,9 +1722,47 @@
                         <div class="team-details">
                             <h3>Southern Jaguars</h3>
                             <div class="team-records">
-                                <span class="overall">3-4</span>
+                                <span class="overall">4-4</span>
+                                <br>Home: 3-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">42.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">91.0</div>
+                        <div class="stat-value away-stat worse">24.6%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">48.6%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">36.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">39.3</div>
+                        <div class="stat-value away-stat worse">8.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">17.7</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">6.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">11.4</div>
+                        <div class="stat-value away-stat better">7.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.6</div>
+                        <div class="stat-value away-stat worse">14.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">13.6</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1096,7 +1772,7 @@
                     </div>
                     <div class="power-box">
                         <div class="label">SOU Power Rating</div>
-                        <div class="score mid">42.9</div>
+                        <div class="score mid">50.0</div>
                     </div>
                 </div>
                 <div class="betting-lines">
@@ -1130,6 +1806,7 @@
                             <h3>Temple Owls</h3>
                             <div class="team-records">
                                 <span class="overall">4-3</span>
+                                <br>Away: 0-0
                             </div>
                         </div>
                     </div>
@@ -1140,8 +1817,46 @@
                             <h3>Villanova Wildcats</h3>
                             <div class="team-records">
                                 <span class="overall">5-1</span>
+                                <br>Home: 4-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">79.3</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">83.3</div>
+                        <div class="stat-value away-stat worse">46.8%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">48.1%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">34.4</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">39.0</div>
+                        <div class="stat-value away-stat worse">12.9</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">17.5</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">5.1</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">6.7</div>
+                        <div class="stat-value away-stat better">4.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">1.2</div>
+                        <div class="stat-value away-stat better">8.4</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">10.8</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1195,8 +1910,46 @@
                             <h3>Toledo Rockets</h3>
                             <div class="team-records">
                                 <span class="overall">4-3</span>
+                                <br>Home: 2-2
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">80.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">79.6</div>
+                        <div class="stat-value away-stat worse">46.3%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">48.4%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">27.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">31.6</div>
+                        <div class="stat-value away-stat worse">12.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">15.7</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">10.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">8.9</div>
+                        <div class="stat-value away-stat better">3.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">2.6</div>
+                        <div class="stat-value away-stat worse">16.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">12.7</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1250,8 +2003,46 @@
                             <h3>Hampton Pirates</h3>
                             <div class="team-records">
                                 <span class="overall">3-5</span>
+                                <br>Home: 1-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">68.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">70.1</div>
+                        <div class="stat-value away-stat worse">37.9%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">42.3%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">30.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">38.0</div>
+                        <div class="stat-value away-stat better">17.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">12.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">12.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.8</div>
+                        <div class="stat-value away-stat worse">3.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">4.0</div>
+                        <div class="stat-value away-stat better">10.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">11.9</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1295,6 +2086,7 @@
                             <h3>West Georgia Wolves</h3>
                             <div class="team-records">
                                 <span class="overall">4-3</span>
+                                <br>Away: 1-3
                             </div>
                         </div>
                     </div>
@@ -1305,8 +2097,46 @@
                             <h3>Troy Trojans</h3>
                             <div class="team-records">
                                 <span class="overall">5-4</span>
+                                <br>Home: 1-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">76.3</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">88.0</div>
+                        <div class="stat-value away-stat better">45.5%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">45.4%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">37.1</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">39.1</div>
+                        <div class="stat-value away-stat worse">13.3</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">16.2</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">6.6</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">10.4</div>
+                        <div class="stat-value away-stat better">5.1</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.0</div>
+                        <div class="stat-value away-stat better">12.6</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">14.0</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1350,6 +2180,7 @@
                             <h3>Iona Gaels</h3>
                             <div class="team-records">
                                 <span class="overall">5-2</span>
+                                <br>Away: 1-0
                             </div>
                         </div>
                     </div>
@@ -1360,8 +2191,46 @@
                             <h3>Delaware Blue Hens</h3>
                             <div class="team-records">
                                 <span class="overall">2-4</span>
+                                <br>Home: 1-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">84.6</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">68.8</div>
+                        <div class="stat-value away-stat better">46.1%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">44.2%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">37.6</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">34.2</div>
+                        <div class="stat-value away-stat better">15.3</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">13.3</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">7.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.5</div>
+                        <div class="stat-value away-stat better">3.3</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.0</div>
+                        <div class="stat-value away-stat worse">12.9</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">12.8</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1385,14 +2254,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">IONA: -146</div>
-                            <div class="value">DEL: +122</div>
+                            <div class="value">IONA: -144</div>
+                            <div class="value">DEL: +120</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O/U 150.5</div>
+                            <div class="value">O/U 151.5</div>
                         </div>
                     </div>
                 </div>
@@ -1405,6 +2274,7 @@
                             <h3>North Alabama Lions</h3>
                             <div class="team-records">
                                 <span class="overall">3-4</span>
+                                <br>Away: 0-3
                             </div>
                         </div>
                     </div>
@@ -1415,8 +2285,46 @@
                             <h3>Jacksonville State Gamecocks</h3>
                             <div class="team-records">
                                 <span class="overall">3-3</span>
+                                <br>Home: 3-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">74.7</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">79.3</div>
+                        <div class="stat-value away-stat better">44.6%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">42.9%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">35.3</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">44.7</div>
+                        <div class="stat-value away-stat worse">11.6</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">14.7</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">7.9</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.0</div>
+                        <div class="stat-value away-stat better">4.6</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.8</div>
+                        <div class="stat-value away-stat better">11.1</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">11.3</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1460,6 +2368,7 @@
                             <h3>Tarleton State Texans</h3>
                             <div class="team-records">
                                 <span class="overall">5-3</span>
+                                <br>Away: 1-3
                             </div>
                         </div>
                     </div>
@@ -1470,8 +2379,46 @@
                             <h3>Cincinnati Bearcats</h3>
                             <div class="team-records">
                                 <span class="overall">5-2</span>
+                                <br>Home: 5-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">76.5</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">75.4</div>
+                        <div class="stat-value away-stat better">45.2%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">42.7%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">34.1</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">38.6</div>
+                        <div class="stat-value away-stat worse">11.6</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">17.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">8.9</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.9</div>
+                        <div class="stat-value away-stat worse">3.8</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">5.6</div>
+                        <div class="stat-value away-stat worse">15.2</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.1</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1515,6 +2462,7 @@
                             <h3>Saint Francis Red Flash</h3>
                             <div class="team-records">
                                 <span class="overall">1-6</span>
+                                <br>Away: 0-3
                             </div>
                         </div>
                     </div>
@@ -1525,8 +2473,46 @@
                             <h3>Xavier Musketeers</h3>
                             <div class="team-records">
                                 <span class="overall">5-3</span>
+                                <br>Home: 4-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">66.1</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">76.5</div>
+                        <div class="stat-value away-stat worse">40.3%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">40.9%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">34.9</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">35.2</div>
+                        <div class="stat-value away-stat worse">12.3</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">17.9</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">8.1</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">7.6</div>
+                        <div class="stat-value away-stat worse">2.9</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">3.6</div>
+                        <div class="stat-value away-stat worse">16.7</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">9.9</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1570,6 +2556,7 @@
                             <h3>UAB Blazers</h3>
                             <div class="team-records">
                                 <span class="overall">6-2</span>
+                                <br>Away: 0-1
                             </div>
                         </div>
                     </div>
@@ -1580,8 +2567,46 @@
                             <h3>Middle Tennessee Blue Raiders</h3>
                             <div class="team-records">
                                 <span class="overall">4-3</span>
+                                <br>Home: 2-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">86.1</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">82.6</div>
+                        <div class="stat-value away-stat worse">45.6%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">46.3%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">45.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">39.0</div>
+                        <div class="stat-value away-stat worse">15.6</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">16.1</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">9.8</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.4</div>
+                        <div class="stat-value away-stat worse">3.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">4.4</div>
+                        <div class="stat-value away-stat better">9.8</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">11.0</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1625,6 +2650,7 @@
                             <h3>McNeese Cowboys</h3>
                             <div class="team-records">
                                 <span class="overall">6-1</span>
+                                <br>Away: 0-1
                             </div>
                         </div>
                     </div>
@@ -1635,8 +2661,46 @@
                             <h3>Incarnate Word Cardinals</h3>
                             <div class="team-records">
                                 <span class="overall">4-3</span>
+                                <br>Home: 3-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">93.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">88.9</div>
+                        <div class="stat-value away-stat better">50.9%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">49.3%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">38.9</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">39.1</div>
+                        <div class="stat-value away-stat better">18.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">14.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">11.7</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.0</div>
+                        <div class="stat-value away-stat better">5.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">2.1</div>
+                        <div class="stat-value away-stat neutral">9.4</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat neutral">9.4</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1690,8 +2754,46 @@
                             <h3>Eastern Illinois Panthers</h3>
                             <div class="team-records">
                                 <span class="overall">2-5</span>
+                                <br>Home: 2-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">55.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">60.4</div>
+                        <div class="stat-value away-stat worse">40.0%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">40.8%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">26.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">28.9</div>
+                        <div class="stat-value away-stat better">14.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">10.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">6.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">5.3</div>
+                        <div class="stat-value away-stat worse">0.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">3.1</div>
+                        <div class="stat-value away-stat worse">29.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.4</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1745,8 +2847,46 @@
                             <h3>Northern Iowa Panthers</h3>
                             <div class="team-records">
                                 <span class="overall">6-1</span>
+                                <br>Home: 4-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">63.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">70.4</div>
+                        <div class="stat-value away-stat worse">43.1%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">45.4%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">29.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">32.6</div>
+                        <div class="stat-value away-stat worse">13.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">16.1</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">7.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">7.1</div>
+                        <div class="stat-value away-stat better">4.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">3.9</div>
+                        <div class="stat-value away-stat worse">16.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">9.0</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1790,6 +2930,7 @@
                             <h3>Bowling Green Falcons</h3>
                             <div class="team-records">
                                 <span class="overall">5-2</span>
+                                <br>Away: 0-1
                             </div>
                         </div>
                     </div>
@@ -1800,8 +2941,46 @@
                             <h3>Kansas State Wildcats</h3>
                             <div class="team-records">
                                 <span class="overall">5-2</span>
+                                <br>Home: 4-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">85.6</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">89.4</div>
+                        <div class="stat-value away-stat worse">47.3%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">50.8%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">37.7</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">34.4</div>
+                        <div class="stat-value away-stat worse">15.3</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">19.4</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">13.4</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.3</div>
+                        <div class="stat-value away-stat worse">3.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">3.6</div>
+                        <div class="stat-value away-stat better">12.9</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat worse">14.4</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1855,8 +3034,46 @@
                             <h3>Southern Utah Thunderbirds</h3>
                             <div class="team-records">
                                 <span class="overall">3-6</span>
+                                <br>Home: 2-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">36.5</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">76.7</div>
+                        <div class="stat-value away-stat worse">18.9%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">44.7%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">28.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">36.4</div>
+                        <div class="stat-value away-stat worse">5.0</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">13.7</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">3.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">5.7</div>
+                        <div class="stat-value away-stat worse">0.5</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">4.9</div>
+                        <div class="stat-value away-stat worse">16.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">14.1</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1910,8 +3127,46 @@
                             <h3>New Mexico Lobos</h3>
                             <div class="team-records">
                                 <span class="overall">5-2</span>
+                                <br>Home: 4-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">56.0</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">77.9</div>
+                        <div class="stat-value away-stat worse">38.3%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">43.8%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">30.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat better">36.1</div>
+                        <div class="stat-value away-stat worse">9.5</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">13.9</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">6.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">8.0</div>
+                        <div class="stat-value away-stat better">3.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat worse">2.1</div>
+                        <div class="stat-value away-stat worse">24.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">11.7</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -1955,6 +3210,7 @@
                             <h3>California Baptist Lancers</h3>
                             <div class="team-records">
                                 <span class="overall">7-0</span>
+                                <br>Away: 2-0
                             </div>
                         </div>
                     </div>
@@ -1965,8 +3221,46 @@
                             <h3>Colorado Buffaloes</h3>
                             <div class="team-records">
                                 <span class="overall">7-0</span>
+                                <br>Home: 5-0
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat worse">75.4</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat better">90.3</div>
+                        <div class="stat-value away-stat worse">44.8%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat better">51.6%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">43.0</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">37.4</div>
+                        <div class="stat-value away-stat worse">11.9</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat better">18.6</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">7.3</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat worse">6.0</div>
+                        <div class="stat-value away-stat worse">2.0</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">4.0</div>
+                        <div class="stat-value away-stat worse">12.0</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">9.7</div>
                     </div>
                 </div>
                 <div class="power-ratings">
@@ -2010,6 +3304,7 @@
                             <h3>Portland Pilots</h3>
                             <div class="team-records">
                                 <span class="overall">5-3</span>
+                                <br>Away: 0-1
                             </div>
                         </div>
                     </div>
@@ -2020,8 +3315,46 @@
                             <h3>Stanford Cardinal</h3>
                             <div class="team-records">
                                 <span class="overall">6-1</span>
+                                <br>Home: 4-1
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Offensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat better">83.5</div>
+                        <div class="stat-label">PPG</div>
+                        <div class="stat-value home-stat worse">81.3</div>
+                        <div class="stat-value away-stat better">50.9%</div>
+                        <div class="stat-label">FG%</div>
+                        <div class="stat-value home-stat worse">42.4%</div>
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">3PT%</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat better">37.9</div>
+                        <div class="stat-label">RPG</div>
+                        <div class="stat-value home-stat worse">37.1</div>
+                        <div class="stat-value away-stat better">19.8</div>
+                        <div class="stat-label">APG</div>
+                        <div class="stat-value home-stat worse">12.9</div>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stats-section-title">Defensive Stats</div>
+                    <div class="stats-comparison">
+                        <div class="stat-value away-stat neutral">N/A</div>
+                        <div class="stat-label">OPP PPG</div>
+                        <div class="stat-value home-stat neutral">N/A</div>
+                        <div class="stat-value away-stat worse">7.0</div>
+                        <div class="stat-label">SPG</div>
+                        <div class="stat-value home-stat better">8.3</div>
+                        <div class="stat-value away-stat worse">3.4</div>
+                        <div class="stat-label">BPG</div>
+                        <div class="stat-value home-stat better">3.9</div>
+                        <div class="stat-value away-stat worse">15.6</div>
+                        <div class="stat-label">TOPG</div>
+                        <div class="stat-value home-stat better">10.6</div>
                     </div>
                 </div>
                 <div class="power-ratings">
