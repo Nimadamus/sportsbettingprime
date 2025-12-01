@@ -6,7 +6,6 @@
     <title>Handicapping Hub - Professional Sports Analysis</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background: linear-gradient(135deg, #15202b 0%, #0a0e1a 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -14,7 +13,6 @@
             min-height: 100vh;
             font-size: 14px;
         }
-
         .header {
             position: sticky;
             top: 0;
@@ -24,26 +22,22 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
-
         .header h1 {
             font-size: 28px;
             color: #fd5000;
             margin-bottom: 15px;
             font-weight: 900;
         }
-
         .header .timestamp {
             color: #888;
             font-size: 12px;
             margin-bottom: 10px;
         }
-
         .tabs {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
         }
-
         .tab {
             background: rgba(255,255,255,0.1);
             border: 2px solid rgba(253,80,0,0.3);
@@ -55,15 +49,11 @@
             font-size: 14px;
             transition: all 0.2s;
         }
-
         .tab:hover { background: rgba(253,80,0,0.2); border-color: #fd5000; }
         .tab.active { background: linear-gradient(135deg, #fd5000, #ff7a00); border-color: #fd5000; color: white; }
-
         .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
-
         .section { display: none; }
         .section.active { display: block; }
-
         .section-header {
             text-align: center;
             padding: 25px;
@@ -72,17 +62,14 @@
             border-radius: 12px;
             border: 1px solid rgba(244,194,85,0.2);
         }
-
         .section-header h2 { color: #f4c255; font-size: 26px; margin-bottom: 5px; }
         .section-header .count { color: #888; font-size: 14px; }
-
         .no-games {
             text-align: center;
             padding: 60px 20px;
             color: #666;
             font-size: 18px;
         }
-
         .game-card {
             background: linear-gradient(135deg, rgba(30,35,50,0.95), rgba(20,25,40,0.95));
             border: 2px solid rgba(244,194,85,0.2);
@@ -91,9 +78,7 @@
             margin-bottom: 25px;
             transition: all 0.3s;
         }
-
         .game-card:hover { border-color: #f4c255; box-shadow: 0 8px 30px rgba(244,194,85,0.15); }
-
         .matchup-header {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -103,16 +88,12 @@
             padding-bottom: 20px;
             border-bottom: 1px solid rgba(244,194,85,0.15);
         }
-
         .team-box { display: flex; align-items: center; gap: 15px; }
         .team-box.home { flex-direction: row-reverse; text-align: right; }
-
         .team-logo { width: 60px; height: 60px; object-fit: contain; }
-
         .team-details h3 { font-size: 18px; color: white; margin-bottom: 5px; }
         .team-records { font-size: 12px; color: #888; line-height: 1.5; }
         .team-records .overall { color: #f4c255; font-weight: 600; }
-
         .vs-badge {
             background: linear-gradient(135deg, #fd5000, #ff7a00);
             padding: 12px 18px;
@@ -122,27 +103,23 @@
             color: white;
             box-shadow: 0 4px 15px rgba(253,80,0,0.4);
         }
-
         .power-ratings {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
-
         .power-box {
             background: rgba(0,0,0,0.3);
             border-radius: 8px;
             padding: 15px;
             text-align: center;
         }
-
         .power-box .label { color: #888; font-size: 11px; text-transform: uppercase; margin-bottom: 8px; }
         .power-box .score { font-size: 32px; font-weight: 900; }
         .power-box .score.high { color: #00ff88; }
         .power-box .score.mid { color: #f4c255; }
         .power-box .score.low { color: #ff4444; }
-
         .betting-lines {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -151,13 +128,11 @@
             border-radius: 8px;
             padding: 15px;
         }
-
         .line-box { text-align: center; }
         .line-box .type { color: #666; font-size: 11px; text-transform: uppercase; margin-bottom: 8px; }
         .line-box .values { display: flex; flex-direction: column; gap: 5px; }
         .line-box .value { color: #00ff88; font-weight: 700; font-size: 14px; }
         .line-box .value.na { color: #666; }
-
         .back-link {
             display: inline-block;
             margin-bottom: 15px;
@@ -165,9 +140,7 @@
             text-decoration: none;
             font-weight: 600;
         }
-
         .back-link:hover { text-decoration: underline; }
-
         @media (max-width: 768px) {
             .matchup-header { grid-template-columns: 1fr; gap: 15px; }
             .team-box, .team-box.home { flex-direction: column; text-align: center; }
@@ -181,7 +154,7 @@
     <div class="header">
         <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
         <h1>HANDICAPPING HUB</h1>
-        <div class="timestamp">Last updated: December 01, 2025 at 10:20 AM</div>
+        <div class="timestamp">Last updated: December 01, 2025 at 10:28 AM</div>
         <div class="tabs">
             <button class="tab active" onclick="showSection('NBA')">NBA (9)</button>
             <button class="tab" onclick="showSection('NFL')">NFL (1)</button>
@@ -190,7 +163,6 @@
             <button class="tab" onclick="showSection('NCAAF')">NCAAF (0)</button>
         </div>
     </div>
-
     <div class="container">
         <div id="NBA" class="section active">
             <div class="section-header">
@@ -219,7 +191,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">ATL Power Rating</div>
@@ -230,7 +201,6 @@
                         <div class="score high">80.0</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -242,15 +212,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">ATL: +340</div>
-                            <div class="value">DET: -440</div>
+                            <div class="value">ATL: +330</div>
+                            <div class="value">DET: -420</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 233.5</div>
-                            <div class="value">U 233.5</div>
+                            <div class="value">O/U 232.5</div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +246,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CLE Power Rating</div>
@@ -288,7 +256,6 @@
                         <div class="score low">20</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -307,8 +274,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 233.5</div>
-                            <div class="value">U 233.5</div>
+                            <div class="value">O/U 233.5</div>
                         </div>
                     </div>
                 </div>
@@ -335,7 +301,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">MIL Power Rating</div>
@@ -346,7 +311,6 @@
                         <div class="score low">20</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -365,8 +329,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 231.5</div>
-                            <div class="value">U 231.5</div>
+                            <div class="value">O/U 231.5</div>
                         </div>
                     </div>
                 </div>
@@ -393,7 +356,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CHA Power Rating</div>
@@ -404,7 +366,6 @@
                         <div class="score low">20</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -416,15 +377,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CHA: -192</div>
+                            <div class="value">CHA: -190</div>
                             <div class="value">BKN: +160</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 227.5</div>
-                            <div class="value">U 227.5</div>
+                            <div class="value">O/U 227.5</div>
                         </div>
                     </div>
                 </div>
@@ -451,7 +411,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">LAC Power Rating</div>
@@ -462,27 +421,25 @@
                         <div class="score high">65.0</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">LAC: N/A</div>
-                            <div class="value na">MIA: N/A</div>
+                            <div class="value">LAC: +6.5</div>
+                            <div class="value">MIA: -6.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value na">LAC: N/A</div>
-                            <div class="value na">MIA: N/A</div>
+                            <div class="value">LAC: +200</div>
+                            <div class="value">MIA: -245</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 235.5</div>
                         </div>
                     </div>
                 </div>
@@ -509,7 +466,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CHI Power Rating</div>
@@ -520,7 +476,6 @@
                         <div class="score high">60.0</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -532,15 +487,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CHI: +285</div>
-                            <div class="value">ORL: -360</div>
+                            <div class="value">CHI: +310</div>
+                            <div class="value">ORL: -390</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 239.5</div>
-                            <div class="value">U 239.5</div>
+                            <div class="value">O/U 238.5</div>
                         </div>
                     </div>
                 </div>
@@ -567,7 +521,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">DAL Power Rating</div>
@@ -578,27 +531,25 @@
                         <div class="score high">73.7</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value">DAL: +11.5</div>
-                            <div class="value">DEN: -11.5</div>
+                            <div class="value">DAL: +11.0</div>
+                            <div class="value">DEN: -11.0</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">DAL: +390</div>
-                            <div class="value">DEN: -520</div>
+                            <div class="value">DAL: +410</div>
+                            <div class="value">DEN: -550</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 234.5</div>
-                            <div class="value">U 234.5</div>
+                            <div class="value">O/U 234.5</div>
                         </div>
                     </div>
                 </div>
@@ -625,7 +576,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">HOU Power Rating</div>
@@ -636,7 +586,6 @@
                         <div class="score low">31.6</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -649,14 +598,13 @@
                         <div class="type">Moneyline</div>
                         <div class="values">
                             <div class="value">HOU: -650</div>
-                            <div class="value">UTAH: +470</div>
+                            <div class="value">UTAH: +480</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 232.5</div>
-                            <div class="value">U 232.5</div>
+                            <div class="value">O/U 232.5</div>
                         </div>
                     </div>
                 </div>
@@ -683,7 +631,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">PHX Power Rating</div>
@@ -694,7 +641,6 @@
                         <div class="score high">78.9</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -706,15 +652,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">PHX: +164</div>
-                            <div class="value">LAL: -198</div>
+                            <div class="value">PHX: +162</div>
+                            <div class="value">LAL: -194</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 234.5</div>
-                            <div class="value">U 234.5</div>
+                            <div class="value">O/U 233.5</div>
                         </div>
                     </div>
                 </div>
@@ -747,7 +692,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">NYG Power Rating</div>
@@ -758,7 +702,6 @@
                         <div class="score high">83.3</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -777,8 +720,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 46.5</div>
-                            <div class="value">U 46.5</div>
+                            <div class="value">O/U 46.5</div>
                         </div>
                     </div>
                 </div>
@@ -811,18 +753,16 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CBJ Power Rating</div>
-                        <div class="score high">67.5</div>
+                        <div class="score mid">55.0</div>
                     </div>
                     <div class="power-box">
                         <div class="label">NJ Power Rating</div>
-                        <div class="score high">68.8</div>
+                        <div class="score high">66.7</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -834,15 +774,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">CBJ: +120</div>
-                            <div class="value">NJ: -142</div>
+                            <div class="value">CBJ: +125</div>
+                            <div class="value">NJ: -150</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 6.5</div>
-                            <div class="value">U 6.5</div>
+                            <div class="value">O/U 6.5</div>
                         </div>
                     </div>
                 </div>
@@ -869,18 +808,16 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">PIT Power Rating</div>
-                        <div class="score high">76.3</div>
+                        <div class="score high">63.2</div>
                     </div>
                     <div class="power-box">
                         <div class="label">PHI Power Rating</div>
-                        <div class="score high">73.8</div>
+                        <div class="score high">66.7</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -892,15 +829,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">PIT: +114</div>
-                            <div class="value">PHI: -135</div>
+                            <div class="value">PIT: +118</div>
+                            <div class="value">PHI: -142</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 5.5</div>
-                            <div class="value">U 5.5</div>
+                            <div class="value">O/U 5.5</div>
                         </div>
                     </div>
                 </div>
@@ -927,7 +863,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">WPG Power Rating</div>
@@ -935,10 +870,9 @@
                     </div>
                     <div class="power-box">
                         <div class="label">BUF Power Rating</div>
-                        <div class="score mid">57.1</div>
+                        <div class="score mid">47.6</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -950,15 +884,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">WPG: -105</div>
-                            <div class="value">BUF: -115</div>
+                            <div class="value">WPG: -108</div>
+                            <div class="value">BUF: -111</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 6.5</div>
-                            <div class="value">U 6.5</div>
+                            <div class="value">O/U 6.5</div>
                         </div>
                     </div>
                 </div>
@@ -985,38 +918,35 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">ANA Power Rating</div>
-                        <div class="score high">64.6</div>
+                        <div class="score high">62.5</div>
                     </div>
                     <div class="power-box">
                         <div class="label">STL Power Rating</div>
-                        <div class="score high">65.8</div>
+                        <div class="score mid">47.4</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">ANA: N/A</div>
-                            <div class="value na">STL: N/A</div>
+                            <div class="value">ANA: +1.5</div>
+                            <div class="value">STL: -1.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value na">ANA: N/A</div>
-                            <div class="value na">STL: N/A</div>
+                            <div class="value">ANA: +126</div>
+                            <div class="value">STL: -150</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 6.5</div>
                         </div>
                     </div>
                 </div>
@@ -1043,18 +973,16 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">UTA Power Rating</div>
-                        <div class="score mid">58.7</div>
+                        <div class="score mid">52.2</div>
                     </div>
                     <div class="power-box">
                         <div class="label">SJ Power Rating</div>
-                        <div class="score mid">58.7</div>
+                        <div class="score mid">52.2</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1067,14 +995,13 @@
                         <div class="type">Moneyline</div>
                         <div class="values">
                             <div class="value">UTA: -162</div>
-                            <div class="value">SJ: +136</div>
+                            <div class="value">SJ: +134</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 5.5</div>
-                            <div class="value">U 5.5</div>
+                            <div class="value">O/U 5.5</div>
                         </div>
                     </div>
                 </div>
@@ -1107,7 +1034,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">STX Power Rating</div>
@@ -1118,7 +1044,6 @@
                         <div class="score low">20</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1137,8 +1062,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1165,7 +1089,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">LCHR Power Rating</div>
@@ -1176,7 +1099,6 @@
                         <div class="score mid">42.9</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1195,8 +1117,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1223,7 +1144,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">TEM Power Rating</div>
@@ -1234,7 +1154,6 @@
                         <div class="score high">83.3</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1246,15 +1165,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">TEM: +700</div>
-                            <div class="value">VILL: -1100</div>
+                            <div class="value">TEM: +720</div>
+                            <div class="value">VILL: -1200</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 148.5</div>
-                            <div class="value">U 148.5</div>
+                            <div class="value">O/U 148.5</div>
                         </div>
                     </div>
                 </div>
@@ -1281,7 +1199,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CSO Power Rating</div>
@@ -1292,7 +1209,6 @@
                         <div class="score mid">57.1</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1311,8 +1227,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1339,7 +1254,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">APPRE Power Rating</div>
@@ -1350,7 +1264,6 @@
                         <div class="score low">37.5</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1369,8 +1282,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1397,7 +1309,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">WGA Power Rating</div>
@@ -1408,7 +1319,6 @@
                         <div class="score mid">55.6</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1420,15 +1330,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">WGA: +1200</div>
-                            <div class="value">TROY: -2400</div>
+                            <div class="value">WGA: +1280</div>
+                            <div class="value">TROY: -3500</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 148.5</div>
-                            <div class="value">U 148.5</div>
+                            <div class="value">O/U 147.5</div>
                         </div>
                     </div>
                 </div>
@@ -1455,7 +1364,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">IONA Power Rating</div>
@@ -1466,7 +1374,6 @@
                         <div class="score low">33.3</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1478,15 +1385,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">IONA: -148</div>
-                            <div class="value">DEL: +124</div>
+                            <div class="value">IONA: -146</div>
+                            <div class="value">DEL: +122</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 150.5</div>
-                            <div class="value">U 150.5</div>
+                            <div class="value">O/U 150.5</div>
                         </div>
                     </div>
                 </div>
@@ -1513,7 +1419,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">UNA Power Rating</div>
@@ -1524,27 +1429,25 @@
                         <div class="score mid">50.0</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">UNA: N/A</div>
-                            <div class="value na">JXST: N/A</div>
+                            <div class="value">UNA: +5.5</div>
+                            <div class="value">JXST: -5.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value na">UNA: N/A</div>
-                            <div class="value na">JXST: N/A</div>
+                            <div class="value">UNA: +205</div>
+                            <div class="value">JXST: -255</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 134.5</div>
                         </div>
                     </div>
                 </div>
@@ -1571,7 +1474,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">TAR Power Rating</div>
@@ -1582,7 +1484,6 @@
                         <div class="score high">71.4</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1594,15 +1495,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">TAR: +1500</div>
-                            <div class="value">CIN: -3600</div>
+                            <div class="value">TAR: +1600</div>
+                            <div class="value">CIN: -4500</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 146.5</div>
-                            <div class="value">U 146.5</div>
+                            <div class="value">O/U 146.5</div>
                         </div>
                     </div>
                 </div>
@@ -1629,7 +1529,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">SFPA Power Rating</div>
@@ -1640,13 +1539,12 @@
                         <div class="score high">62.5</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">SFPA: N/A</div>
-                            <div class="value na">XAV: N/A</div>
+                            <div class="value">SFPA: +27.5</div>
+                            <div class="value">XAV: -27.5</div>
                         </div>
                     </div>
                     <div class="line-box">
@@ -1659,8 +1557,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 149.5</div>
                         </div>
                     </div>
                 </div>
@@ -1687,7 +1584,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">UAB Power Rating</div>
@@ -1698,7 +1594,6 @@
                         <div class="score mid">57.1</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1710,15 +1605,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">UAB: -142</div>
-                            <div class="value">MTSU: +120</div>
+                            <div class="value">UAB: -140</div>
+                            <div class="value">MTSU: +116</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 153.5</div>
-                            <div class="value">U 153.5</div>
+                            <div class="value">O/U 153.5</div>
                         </div>
                     </div>
                 </div>
@@ -1745,7 +1639,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">MCN Power Rating</div>
@@ -1756,7 +1649,6 @@
                         <div class="score mid">57.1</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1768,15 +1660,14 @@
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">MCN: -700</div>
-                            <div class="value">UIW: +500</div>
+                            <div class="value">MCN: -600</div>
+                            <div class="value">UIW: +430</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 143.5</div>
-                            <div class="value">U 143.5</div>
+                            <div class="value">O/U 144.5</div>
                         </div>
                     </div>
                 </div>
@@ -1803,7 +1694,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">BLACKBURN Power Rating</div>
@@ -1814,7 +1704,6 @@
                         <div class="score low">28.6</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1833,8 +1722,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1861,7 +1749,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">COE Power Rating</div>
@@ -1872,7 +1759,6 @@
                         <div class="score high">85.7</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -1891,8 +1777,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -1919,7 +1804,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">BGSU Power Rating</div>
@@ -1930,27 +1814,25 @@
                         <div class="score high">71.4</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">BGSU: N/A</div>
-                            <div class="value na">KSU: N/A</div>
+                            <div class="value">BGSU: +12.5</div>
+                            <div class="value">KSU: -12.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value na">BGSU: N/A</div>
-                            <div class="value na">KSU: N/A</div>
+                            <div class="value">BGSU: +660</div>
+                            <div class="value">KSU: -1050</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 160.5</div>
                         </div>
                     </div>
                 </div>
@@ -1977,7 +1859,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">WCBC Power Rating</div>
@@ -1988,7 +1869,6 @@
                         <div class="score low">33.3</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -2007,8 +1887,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -2035,7 +1914,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">NMHU Power Rating</div>
@@ -2046,7 +1924,6 @@
                         <div class="score high">71.4</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
@@ -2065,8 +1942,7 @@
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value na">O/U N/A</div>
                         </div>
                     </div>
                 </div>
@@ -2093,7 +1969,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">CBU Power Rating</div>
@@ -2104,27 +1979,25 @@
                         <div class="score high">95</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value na">CBU: N/A</div>
-                            <div class="value na">COLO: N/A</div>
+                            <div class="value">CBU: +12.5</div>
+                            <div class="value">COLO: -12.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value na">CBU: N/A</div>
-                            <div class="value na">COLO: N/A</div>
+                            <div class="value">CBU: +640</div>
+                            <div class="value">COLO: -1000</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value na">O N/A</div>
-                            <div class="value na">U N/A</div>
+                            <div class="value">O/U 148.5</div>
                         </div>
                     </div>
                 </div>
@@ -2151,7 +2024,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="power-ratings">
                     <div class="power-box">
                         <div class="label">PORT Power Rating</div>
@@ -2162,27 +2034,25 @@
                         <div class="score high">85.7</div>
                     </div>
                 </div>
-
                 <div class="betting-lines">
                     <div class="line-box">
                         <div class="type">Spread</div>
                         <div class="values">
-                            <div class="value">PORT: +18.5</div>
-                            <div class="value">STAN: -18.5</div>
+                            <div class="value">PORT: +17.5</div>
+                            <div class="value">STAN: -17.5</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Moneyline</div>
                         <div class="values">
-                            <div class="value">PORT: +1200</div>
-                            <div class="value">STAN: -2400</div>
+                            <div class="value">PORT: +1280</div>
+                            <div class="value">STAN: -3500</div>
                         </div>
                     </div>
                     <div class="line-box">
                         <div class="type">Total</div>
                         <div class="values">
-                            <div class="value">O 155.5</div>
-                            <div class="value">U 155.5</div>
+                            <div class="value">O/U 155.5</div>
                         </div>
                     </div>
                 </div>
@@ -2196,7 +2066,6 @@
             <div class="no-games">No games scheduled for today</div>
         </div>
     </div>
-
     <script>
         function showSection(sport) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
