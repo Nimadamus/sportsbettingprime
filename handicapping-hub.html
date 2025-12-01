@@ -12,8 +12,8 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #1a1a1a;
             min-height: 100vh;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.6;
         }
         .header {
             background: #1a1a1a;
@@ -124,7 +124,7 @@
             letter-spacing: 1px;
         }
 
-        /* Stats Table */
+        /* Stats Table - Improved Layout */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -138,7 +138,7 @@
             border-right: 1px solid #eee;
         }
         .stats-table-title {
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -147,24 +147,44 @@
             padding-bottom: 8px;
             border-bottom: 2px solid #fd5000;
         }
+        .team-header-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        .team-header-away {
+            text-align: right;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .team-header-home {
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
         .stat-row {
             display: grid;
-            grid-template-columns: 1fr 80px 1fr;
+            grid-template-columns: 1fr 100px 1fr;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f5f5f5;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
         .stat-row:last-child { border-bottom: none; }
-        .stat-away { text-align: right; font-weight: 600; font-size: 15px; }
+        .stat-away { text-align: right; font-weight: 700; font-size: 18px; }
         .stat-label {
             text-align: center;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #888;
+            color: #666;
         }
-        .stat-home { text-align: left; font-weight: 600; font-size: 15px; }
+        .stat-home { text-align: left; font-weight: 700; font-size: 18px; }
         .stat-better { color: #16a34a; }
         .stat-worse { color: #dc2626; }
         .stat-neutral { color: #1a1a1a; }
@@ -268,7 +288,7 @@
         <div class="header-content">
             <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
             <h1>HANDICAPPING <span>HUB</span></h1>
-            <div class="timestamp">Last updated: December 01, 2025 at 11:22 AM &bull; Data from ESPN</div>
+            <div class="timestamp">Last updated: December 01, 2025 at 11:44 AM &bull; Data from ESPN</div>
             <div class="tabs">
             <button class="tab active" onclick="showSection('NBA')">NBA (9)</button>
             <button class="tab" onclick="showSection('NFL')">NFL (1)</button>
@@ -310,6 +330,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">ATL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DET</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">118.9</div>
                             <div class="stat-label">PPG</div>
@@ -326,6 +351,11 @@
                             <div class="stat-home stat-worse">35.9%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">77.5%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">74.6%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">42.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">46.4</div>
@@ -336,13 +366,18 @@
                             <div class="stat-home stat-worse">26.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">77.5%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">74.6%</div>
+                            <div class="stat-away stat-worse">9.9</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">13.4</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">ATL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DET</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">9.3</div>
                             <div class="stat-label">STL/G</div>
@@ -354,9 +389,24 @@
                             <div class="stat-home stat-better">6.0</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">32.1</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">33.0</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">14.2</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">15.1</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">2.19</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.76</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">57.2%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">55.8%</div>
                         </div>
                     </div>
                 </div>
@@ -428,6 +478,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CLE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">IND</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">118.8</div>
                             <div class="stat-label">PPG</div>
@@ -444,6 +499,11 @@
                             <div class="stat-home stat-worse">31.7%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">75.8%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">77.0%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">43.7</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">45.2</div>
@@ -454,13 +514,18 @@
                             <div class="stat-home stat-worse">23.6</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">75.8%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">77.0%</div>
+                            <div class="stat-away stat-worse">12.1</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">12.4</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CLE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">IND</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">9.0</div>
                             <div class="stat-label">STL/G</div>
@@ -472,9 +537,24 @@
                             <div class="stat-home stat-neutral">5.4</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">31.6</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">32.9</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">13.8</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">13.7</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.97</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.72</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">56.3%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">49.7%</div>
                         </div>
                     </div>
                 </div>
@@ -505,8 +585,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">CLE -180</div>
-                                    <div class="value">IND +152</div>
+                                    <div class="value">CLE -184</div>
+                                    <div class="value">IND +154</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -546,6 +626,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">MIL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">WSH</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">115.5</div>
                             <div class="stat-label">PPG</div>
@@ -562,6 +647,11 @@
                             <div class="stat-home stat-worse">37.4%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">70.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">74.4%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">39.9</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">43.1</div>
@@ -572,13 +662,18 @@
                             <div class="stat-home stat-worse">25.6</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">70.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">74.4%</div>
+                            <div class="stat-away stat-worse">8.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">10.5</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">MIL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">WSH</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">8.3</div>
                             <div class="stat-label">STL/G</div>
@@ -590,9 +685,24 @@
                             <div class="stat-home stat-better">5.7</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">31.6</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">32.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">13.8</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">16.3</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.96</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.56</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">55.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">52.0%</div>
                         </div>
                     </div>
                 </div>
@@ -664,6 +774,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CHA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">BKN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">115.8</div>
                             <div class="stat-label">PPG</div>
@@ -680,6 +795,11 @@
                             <div class="stat-home stat-worse">33.6%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">83.0%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">77.8%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">44.5</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">39.0</div>
@@ -690,13 +810,18 @@
                             <div class="stat-home stat-worse">24.3</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">83.0%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">77.8%</div>
+                            <div class="stat-away stat-better">12.2</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">11.1</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CHA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">BKN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">6.8</div>
                             <div class="stat-label">STL/G</div>
@@ -708,9 +833,24 @@
                             <div class="stat-home stat-worse">3.7</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">32.3</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">27.9</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">14.8</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.6</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.72</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.67</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">54.6%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">53.7%</div>
                         </div>
                     </div>
                 </div>
@@ -741,8 +881,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">CHA -188</div>
-                                    <div class="value">BKN +158</div>
+                                    <div class="value">CHA -186</div>
+                                    <div class="value">BKN +156</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -782,6 +922,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">LAC</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">MIA</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">111.8</div>
                             <div class="stat-label">PPG</div>
@@ -798,6 +943,11 @@
                             <div class="stat-home stat-better">37.3%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">84.6%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">79.3%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">40.9</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">46.0</div>
@@ -808,13 +958,18 @@
                             <div class="stat-home stat-better">30.1</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">84.6%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">79.3%</div>
+                            <div class="stat-away stat-worse">9.6</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">10.6</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">LAC</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">MIA</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">8.4</div>
                             <div class="stat-label">STL/G</div>
@@ -826,9 +981,24 @@
                             <div class="stat-home stat-worse">4.3</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">31.2</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">35.5</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">15.1</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.2</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.58</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">2.13</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">55.3%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">54.6%</div>
                         </div>
                     </div>
                 </div>
@@ -900,6 +1070,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CHI</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">ORL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">119.9</div>
                             <div class="stat-label">PPG</div>
@@ -916,6 +1091,11 @@
                             <div class="stat-home stat-worse">34.7%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">78.9%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">80.9%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">46.2</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">44.8</div>
@@ -926,13 +1106,18 @@
                             <div class="stat-home stat-worse">25.6</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">78.9%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">80.9%</div>
+                            <div class="stat-away stat-worse">10.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">12.1</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CHI</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">ORL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">7.5</div>
                             <div class="stat-label">STL/G</div>
@@ -944,9 +1129,24 @@
                             <div class="stat-home stat-neutral">5.2</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">35.9</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">32.7</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">14.4</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.3</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">2.05</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.79</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">54.8%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">55.3%</div>
                         </div>
                     </div>
                 </div>
@@ -970,15 +1170,15 @@
                             <div class="line-box">
                                 <div class="type">Spread</div>
                                 <div class="values">
-                                    <div class="value">CHI +8.5</div>
-                                    <div class="value">ORL -8.5</div>
+                                    <div class="value">CHI +9.0</div>
+                                    <div class="value">ORL -9.0</div>
                                 </div>
                             </div>
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">CHI +310</div>
-                                    <div class="value">ORL -390</div>
+                                    <div class="value">CHI +320</div>
+                                    <div class="value">ORL -405</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -1018,6 +1218,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">DAL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DEN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">110.2</div>
                             <div class="stat-label">PPG</div>
@@ -1034,6 +1239,11 @@
                             <div class="stat-home stat-better">39.2%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">75.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">83.6%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">44.8</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">45.7</div>
@@ -1044,13 +1254,18 @@
                             <div class="stat-home stat-better">29.5</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">75.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">83.6%</div>
+                            <div class="stat-away stat-worse">10.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">11.6</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">DAL</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DEN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">8.5</div>
                             <div class="stat-label">STL/G</div>
@@ -1062,9 +1277,24 @@
                             <div class="stat-home stat-worse">3.9</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">34.4</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">34.1</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">15.7</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">13.4</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.52</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">2.2</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">52.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">58.7%</div>
                         </div>
                     </div>
                 </div>
@@ -1095,14 +1325,14 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">DAL +420</div>
-                                    <div class="value">DEN -560</div>
+                                    <div class="value">DAL +430</div>
+                                    <div class="value">DEN -590</div>
                                 </div>
                             </div>
                             <div class="line-box">
                                 <div class="type">Total</div>
                                 <div class="values">
-                                    <div class="value">O/U 234.5</div>
+                                    <div class="value">O/U 235.5</div>
                                 </div>
                             </div>
                         </div>
@@ -1136,6 +1366,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">HOU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UTAH</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">121.6</div>
                             <div class="stat-label">PPG</div>
@@ -1152,6 +1387,11 @@
                             <div class="stat-home stat-worse">33.2%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">78.3%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">81.8%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">49.4</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">46.0</div>
@@ -1162,13 +1402,18 @@
                             <div class="stat-home stat-better">29.8</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">78.3%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">81.8%</div>
+                            <div class="stat-away stat-better">16.6</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">13.3</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">HOU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UTAH</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">9.6</div>
                             <div class="stat-label">STL/G</div>
@@ -1180,9 +1425,24 @@
                             <div class="stat-home stat-worse">3.8</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-neutral">32.7</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-neutral">32.7</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">14.2</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">16.6</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.79</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.8</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">52.0%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">54.7%</div>
                         </div>
                     </div>
                 </div>
@@ -1254,6 +1514,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PHX</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">LAL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">116.7</div>
                             <div class="stat-label">PPG</div>
@@ -1270,6 +1535,11 @@
                             <div class="stat-home stat-worse">35.0%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">79.9%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">79.8%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">43.4</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">41.1</div>
@@ -1280,13 +1550,18 @@
                             <div class="stat-home stat-better">26.1</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">79.9%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">79.8%</div>
+                            <div class="stat-away stat-better">13.1</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">9.5</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PHX</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">LAL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">10.6</div>
                             <div class="stat-label">STL/G</div>
@@ -1298,9 +1573,24 @@
                             <div class="stat-home stat-worse">3.8</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">30.3</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">31.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">15.5</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">15.1</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.65</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.73</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">54.3%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">62.1%</div>
                         </div>
                     </div>
                 </div>
@@ -1377,6 +1667,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">NYG</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">NE</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">22.0</div>
                             <div class="stat-label">PPG</div>
@@ -1384,7 +1679,7 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">360.8</div>
-                            <div class="stat-label">YPG</div>
+                            <div class="stat-label">TOTAL YPG</div>
                             <div class="stat-home stat-better">371.5</div>
                         </div>
                         <div class="stat-row">
@@ -1397,9 +1692,29 @@
                             <div class="stat-label">RUSH YPG</div>
                             <div class="stat-home stat-worse">112.4</div>
                         </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">60.4%</div>
+                            <div class="stat-label">COMP%</div>
+                            <div class="stat-home stat-better">70.9%</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">87.9</div>
+                            <div class="stat-label">QB RATING</div>
+                            <div class="stat-home stat-better">110.0</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">7.3</div>
+                            <div class="stat-label">YDS/ATT</div>
+                            <div class="stat-home stat-better">8.7</div>
+                        </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">NYG</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">NE</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">26</div>
                             <div class="stat-label">SACKS</div>
@@ -1411,9 +1726,29 @@
                             <div class="stat-home stat-better">8</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">10</div>
-                            <div class="stat-label">FUMBLES</div>
-                            <div class="stat-home stat-worse">15</div>
+                            <div class="stat-away stat-better">59</div>
+                            <div class="stat-label">TFL</div>
+                            <div class="stat-home stat-worse">58</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">57</div>
+                            <div class="stat-label">PASS DEF</div>
+                            <div class="stat-home stat-worse">48</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">41.5%</div>
+                            <div class="stat-label">3RD DOWN</div>
+                            <div class="stat-home stat-better">42.4%</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">73.8%</div>
+                            <div class="stat-label">REDZONE</div>
+                            <div class="stat-home stat-better">81.0%</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">-6</div>
+                            <div class="stat-label">TO DIFF</div>
+                            <div class="stat-home stat-better">0</div>
                         </div>
                     </div>
                 </div>
@@ -1490,9 +1825,14 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CBJ</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">NJ</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">2.8</div>
-                            <div class="stat-label">GPG</div>
+                            <div class="stat-label">GOALS/G</div>
                             <div class="stat-home stat-better">3.12</div>
                         </div>
                         <div class="stat-row">
@@ -1502,20 +1842,25 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">50.3%</div>
-                            <div class="stat-label">FO%</div>
+                            <div class="stat-label">FACEOFF%</div>
                             <div class="stat-home stat-worse">49.8%</div>
                         </div>
                     </div>
                     <div class="stats-table">
                         <div class="stats-table-title">Defensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CBJ</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">NJ</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">3.24</div>
-                            <div class="stat-label">OPP GPG</div>
+                            <div class="stat-label">GOALS AGT</div>
                             <div class="stat-home stat-better">2.96</div>
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">89.8%</div>
-                            <div class="stat-label">SV%</div>
+                            <div class="stat-label">SAVE%</div>
                             <div class="stat-home stat-better">90.1%</div>
                         </div>
                     </div>
@@ -1588,9 +1933,14 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PIT</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">PHI</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">3.08</div>
-                            <div class="stat-label">GPG</div>
+                            <div class="stat-label">GOALS/G</div>
                             <div class="stat-home stat-worse">2.83</div>
                         </div>
                         <div class="stat-row">
@@ -1600,20 +1950,25 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">49.7%</div>
-                            <div class="stat-label">FO%</div>
+                            <div class="stat-label">FACEOFF%</div>
                             <div class="stat-home stat-worse">47.6%</div>
                         </div>
                     </div>
                     <div class="stats-table">
                         <div class="stats-table-title">Defensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PIT</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">PHI</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-neutral">2.79</div>
-                            <div class="stat-label">OPP GPG</div>
+                            <div class="stat-label">GOALS AGT</div>
                             <div class="stat-home stat-neutral">2.79</div>
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">90.3%</div>
-                            <div class="stat-label">SV%</div>
+                            <div class="stat-label">SAVE%</div>
                             <div class="stat-home stat-worse">89.7%</div>
                         </div>
                     </div>
@@ -1686,9 +2041,14 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WPG</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">BUF</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">3.12</div>
-                            <div class="stat-label">GPG</div>
+                            <div class="stat-label">GOALS/G</div>
                             <div class="stat-home stat-worse">2.96</div>
                         </div>
                         <div class="stat-row">
@@ -1698,20 +2058,25 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">53.0%</div>
-                            <div class="stat-label">FO%</div>
+                            <div class="stat-label">FACEOFF%</div>
                             <div class="stat-home stat-worse">43.4%</div>
                         </div>
                     </div>
                     <div class="stats-table">
                         <div class="stats-table-title">Defensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WPG</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">BUF</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">2.92</div>
-                            <div class="stat-label">OPP GPG</div>
+                            <div class="stat-label">GOALS AGT</div>
                             <div class="stat-home stat-worse">3.44</div>
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">90.6%</div>
-                            <div class="stat-label">SV%</div>
+                            <div class="stat-label">SAVE%</div>
                             <div class="stat-home stat-worse">89.7%</div>
                         </div>
                     </div>
@@ -1784,9 +2149,14 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">ANA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">STL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">3.6</div>
-                            <div class="stat-label">GPG</div>
+                            <div class="stat-label">GOALS/G</div>
                             <div class="stat-home stat-worse">2.62</div>
                         </div>
                         <div class="stat-row">
@@ -1796,20 +2166,25 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">46.5%</div>
-                            <div class="stat-label">FO%</div>
+                            <div class="stat-label">FACEOFF%</div>
                             <div class="stat-home stat-better">50.4%</div>
                         </div>
                     </div>
                     <div class="stats-table">
                         <div class="stats-table-title">Defensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">ANA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">STL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">3.32</div>
-                            <div class="stat-label">OPP GPG</div>
+                            <div class="stat-label">GOALS AGT</div>
                             <div class="stat-home stat-worse">3.42</div>
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">89.3%</div>
-                            <div class="stat-label">SV%</div>
+                            <div class="stat-label">SAVE%</div>
                             <div class="stat-home stat-worse">88.0%</div>
                         </div>
                     </div>
@@ -1882,9 +2257,14 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UTA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SJ</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">2.96</div>
-                            <div class="stat-label">GPG</div>
+                            <div class="stat-label">GOALS/G</div>
                             <div class="stat-home stat-worse">2.81</div>
                         </div>
                         <div class="stat-row">
@@ -1894,20 +2274,25 @@
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">46.8%</div>
-                            <div class="stat-label">FO%</div>
+                            <div class="stat-label">FACEOFF%</div>
                             <div class="stat-home stat-better">48.3%</div>
                         </div>
                     </div>
                     <div class="stats-table">
                         <div class="stats-table-title">Defensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UTA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SJ</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">2.96</div>
-                            <div class="stat-label">OPP GPG</div>
+                            <div class="stat-label">GOALS AGT</div>
                             <div class="stat-home stat-worse">3.19</div>
                         </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">88.2%</div>
-                            <div class="stat-label">SV%</div>
+                            <div class="stat-label">SAVE%</div>
                             <div class="stat-home stat-better">90.4%</div>
                         </div>
                     </div>
@@ -1939,8 +2324,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">UTA -162</div>
-                                    <div class="value">SJ +134</div>
+                                    <div class="value">UTA -170</div>
+                                    <div class="value">SJ +140</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -1984,6 +2369,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">STX</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">CHST</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">58.0</div>
                             <div class="stat-label">PPG</div>
@@ -2000,6 +2390,11 @@
                             <div class="stat-home stat-worse">29.8%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">66.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">75.2%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">30.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">29.8</div>
@@ -2010,13 +2405,18 @@
                             <div class="stat-home stat-worse">9.8</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">66.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">75.2%</div>
+                            <div class="stat-away stat-worse">10.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">10.5</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">STX</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">CHST</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">13.0</div>
                             <div class="stat-label">STL/G</div>
@@ -2028,9 +2428,24 @@
                             <div class="stat-home stat-worse">0.8</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">20.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">19.2</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">22.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">13.8</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.5</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">0.71</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">35.6%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">45.8%</div>
                         </div>
                     </div>
                 </div>
@@ -2101,6 +2516,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">LCHR</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SOU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">42.0</div>
                             <div class="stat-label">PPG</div>
@@ -2117,6 +2537,11 @@
                             <div class="stat-home stat-better">39.0%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">64.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">66.5%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">36.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">39.3</div>
@@ -2127,13 +2552,18 @@
                             <div class="stat-home stat-better">17.7</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">64.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">66.5%</div>
+                            <div class="stat-away stat-worse">9.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">12.3</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">LCHR</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SOU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">6.0</div>
                             <div class="stat-label">STL/G</div>
@@ -2145,9 +2575,24 @@
                             <div class="stat-home stat-worse">3.6</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-neutral">27.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-neutral">27.0</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">14.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">13.6</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.57</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.31</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">31.4%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">53.5%</div>
                         </div>
                     </div>
                 </div>
@@ -2219,6 +2664,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">TEM</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">VILL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">79.3</div>
                             <div class="stat-label">PPG</div>
@@ -2235,6 +2685,11 @@
                             <div class="stat-home stat-better">36.7%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">71.6%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">69.6%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">34.4</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">39.0</div>
@@ -2245,13 +2700,18 @@
                             <div class="stat-home stat-better">17.5</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">71.6%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">69.6%</div>
+                            <div class="stat-away stat-worse">9.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">15.7</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">TEM</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">VILL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">5.1</div>
                             <div class="stat-label">STL/G</div>
@@ -2263,9 +2723,24 @@
                             <div class="stat-home stat-worse">1.2</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">25.1</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">23.3</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">8.4</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">10.8</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.53</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.62</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">52.8%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">57.6%</div>
                         </div>
                     </div>
                 </div>
@@ -2336,6 +2811,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CSO</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">TOL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">80.0</div>
                             <div class="stat-label">PPG</div>
@@ -2352,6 +2832,11 @@
                             <div class="stat-home stat-better">37.3%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">88.9%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">75.9%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">27.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">31.6</div>
@@ -2362,13 +2847,18 @@
                             <div class="stat-home stat-better">15.7</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">88.9%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">75.9%</div>
+                            <div class="stat-away stat-worse">10.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">10.6</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CSO</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">TOL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">10.0</div>
                             <div class="stat-label">STL/G</div>
@@ -2380,9 +2870,24 @@
                             <div class="stat-home stat-worse">2.6</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">17.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">21.0</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">16.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">12.7</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.75</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.24</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">52.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">54.8%</div>
                         </div>
                     </div>
                 </div>
@@ -2453,6 +2958,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">APPRE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">HAMP</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">68.0</div>
                             <div class="stat-label">PPG</div>
@@ -2469,6 +2979,11 @@
                             <div class="stat-home stat-worse">30.1%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">66.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">69.4%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">30.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">38.0</div>
@@ -2479,13 +2994,18 @@
                             <div class="stat-home stat-worse">12.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">66.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">69.4%</div>
+                            <div class="stat-away stat-worse">7.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">13.0</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">APPRE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">HAMP</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">12.0</div>
                             <div class="stat-label">STL/G</div>
@@ -2497,9 +3017,24 @@
                             <div class="stat-home stat-better">4.0</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">23.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">25.0</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">10.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">11.9</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.7</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.04</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">38.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">49.8%</div>
                         </div>
                     </div>
                 </div>
@@ -2571,6 +3106,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WGA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">TROY</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">76.3</div>
                             <div class="stat-label">PPG</div>
@@ -2587,6 +3127,11 @@
                             <div class="stat-home stat-worse">33.1%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">68.1%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">74.2%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">37.1</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">39.1</div>
@@ -2597,13 +3142,18 @@
                             <div class="stat-home stat-better">16.2</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">68.1%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">74.2%</div>
+                            <div class="stat-away stat-worse">11.4</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">12.8</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WGA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">TROY</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">6.6</div>
                             <div class="stat-label">STL/G</div>
@@ -2615,9 +3165,24 @@
                             <div class="stat-home stat-worse">3.0</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">25.7</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">26.3</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">12.6</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">14.0</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.06</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.16</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">48.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">55.4%</div>
                         </div>
                     </div>
                 </div>
@@ -2689,6 +3254,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">IONA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DEL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">84.6</div>
                             <div class="stat-label">PPG</div>
@@ -2705,6 +3275,11 @@
                             <div class="stat-home stat-worse">36.4%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">70.1%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">70.0%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">37.6</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">34.2</div>
@@ -2715,13 +3290,18 @@
                             <div class="stat-home stat-worse">13.3</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">70.1%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">70.0%</div>
+                            <div class="stat-away stat-better">10.4</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">8.5</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">IONA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">DEL</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">7.0</div>
                             <div class="stat-label">STL/G</div>
@@ -2733,9 +3313,24 @@
                             <div class="stat-home stat-worse">3.0</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">27.1</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">25.7</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">12.9</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">12.8</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.19</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.04</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">52.1%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">50.3%</div>
                         </div>
                     </div>
                 </div>
@@ -2807,6 +3402,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UNA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">JXST</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">74.7</div>
                             <div class="stat-label">PPG</div>
@@ -2823,6 +3423,11 @@
                             <div class="stat-home stat-better">31.9%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">68.6%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">67.2%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">35.3</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">44.7</div>
@@ -2833,13 +3438,18 @@
                             <div class="stat-home stat-better">14.7</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">68.6%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">67.2%</div>
+                            <div class="stat-away stat-worse">12.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">14.5</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UNA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">JXST</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">7.9</div>
                             <div class="stat-label">STL/G</div>
@@ -2851,9 +3461,24 @@
                             <div class="stat-home stat-worse">3.8</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">23.3</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">30.2</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">11.1</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">11.3</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.04</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.29</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">51.9%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">53.0%</div>
                         </div>
                     </div>
                 </div>
@@ -2925,6 +3550,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">TAR</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">CIN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">76.5</div>
                             <div class="stat-label">PPG</div>
@@ -2941,6 +3571,11 @@
                             <div class="stat-home stat-worse">29.9%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">79.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">64.9%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">34.1</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">38.6</div>
@@ -2951,13 +3586,18 @@
                             <div class="stat-home stat-better">17.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">79.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">64.9%</div>
+                            <div class="stat-away stat-better">11.6</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">10.4</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">TAR</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">CIN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">8.9</div>
                             <div class="stat-label">STL/G</div>
@@ -2969,9 +3609,24 @@
                             <div class="stat-home stat-better">5.6</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">22.5</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">28.1</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">15.2</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.1</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.76</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.23</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">49.9%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">54.1%</div>
                         </div>
                     </div>
                 </div>
@@ -3043,6 +3698,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">SFPA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">XAV</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">66.1</div>
                             <div class="stat-label">PPG</div>
@@ -3059,6 +3719,11 @@
                             <div class="stat-home stat-better">39.5%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">72.6%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">69.7%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">34.9</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">35.2</div>
@@ -3069,13 +3734,18 @@
                             <div class="stat-home stat-better">17.9</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">72.6%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">69.7%</div>
+                            <div class="stat-away stat-better">11.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">11.2</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">SFPA</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">XAV</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">8.1</div>
                             <div class="stat-label">STL/G</div>
@@ -3087,9 +3757,24 @@
                             <div class="stat-home stat-better">3.6</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">23.6</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">24.0</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">16.7</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">9.9</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.74</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.81</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">46.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">42.0%</div>
                         </div>
                     </div>
                 </div>
@@ -3161,6 +3846,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UAB</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">MTSU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">86.1</div>
                             <div class="stat-label">PPG</div>
@@ -3177,6 +3867,11 @@
                             <div class="stat-home stat-better">35.3%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">69.1%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">65.8%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">45.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">39.0</div>
@@ -3187,13 +3882,18 @@
                             <div class="stat-home stat-better">16.1</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">69.1%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">65.8%</div>
+                            <div class="stat-away stat-better">16.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">12.9</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">UAB</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">MTSU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">9.8</div>
                             <div class="stat-label">STL/G</div>
@@ -3205,9 +3905,24 @@
                             <div class="stat-home stat-better">4.4</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">29.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">26.1</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">9.8</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">11.0</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.6</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.47</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">53.7%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">54.5%</div>
                         </div>
                     </div>
                 </div>
@@ -3279,6 +3994,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">MCN</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UIW</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">93.0</div>
                             <div class="stat-label">PPG</div>
@@ -3295,6 +4015,11 @@
                             <div class="stat-home stat-better">41.4%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">78.8%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-worse">71.0%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">38.9</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">39.1</div>
@@ -3305,13 +4030,18 @@
                             <div class="stat-home stat-worse">14.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-better">78.8%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-worse">71.0%</div>
+                            <div class="stat-away stat-better">14.6</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">13.6</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">MCN</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UIW</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">11.7</div>
                             <div class="stat-label">STL/G</div>
@@ -3323,9 +4053,24 @@
                             <div class="stat-home stat-worse">2.1</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">24.3</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">25.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-neutral">9.4</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-neutral">9.4</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.91</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.53</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">59.5%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">54.2%</div>
                         </div>
                     </div>
                 </div>
@@ -3396,6 +4141,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">BLACKBURN</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">EIU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">55.0</div>
                             <div class="stat-label">PPG</div>
@@ -3412,6 +4162,11 @@
                             <div class="stat-home stat-worse">27.2%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">50.0%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">73.6%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">26.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">28.9</div>
@@ -3422,13 +4177,18 @@
                             <div class="stat-home stat-worse">10.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">50.0%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">73.6%</div>
+                            <div class="stat-away stat-better">9.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">7.7</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">BLACKBURN</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">EIU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">6.0</div>
                             <div class="stat-label">STL/G</div>
@@ -3440,9 +4200,24 @@
                             <div class="stat-home stat-better">3.1</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">17.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">21.1</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">29.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.4</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.48</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">0.72</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">37.0%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">48.1%</div>
                         </div>
                     </div>
                 </div>
@@ -3513,6 +4288,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">COE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UNI</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">63.0</div>
                             <div class="stat-label">PPG</div>
@@ -3529,6 +4309,11 @@
                             <div class="stat-home stat-worse">36.0%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">60.0%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">68.9%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">29.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">32.6</div>
@@ -3539,13 +4324,18 @@
                             <div class="stat-home stat-better">16.1</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">60.0%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">68.9%</div>
+                            <div class="stat-away stat-better">9.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">7.0</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">COE</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UNI</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">7.0</div>
                             <div class="stat-label">STL/G</div>
@@ -3557,9 +4347,24 @@
                             <div class="stat-home stat-worse">3.9</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">20.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">25.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">16.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">9.0</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.81</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.79</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">48.4%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">52.7%</div>
                         </div>
                     </div>
                 </div>
@@ -3631,6 +4436,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">BGSU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">KSU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">85.6</div>
                             <div class="stat-label">PPG</div>
@@ -3647,6 +4457,11 @@
                             <div class="stat-home stat-better">42.9%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">74.1%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">78.2%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">37.7</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">34.4</div>
@@ -3657,13 +4472,18 @@
                             <div class="stat-home stat-better">19.4</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">74.1%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">78.2%</div>
+                            <div class="stat-away stat-better">11.3</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">9.9</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">BGSU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">KSU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">13.4</div>
                             <div class="stat-label">STL/G</div>
@@ -3675,9 +4495,24 @@
                             <div class="stat-home stat-better">3.6</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">26.4</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">24.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">12.9</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-worse">14.4</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">1.19</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.35</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">54.3%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">56.1%</div>
                         </div>
                     </div>
                 </div>
@@ -3708,8 +4543,8 @@
                             <div class="line-box">
                                 <div class="type">Moneyline</div>
                                 <div class="values">
-                                    <div class="value">BGSU +660</div>
-                                    <div class="value">KSU -1050</div>
+                                    <div class="value">BGSU +640</div>
+                                    <div class="value">KSU -1000</div>
                                 </div>
                             </div>
                             <div class="line-box">
@@ -3748,6 +4583,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WCBC</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SUU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">36.5</div>
                             <div class="stat-label">PPG</div>
@@ -3764,6 +4604,11 @@
                             <div class="stat-home stat-worse">27.7%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">56.7%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">74.6%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">28.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">36.4</div>
@@ -3774,13 +4619,18 @@
                             <div class="stat-home stat-better">13.7</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">56.7%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">74.6%</div>
+                            <div class="stat-away stat-worse">6.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">10.6</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">WCBC</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">SUU</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">3.0</div>
                             <div class="stat-label">STL/G</div>
@@ -3792,9 +4642,24 @@
                             <div class="stat-home stat-better">4.9</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">22.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">25.9</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">16.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">14.1</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.31</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">0.97</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">26.8%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">54.2%</div>
                         </div>
                     </div>
                 </div>
@@ -3865,6 +4730,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">NMHU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UNM</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">56.0</div>
                             <div class="stat-label">PPG</div>
@@ -3881,6 +4751,11 @@
                             <div class="stat-home stat-better">32.3%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">68.3%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">72.2%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">30.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-better">36.1</div>
@@ -3891,13 +4766,18 @@
                             <div class="stat-home stat-better">13.9</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">68.3%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">72.2%</div>
+                            <div class="stat-away stat-better">10.5</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">10.0</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">NMHU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">UNM</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">6.0</div>
                             <div class="stat-label">STL/G</div>
@@ -3909,9 +4789,24 @@
                             <div class="stat-home stat-worse">2.1</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">19.5</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-better">26.1</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">24.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">11.7</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.4</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.18</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">44.4%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">53.2%</div>
                         </div>
                     </div>
                 </div>
@@ -3983,6 +4878,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CBU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">COLO</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">75.4</div>
                             <div class="stat-label">PPG</div>
@@ -3999,6 +4899,11 @@
                             <div class="stat-home stat-better">42.1%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">69.4%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">74.8%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">43.0</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">37.4</div>
@@ -4009,13 +4914,18 @@
                             <div class="stat-home stat-better">18.6</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">69.4%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">74.8%</div>
+                            <div class="stat-away stat-better">15.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-worse">10.9</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">CBU</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">COLO</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">7.3</div>
                             <div class="stat-label">STL/G</div>
@@ -4027,9 +4937,24 @@
                             <div class="stat-home stat-better">4.0</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">28.0</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">26.6</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">12.0</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">9.7</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">0.99</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-better">1.91</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-worse">50.0%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-better">55.4%</div>
                         </div>
                     </div>
                 </div>
@@ -4101,6 +5026,11 @@
                 <div class="stats-grid">
                     <div class="stats-table">
                         <div class="stats-table-title">Offensive Stats</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PORT</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">STAN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-better">83.5</div>
                             <div class="stat-label">PPG</div>
@@ -4117,6 +5047,11 @@
                             <div class="stat-home stat-better">33.5%</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-worse">70.9%</div>
+                            <div class="stat-label">FT%</div>
+                            <div class="stat-home stat-better">74.1%</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-better">37.9</div>
                             <div class="stat-label">RPG</div>
                             <div class="stat-home stat-worse">37.1</div>
@@ -4127,13 +5062,18 @@
                             <div class="stat-home stat-worse">12.9</div>
                         </div>
                         <div class="stat-row">
-                            <div class="stat-away stat-worse">70.9%</div>
-                            <div class="stat-label">FT%</div>
-                            <div class="stat-home stat-better">74.1%</div>
+                            <div class="stat-away stat-worse">9.0</div>
+                            <div class="stat-label">OFF REB</div>
+                            <div class="stat-home stat-better">12.9</div>
                         </div>
                     </div>
                     <div class="stats-table">
-                        <div class="stats-table-title">Defensive Stats</div>
+                        <div class="stats-table-title">Defensive & Efficiency</div>
+                        <div class="team-header-row">
+                            <div class="team-header-away">PORT</div>
+                            <div class="stat-label">STAT</div>
+                            <div class="team-header-home">STAN</div>
+                        </div>
                         <div class="stat-row">
                             <div class="stat-away stat-worse">7.0</div>
                             <div class="stat-label">STL/G</div>
@@ -4145,9 +5085,24 @@
                             <div class="stat-home stat-better">3.9</div>
                         </div>
                         <div class="stat-row">
+                            <div class="stat-away stat-better">28.9</div>
+                            <div class="stat-label">DEF REB</div>
+                            <div class="stat-home stat-worse">24.3</div>
+                        </div>
+                        <div class="stat-row">
                             <div class="stat-away stat-worse">15.6</div>
                             <div class="stat-label">TO/G</div>
                             <div class="stat-home stat-better">10.6</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">1.26</div>
+                            <div class="stat-label">AST/TO</div>
+                            <div class="stat-home stat-worse">1.22</div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-away stat-better">60.1%</div>
+                            <div class="stat-label">2PT%</div>
+                            <div class="stat-home stat-worse">48.3%</div>
                         </div>
                     </div>
                 </div>
