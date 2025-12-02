@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handicapping Hub Archive | BetLegend Picks</title>
+<meta name="description" content="Browse the complete Handicapping Hub archive. Access historical sports betting data, statistics, injuries, and betting lines by date.">
+<meta name="keywords" content="handicapping hub archive, sports betting history, NBA stats archive, NFL betting data, NHL statistics, college basketball data, NCAAF betting archive">
+<link rel="canonical" href="https://www.betlegendpicks.com/handicapping-hub-calendar.html">
+<link href="https://www.betlegendpicks.com/newlogo.png" rel="icon" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary-glow: #fd5000;
+        --primary-glow-light: #ff7733;
+        --success-color: #39FF14;
+        --warning-color: #FFD700;
+        --dark-bg: #0a0a0a;
+        --card-bg: rgba(15, 20, 30, 0.95);
+        --border-color: rgba(253, 80, 0, 0.3);
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        background-attachment: fixed;
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        padding: 40px 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .title {
+        font-size: 3rem;
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(45deg, #fff, var(--primary-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
+    .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-glow);
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .month-selector {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .month-selector label {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-right: 15px;
+    }
+
+    .month-dropdown {
+        background: var(--card-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .month-dropdown:focus {
+        outline: none;
+        border-color: var(--primary-glow);
+    }
+
+    .calendar-container {
+        display: none;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        padding: 30px;
+        backdrop-filter: blur(20px);
+    }
+
+    .calendar-container.active {
+        display: block;
+    }
+
+    .calendar-month-title {
+        font-size: 1.8rem;
+        font-family: 'Orbitron', sans-serif;
+        color: var(--primary-glow);
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .calendar-day-header {
+        text-align: center;
+        font-weight: 600;
+        color: var(--text-secondary);
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .calendar-day .day-number {
+        font-weight: 600;
+    }
+
+    .calendar-day .game-count {
+        font-size: 0.65rem;
+        color: var(--text-secondary);
+        margin-top: 2px;
+    }
+
+    .calendar-day.available {
+        background: rgba(253, 80, 0, 0.1);
+        border-color: var(--primary-glow);
+        color: var(--primary-glow);
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .calendar-day.available:hover {
+        background: rgba(253, 80, 0, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(253, 80, 0, 0.3);
+    }
+
+    .calendar-day.available .game-count {
+        color: var(--primary-glow-light);
+    }
+
+    .calendar-day.current {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(253, 80, 0, 0.3));
+        border: 2px solid var(--warning-color);
+        color: var(--warning-color);
+        font-weight: 900;
+    }
+
+    .calendar-day.current::after {
+        content: 'TODAY';
+        position: absolute;
+        bottom: 2px;
+        font-size: 0.5rem;
+        color: var(--warning-color);
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+
+    .legend-box {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+    }
+
+    .legend-box.available {
+        background: rgba(253, 80, 0, 0.3);
+        border: 1px solid var(--primary-glow);
+    }
+
+    .legend-box.today {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(253, 80, 0, 0.3));
+        border: 2px solid var(--warning-color);
+    }
+
+    .back-link {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .back-link a {
+        color: var(--primary-glow);
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 12px 30px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        display: inline-block;
+        transition: all 0.3s ease;
+        margin: 5px;
+    }
+
+    .back-link a:hover {
+        background: rgba(253, 80, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .calendar-grid {
+            gap: 5px;
+        }
+
+        .calendar-day {
+            font-size: 0.9rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .stats-bar {
+            gap: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1 class="title">Handicapping Hub Archive</h1>
+        <p class="subtitle">Browse historical stats, injuries, and betting lines by date</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="total-days">2</div>
+            <div class="stat-label">Days Archived</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Sports Covered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">37+</div>
+            <div class="stat-label">Games Per Day</div>
+        </div>
+    </div>
+
+    <div class="month-selector">
+        <label for="month-select">Select Month:</label>
+        <select id="month-select" class="month-dropdown" onchange="showMonth(this.value)">
+            <option value="december-2025">December 2025</option>
+            <option value="november-2025">November 2025</option>
+        </select>
+    </div>
+
+    <!-- December 2025 Calendar -->
+    <div id="december-2025-calendar" class="calendar-container active">
+        <h2 class="calendar-month-title">December 2025</h2>
+
+        <div class="calendar-grid">
+            <div class="calendar-day-header">Sun</div>
+            <div class="calendar-day-header">Mon</div>
+            <div class="calendar-day-header">Tue</div>
+            <div class="calendar-day-header">Wed</div>
+            <div class="calendar-day-header">Thu</div>
+            <div class="calendar-day-header">Fri</div>
+            <div class="calendar-day-header">Sat</div>
+
+            <!-- Week 1: Dec 1-6 -->
+            <div class="calendar-day"></div>
+            <div class="calendar-day current available" onclick="window.location.href='handicapping-hub.html'">
+                <span class="day-number">1</span>
+                <span class="game-count">37 games</span>
+            </div>
+            <div class="calendar-day"><span class="day-number">2</span></div>
+            <div class="calendar-day"><span class="day-number">3</span></div>
+            <div class="calendar-day"><span class="day-number">4</span></div>
+            <div class="calendar-day"><span class="day-number">5</span></div>
+            <div class="calendar-day"><span class="day-number">6</span></div>
+
+            <!-- Week 2: Dec 7-13 -->
+            <div class="calendar-day"><span class="day-number">7</span></div>
+            <div class="calendar-day"><span class="day-number">8</span></div>
+            <div class="calendar-day"><span class="day-number">9</span></div>
+            <div class="calendar-day"><span class="day-number">10</span></div>
+            <div class="calendar-day"><span class="day-number">11</span></div>
+            <div class="calendar-day"><span class="day-number">12</span></div>
+            <div class="calendar-day"><span class="day-number">13</span></div>
+
+            <!-- Week 3: Dec 14-20 -->
+            <div class="calendar-day"><span class="day-number">14</span></div>
+            <div class="calendar-day"><span class="day-number">15</span></div>
+            <div class="calendar-day"><span class="day-number">16</span></div>
+            <div class="calendar-day"><span class="day-number">17</span></div>
+            <div class="calendar-day"><span class="day-number">18</span></div>
+            <div class="calendar-day"><span class="day-number">19</span></div>
+            <div class="calendar-day"><span class="day-number">20</span></div>
+
+            <!-- Week 4: Dec 21-27 -->
+            <div class="calendar-day"><span class="day-number">21</span></div>
+            <div class="calendar-day"><span class="day-number">22</span></div>
+            <div class="calendar-day"><span class="day-number">23</span></div>
+            <div class="calendar-day"><span class="day-number">24</span></div>
+            <div class="calendar-day"><span class="day-number">25</span></div>
+            <div class="calendar-day"><span class="day-number">26</span></div>
+            <div class="calendar-day"><span class="day-number">27</span></div>
+
+            <!-- Week 5: Dec 28-31 -->
+            <div class="calendar-day"><span class="day-number">28</span></div>
+            <div class="calendar-day"><span class="day-number">29</span></div>
+            <div class="calendar-day"><span class="day-number">30</span></div>
+            <div class="calendar-day"><span class="day-number">31</span></div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box available"></div>
+                <span>Archive Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box today"></div>
+                <span>Today</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- November 2025 Calendar -->
+    <div id="november-2025-calendar" class="calendar-container">
+        <h2 class="calendar-month-title">November 2025</h2>
+
+        <div class="calendar-grid">
+            <div class="calendar-day-header">Sun</div>
+            <div class="calendar-day-header">Mon</div>
+            <div class="calendar-day-header">Tue</div>
+            <div class="calendar-day-header">Wed</div>
+            <div class="calendar-day-header">Thu</div>
+            <div class="calendar-day-header">Fri</div>
+            <div class="calendar-day-header">Sat</div>
+
+            <!-- Week 1 -->
+            <div class="calendar-day"></div>
+            <div class="calendar-day"></div>
+            <div class="calendar-day"></div>
+            <div class="calendar-day"></div>
+            <div class="calendar-day"></div>
+            <div class="calendar-day"></div>
+            <div class="calendar-day"><span class="day-number">1</span></div>
+
+            <!-- Week 2 -->
+            <div class="calendar-day"><span class="day-number">2</span></div>
+            <div class="calendar-day"><span class="day-number">3</span></div>
+            <div class="calendar-day"><span class="day-number">4</span></div>
+            <div class="calendar-day"><span class="day-number">5</span></div>
+            <div class="calendar-day"><span class="day-number">6</span></div>
+            <div class="calendar-day"><span class="day-number">7</span></div>
+            <div class="calendar-day"><span class="day-number">8</span></div>
+
+            <!-- Week 3 -->
+            <div class="calendar-day"><span class="day-number">9</span></div>
+            <div class="calendar-day"><span class="day-number">10</span></div>
+            <div class="calendar-day"><span class="day-number">11</span></div>
+            <div class="calendar-day"><span class="day-number">12</span></div>
+            <div class="calendar-day"><span class="day-number">13</span></div>
+            <div class="calendar-day"><span class="day-number">14</span></div>
+            <div class="calendar-day"><span class="day-number">15</span></div>
+
+            <!-- Week 4 -->
+            <div class="calendar-day"><span class="day-number">16</span></div>
+            <div class="calendar-day"><span class="day-number">17</span></div>
+            <div class="calendar-day"><span class="day-number">18</span></div>
+            <div class="calendar-day"><span class="day-number">19</span></div>
+            <div class="calendar-day"><span class="day-number">20</span></div>
+            <div class="calendar-day"><span class="day-number">21</span></div>
+            <div class="calendar-day"><span class="day-number">22</span></div>
+
+            <!-- Week 5 -->
+            <div class="calendar-day"><span class="day-number">23</span></div>
+            <div class="calendar-day"><span class="day-number">24</span></div>
+            <div class="calendar-day"><span class="day-number">25</span></div>
+            <div class="calendar-day"><span class="day-number">26</span></div>
+            <div class="calendar-day"><span class="day-number">27</span></div>
+            <div class="calendar-day"><span class="day-number">28</span></div>
+            <div class="calendar-day"><span class="day-number">29</span></div>
+
+            <!-- Week 6 -->
+            <div class="calendar-day available" onclick="window.location.href='handicapping-hub-2025-11-30.html'">
+                <span class="day-number">30</span>
+                <span class="game-count">Archived</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box available"></div>
+                <span>Archive Available</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="handicapping-hub.html">View Today's Handicapping Hub</a>
+        <a href="index.html">Back to Home</a>
+    </div>
+</div>
+
+<script>
+function showMonth(month) {
+    // Hide all calendars
+    document.querySelectorAll('.calendar-container').forEach(cal => {
+        cal.classList.remove('active');
+    });
+
+    // Show selected calendar
+    document.getElementById(month + '-calendar').classList.add('active');
+}
+
+// Update today marker based on current date
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth(); // 0-indexed
+    const year = today.getFullYear();
+
+    // Remove current class from all days
+    document.querySelectorAll('.calendar-day.current').forEach(el => {
+        el.classList.remove('current');
+    });
+
+    // Find today's calendar and mark it
+    const monthNames = ['january', 'february', 'march', 'april', 'may', 'june',
+                        'july', 'august', 'september', 'october', 'november', 'december'];
+    const calendarId = monthNames[month] + '-' + year + '-calendar';
+    const calendar = document.getElementById(calendarId);
+
+    if (calendar) {
+        const days = calendar.querySelectorAll('.calendar-day');
+        days.forEach(dayEl => {
+            const dayNum = dayEl.querySelector('.day-number');
+            if (dayNum && parseInt(dayNum.textContent) === day) {
+                dayEl.classList.add('current');
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>
