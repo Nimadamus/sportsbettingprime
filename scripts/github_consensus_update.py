@@ -7,8 +7,8 @@ Runs on GitHub's servers to update the Sharp Consensus page daily.
 WHAT THIS SCRIPT DOES:
 1. Scrapes top contestants from Covers.com King of Covers
 2. Aggregates their pending picks
-3. Creates a dated archive page
-4. Updates the main sharp-consensus.html with new data
+3. Groups picks by game (card layout)
+4. Updates both sharp-consensus.html and covers-consensus.html
 (Git commit/push handled by GitHub Actions workflow)
 """
 
@@ -17,7 +17,7 @@ import re
 import json
 import shutil
 from datetime import datetime, timedelta
-from collections import Counter
+from collections import Counter, defaultdict
 import time
 
 import requests
@@ -207,7 +207,7 @@ class CoversConsensusScraper:
         return self.aggregate_picks()
 
     def aggregate_picks(self):
-        """Aggregate and filter picks"""
+        """Aggregate picks - return ALL picks with 2+ experts"""
         aggregated = []
 
         for pick_key, count in self.pick_counter.most_common():
@@ -227,22 +227,222 @@ class CoversConsensusScraper:
 
         aggregated.sort(key=lambda x: -x['count'])
         print(f"\n[OK] Aggregated {len(aggregated)} consensus picks")
-        return aggregated[:100]
+        return aggregated  # Return ALL, not limited
+
+
+def group_picks_by_game(picks):
+    """Group picks by matchup, sorted by highest consensus"""
+    games = defaultdict(list)
+
+    for pick in picks:
+        key = (pick['sport'], pick['matchup'])
+        games[key].append(pick)
+
+    # Sort picks within each game by count
+    for key in games:
+        games[key].sort(key=lambda x: -x['count'])
+
+    # Convert to list and sort by highest consensus pick per game
+    game_list = []
+    for (sport, matchup), game_picks in games.items():
+        top_consensus = max(p['count'] for p in game_picks)
+        game_list.append({
+            'sport': sport,
+            'matchup': matchup,
+            'top_consensus': top_consensus,
+            'picks': game_picks
+        })
+
+    # Sort games by top consensus (highest first)
+    game_list.sort(key=lambda x: -x['top_consensus'])
+
+    return game_list
+
+
+def get_consensus_class(count):
+    """Get CSS class based on consensus count"""
+    if count >= 10:
+        return 'consensus-high'
+    elif count >= 5:
+        return 'consensus-medium'
+    return 'consensus-low'
+
+
+def get_pick_class(pick_type):
+    """Get CSS class based on pick type"""
+    if 'Over' in pick_type:
+        return 'pick-total-over'
+    elif 'Under' in pick_type:
+        return 'pick-total-under'
+    elif 'Spread' in pick_type:
+        return 'pick-spread'
+    return 'pick-moneyline'
+
+
+def get_sport_class(sport):
+    """Get CSS class for sport tag"""
+    return {
+        'NFL': 'sport-nfl',
+        'NBA': 'sport-nba',
+        'NHL': 'sport-nhl',
+        'College Basketball': 'sport-ncaab',
+        'College Football': 'sport-ncaaf'
+    }.get(sport, 'sport-nfl')
+
+
+def get_sport_abbrev(sport):
+    """Get sport abbreviation"""
+    return {
+        'College Basketball': 'NCAAB',
+        'College Football': 'NCAAF'
+    }.get(sport, sport)
+
+
+def generate_game_cards_html(games):
+    """Generate HTML for game cards"""
+    cards_html = []
+
+    for game in games:
+        picks_html = []
+        for pick in game['picks']:
+            pick_row = f'''                            <div class="pick-row">
+                                <span class="consensus-badge {get_consensus_class(pick['count'])}">{pick['count']}x</span>
+                                <span class="pick-type-badge {get_pick_class(pick['pickType'])}">{pick['pickType']}</span>
+                                <span class="pick-value">{pick['pick']}</span>
+                            </div>'''
+            picks_html.append(pick_row)
+
+        card = f'''                <div class="game-card" data-sport="{game['sport']}">
+                    <div class="game-header">
+                        <span class="sport-tag {get_sport_class(game['sport'])}">{get_sport_abbrev(game['sport'])}</span>
+                        <span class="game-matchup">{game['matchup']}</span>
+                        <span class="game-top-consensus">{game['top_consensus']}x TOP</span>
+                    </div>
+                    <div class="game-picks">
+{chr(10).join(picks_html)}
+                    </div>
+                </div>'''
+        cards_html.append(card)
+
+    return '\n'.join(cards_html)
+
+
+def update_covers_consensus(picks):
+    """Update covers-consensus.html with game card layout"""
+    main_file = os.path.join(REPO, "covers-consensus.html")
+
+    if not os.path.exists(main_file):
+        print(f"  [ERROR] covers-consensus.html not found")
+        return False
+
+    with open(main_file, 'r', encoding='utf-8') as f:
+        html = f.read()
+
+    # Group picks by game
+    games = group_picks_by_game(picks)
+
+    # Generate game cards HTML
+    cards_html = generate_game_cards_html(games)
+
+    # Calculate stats
+    total_picks = sum(p['count'] for p in picks)
+    num_games = len(games)
+    num_sports = len(set(p['sport'] for p in picks))
+    top_consensus = max(p['count'] for p in picks) if picks else 0
+
+    # Update date
+    html = re.sub(
+        r'<div class="update-date">📅[^<]+</div>',
+        f'<div class="update-date">📅 {DATE_FULL}</div>',
+        html
+    )
+
+    # Update stats
+    html = re.sub(
+        r'(<div class="stat-value">)\d+(</div>\s*<div class="stat-label">Total Picks)',
+        f'\\g<1>{len(picks)}\\2',
+        html
+    )
+    html = re.sub(
+        r'(<div class="stat-value">)\d+(</div>\s*<div class="stat-label">Games)',
+        f'\\g<1>{num_games}\\2',
+        html
+    )
+    html = re.sub(
+        r'(<div class="stat-value">)\d+(</div>\s*<div class="stat-label">Sports)',
+        f'\\g<1>{num_sports}\\2',
+        html
+    )
+    html = re.sub(
+        r'(<div class="stat-value">)\d+x(</div>\s*<div class="stat-label">Top Consensus)',
+        f'\\g<1>{top_consensus}x\\2',
+        html
+    )
+
+    # Replace games container content
+    games_start = html.find('<div class="games-container">')
+    if games_start == -1:
+        print("  [ERROR] Could not find games-container")
+        return False
+
+    # Find the closing div for games-container
+    # Count nested divs to find the right closing tag
+    pos = games_start + len('<div class="games-container">')
+    depth = 1
+    while depth > 0 and pos < len(html):
+        if html[pos:pos+4] == '<div':
+            depth += 1
+        elif html[pos:pos+6] == '</div>':
+            depth -= 1
+            if depth == 0:
+                break
+        pos += 1
+
+    games_end = pos
+
+    # Replace content
+    new_games_section = f'''<div class="games-container">
+{cards_html}
+            </div>'''
+
+    html = html[:games_start] + new_games_section + html[games_end + 6:]
+
+    # Update timestamp
+    timestamp = TODAY.strftime('%B %d, %Y at %I:%M %p ET')
+    html = re.sub(
+        r'<strong>Last Updated:</strong>[^<]+',
+        f'<strong>Last Updated:</strong> {timestamp}',
+        html
+    )
+
+    # Save updated file
+    with open(main_file, 'w', encoding='utf-8') as f:
+        f.write(html)
+
+    print(f"  Updated covers-consensus.html with {len(games)} games, {len(picks)} picks")
+
+    # Create dated archive
+    archive_file = os.path.join(REPO, f"covers-consensus-{DATE_STR}.html")
+    with open(archive_file, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"  Created archive: covers-consensus-{DATE_STR}.html")
+
+    return True
 
 
 def update_sharp_consensus(picks):
-    """Update the sharp-consensus.html with new data"""
+    """Update sharp-consensus.html in consensus_library"""
     main_file = os.path.join(CONSENSUS_DIR, "sharp-consensus.html")
 
     if not os.path.exists(main_file):
-        print(f"  [ERROR] Main file not found: {main_file}")
+        print(f"  [ERROR] sharp-consensus.html not found")
         return False
 
     with open(main_file, 'r', encoding='utf-8') as f:
         html = f.read()
 
     # Generate JavaScript data
-    js_data = json.dumps(picks, indent=8)
+    js_data = json.dumps(picks[:100], indent=8)  # Top 100 for this view
 
     # Replace consensusData
     pattern = r'const consensusData = \[[\s\S]*?\];'
@@ -256,9 +456,9 @@ def update_sharp_consensus(picks):
         html
     )
 
-    # Update date in header
+    # Update date displays
     html = re.sub(
-        r'December \d{2}, 2025',
+        r'(December|January|February|March|April|May|June|July|August|September|October|November) \d{2}, 2025',
         DATE_DISPLAY,
         html
     )
@@ -289,7 +489,7 @@ def update_sharp_consensus(picks):
     with open(main_file, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    print(f"  Updated sharp-consensus.html with {len(picks)} picks")
+    print(f"  Updated sharp-consensus.html with {min(len(picks), 100)} picks")
 
     # Create dated archive
     archive_file = os.path.join(CONSENSUS_DIR, f"sharp-consensus-{DATE_STR}.html")
@@ -302,39 +502,22 @@ def update_sharp_consensus(picks):
 
 
 def update_index_html():
-    """Update index.html to point to new consensus page"""
+    """Update index.html links"""
     index_file = os.path.join(REPO, "index.html")
 
     if not os.path.exists(index_file):
         return
 
-    with open(index_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # Update link to sharp consensus
-    content = re.sub(
-        r'href="consensus_library/sharp-consensus-\d{4}-\d{2}-\d{2}\.html[^"]*"',
-        f'href="consensus_library/sharp-consensus-{DATE_STR}.html?v={DATE_STR.replace("-", "")}"',
-        content
-    )
-
-    with open(index_file, 'w', encoding='utf-8') as f:
-        f.write(content)
-
-    print(f"  Updated index.html")
+    # No changes needed - links already point to consensus pages
+    print(f"  index.html OK")
 
 
 def main():
     print("=" * 60)
-    print("SPORTSBETTINGPRIME SHARP CONSENSUS UPDATE")
+    print("SPORTSBETTINGPRIME CONSENSUS UPDATE")
     print(f"Date: {DATE_FULL}")
     print(f"Running from: {REPO}")
     print("=" * 60)
-
-    # Check if consensus_library exists
-    if not os.path.exists(CONSENSUS_DIR):
-        print(f"[ERROR] Consensus library not found: {CONSENSUS_DIR}")
-        return 1
 
     # 1. Scrape data
     print("\n[1] Scraping Covers.com...")
@@ -345,18 +528,25 @@ def main():
         print("\n[ERROR] No picks found - skipping update")
         return 1
 
-    # 2. Update sharp-consensus.html
-    print("\n[2] Updating sharp-consensus.html...")
-    if not update_sharp_consensus(picks):
-        return 1
+    # 2. Update covers-consensus.html (game cards layout)
+    print("\n[2] Updating covers-consensus.html (game cards)...")
+    update_covers_consensus(picks)
 
-    # 3. Update index.html
-    print("\n[3] Updating index.html...")
+    # 3. Update sharp-consensus.html (list layout)
+    print("\n[3] Updating sharp-consensus.html...")
+    if os.path.exists(CONSENSUS_DIR):
+        update_sharp_consensus(picks)
+    else:
+        print(f"  Skipping - consensus_library not found")
+
+    # 4. Update index.html
+    print("\n[4] Checking index.html...")
     update_index_html()
 
     print("\n" + "=" * 60)
-    print("SHARP CONSENSUS UPDATE COMPLETE!")
-    print(f"  - {len(picks)} consensus picks")
+    print("CONSENSUS UPDATE COMPLETE!")
+    print(f"  - {len(picks)} total consensus picks")
+    print(f"  - {len(group_picks_by_game(picks))} games")
     print(f"  - Highest consensus: {max(p['count'] for p in picks)}x")
     print("=" * 60)
     return 0
