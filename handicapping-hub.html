@@ -141,22 +141,32 @@
             letter-spacing: 1px;
         }
         .teams-layout {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
         .team-section {
-            padding: 25px 30px;
+            padding: 20px 25px;
             border-top: 1px solid #eee;
         }
-        .team-section.away { background: #fafafa; }
-        .team-section.home { background: #fff; }
+        .team-section.away {
+            grid-row: 1;
+            grid-column: 1;
+            background: #fafafa;
+            border-right: 1px solid #e0e0e0;
+        }
+        .team-section.home {
+            grid-row: 1;
+            grid-column: 2;
+            background: #fff;
+        }
         .team-section-header {
+            display: none; /* Teams already shown in matchup header above */
+        }
+        /* Stack offensive and defensive vertically under each team */
+        .team-stats-grid {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
         }
         .team-section-logo { width: 50px; height: 50px; object-fit: contain; }
         .team-section-info h4 {
@@ -169,11 +179,6 @@
             font-size: 14px;
             color: #666;
         }
-        .team-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
         .stats-column {
             background: #fff;
             border-radius: 8px;
@@ -183,7 +188,7 @@
         .team-section.away .stats-column { background: #fff; }
         .team-section.home .stats-column { background: #f8f8f8; }
         .stats-column-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -214,6 +219,8 @@
         .stat-item .value.good { color: #16a34a; }
         .stat-item .value.bad { color: #dc2626; }
         .middle-section {
+            grid-row: 2;
+            grid-column: 1 / -1; /* Span both columns */
             background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
             padding: 25px 30px;
             border-top: 1px solid #333;
@@ -473,6 +480,46 @@
             .injury-grid { grid-template-columns: 1fr; }
             .l10-grid { grid-template-columns: 1fr; }
         }
+    
+        .alerts-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .alert-icon { font-size: 20px; }
+        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
+        .alerts-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .alert-item {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sport-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .alert-text { flex: 1; }
+
     </style>
 </head>
 <body>
@@ -494,6 +541,37 @@
         </div>
     </div>
     <div class="container">
+
+        <div class="alerts-banner">
+            <div class="alerts-header">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-title">LINE MOVEMENTS DETECTED</span>
+                <span class="alert-time">11:00 AM</span>
+            </div>
+            <div class="alerts-scroll">
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Portland Trail Blazers @ Cleveland Cavaliers (NBA) - Portland Trail Blazers ML moved from 370 to 440</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Denver Nuggets @ Indiana Pacers (NBA) - Denver Nuggets ML moved from -305 to -340</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: San Antonio Spurs @ Orlando Magic (NBA) - San Antonio Spurs ML moved from 250 to 270</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">TOTAL MOVE: San Antonio Spurs @ Orlando Magic (NBA) - Total moved from 232.5 to 236.5 (up)</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">TOTAL MOVE: Los Angeles Clippers @ Atlanta Hawks (NBA) - Total moved from 228.5 to 226.5 (down)</span>
+                </div>
+            </div>
+        </div>
+
         <div id="NBA" class="section active">
             <div class="section-header">
                 <h2>NBA Games</h2><span class="count">9 games today</span>
@@ -523,7 +601,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Portland Trail Blazers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png" alt="Portland Trail Blazers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -638,7 +716,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Cleveland Cavaliers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png" alt="Cleveland Cavaliers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -801,7 +879,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Denver Nuggets">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png" alt="Denver Nuggets" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -923,7 +1001,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Indiana Pacers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png" alt="Indiana Pacers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1095,7 +1173,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="San Antonio Spurs">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png" alt="San Antonio Spurs" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1189,7 +1267,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Orlando Magic">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png" alt="Orlando Magic" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1352,7 +1430,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="LA Clippers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png" alt="LA Clippers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1453,7 +1531,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Atlanta Hawks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png" alt="Atlanta Hawks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1625,7 +1703,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Charlotte Hornets">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png" alt="Charlotte Hornets" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1740,7 +1818,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="New York Knicks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png" alt="New York Knicks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -1912,7 +1990,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Brooklyn Nets">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bkn.png" alt="Brooklyn Nets" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2034,7 +2112,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Chicago Bulls">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png" alt="Chicago Bulls" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2197,7 +2275,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Sacramento Kings">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png" alt="Sacramento Kings" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2291,7 +2369,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Houston Rockets">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png" alt="Houston Rockets" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2454,7 +2532,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Detroit Pistons">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png" alt="Detroit Pistons" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2555,7 +2633,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Milwaukee Bucks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png" alt="Milwaukee Bucks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2727,7 +2805,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Miami Heat">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png" alt="Miami Heat" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -2835,7 +2913,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Dallas Mavericks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png" alt="Dallas Mavericks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3018,7 +3096,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Dallas Stars">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/dal.png" alt="Dallas Stars" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3087,7 +3165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="New Jersey Devils">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nj.png" alt="New Jersey Devils" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3234,7 +3312,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Winnipeg Jets">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wpg.png" alt="Winnipeg Jets" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3288,7 +3366,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Montreal Canadiens">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/mtl.png" alt="Montreal Canadiens" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3435,7 +3513,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Buffalo Sabres">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/buf.png" alt="Buffalo Sabres" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3497,7 +3575,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Philadelphia Flyers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png" alt="Philadelphia Flyers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3644,7 +3722,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Utah Mammoth">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/uta.png" alt="Utah Mammoth" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3713,7 +3791,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Anaheim Ducks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ana.png" alt="Anaheim Ducks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3869,7 +3947,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Washington Capitals">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png" alt="Washington Capitals" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -3938,7 +4016,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="San Jose Sharks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sj.png" alt="San Jose Sharks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4090,7 +4168,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Indiana Hoosiers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/84.png" alt="Indiana Hoosiers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4133,7 +4211,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Minnesota Golden Gophers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/135.png" alt="Minnesota Golden Gophers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4291,7 +4369,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Louisville Cardinals">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/97.png" alt="Louisville Cardinals" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4334,7 +4412,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Arkansas Razorbacks">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/8.png" alt="Arkansas Razorbacks" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4491,7 +4569,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Clemson Tigers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/228.png" alt="Clemson Tigers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4534,7 +4612,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Alabama Crimson Tide">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" alt="Alabama Crimson Tide" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4692,7 +4770,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="Alcorn State Braves">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png" alt="Alcorn State Braves" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4735,7 +4813,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Iowa State Cyclones">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" alt="Iowa State Cyclones" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4894,7 +4972,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="California Baptist Lancers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2856.png" alt="California Baptist Lancers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -4937,7 +5015,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="BYU Cougars">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" alt="BYU Cougars" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -5095,7 +5173,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="SMU Mustangs">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png" alt="SMU Mustangs" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -5138,7 +5216,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Vanderbilt Commodores">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/238.png" alt="Vanderbilt Commodores" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -5297,7 +5375,7 @@
                     </div>
                 </div>
                 <div class="teams-layout">
-                <div class="team-section away">
+                <div class="team-section away" data-team="NC State Wolfpack">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/152.png" alt="NC State Wolfpack" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
@@ -5340,7 +5418,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-section home">
+                <div class="team-section home" data-team="Auburn Tigers">
                     <div class="team-section-header">
                         <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2.png" alt="Auburn Tigers" class="team-section-logo" onerror="this.style.display='none'">
                         <div class="team-section-info">
