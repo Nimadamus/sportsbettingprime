@@ -246,8 +246,11 @@ jobs:
               if not success:
                   all_success = False
 
+          # Always succeed so git commit happens
           import sys
-          sys.exit(0 if all_success else 1)
+          succeeded = sum(1 for s in results.values() if s)
+          print(f"\n{succeeded}/{len(results)} sites updated")
+          sys.exit(0)
           PYTHONSCRIPT
 
       - name: Commit and push changes
