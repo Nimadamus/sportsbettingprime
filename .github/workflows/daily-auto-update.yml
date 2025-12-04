@@ -5,6 +5,9 @@ on:
     - cron: '0 15 * * *'  # 10:00 AM Eastern
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-all-sites:
     runs-on: ubuntu-latest
