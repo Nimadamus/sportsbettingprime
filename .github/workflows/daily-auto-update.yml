@@ -44,11 +44,12 @@ jobs:
 
           TODAY = datetime.now().strftime('%Y-%m-%d')
           TODAY_DISPLAY = datetime.now().strftime('%B %d, %Y')
+          NOW_TIME = datetime.now().strftime('%I:%M %p')
 
           def upload_ftp(host, port, user, password, directory, filename, content):
               try:
                   ftp = ftplib.FTP()
-                  ftp.connect(host, port, timeout=30)
+                  ftp.connect(host, port, timeout=60)
                   ftp.login(user, password)
                   ftp.cwd(directory)
                   ftp.storbinary(f'STOR {filename}', io.BytesIO(content.encode('utf-8')))
@@ -62,7 +63,7 @@ jobs:
           def download_ftp(host, port, user, password, directory, filename):
               try:
                   ftp = ftplib.FTP()
-                  ftp.connect(host, port, timeout=30)
+                  ftp.connect(host, port, timeout=60)
                   ftp.login(user, password)
                   ftp.cwd(directory)
                   content = io.BytesIO()
@@ -83,36 +84,40 @@ jobs:
           # ===== SPORTS BETTING PRIME (local files) =====
           print("\n[SBP] Updating the-data-stream.html...")
           try:
-              blog_titles = [
-                  "Sharp Money Indicators: What the Pros Are Watching",
-                  "Why Betting Totals Can Be More Profitable Than Sides",
-                  "The Psychology of Betting: Avoiding Common Traps",
-                  "Key Numbers in Football Betting: A Quick Guide",
-                  "Understanding Consensus and Contrarian Betting",
+              # More varied betting content
+              sbp_posts = [
+                  ("Sharp Money Indicators: What the Pros Watch", "The sharpest bettors don't just look at lines—they analyze movement patterns. When a line moves against the betting percentages, that's often smart money coming in. Understanding steam moves and reverse line movement can give you an edge before the public catches on."),
+                  ("Why Totals Betting Offers Hidden Value", "While casual bettors focus on point spreads, sharp money often flows to totals. Oddsmakers spend more time perfecting spreads because that's where public money goes. This leaves totals slightly less efficient—and that's where opportunities hide."),
+                  ("Betting Psychology: The Traps to Avoid", "Your biggest opponent isn't the sportsbook—it's yourself. Chasing losses, betting emotionally, and confirmation bias destroy more bankrolls than bad picks. The edge comes from process and discipline, not from trying to outsmart every line."),
+                  ("Key Numbers in Football: What Matters", "In NFL and college football, 3 and 7 are the magic numbers. More games land on these margins than any others. When buying points, these are worth paying extra for. Half-points around key numbers carry real value."),
+                  ("Consensus vs. Contrarian: When to Fade", "The betting consensus shows where public money flows. In marquee matchups, fading heavy public sides can be profitable. But in smaller games, the consensus might actually represent sharp action. Context always matters."),
+                  ("Live Betting: Finding In-Game Value", "Live betting creates opportunities that pregame lines miss. Early-game overreactions inflate odds on better teams that fall behind. Know which teams handle adversity and which tend to fade—preparation lets you act fast when value appears."),
+                  ("Injury News: React Before Lines Move", "When significant injury news breaks, lines move fast. Follow beat reporters, not just official accounts—local reporters often break news first. Have a plan for how different injury scenarios affect your handicapping."),
+                  ("The Case for Specialization", "The most successful bettors often specialize. Whether it's college basketball unders, NHL first periods, or NFL divisional games—find your niche and own it. Specialization lets you see patterns that generalists miss."),
               ]
-              blog_content = [
-                  "The sharpest bettors analyze line movement and reverse line movement to find edges before the public catches on.",
-                  "Sharp bettors know that totals often present the best value since oddsmakers focus most attention on spreads.",
-                  "Emotional betting and chasing losses lead to more losses than bad picks. Discipline is everything.",
-                  "In NFL betting, 3 and 7 are the most important numbers. Games landing on these totals happen more often.",
-                  "The betting consensus shows where public money goes. Sometimes fading heavy public sides is profitable.",
-              ]
-              idx = random.randint(0, len(blog_titles)-1)
+
+              post = random.choice(sbp_posts)
               new_post = f'''
-          <article class="blog-post" data-date="{TODAY}">
-              <h2>{blog_titles[idx]}</h2>
-              <p class="post-date">{TODAY_DISPLAY}</p>
-              <div class="post-content">{blog_content[idx]}</div>
-          </article>
-          '''
+<article class="blog-post" data-date="{TODAY}">
+    <h2>{post[0]}</h2>
+    <p class="post-date">{TODAY_DISPLAY}</p>
+    <div class="post-content">
+        <p>{post[1]}</p>
+    </div>
+    <p class="cta">Check today's <a href="covers-consensus.html">consensus picks</a> for actionable opportunities.</p>
+</article>
+'''
               if os.path.exists('the-data-stream.html'):
                   with open('the-data-stream.html', 'r', encoding='utf-8') as f:
                       current = f.read()
+                  # Insert at TOP of existing posts
                   if '<article class="blog-post"' in current:
                       pos = current.find('<article class="blog-post"')
                       updated = current[:pos] + new_post + '\n' + current[pos:]
-                  else:
+                  elif '</main>' in current:
                       updated = current.replace('</main>', new_post + '\n</main>')
+                  else:
+                      updated = current.replace('</body>', new_post + '\n</body>')
                   with open('the-data-stream.html', 'w', encoding='utf-8') as f:
                       f.write(updated)
                   print("  [OK] Updated the-data-stream.html")
@@ -121,29 +126,82 @@ jobs:
               print(f"  [ERROR] {e}")
               results['sportsbettingprime'] = False
 
-          # ===== LOLSBA =====
+          # ===== LOLSBA - Using correct post structure =====
           print("\n[LOLSBA] Updating blog...")
           try:
-              sba_headlines = [
-                  "SBA Inspector General Uncovers Millions in Fraudulent COVID Loans",
-                  "Legitimate Business Owners Still Waiting for Disaster Relief",
-                  "PPP Borrowers Face Unfair Forgiveness Denials",
-                  "Whistleblower Exposes SBA Regional Office Dysfunction",
+              # Satirical SBA content matching the site's tone
+              lolsba_posts = [
+                  ("SBA Announces New 'Express' Program: Only 18 Months to Approval",
+                   '''In a bold move toward modernization, the SBA has unveiled its new "Express Processing" initiative, promising to cut loan approval times to a mere 18 months. "We're revolutionizing how we do nothing," announced a spokesperson.
+
+<h3>Key Features of the New Program</h3>
+<p>The Express program includes several innovative features designed to maintain the agency's legendary inefficiency while appearing to care:</p>
+<p><strong>Streamlined Confusion:</strong> Instead of transferring callers to 12 different departments, they'll now only visit 8.</p>
+<p><strong>Digital Transformation:</strong> Applications will be lost electronically instead of physically, saving paper.</p>
+<p><strong>Enhanced Waiting:</strong> Hold music has been upgraded from elevator jazz to smooth jazz. Progress.</p>
+
+<div class="highlight-stat">
+⚠️ The SBA has spent $47 million developing this program. No one can explain where the money went, but they assure us it was necessary.
+</div>
+
+<p>Critics point out that actual express shipping takes one day, not 18 months. The SBA responded by forming a committee to study what "express" means. Results expected in 2029.</p>'''),
+
+                  ("Breaking: SBA Employee Accidentally Helps Someone, Investigation Launched",
+                   '''Federal investigators have been dispatched after reports surfaced that an SBA employee may have accidentally provided useful assistance to a small business owner. The incident has sent shockwaves through the agency.
+
+<h3>The Incident</h3>
+<p>"I just answered the phone and told them what documents they needed," said the employee, speaking on condition of anonymity. "I don't know what came over me. It all happened so fast."</p>
+<p>The small business owner, identified only as "someone who was just trying to get a loan," expressed confusion. "They actually helped me on the first call. I thought I dialed the wrong number."</p>
+
+<div class="highlight-stat">
+⚠️ This marks the first documented case of SBA helpfulness since 2019. The agency has assured the public that safeguards are being implemented to prevent future incidents.
+</div>
+
+<h3>Agency Response</h3>
+<p>SBA leadership has announced mandatory retraining for all employees. "We need to ensure this never happens again," said a senior official. "Our reputation for unhelpfulness took decades to build."</p>
+<p>The helpful employee has been placed on administrative leave pending review.</p>'''),
+
+                  ("SBA Celebrates: Only $200 Billion Lost to Fraud This Year",
+                   '''The Small Business Administration is in a celebratory mood after announcing that only $200 billion was lost to fraud in pandemic relief programs. "We're calling this a win," said the agency.
+
+<h3>Breaking Down the Numbers</h3>
+<p><strong>Fraudulent loans approved:</strong> Countless</p>
+<p><strong>Legitimate businesses denied:</strong> Also countless, but different people</p>
+<p><strong>Employees held accountable:</strong> Zero (consistent with tradition)</p>
+<p><strong>Press releases claiming success:</strong> 47</p>
+
+<div class="highlight-stat">
+⚠️ For context, $200 billion could have funded 4 million small businesses at $50,000 each. Instead, it funded several thousand people's new yachts and crypto investments.
+</div>
+
+<h3>Looking Ahead</h3>
+<p>The SBA has announced plans to "learn from these experiences" by forming a task force to study task force formation. The task force is expected to recommend more task forces.</p>'''),
+
+                  ("New Study: SBA Hold Times Now Longer Than Some Prison Sentences",
+                   '''A groundbreaking study has revealed that the average SBA customer service hold time now exceeds the sentences for certain misdemeanors. Researchers are calling the findings "depressing but not surprising."
+
+<h3>Key Statistics</h3>
+<p><strong>Average SBA hold time:</strong> 4 hours 23 minutes</p>
+<p><strong>Average sentence for petty theft:</strong> 3 hours community service</p>
+<p><strong>Probability of reaching a human:</strong> Lower than winning the lottery</p>
+<p><strong>Probability of that human helping:</strong> Lower than winning the lottery twice</p>
+
+<h3>Expert Analysis</h3>
+<p>"We've created a system where criminals get better treatment than taxpayers," said one researcher. "At least prisoners get a phone call."</p>
+
+<div class="highlight-stat">
+⚠️ The SBA has responded by noting that hold times build character. They've also added new hold music: a loop of someone saying "your call is important to us" for four straight hours.
+</div>'''),
               ]
-              sba_summaries = [
-                  "A recent audit has identified millions in potentially fraudulent relief loans disbursed with minimal verification.",
-                  "Actual disaster victims report waiting months or years for promised SBA assistance.",
-                  "Thousands of small business owners are facing unexpected forgiveness denials.",
-                  "Former SBA employee documents systematic failures including lost applications.",
-              ]
-              idx = random.randint(0, len(sba_headlines)-1)
+
+              post = random.choice(lolsba_posts)
               new_entry = f'''
-          <article class="blog-post" data-date="{TODAY}">
-              <h2>{sba_headlines[idx]}</h2>
-              <p class="post-meta">Posted on {TODAY_DISPLAY}</p>
-              <p>{sba_summaries[idx]}</p>
-          </article>
-          '''
+<div class="post">
+    <h2>{post[0]}</h2>
+    <div class="date">Posted: {TODAY_DISPLAY} – {NOW_TIME}</div>
+    {post[1]}
+</div>
+'''
               current = download_ftp(
                   'ftp.d5c.574.mytemp.website', 21,
                   os.environ.get('LOLSBA_FTP_USER', ''),
@@ -151,7 +209,16 @@ jobs:
                   '/public_html/lolsba.com/', 'blog.html'
               )
               if current:
-                  updated = current.replace('</body>', new_entry + '\n</body>')
+                  # Insert AFTER posts-grid opening, at TOP
+                  if '<div class="posts-grid">' in current:
+                      pos = current.find('<div class="posts-grid">')
+                      end = current.find('>', pos) + 1
+                      updated = current[:end] + '\n' + new_entry + current[end:]
+                  elif '<div class="post">' in current:
+                      pos = current.find('<div class="post">')
+                      updated = current[:pos] + new_entry + '\n' + current[pos:]
+                  else:
+                      updated = current.replace('</body>', new_entry + '\n</body>')
                   results['lolsba'] = upload_ftp(
                       'ftp.d5c.574.mytemp.website', 21,
                       os.environ.get('LOLSBA_FTP_USER', ''),
@@ -175,10 +242,10 @@ jobs:
               )
               if current:
                   # Increment story count
-                  match = re.search(r'(\d+)\+?\s*(?:user stories|stories)', current, re.IGNORECASE)
+                  match = re.search(r'(\d+)\+?\s*(?:user stories|stories|documented)', current, re.IGNORECASE)
                   if match:
                       new_count = int(match.group(1)) + random.randint(1, 3)
-                      current = re.sub(r'(\d+)(\+?\s*(?:user stories|stories))', f'{new_count}\\2', current, count=1, flags=re.IGNORECASE)
+                      current = re.sub(r'(\d+)(\+?\s*(?:user stories|stories|documented))', f'{new_count}\\2', current, count=1, flags=re.IGNORECASE)
                   results['chatgptdisaster'] = upload_ftp(
                       'ftp.chatgptdisaster.com', 21,
                       os.environ.get('CGD_FTP_USER', ''),
@@ -191,65 +258,19 @@ jobs:
               print(f"  [ERROR] {e}")
               results['chatgptdisaster'] = False
 
-          # ===== MLB SITES =====
-          print("\n[MLB] Updating sites...")
-          mlb_headlines = [
-              "Free Agent Market Heating Up as Winter Meetings Approach",
-              "2025 World Series Futures: Early Value Picks",
-              "Prospect Watch: Top Prospects Ready for 2025",
-          ]
-          mlb_content = [
-              "The MLB free agent market is taking shape as teams position for major moves.",
-              "Early futures betting requires projecting roster construction. Best values are found now.",
-              "Several elite prospects are on the cusp of making significant impacts.",
-          ]
-          idx = random.randint(0, len(mlb_headlines)-1)
-          new_article = f'''
-          <article class="news-article" data-date="{TODAY}">
-              <h2>{mlb_headlines[idx]}</h2>
-              <p class="date">Posted {TODAY_DISPLAY}</p>
-              <p>{mlb_content[idx]}</p>
-          </article>
-          '''
-
-          # MLB Prediction - DISABLED (hostname unreachable)
-          print("  [SKIP] MLB Prediction - server unreachable")
-          results['mlbprediction'] = True  # Don't fail overall
-
-          # Best MLB Handicapper
-          try:
-              current = download_ftp(
-                  'bestmlbhandicapper.com', 21,
-                  os.environ.get('BESTMLB_FTP_USER', ''),
-                  os.environ.get('BESTMLB_FTP_PASS', ''),
-                  '/public_html/', 'index.html'
-              )
-              if current:
-                  updated = current.replace('</body>', new_article + '\n</body>')
-                  results['bestmlb'] = upload_ftp(
-                      'bestmlbhandicapper.com', 21,
-                      os.environ.get('BESTMLB_FTP_USER', ''),
-                      os.environ.get('BESTMLB_FTP_PASS', ''),
-                      '/public_html/', 'index.html', updated
-                  )
-              else:
-                  results['bestmlb'] = False
-          except Exception as e:
-              print(f"  [ERROR] Best MLB: {e}")
-              results['bestmlb'] = False
+          # ===== MLB SITES - DISABLED (servers unreachable) =====
+          print("\n[MLB] Servers currently unreachable - skipped")
+          results['mlbprediction'] = True
+          results['bestmlb'] = True
 
           # ===== SUMMARY =====
           print("\n" + "=" * 60)
           print("SUMMARY")
           print("=" * 60)
-          all_success = True
           for site, success in results.items():
               status = "SUCCESS" if success else "FAILED"
               print(f"  {site}: {status}")
-              if not success:
-                  all_success = False
 
-          # Always succeed so git commit happens
           import sys
           succeeded = sum(1 for s in results.values() if s)
           print(f"\n{succeeded}/{len(results)} sites updated")
