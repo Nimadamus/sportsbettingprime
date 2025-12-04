@@ -1,11 +1,8 @@
 name: Daily Auto-Update All Sites
 
 on:
-  # Run daily at 10:00 AM Eastern (3:00 PM UTC)
   schedule:
-    - cron: '0 15 * * *'
-
-  # Also allow manual trigger
+    - cron: '0 15 * * *'  # 10:00 AM Eastern
   workflow_dispatch:
 
 jobs:
@@ -13,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout sportsbettingprime repo
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,394 +19,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Create auto_post_system directory
-        run: mkdir -p auto_post_system
-
-      - name: Download update scripts
-        run: |
-          # Download all the update scripts from the repo
-          # These are embedded in the workflow for portability
-
-          cat > auto_post_system/config.py << 'CONFIGEOF'
-          import os
-          from datetime import datetime
-
-          FTP_CONFIGS = {
-              'mlbprediction': {
-                  'host': 'p3plzcpsn509097.prod.phx3.secureserver.net',
-                  'port': 21,
-                  'user': os.environ.get('MLB_FTP_USER', ''),
-                  'password': os.environ.get('MLB_FTP_PASS', ''),
-                  'directory': '/public_html/'
-              },
-              'bestmlbhandicapper': {
-                  'host': 'bestmlbhandicapper.com',
-                  'port': 21,
-                  'user': os.environ.get('BESTMLB_FTP_USER', ''),
-                  'password': os.environ.get('BESTMLB_FTP_PASS', ''),
-                  'directory': '/public_html/'
-              },
-              'lolsba': {
-                  'host': 'ftp.d5c.574.mytemp.website',
-                  'port': 21,
-                  'user': os.environ.get('LOLSBA_FTP_USER', ''),
-                  'password': os.environ.get('LOLSBA_FTP_PASS', ''),
-                  'directory': '/public_html/lolsba.com/'
-              },
-              'chatgptdisaster': {
-                  'host': 'ftp.chatgptdisaster.com',
-                  'port': 21,
-                  'user': os.environ.get('CGD_FTP_USER', ''),
-                  'password': os.environ.get('CGD_FTP_PASS', ''),
-                  'directory': '/public_html/'
-              }
-          }
-
-          PATHS = {
-              'sportsbettingprime': '.',
-              'logs': './logs'
-          }
-
-          TODAY = datetime.now().strftime('%Y-%m-%d')
-          TODAY_DISPLAY = datetime.now().strftime('%B %d, %Y')
-          MAX_BLOG_PAGES = 10
-
-          INTRO_PHRASES = ["Let's dive into", "Here's what's happening with", "Breaking down", "Looking at", "Examining"]
-          TRANSITION_PHRASES = ["Moving on,", "Additionally,", "On another note,", "It's also worth mentioning that"]
-          CONCLUSION_PHRASES = ["Stay tuned for more updates.", "We'll keep monitoring this situation.", "More to come as this develops."]
-          CONFIGEOF
-
-      - name: Create utility module
-        run: |
-          cat > auto_post_system/utils.py << 'UTILSEOF'
-          import ftplib
-          import io
-          import os
-          import random
-          from datetime import datetime
-          from config import INTRO_PHRASES, TRANSITION_PHRASES, CONCLUSION_PHRASES
-
-          def upload_via_ftp(config, filename, content):
-              try:
-                  ftp = ftplib.FTP()
-                  ftp.connect(config['host'], config['port'], timeout=30)
-                  ftp.login(config['user'], config['password'])
-                  ftp.cwd(config['directory'])
-                  upload = io.BytesIO(content.encode('utf-8'))
-                  ftp.storbinary(f'STOR {filename}', upload)
-                  ftp.quit()
-                  print(f"  [OK] Uploaded {filename}")
-                  return True
-              except Exception as e:
-                  print(f"  [ERROR] FTP upload failed: {e}")
-                  return False
-
-          def download_from_ftp(config, filename):
-              try:
-                  ftp = ftplib.FTP()
-                  ftp.connect(config['host'], config['port'], timeout=30)
-                  ftp.login(config['user'], config['password'])
-                  ftp.cwd(config['directory'])
-                  content = io.BytesIO()
-                  ftp.retrbinary(f'RETR {filename}', content.write)
-                  ftp.quit()
-                  return content.getvalue().decode('utf-8')
-              except Exception as e:
-                  print(f"  [WARNING] Download failed: {e}")
-                  return None
-
-          def log_action(site, action, success=True):
-              timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-              print(f'[{timestamp}] [{site}] {action}')
-
-          def get_random_conclusion():
-              return random.choice(CONCLUSION_PHRASES)
-          UTILSEOF
-
-      - name: Create LOLSBA updater
-        run: |
-          cat > auto_post_system/updater_lolsba.py << 'LOLSBAEOF'
-          import random
-          import re
-          from datetime import datetime
-          from config import FTP_CONFIGS, TODAY, TODAY_DISPLAY
-          from utils import upload_via_ftp, download_from_ftp, log_action
-
-          SBA_TOPICS = [
-              {'headline': 'SBA Inspector General Uncovers Millions in Fraudulent COVID Loans', 'summary': 'A recent audit has identified millions in potentially fraudulent relief loans disbursed with minimal verification.', 'category': 'Fraud'},
-              {'headline': 'Legitimate Business Owners Still Waiting for Disaster Relief', 'summary': 'Actual disaster victims report waiting months or years for promised SBA assistance.', 'category': 'Disaster Relief'},
-              {'headline': 'PPP Borrowers Face Unfair Forgiveness Denials', 'summary': 'Thousands of small business owners are facing unexpected forgiveness denials with retroactive rule changes.', 'category': 'PPP'},
-              {'headline': 'Whistleblower Exposes SBA Regional Office Dysfunction', 'summary': 'Former SBA employee documents systematic failures including lost applications and ignored appeals.', 'category': 'Whistleblower'},
-          ]
-
-          def generate_blog_entry():
-              topic = random.choice(SBA_TOPICS)
-              openers = ["This week, we're covering another example of SBA dysfunction.", "More troubling news from small business lending.", "Today's report highlights yet another system failure."]
-              return f'''
-          <article class="blog-post" data-date="{TODAY}">
-              <h2>{topic['headline']}</h2>
-              <p class="post-meta">Posted on {TODAY_DISPLAY} | Category: {topic['category']}</p>
-              <p class="opener">{random.choice(openers)}</p>
-              <p>{topic['summary']}</p>
-          </article>
-          '''
-
-          def update_blog(config):
-              print("[LOLSBA] Updating blog...")
-              current = download_from_ftp(config, 'blog.html')
-              if not current:
-                  return False
-              new_entry = generate_blog_entry()
-              insert_point = current.find('<div class="blog-container">') or current.find('<main')
-              if insert_point != -1:
-                  end_tag = current.find('>', insert_point) + 1
-                  updated = current[:end_tag] + new_entry + current[end_tag:]
-              else:
-                  updated = current.replace('</body>', new_entry + '</body>')
-              return upload_via_ftp(config, 'blog.html', updated)
-
-          def run():
-              print("=" * 50)
-              print("LOLSBA.COM Daily Update")
-              print("=" * 50)
-              config = FTP_CONFIGS['lolsba']
-              return update_blog(config)
-
-          if __name__ == '__main__':
-              run()
-          LOLSBAEOF
-
-      - name: Create ChatGPT Disaster updater
-        run: |
-          cat > auto_post_system/updater_chatgpt_disaster.py << 'CGDEOF'
-          import random
-          import re
-          from datetime import datetime
-          from config import FTP_CONFIGS, TODAY, TODAY_DISPLAY
-          from utils import upload_via_ftp, download_from_ftp, log_action
-
-          AI_NEWS = [
-              {'headline': 'Users Report ChatGPT Memory Wipes Continue', 'summary': 'Users continue to report conversations and custom instructions being randomly erased.', 'category': 'Technical Failures'},
-              {'headline': 'New Study Links Extended AI Use to Social Isolation', 'summary': 'Research suggests heavy chatbot users show increased markers of social isolation.', 'category': 'Mental Health'},
-              {'headline': 'AI Hallucinations Lead to Real-World Harm', 'summary': 'Another case of AI providing dangerously incorrect information.', 'category': 'Safety'},
-          ]
-
-          def generate_news():
-              topic = random.choice(AI_NEWS)
-              return f'''
-          <article class="news-item" data-date="{TODAY}">
-              <span class="category-tag">{topic['category']}</span>
-              <h3>{topic['headline']}</h3>
-              <p class="date">{TODAY_DISPLAY}</p>
-              <p>{topic['summary']}</p>
-          </article>
-          '''
-
-          def update_index(config):
-              print("[ChatGPT Disaster] Updating index...")
-              current = download_from_ftp(config, 'index.html')
-              if not current:
-                  return False
-              # Update complaint counts
-              story_match = re.search(r'(\d+)\+?\s*(?:user stories|stories)', current, re.IGNORECASE)
-              if story_match:
-                  new_count = int(story_match.group(1)) + random.randint(1, 3)
-                  current = re.sub(r'(\d+)(\+?\s*(?:user stories|stories))', f'{new_count}\\2', current, count=1, flags=re.IGNORECASE)
-              return upload_via_ftp(config, 'index.html', current)
-
-          def run():
-              print("=" * 50)
-              print("CHATGPTDISASTER.COM Daily Update")
-              print("=" * 50)
-              config = FTP_CONFIGS['chatgptdisaster']
-              return update_index(config)
-
-          if __name__ == '__main__':
-              run()
-          CGDEOF
-
-      - name: Create MLB sites updater
-        run: |
-          cat > auto_post_system/updater_mlb_sites.py << 'MLBEOF'
-          import random
-          import re
-          from datetime import datetime
-          from config import FTP_CONFIGS, TODAY, TODAY_DISPLAY
-          from utils import upload_via_ftp, download_from_ftp, log_action
-
-          OFFSEASON_NEWS = [
-              {'headline': 'Free Agent Market Heating Up', 'content': 'The MLB free agent market is taking shape as teams position for major moves.', 'category': 'Free Agency'},
-              {'headline': '2025 World Series Futures: Early Value', 'content': 'Early futures betting requires projecting roster construction, but best values are found now.', 'category': 'Futures'},
-              {'headline': 'Prospect Watch: Top Prospects Ready for 2025', 'content': 'Several elite prospects are on the cusp of making significant impacts.', 'category': 'Prospects'},
-          ]
-
-          def generate_article():
-              article = random.choice(OFFSEASON_NEWS)
-              return f'''
-          <article class="news-article" data-date="{TODAY}">
-              <span class="category">{article['category']}</span>
-              <h2>{article['headline']}</h2>
-              <p class="date">Posted {TODAY_DISPLAY}</p>
-              <p>{article['content']}</p>
-          </article>
-          '''
-
-          def update_site(config, name):
-              print(f"[{name}] Updating...")
-              current = download_from_ftp(config, 'index.html')
-              if not current:
-                  return False
-              new_content = generate_article()
-              # Simple insert at body end
-              updated = current.replace('</body>', new_content + '</body>')
-              # Update date
-              updated = re.sub(r'Last updated:.*?<', f'Last updated: {TODAY_DISPLAY}<', updated, flags=re.IGNORECASE)
-              return upload_via_ftp(config, 'index.html', updated)
-
-          def run():
-              print("=" * 50)
-              print("MLB SITES Daily Update")
-              print("=" * 50)
-              success = True
-              success = update_site(FTP_CONFIGS['mlbprediction'], 'MLB Prediction') and success
-              success = update_site(FTP_CONFIGS['bestmlbhandicapper'], 'Best MLB') and success
-              return success
-
-          if __name__ == '__main__':
-              run()
-          MLBEOF
-
-      - name: Create Sports Betting Prime updater
-        run: |
-          cat > auto_post_system/updater_sportsbettingprime.py << 'SBPEOF'
-          import os
-          import re
-          import random
-          from datetime import datetime
-          from config import TODAY, TODAY_DISPLAY
-
-          BLOG_TEMPLATES = [
-              {'title': 'Sharp Money Indicators: What the Pros Are Watching', 'content': 'The sharpest bettors analyze line movement, steam moves, and reverse line movement to find edges.'},
-              {'title': 'Why Betting Totals Can Be More Profitable', 'content': 'Sharp bettors know that totals often present the best value since oddsmakers focus on spreads.'},
-              {'title': 'The Psychology of Betting: Avoiding Common Traps', 'content': 'Emotional betting and chasing losses lead to more losses than bad picks.'},
-          ]
-
-          SPORT_INSIGHTS = {
-              'nfl': ['Look for travel spots where West Coast teams play early East Coast games.', 'Division games often stay close regardless of spreads.'],
-              'nba': ['Back-to-back situations create predictable fatigue patterns.', 'Second half of back-to-backs favor the under.'],
-              'nhl': ['Goalie matchups are everything in NHL betting.', 'First period unders have shown consistent value.'],
-          }
-
-          def update_data_stream():
-              print("[SBP] Updating the-data-stream.html...")
-              filepath = 'the-data-stream.html'
-              if not os.path.exists(filepath):
-                  return True
-              with open(filepath, 'r', encoding='utf-8') as f:
-                  current = f.read()
-              template = random.choice(BLOG_TEMPLATES)
-              new_post = f'''
-          <article class="blog-post" data-date="{TODAY}">
-              <h2>{template['title']}</h2>
-              <p class="post-date">{TODAY_DISPLAY}</p>
-              <div class="post-content">{template['content']}</div>
-          </article>
-          '''
-              # Insert new post
-              if '<article class="blog-post"' in current:
-                  pos = current.find('<article class="blog-post"')
-                  updated = current[:pos] + new_post + '\n' + current[pos:]
-              else:
-                  updated = current.replace('</main>', new_post + '\n</main>')
-              with open(filepath, 'w', encoding='utf-8') as f:
-                  f.write(updated)
-              return True
-
-          def update_sport_pages():
-              sport_pages = [('nfl', 'nfl-gridiron-oracles.html'), ('nba', 'nba-court-vision.html'), ('nhl', 'nhl-ice-oracles.html')]
-              for sport, filename in sport_pages:
-                  if not os.path.exists(filename):
-                      continue
-                  with open(filename, 'r', encoding='utf-8') as f:
-                      current = f.read()
-                  insight = random.choice(SPORT_INSIGHTS.get(sport, SPORT_INSIGHTS['nfl']))
-                  new_insight = f'<div class="daily-insight" data-date="{TODAY}"><span class="insight-label">Today\'s Edge</span><p>{insight}</p></div>'
-                  if '<div class="daily-insight"' in current:
-                      updated = re.sub(r'<div class="daily-insight"[^>]*>.*?</div>', new_insight, current, flags=re.DOTALL)
-                  else:
-                      updated = current
-                  with open(filename, 'w', encoding='utf-8') as f:
-                      f.write(updated)
-              return True
-
-          def run():
-              print("=" * 50)
-              print("SPORTSBETTINGPRIME.COM Daily Update")
-              print("=" * 50)
-              success = True
-              success = update_data_stream() and success
-              success = update_sport_pages() and success
-              return success
-
-          if __name__ == '__main__':
-              run()
-          SBPEOF
-
-      - name: Create master runner
-        run: |
-          cat > auto_post_system/run_all.py << 'RUNEOF'
-          import sys
-          import os
-          sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-          from datetime import datetime
-          print("=" * 70)
-          print("AUTO POST SYSTEM - Daily Update")
-          print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-          print("=" * 70)
-
-          results = {}
-
-          # Sports Betting Prime (local files, will be committed)
-          try:
-              os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-              from auto_post_system.updater_sportsbettingprime import run as sbp_run
-              results['sportsbettingprime'] = sbp_run()
-          except Exception as e:
-              print(f"[ERROR] SBP: {e}")
-              results['sportsbettingprime'] = False
-
-          # FTP sites
-          try:
-              from auto_post_system.updater_lolsba import run as lolsba_run
-              results['lolsba'] = lolsba_run()
-          except Exception as e:
-              print(f"[ERROR] LOLSBA: {e}")
-              results['lolsba'] = False
-
-          try:
-              from auto_post_system.updater_chatgpt_disaster import run as cgd_run
-              results['chatgptdisaster'] = cgd_run()
-          except Exception as e:
-              print(f"[ERROR] CGD: {e}")
-              results['chatgptdisaster'] = False
-
-          try:
-              from auto_post_system.updater_mlb_sites import run as mlb_run
-              results['mlb_sites'] = mlb_run()
-          except Exception as e:
-              print(f"[ERROR] MLB: {e}")
-              results['mlb_sites'] = False
-
-          print("\n" + "=" * 70)
-          print("SUMMARY")
-          for site, success in results.items():
-              print(f"  {site}: {'SUCCESS' if success else 'FAILED'}")
-          print("=" * 70)
-
-          sys.exit(0 if all(results.values()) else 1)
-          RUNEOF
 
       - name: Run all updates
         env:
@@ -422,10 +31,244 @@ jobs:
           CGD_FTP_USER: ${{ secrets.CGD_FTP_USER }}
           CGD_FTP_PASS: ${{ secrets.CGD_FTP_PASS }}
         run: |
-          cd auto_post_system
-          python run_all.py
+          python << 'PYTHONSCRIPT'
+          import ftplib
+          import io
+          import os
+          import re
+          import random
+          from datetime import datetime
 
-      - name: Commit and push Sports Betting Prime changes
+          TODAY = datetime.now().strftime('%Y-%m-%d')
+          TODAY_DISPLAY = datetime.now().strftime('%B %d, %Y')
+
+          def upload_ftp(host, port, user, password, directory, filename, content):
+              try:
+                  ftp = ftplib.FTP()
+                  ftp.connect(host, port, timeout=30)
+                  ftp.login(user, password)
+                  ftp.cwd(directory)
+                  ftp.storbinary(f'STOR {filename}', io.BytesIO(content.encode('utf-8')))
+                  ftp.quit()
+                  print(f"  [OK] Uploaded {filename}")
+                  return True
+              except Exception as e:
+                  print(f"  [ERROR] {e}")
+                  return False
+
+          def download_ftp(host, port, user, password, directory, filename):
+              try:
+                  ftp = ftplib.FTP()
+                  ftp.connect(host, port, timeout=30)
+                  ftp.login(user, password)
+                  ftp.cwd(directory)
+                  content = io.BytesIO()
+                  ftp.retrbinary(f'RETR {filename}', content.write)
+                  ftp.quit()
+                  return content.getvalue().decode('utf-8')
+              except Exception as e:
+                  print(f"  [WARNING] {e}")
+                  return None
+
+          print("=" * 60)
+          print("AUTO POST SYSTEM - Daily Update")
+          print(f"Date: {TODAY_DISPLAY}")
+          print("=" * 60)
+
+          results = {}
+
+          # ===== SPORTS BETTING PRIME (local files) =====
+          print("\n[SBP] Updating the-data-stream.html...")
+          try:
+              blog_titles = [
+                  "Sharp Money Indicators: What the Pros Are Watching",
+                  "Why Betting Totals Can Be More Profitable Than Sides",
+                  "The Psychology of Betting: Avoiding Common Traps",
+                  "Key Numbers in Football Betting: A Quick Guide",
+                  "Understanding Consensus and Contrarian Betting",
+              ]
+              blog_content = [
+                  "The sharpest bettors analyze line movement and reverse line movement to find edges before the public catches on.",
+                  "Sharp bettors know that totals often present the best value since oddsmakers focus most attention on spreads.",
+                  "Emotional betting and chasing losses lead to more losses than bad picks. Discipline is everything.",
+                  "In NFL betting, 3 and 7 are the most important numbers. Games landing on these totals happen more often.",
+                  "The betting consensus shows where public money goes. Sometimes fading heavy public sides is profitable.",
+              ]
+              idx = random.randint(0, len(blog_titles)-1)
+              new_post = f'''
+          <article class="blog-post" data-date="{TODAY}">
+              <h2>{blog_titles[idx]}</h2>
+              <p class="post-date">{TODAY_DISPLAY}</p>
+              <div class="post-content">{blog_content[idx]}</div>
+          </article>
+          '''
+              if os.path.exists('the-data-stream.html'):
+                  with open('the-data-stream.html', 'r', encoding='utf-8') as f:
+                      current = f.read()
+                  if '<article class="blog-post"' in current:
+                      pos = current.find('<article class="blog-post"')
+                      updated = current[:pos] + new_post + '\n' + current[pos:]
+                  else:
+                      updated = current.replace('</main>', new_post + '\n</main>')
+                  with open('the-data-stream.html', 'w', encoding='utf-8') as f:
+                      f.write(updated)
+                  print("  [OK] Updated the-data-stream.html")
+              results['sportsbettingprime'] = True
+          except Exception as e:
+              print(f"  [ERROR] {e}")
+              results['sportsbettingprime'] = False
+
+          # ===== LOLSBA =====
+          print("\n[LOLSBA] Updating blog...")
+          try:
+              sba_headlines = [
+                  "SBA Inspector General Uncovers Millions in Fraudulent COVID Loans",
+                  "Legitimate Business Owners Still Waiting for Disaster Relief",
+                  "PPP Borrowers Face Unfair Forgiveness Denials",
+                  "Whistleblower Exposes SBA Regional Office Dysfunction",
+              ]
+              sba_summaries = [
+                  "A recent audit has identified millions in potentially fraudulent relief loans disbursed with minimal verification.",
+                  "Actual disaster victims report waiting months or years for promised SBA assistance.",
+                  "Thousands of small business owners are facing unexpected forgiveness denials.",
+                  "Former SBA employee documents systematic failures including lost applications.",
+              ]
+              idx = random.randint(0, len(sba_headlines)-1)
+              new_entry = f'''
+          <article class="blog-post" data-date="{TODAY}">
+              <h2>{sba_headlines[idx]}</h2>
+              <p class="post-meta">Posted on {TODAY_DISPLAY}</p>
+              <p>{sba_summaries[idx]}</p>
+          </article>
+          '''
+              current = download_ftp(
+                  'ftp.d5c.574.mytemp.website', 21,
+                  os.environ.get('LOLSBA_FTP_USER', ''),
+                  os.environ.get('LOLSBA_FTP_PASS', ''),
+                  '/public_html/lolsba.com/', 'blog.html'
+              )
+              if current:
+                  updated = current.replace('</body>', new_entry + '\n</body>')
+                  results['lolsba'] = upload_ftp(
+                      'ftp.d5c.574.mytemp.website', 21,
+                      os.environ.get('LOLSBA_FTP_USER', ''),
+                      os.environ.get('LOLSBA_FTP_PASS', ''),
+                      '/public_html/lolsba.com/', 'blog.html', updated
+                  )
+              else:
+                  results['lolsba'] = False
+          except Exception as e:
+              print(f"  [ERROR] {e}")
+              results['lolsba'] = False
+
+          # ===== CHATGPT DISASTER =====
+          print("\n[CGD] Updating index...")
+          try:
+              current = download_ftp(
+                  'ftp.chatgptdisaster.com', 21,
+                  os.environ.get('CGD_FTP_USER', ''),
+                  os.environ.get('CGD_FTP_PASS', ''),
+                  '/public_html/', 'index.html'
+              )
+              if current:
+                  # Increment story count
+                  match = re.search(r'(\d+)\+?\s*(?:user stories|stories)', current, re.IGNORECASE)
+                  if match:
+                      new_count = int(match.group(1)) + random.randint(1, 3)
+                      current = re.sub(r'(\d+)(\+?\s*(?:user stories|stories))', f'{new_count}\\2', current, count=1, flags=re.IGNORECASE)
+                  results['chatgptdisaster'] = upload_ftp(
+                      'ftp.chatgptdisaster.com', 21,
+                      os.environ.get('CGD_FTP_USER', ''),
+                      os.environ.get('CGD_FTP_PASS', ''),
+                      '/public_html/', 'index.html', current
+                  )
+              else:
+                  results['chatgptdisaster'] = False
+          except Exception as e:
+              print(f"  [ERROR] {e}")
+              results['chatgptdisaster'] = False
+
+          # ===== MLB SITES =====
+          print("\n[MLB] Updating sites...")
+          mlb_headlines = [
+              "Free Agent Market Heating Up as Winter Meetings Approach",
+              "2025 World Series Futures: Early Value Picks",
+              "Prospect Watch: Top Prospects Ready for 2025",
+          ]
+          mlb_content = [
+              "The MLB free agent market is taking shape as teams position for major moves.",
+              "Early futures betting requires projecting roster construction. Best values are found now.",
+              "Several elite prospects are on the cusp of making significant impacts.",
+          ]
+          idx = random.randint(0, len(mlb_headlines)-1)
+          new_article = f'''
+          <article class="news-article" data-date="{TODAY}">
+              <h2>{mlb_headlines[idx]}</h2>
+              <p class="date">Posted {TODAY_DISPLAY}</p>
+              <p>{mlb_content[idx]}</p>
+          </article>
+          '''
+
+          # MLB Prediction
+          try:
+              current = download_ftp(
+                  'p3plzcpsn509097.prod.phx3.secureserver.net', 21,
+                  os.environ.get('MLB_FTP_USER', ''),
+                  os.environ.get('MLB_FTP_PASS', ''),
+                  '/public_html/', 'index.html'
+              )
+              if current:
+                  updated = current.replace('</body>', new_article + '\n</body>')
+                  results['mlbprediction'] = upload_ftp(
+                      'p3plzcpsn509097.prod.phx3.secureserver.net', 21,
+                      os.environ.get('MLB_FTP_USER', ''),
+                      os.environ.get('MLB_FTP_PASS', ''),
+                      '/public_html/', 'index.html', updated
+                  )
+              else:
+                  results['mlbprediction'] = False
+          except Exception as e:
+              print(f"  [ERROR] MLB Prediction: {e}")
+              results['mlbprediction'] = False
+
+          # Best MLB Handicapper
+          try:
+              current = download_ftp(
+                  'bestmlbhandicapper.com', 21,
+                  os.environ.get('BESTMLB_FTP_USER', ''),
+                  os.environ.get('BESTMLB_FTP_PASS', ''),
+                  '/public_html/', 'index.html'
+              )
+              if current:
+                  updated = current.replace('</body>', new_article + '\n</body>')
+                  results['bestmlb'] = upload_ftp(
+                      'bestmlbhandicapper.com', 21,
+                      os.environ.get('BESTMLB_FTP_USER', ''),
+                      os.environ.get('BESTMLB_FTP_PASS', ''),
+                      '/public_html/', 'index.html', updated
+                  )
+              else:
+                  results['bestmlb'] = False
+          except Exception as e:
+              print(f"  [ERROR] Best MLB: {e}")
+              results['bestmlb'] = False
+
+          # ===== SUMMARY =====
+          print("\n" + "=" * 60)
+          print("SUMMARY")
+          print("=" * 60)
+          all_success = True
+          for site, success in results.items():
+              status = "SUCCESS" if success else "FAILED"
+              print(f"  {site}: {status}")
+              if not success:
+                  all_success = False
+
+          import sys
+          sys.exit(0 if all_success else 1)
+          PYTHONSCRIPT
+
+      - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
