@@ -717,6 +717,46 @@
         }
         .alert-text { flex: 1; }
 
+    
+        .alerts-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .alert-icon { font-size: 20px; }
+        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
+        .alerts-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .alert-item {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sport-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .alert-text { flex: 1; }
+
     </style>
 
 </head>
@@ -851,6 +891,37 @@
         </div>
     </div>
     <div class="container">
+
+        <div class="alerts-banner">
+            <div class="alerts-header">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-title">LINE MOVEMENTS DETECTED</span>
+                <span class="alert-time">08:00 PM</span>
+            </div>
+            <div class="alerts-scroll">
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">SPREAD MOVE: Denver Nuggets @ Sacramento Kings (NBA) - Spread moved from -10.5 to -18.5 (+8.0 pts)</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Denver Nuggets @ Sacramento Kings (NBA) - Denver Nuggets ML moved from -485 to -4000</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">TOTAL MOVE: Denver Nuggets @ Sacramento Kings (NBA) - Total moved from 239.5 to 255.5 (up)</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Chicago Bulls @ Charlotte Hornets (NBA) - Chicago Bulls ML moved from -155 to -135</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Indiana Pacers @ Philadelphia 76ers (NBA) - Indiana Pacers ML moved from 205 to 225</span>
+                </div>
+            </div>
+        </div>
+
 
         <div class="alerts-banner">
             <div class="alerts-header">
@@ -1045,7 +1116,7 @@
                     <div class="injuries-grid">
                         <div class="injury-column">
                             <h5>LA Clippers</h5>
-                            <span class="no-injuries">No injuries reported</span>
+                            <span class="injury-out">Derrick Jones Jr. - Out</span><br><span class="injury-out">Bradley Beal - Out</span>
                         </div>
                         <div class="injury-column">
                             <h5>Houston Rockets</h5>
@@ -2380,7 +2451,7 @@
                             <div class="intel-header">SHARP MONEY</div>
                             <div class="intel-content">
                                 <div class="sharp-indicators">
-                                    <span class="no-data">No sharp action detected</span>
+                                    <span class="sharp-strong">&#128293; STRONG (MONEYLINE): 12% of bets but 60% of money on San Jose Sharks</span>
                                 </div>
                             </div>
                         </div>
@@ -2665,7 +2736,7 @@
                             <div class="intel-header">SHARP MONEY</div>
                             <div class="intel-content">
                                 <div class="sharp-indicators">
-                                    <span class="no-data">No sharp action detected</span>
+                                    <span class="sharp-strong">&#128293; STRONG (SPREAD): 44% of bets but 73% of money on Tampa Bay Lightning</span><br><span class="sharp-moderate">&#9888; MODERATE (MONEYLINE): 75% of bets but 90% of money on Tampa Bay Lightning</span>
                                 </div>
                             </div>
                         </div>
@@ -3513,7 +3584,7 @@
                             <div class="intel-header">SHARP MONEY</div>
                             <div class="intel-content">
                                 <div class="sharp-indicators">
-                                    <span class="no-data">No sharp action detected</span>
+                                    <span class="sharp-moderate">&#9888; MODERATE (SPREAD): 58% of bets but 73% of money on Montreal Canadiens</span><br><span class="sharp-light">&#128202; LIGHT (MONEYLINE): 29% of bets but 43% of money on Montreal Canadiens</span>
                                 </div>
                             </div>
                         </div>
@@ -4344,7 +4415,7 @@
                             <div class="intel-header">SHARP MONEY</div>
                             <div class="intel-content">
                                 <div class="sharp-indicators">
-                                    <span class="no-data">No sharp action detected</span>
+                                    <span class="sharp-strong">&#128293; STRONG (SPREAD): 21% of bets but 41% of money on Nashville Predators</span>
                                 </div>
                             </div>
                         </div>
@@ -4820,7 +4891,7 @@
                         </div>
                         <div class="injury-column">
                             <h5>Winnipeg Jets</h5>
-                            <span class="no-injuries">No injuries reported</span>
+                            <span class="injury-probable">Haydn Fleury - Injured Reserve</span><br><span class="injury-probable">Connor Hellebuyck - Injured Reserve (Knee)</span>
                         </div>
                     </div>
                 </div>
@@ -5456,7 +5527,7 @@
                             <div class="intel-header">SHARP MONEY</div>
                             <div class="intel-content">
                                 <div class="sharp-indicators">
-                                    <span class="no-data">No sharp action detected</span>
+                                    <span class="sharp-strong">&#128293; STRONG (SPREAD): 72% of bets but 92% of money on Colorado Avalanche</span>
                                 </div>
                             </div>
                         </div>
