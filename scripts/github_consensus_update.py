@@ -415,6 +415,35 @@ def update_covers_consensus(picks):
         html
     )
 
+    # Update archive section with current date and recent archives
+    current_date_short = TODAY.strftime('%b %d').replace(' 0', ' ').replace('Dec 0', 'Dec ')
+    # Generate last 4 days for archive links
+    archive_links = []
+    for i in range(1, 5):
+        prev_date = TODAY - timedelta(days=i)
+        date_str = prev_date.strftime('%Y-%m-%d')
+        date_short = prev_date.strftime('%b %d').replace(' 0', ' ')
+        archive_file = f"covers-consensus-{date_str}.html"
+        if os.path.exists(os.path.join(REPO, archive_file)):
+            archive_links.append(f'<a href="{archive_file}">{date_short}</a>')
+
+    archive_section = f'''<!-- Archive -->
+        <div class="archive-section">
+            <h3>Previous Days</h3>
+            <div class="archive-links">
+                <span class="current">{current_date_short} (Current)</span>
+                {chr(10).join('                ' + link for link in archive_links)}
+            </div>
+        </div>'''
+
+    # Replace existing archive section
+    html = re.sub(
+        r'<!-- Archive -->.*?</div>\s*</div>\s*</div>\s*<script>',
+        archive_section + '\n    </div>\n\n    <script>',
+        html,
+        flags=re.DOTALL
+    )
+
     # Save updated file
     with open(main_file, 'w', encoding='utf-8') as f:
         f.write(html)
