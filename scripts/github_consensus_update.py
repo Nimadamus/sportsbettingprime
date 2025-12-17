@@ -24,7 +24,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # Configuration
-REPO = os.getcwd()
+REPO = r"C:\Users\Nima\sportsbettingprime"
 CONSENSUS_DIR = os.path.join(REPO, "consensus_library")
 TODAY = datetime.now()
 DATE_STR = TODAY.strftime("%Y-%m-%d")
