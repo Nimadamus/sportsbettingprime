@@ -60,7 +60,7 @@ class CoversConsensusScraper:
 
         for page in range(1, pages + 1):
             try:
-                url = f"https://contests.covers.com/consensus/pickleaders/{sport_code}?page={page}"
+                url = f"https://contests.covers.com/consensus/pickleaders/{sport_code}?totalPicks=1&orderPickBy=Overall&orderBy=Units&pageNum={page}"
                 response = self.session.get(url, timeout=15)
                 response.raise_for_status()
                 soup = BeautifulSoup(response.text, 'html.parser')
@@ -113,8 +113,8 @@ class CoversConsensusScraper:
                 seen.add(c['profile_url'])
                 unique.append(c)
 
-        print(f"    Found {len(unique)} contestants")
-        return unique[:100]
+        print(f"    Found {len(unique)} unique contestants (from {len(contestants)} total)")
+        return unique[:200]  # Return top 200
 
     def get_contestant_picks(self, contestant, sport):
         """Get pending picks for a contestant"""
@@ -186,10 +186,10 @@ class CoversConsensusScraper:
 
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
-            contestants = self.get_leaderboard(sport_code)
+            contestants = self.get_leaderboard(sport_code, pages=4)  # 4 pages = 200 contestants
 
             picks_found = 0
-            for i, contestant in enumerate(contestants[:50], 1):
+            for i, contestant in enumerate(contestants[:200], 1):  # Process top 200
                 picks = self.get_contestant_picks(contestant, sport_name)
 
                 if picks:
