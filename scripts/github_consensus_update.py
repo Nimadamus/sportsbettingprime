@@ -23,8 +23,12 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-# Configuration
-REPO = r"C:\Users\Nima\sportsbettingprime"
+# Configuration - auto-detect repo root (works on both Windows local and GitHub Actions)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(SCRIPT_DIR)  # Go up one level from scripts/ to repo root
+# Fallback to Windows path if running outside repo structure
+if not os.path.exists(os.path.join(REPO, "covers-consensus.html")):
+    REPO = r"C:\Users\Nima\sportsbettingprime"
 CONSENSUS_DIR = os.path.join(REPO, "consensus_library")
 TODAY = datetime.now()
 DATE_STR = TODAY.strftime("%Y-%m-%d")
