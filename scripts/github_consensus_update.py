@@ -356,8 +356,8 @@ def update_covers_consensus(picks):
 
     # Update date
     html = re.sub(
-        r'<div class="update-date">📅[^<]+</div>',
-        f'<div class="update-date">📅 {DATE_FULL}</div>',
+        r'<div class="update-date">[^<]+</div>',
+        f'<div class="update-date">{DATE_FULL}</div>',
         html
     )
 
