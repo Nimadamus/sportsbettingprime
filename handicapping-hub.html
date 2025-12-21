@@ -394,45 +394,6 @@
             .archive-btn { top: 60px; right: 10px; padding: 8px 12px; font-size: 0.7rem; }
             .archive-dropdown { right: 10px; width: 260px; top: 100px; }
         }
-    
-        .alerts-banner {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            color: white;
-        }
-        .alerts-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .alert-icon { font-size: 20px; }
-        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
-        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
-        .alerts-scroll {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .alert-item {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .sport-tag {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 11px;
-        }
-        .alert-text { flex: 1; }
 
     
         .alerts-banner {
@@ -522,62 +483,32 @@
             <div class="alerts-header">
                 <span class="alert-icon">⚠️</span>
                 <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">02:00 PM</span>
+                <span class="alert-time">05:21 PM</span>
             </div>
             <div class="alerts-scroll">
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">SPREAD MOVE: Houston Rockets @ Denver Nuggets (NBA) - Spread moved from 1.5 to -1.5 (+3.0 pts)</span>
+                    <span class="alert-text">SPREAD MOVE: Indiana Pacers @ New Orleans Pelicans (NBA) - Spread moved from 1.5 to 11.5 (+10.0 pts)</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Green Bay Packers @ Chicago Bears (NFL) - Green Bay Packers ML moved from -102 to 100</span>
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Indiana Pacers @ New Orleans Pelicans (NBA) - Indiana Pacers ML moved from 110 to 500</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Buffalo Bills @ Cleveland Browns (NFL) - Buffalo Bills ML moved from -700 to -650</span>
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">SPREAD MOVE: Dallas Mavericks @ Philadelphia 76ers (NBA) - Spread moved from 1.5 to 4.5 (+3.0 pts)</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Las Vegas Raiders @ Houston Texans (NFL) - Las Vegas Raiders ML moved from 850 to 800</span>
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Dallas Mavericks @ Philadelphia 76ers (NBA) - Dallas Mavericks ML moved from -105 to 185</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NHL</span>
-                    <span class="alert-text">ML MOVE: Chicago Blackhawks @ Ottawa Senators (NHL) - Chicago Blackhawks ML moved from 225 to 165</span>
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">TOTAL MOVE: Dallas Mavericks @ Philadelphia 76ers (NBA) - Total moved from 225.5 to 241.5 (up)</span>
                 </div>
             </div>
         </div>
 
-
-        <div class="alerts-banner">
-            <div class="alerts-header">
-                <span class="alert-icon">⚠️</span>
-                <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">11:44 AM</span>
-            </div>
-            <div class="alerts-scroll">
-                <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Dallas Mavericks @ Philadelphia 76ers (NBA) - Dallas Mavericks ML moved from 124 to -105</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Washington Wizards @ Memphis Grizzlies (NBA) - Washington Wizards ML moved from 525 to 470</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Washington Wizards @ Memphis Grizzlies (NBA) - Total moved from 230.5 to 233.5 (up)</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Philadelphia Eagles @ Washington Commanders (NFL) - Philadelphia Eagles ML moved from -360 to -395</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NHL</span>
-                    <span class="alert-text">SPREAD MOVE: Philadelphia Flyers @ New York Rangers (NHL) - Spread moved from 1.5 to -2.5 (+4.0 pts)</span>
-                </div>
-            </div>
-        </div>
 
         <div class="tabs">
             <button class="tab-btn active" data-sport="nba">NBA <span class="count">(10)</span></button>
@@ -7245,7 +7176,7 @@
                 const hasData = archiveData[key];
                 let cls = 'cal-day';
                 if (isToday) cls += ' today';
-                else if (hasData) cls += ' has-data';
+                if (hasData) cls += ' has-data';
                 if (hasData) h += '<div class="' + cls + '" onclick="location.href=\'' + hasData + '\'">' + d + '</div>';
                 else h += '<div class="' + cls + '">' + d + '</div>';
             }
