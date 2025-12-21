@@ -422,6 +422,111 @@
         .pick-row { flex-wrap: wrap; }
         .pick-type-badge { min-width: auto; }
     }
+
+    /* Calendar Sidebar */
+    .calendar-sidebar {
+        position: fixed;
+        left: 20px;
+        top: 160px;
+        width: 280px;
+        z-index: 100;
+    }
+    .calendar-box {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .calendar-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: var(--accent-color);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 700;
+    }
+    .year-display {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 10px;
+    }
+    .month-select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: rgba(0,0,0,0.3);
+        color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+    .month-select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+    }
+    .calendar-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        margin-bottom: 6px;
+    }
+    .calendar-weekdays span {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding: 4px 0;
+    }
+    .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+    .cal-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        border-radius: 6px;
+        color: var(--text-muted);
+        background: rgba(255,255,255,0.03);
+    }
+    .cal-day.empty { background: transparent; }
+    .cal-day.today {
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        font-weight: 700;
+    }
+    .cal-day.has-content {
+        background: linear-gradient(135deg, rgba(0,217,255,0.3), rgba(0,150,255,0.2));
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    .cal-day.has-content:hover {
+        background: linear-gradient(135deg, rgba(0,217,255,0.5), rgba(0,150,255,0.4));
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0,217,255,0.5);
+    }
+
+    /* Adjust container for sidebar */
+    @media (min-width: 1400px) {
+        .container {
+            margin-left: 320px;
+            max-width: 1100px;
+        }
+    }
+    @media (max-width: 1399px) {
+        .calendar-sidebar { display: none; }
+    }
 </style>
 </head>
 <body>
@@ -451,6 +556,20 @@
         <a href="pricing.html">PRICING</a>
         <a href="contact.html">CONTACT</a>
     </nav>
+    <!-- Calendar Sidebar -->
+    <aside class="calendar-sidebar">
+        <div class="calendar-box">
+            <div class="calendar-title">Consensus Archive</div>
+            <div class="year-display" id="cal-year">2025</div>
+            <select class="month-select" id="month-select"></select>
+            <div class="calendar-weekdays">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+            <div class="calendar-days" id="calendar-days"></div>
+        </div>
+    </aside>
+
+
 
     <div class="container">
         <!-- Header -->
@@ -2323,6 +2442,123 @@
                 }
             });
         }
+    
+        // Consensus Archive Data
+        const ARCHIVE_DATA = [
+            { date: "2025-11-20", page: "covers-consensus-2025-11-20.html" },
+            { date: "2025-11-21", page: "covers-consensus-2025-11-21.html" },
+            { date: "2025-11-22", page: "covers-consensus-2025-11-22.html" },
+            { date: "2025-11-23", page: "covers-consensus-2025-11-23.html" },
+            { date: "2025-11-24", page: "covers-consensus-2025-11-24.html" },
+            { date: "2025-11-25", page: "covers-consensus-2025-11-25.html" },
+            { date: "2025-11-26", page: "covers-consensus-2025-11-26.html" },
+            { date: "2025-11-27", page: "covers-consensus-2025-11-27.html" },
+            { date: "2025-11-28", page: "covers-consensus-2025-11-28.html" },
+            { date: "2025-11-29", page: "covers-consensus-2025-11-29.html" },
+            { date: "2025-12-01", page: "covers-consensus-2025-12-01.html" },
+            { date: "2025-12-03", page: "covers-consensus-2025-12-03.html" },
+            { date: "2025-12-04", page: "covers-consensus-2025-12-04.html" },
+            { date: "2025-12-05", page: "covers-consensus-2025-12-05.html" },
+            { date: "2025-12-06", page: "covers-consensus-2025-12-06.html" },
+            { date: "2025-12-07", page: "covers-consensus-2025-12-07.html" },
+            { date: "2025-12-08", page: "covers-consensus-2025-12-08.html" },
+            { date: "2025-12-09", page: "covers-consensus-2025-12-09.html" },
+            { date: "2025-12-10", page: "covers-consensus-2025-12-10.html" },
+            { date: "2025-12-11", page: "covers-consensus-2025-12-11.html" },
+            { date: "2025-12-12", page: "covers-consensus-2025-12-12.html" },
+            { date: "2025-12-13", page: "covers-consensus-2025-12-13.html" },
+            { date: "2025-12-14", page: "covers-consensus-2025-12-14.html" },
+            { date: "2025-12-15", page: "covers-consensus-2025-12-15.html" },
+            { date: "2025-12-16", page: "covers-consensus-2025-12-16.html" },
+            { date: "2025-12-17", page: "covers-consensus-2025-12-17.html" },
+            { date: "2025-12-18", page: "covers-consensus-2025-12-18.html" },
+            { date: "2025-12-19", page: "covers-consensus-2025-12-19.html" },
+            { date: "2025-12-20", page: "covers-consensus-2025-12-20.html" },
+            { date: "2025-12-21", page: "covers-consensus.html" }
+        ];
+
+        // Build date map
+        const dateMap = {};
+        ARCHIVE_DATA.forEach(item => { dateMap[item.date] = item; });
+
+        // Get today's date
+        const today = new Date();
+
+        // Get available months
+        const months = new Set();
+        ARCHIVE_DATA.forEach(item => {
+            const [y, m] = item.date.split('-');
+            months.add(`${y}-${m}`);
+        });
+
+        // Sort months
+        const sortedMonths = Array.from(months).sort().reverse();
+        const currentMonth = sortedMonths[0];
+
+        // Month names
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Populate month dropdown
+        const monthSelect = document.getElementById('month-select');
+        if (monthSelect) {
+            sortedMonths.forEach(ym => {
+                const [y, m] = ym.split('-');
+                const opt = document.createElement('option');
+                opt.value = ym;
+                opt.textContent = `${monthNames[parseInt(m) - 1]} ${y}`;
+                monthSelect.appendChild(opt);
+            });
+            monthSelect.addEventListener('change', function() {
+                renderCalendar(this.value);
+            });
+        }
+
+        // Render calendar
+        function renderCalendar(yearMonth) {
+            const [year, month] = yearMonth.split('-').map(Number);
+            const yearEl = document.getElementById('cal-year');
+            if (yearEl) yearEl.textContent = year;
+
+            const firstDay = new Date(year, month - 1, 1).getDay();
+            const daysInMonth = new Date(year, month, 0).getDate();
+            const todayStr = today.toISOString().split('T')[0];
+
+            const container = document.getElementById('calendar-days');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // Empty cells before first day
+            for (let i = 0; i < firstDay; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-day empty';
+                container.appendChild(cell);
+            }
+
+            // Day cells
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const cell = document.createElement('div');
+                cell.className = 'cal-day';
+                cell.textContent = d;
+
+                if (dateStr === todayStr) {
+                    cell.classList.add('today');
+                }
+
+                if (dateMap[dateStr]) {
+                    cell.classList.add('has-content');
+                    cell.title = 'Covers Consensus - ' + dateStr;
+                    cell.onclick = () => window.location.href = dateMap[dateStr].page;
+                }
+
+                container.appendChild(cell);
+            }
+        }
+
+        // Initial render
+        renderCalendar(currentMonth);
+
     </script>
 </body>
 </html>
