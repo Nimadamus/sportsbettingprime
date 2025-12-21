@@ -118,7 +118,7 @@ class CoversConsensusScraper:
                 unique.append(c)
 
         print(f"    Found {len(unique)} unique contestants (from {len(contestants)} total)")
-        return unique[:200]  # Return top 200
+        return unique[:100]  # Return top 100 (sharper picks)
 
     def get_contestant_picks(self, contestant, sport):
         """Get pending picks for a contestant"""
@@ -190,10 +190,10 @@ class CoversConsensusScraper:
 
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
-            contestants = self.get_leaderboard(sport_code, pages=4)  # 4 pages = 200 contestants
+            contestants = self.get_leaderboard(sport_code, pages=2)  # 2 pages = 100 contestants
 
             picks_found = 0
-            for i, contestant in enumerate(contestants[:200], 1):  # Process top 200
+            for i, contestant in enumerate(contestants[:100], 1):  # Process top 100
                 picks = self.get_contestant_picks(contestant, sport_name)
 
                 if picks:
