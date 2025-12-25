@@ -3,418 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Handicapping Hub - December 25, 2025 | BetLegend</title>
     <meta name="description" content="The best handicapping hub on the internet. Advanced stats, betting lines, and analysis for NBA, NFL, NHL, NCAAB, and NCAAF.">
-=======
-    <title>Handicapping Hub - Professional Sports Analysis</title>
->>>>>>> d2d00f44 (Daily update: Handicapping Hub Ultimate - Thu 12/25/2025)
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: #f8f9fa;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #1a1a1a;
-            min-height: 100vh;
-            font-size: 16px;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.4;
         }
-        .header {
-            background: #1a1a1a;
-            padding: 20px 30px;
-            position: sticky;
+
+        /* Navigation */
+        .nav {
+            background: #1a365d;
+            padding: 12px 20px;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #fd5000;
         }
-        .header-content {
+        .nav-inner {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: #fd5000; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 100%);
+            color: white;
+            padding: 80px 20px 25px;
+            text-align: center;
         }
         .header h1 {
-            font-size: 24px;
-            color: #fff;
+            font-size: 2rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             margin-bottom: 5px;
         }
         .header h1 span { color: #fd5000; }
-        .header .timestamp {
-            color: #888;
-            font-size: 12px;
-            margin-bottom: 15px;
+        .header .subtitle { opacity: 0.9; font-size: 0.95rem; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
+
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 8px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             flex-wrap: wrap;
         }
-        .tab {
-            background: transparent;
-            border: 1px solid #444;
-            padding: 8px 18px;
+        .tab-btn {
+            padding: 10px 20px;
+            background: #e8e8e8;
+            border: none;
             border-radius: 6px;
-            color: #ccc;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .tab:hover { background: #333; border-color: #666; color: #fff; }
-        .tab.active { background: #fd5000; border-color: #fd5000; color: #fff; }
-        .archive-link {
-            margin-top: 15px;
-        }
-        .archive-link a {
-            color: #888;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 8px 16px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .archive-link a:hover {
-            color: #fd5000;
-            border-color: #fd5000;
-            background: rgba(253, 80, 0, 0.1);
-        }
-        .container { max-width: 1400px; margin: 0 auto; padding: 30px; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .section-header {
-            margin-bottom: 25px;
-        }
-        .section-header h2 {
-            color: #1a1a1a;
-            font-size: 22px;
             font-weight: 700;
-            display: inline-block;
-            border-bottom: 3px solid #fd5000;
-            padding-bottom: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .section-header .count {
+        .tab-btn:hover { background: #d0d0d0; }
+        .tab-btn.active {
+            background: #1a365d;
+            color: white;
+        }
+        .tab-btn .count { opacity: 0.7; font-weight: 500; }
+
+        /* Sport Sections */
+        .sport-section { display: none; }
+        .sport-section.active { display: block; }
+        .no-games {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
             color: #666;
-            font-size: 14px;
-            margin-left: 15px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .game-header {
+            background: #1a365d;
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .game-time { color: #fd5000; }
+        .game-venue { opacity: 0.9; }
+        .game-network {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child { border-bottom: none; }
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1a365d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #fd5000;
+            display: inline-block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-bottom: 1px solid #eee;
+        }
+        .stats-grid .section {
+            border-bottom: none;
+        }
+        .stats-grid .section:first-child {
+            border-right: 1px solid #eee;
+        }
+
+        /* Tables */
+        .lines-table, .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .lines-table th, .stats-table th {
+            text-align: center;
+            padding: 6px 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        .lines-table td, .stats-table td {
+            text-align: center;
+            padding: 8px 4px;
+            font-weight: 600;
+        }
+        .lines-table .team-col, .stats-table .team-col {
+            text-align: left;
+            min-width: 140px;
+        }
+        .team-col {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+        .team-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .team-record {
+            font-size: 0.75rem;
+            color: #666;
             font-weight: 500;
         }
-        .no-games {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-            font-size: 16px;
-            background: #fff;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-        }
-        .game-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .game-card:hover {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-color: #ccc;
-        }
-        .matchup-header {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
-            align-items: center;
-            padding: 25px 30px;
-            background: linear-gradient(135deg, #fafafa, #fff);
-            border-bottom: 1px solid #eee;
-        }
-        .team-box { display: flex; align-items: center; gap: 15px; }
-        .team-box.home { flex-direction: row-reverse; text-align: right; }
-        .team-logo { width: 56px; height: 56px; object-fit: contain; }
-        .team-details h3 { font-size: 17px; color: #1a1a1a; font-weight: 700; margin-bottom: 4px; }
-        .team-records { font-size: 13px; color: #666; }
-        .team-records .overall { color: #1a1a1a; font-weight: 600; }
-        .vs-badge {
-            background: #1a1a1a;
-            padding: 10px 14px;
-            border-radius: 8px;
+        .team-abbr {
             font-weight: 700;
-            font-size: 12px;
-            color: #fff;
-            letter-spacing: 1px;
+            color: #1a365d;
+            text-align: left !important;
+            padding-left: 8px !important;
         }
-        .teams-layout {
-            display: flex;
-            flex-direction: column;
-        }
-        .team-section {
-            padding: 25px 30px;
-            border-top: 1px solid #eee;
-        }
-        .team-section.away { background: #fafafa; }
-        .team-section.home { background: #fff; }
-        .team-section-header {
+
+        /* Betting Lines Colors */
+        .spread { color: #1a365d; font-weight: 700; }
+        .ml { color: #2d7a2d; }
+        .total { color: #8b4513; }
+
+        .away-row { background: #fff; }
+        .home-row { background: #f8f9fa; }
+
+        /* Line Movements Bar */
+        .line-movements-bar {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: #e65100;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-left: 4px solid #ff9800;
         }
-        .team-section-logo { width: 50px; height: 50px; object-fit: contain; }
-        .team-section-info h4 {
-            font-size: 18px;
+        .movements-label {
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 3px;
-        }
-        .team-section-info .record {
-            font-size: 14px;
-            color: #666;
-        }
-        .team-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        .stats-column {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-        }
-        .team-section.away .stats-column { background: #fff; }
-        .team-section.home .stats-column { background: #f8f8f8; }
-        .stats-column-title {
-            font-size: 12px;
-            font-weight: 700;
+            color: #bf360c;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
-        }
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .stat-item:last-child { border-bottom: none; }
-        .stat-item .label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-        }
-        .stat-item .value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a1a1a;
-        }
-        .stat-item .value.good { color: #16a34a; }
-        .stat-item .value.bad { color: #dc2626; }
-        .middle-section {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-            padding: 25px 30px;
-            border-top: 1px solid #333;
-        }
-        .middle-section-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 15px;
-        }
-        .injury-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .injury-column h5 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #444;
-        }
-        .injury-list {
-            list-style: none;
-        }
-        .injury-list li {
-            font-size: 13px;
-            color: #ccc;
-            padding: 6px 0;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .injury-list li:last-child { border-bottom: none; }
-        .injury-list .player-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .injury-list .player-name { color: #fff; font-weight: 500; }
-        .injury-list .injury-type { font-size: 11px; color: #888; }
-        .injury-list .status {
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .injury-list .status.out { background: #dc2626; color: #fff; }
-        .injury-list .status.doubtful { background: #ea580c; color: #fff; }
-        .injury-list .status.questionable { background: #ca8a04; color: #fff; }
-        .injury-list .status.day-to-day { background: #0284c7; color: #fff; }
-        .injury-list .status.probable { background: #16a34a; color: #fff; }
-        .no-injuries {
-            color: #4ade80;
-            font-size: 13px;
-        }
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            border-top: 1px solid #eee;
-        }
-        .power-section {
-            padding: 20px 25px;
-            border-right: 1px solid #eee;
-            background: #fafafa;
-        }
-        .power-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 15px;
-        }
-        .power-ratings {
-            display: flex;
-            gap: 15px;
-        }
-        .power-box {
-            flex: 1;
-            text-align: center;
-        }
-        .power-box .team { font-size: 12px; font-weight: 600; color: #666; margin-bottom: 5px; }
-        .power-box .score { font-size: 28px; font-weight: 800; }
-        .power-box .score.high { color: #16a34a; }
-        .power-box .score.mid { color: #ca8a04; }
-        .power-box .score.low { color: #dc2626; }
-        .power-box .streak {
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-top: 5px;
-            display: inline-block;
-        }
-        .power-box .streak.win { background: #dcfce7; color: #16a34a; }
-        .power-box .streak.loss { background: #fee2e2; color: #dc2626; }
-        .lines-section {
-            padding: 20px 25px;
-        }
-        .lines-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 15px;
-        }
-        .betting-lines {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .line-box { text-align: center; }
-        .line-box .type {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 0.7rem;
             letter-spacing: 0.5px;
-            color: #999;
-            margin-bottom: 8px;
         }
-        .line-box .values { display: flex; flex-direction: column; gap: 4px; }
-        .line-box .value {
+        .movement-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            font-size: 14px;
-            color: #1a1a1a;
-            background: #f5f5f5;
-            padding: 6px 12px;
-            border-radius: 6px;
+            color: #bf360c;
         }
-        .line-box .value.na { color: #999; background: #fafafa; }
-        .h2h-section {
-            padding: 20px 30px;
-            background: #f8f8f8;
-            border-top: 1px solid #eee;
+        .move-icon {
+            font-size: 0.85rem;
         }
-        .h2h-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 12px;
-        }
-        .h2h-games {
+
+        /* Trends Bar */
+        .trends-bar {
+            background: #e3f2fd;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: #1565c0;
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
-        .h2h-game {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-        .h2h-game .date { color: #888; }
-        .h2h-game .score { font-weight: 600; margin-left: 8px; }
-        .l10-section {
-            padding: 20px 30px;
-            background: #fff;
-            border-top: 1px solid #eee;
-        }
-        .l10-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .l10-column h5 {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .l10-games {
+        .trend-item {
             display: flex;
+            align-items: center;
             gap: 6px;
-            flex-wrap: wrap;
         }
-        .l10-game {
-            width: 32px;
-            height: 32px;
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        footer a { color: #1a365d; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid .section:first-child {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            .game-header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .lines-table, .stats-table {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Archive Calendar Dropdown */
+        .archive-btn {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #fd5000, #ff7b3d);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(253, 80, 0, 0.4);
+        }
+        .archive-btn:hover { transform: scale(1.05); }
+        .archive-dropdown {
+            position: fixed;
+            top: 115px;
+            right: 20px;
+            z-index: 998;
+            background: rgba(13, 27, 42, 0.98);
+            border: 2px solid #fd5000;
+            border-radius: 12px;
+            padding: 15px;
+            width: 300px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .archive-dropdown.open { display: block; }
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .cal-title { color: #fff; font-weight: 700; font-size: 0.85rem; }
+        .cal-nav { display: flex; gap: 6px; align-items: center; }
+        .cal-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 4px 8px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        .cal-nav-btn:hover { background: #fd5000; }
+        .cal-month { color: #fd5000; font-weight: 700; font-size: 0.8rem; min-width: 90px; text-align: center; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+        }
+        .cal-day-hdr { text-align: center; color: #ffd700; font-size: 0.55rem; font-weight: 700; padding: 4px 0; }
+        .cal-day {
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 11px;
-            color: #fff;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            color: #555;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
-<<<<<<< HEAD
+        .cal-day.has-data {
+            background: rgba(253, 80, 0, 0.25);
+            border-color: rgba(253, 80, 0, 0.5);
+            color: #fff;
+            cursor: pointer;
+        }
         .cal-day.has-data:hover { background: #fd5000; transform: scale(1.1); }
         .cal-day.today { background: #fd5000; color: #fff; font-weight: 800; }
         .cal-day.other { opacity: 0.3; }
@@ -422,72 +394,6 @@
             .archive-btn { top: 60px; right: 10px; padding: 8px 12px; font-size: 0.7rem; }
             .archive-dropdown { right: 10px; width: 260px; top: 100px; }
         }
-=======
-        .l10-game.win { background: #16a34a; }
-        .l10-game.loss { background: #dc2626; }
-        .advanced-section {
-            padding: 20px 30px;
-            background: #fafafa;
-            border-top: 1px solid #eee;
-        }
-        .advanced-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 15px;
-        }
-        .advanced-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-        .advanced-item {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .advanced-item .label {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #888;
-            margin-bottom: 5px;
-        }
-        .advanced-item .values {
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .advanced-item .values span {
-            display: inline-block;
-            margin: 0 5px;
-        }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 13px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        .back-link:hover { opacity: 1; }
-        @media (max-width: 900px) {
-            .matchup-header { grid-template-columns: 1fr; gap: 15px; text-align: center; }
-            .team-box, .team-box.home { flex-direction: column; text-align: center; }
-            .vs-badge { margin: 0 auto; }
-            .team-stats-grid { grid-template-columns: 1fr; }
-            .bottom-section { grid-template-columns: 1fr; }
-            .power-section { border-right: none; border-bottom: 1px solid #eee; }
-            .betting-lines { grid-template-columns: 1fr; }
-            .injury-grid { grid-template-columns: 1fr; }
-            .l10-grid { grid-template-columns: 1fr; }
-        }
->>>>>>> d2d00f44 (Daily update: Handicapping Hub Ultimate - Thu 12/25/2025)
     
         .alerts-banner {
             background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -531,23 +437,22 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
-            <h1>HANDICAPPING <span>HUB</span></h1>
-            <div class="timestamp">Last updated: December 25, 2025 at 07:59 AM &bull; Data from ESPN</div>
-            <div class="tabs">
-            <button class="tab active" onclick="showSection('NBA')">NBA (0)</button>
-            <button class="tab " onclick="showSection('NFL')">NFL (0)</button>
-            <button class="tab " onclick="showSection('NHL')">NHL (0)</button>
-            <button class="tab " onclick="showSection('NCAAB')">NCAAB (0)</button>
-            <button class="tab " onclick="showSection('NCAAF')">NCAAF (0)</button>
-            </div>
-            <div class="archive-link">
-                <a href="handicapping-hub-calendar.html">View Archive Calendar</a>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">BET<span>LEGEND</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="handicapping-hub.html">Hub</a>
+                <a href="handicapping-hub-archive.html">Archive</a>
+                <a href="blog-page10.html">Picks</a>
+                <a href="featured-game-of-the-day-page18.html">Featured</a>
+                <a href="nfl.html">NFL</a>
+                <a href="nba.html">NBA</a>
+                <a href="nhl.html">NHL</a>
+                <a href="ncaab.html">NCAAB</a>
+                <a href="ncaaf.html">NCAAF</a>
             </div>
         </div>
-<<<<<<< HEAD
     </nav>
 
     <header class="header">
@@ -569,42 +474,40 @@
             </div>
         </div>
         <div class="cal-grid" id="calGrid"></div>
-=======
->>>>>>> d2d00f44 (Daily update: Handicapping Hub Ultimate - Thu 12/25/2025)
     </div>
+
     <div class="container">
 
         <div class="alerts-banner">
             <div class="alerts-header">
                 <span class="alert-icon">⚠️</span>
                 <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">10:27 AM</span>
+                <span class="alert-time">11:00 AM</span>
             </div>
             <div class="alerts-scroll">
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Cleveland Cavaliers @ New York Knicks (NBA) - Cleveland Cavaliers ML moved from 180 to 160</span>
+                    <span class="alert-text">SPREAD MOVE: Cleveland Cavaliers @ New York Knicks (NBA) - Spread moved from 4.5 to -7.5 (+12.0 pts)</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Cleveland Cavaliers @ New York Knicks (NBA) - Total moved from 238.5 to 242.5 (up)</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Houston Rockets @ Los Angeles Lakers (NBA) - Total moved from 230.5 to 232.5 (up)</span>
+                    <span class="alert-text">ML MOVE: Cleveland Cavaliers @ New York Knicks (NBA) - Cleveland Cavaliers ML moved from 160 to -500</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Dallas Cowboys ML moved from -485 to -600</span>
+                    <span class="alert-text">SPREAD MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Spread moved from -9.5 to -19.5 (+10.0 pts)</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NFL</span>
-                    <span class="alert-text">TOTAL MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Total moved from 50.5 to 53.5 (up)</span>
+                    <span class="alert-text">ML MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Dallas Cowboys ML moved from -600 to -3200</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NFL</span>
+                    <span class="alert-text">TOTAL MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Total moved from 53.5 to 55.5 (up)</span>
                 </div>
             </div>
         </div>
 
-<<<<<<< HEAD
         <div class="tabs">
             <button class="tab-btn active" data-sport="nba">NBA <span class="count">(5)</span></button>
 <button class="tab-btn " data-sport="nfl">NFL <span class="count">(3)</span></button>
@@ -5761,46 +5664,87 @@
             const rem = (first + days) % 7;
             if (rem > 0) for (let d = 1; d <= 7 - rem; d++) h += '<div class="cal-day other">' + d + '</div>';
             document.getElementById('calGrid').innerHTML = h;
-=======
-        <div id="NBA" class="section active">
-            <div class="section-header">
-                <h2>NBA Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
-        </div>
-        <div id="NFL" class="section ">
-            <div class="section-header">
-                <h2>NFL Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
-        </div>
-        <div id="NHL" class="section ">
-            <div class="section-header">
-                <h2>NHL Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
-        </div>
-        <div id="NCAAB" class="section ">
-            <div class="section-header">
-                <h2>NCAAB Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
-        </div>
-        <div id="NCAAF" class="section ">
-            <div class="section-header">
-                <h2>NCAAF Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
-        </div>
-    </div>
-    <script>
-        function showSection(sport) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(sport).classList.add('active');
-            event.target.classList.add('active');
->>>>>>> d2d00f44 (Daily update: Handicapping Hub Ultimate - Thu 12/25/2025)
         }
+        function calNav(delta) { calDate.setMonth(calDate.getMonth() + delta); renderCal(); }
+        renderCal();
+    </script>
+
+    <!-- Live Game Status Check - Removes finished games automatically -->
+    <script>
+    (function() {
+        const ESPN_ENDPOINTS = {
+            'nba': 'basketball/nba',
+            'nfl': 'football/nfl',
+            'nhl': 'hockey/nhl',
+            'ncaab': 'basketball/mens-college-basketball',
+            'ncaaf': 'football/college-football'
+        };
+
+        async function checkGameStatus() {
+            const cards = document.querySelectorAll('.game-card[data-event-id]');
+            const sportCounts = {};
+
+            for (const card of cards) {
+                const eventId = card.getAttribute('data-event-id');
+                const sport = card.getAttribute('data-sport');
+
+                if (!eventId || !sport) continue;
+
+                const endpoint = ESPN_ENDPOINTS[sport];
+                if (!endpoint) continue;
+
+                try {
+                    const resp = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${endpoint}/scoreboard/${eventId}`);
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        const status = data?.competitions?.[0]?.status?.type?.name || data?.status?.type?.name;
+
+                        if (status === 'STATUS_FINAL' || status === 'STATUS_POSTPONED' || status === 'STATUS_CANCELED') {
+                            card.style.transition = 'opacity 0.5s, max-height 0.5s';
+                            card.style.opacity = '0';
+                            card.style.maxHeight = '0';
+                            card.style.overflow = 'hidden';
+                            card.style.margin = '0';
+                            card.style.padding = '0';
+                            setTimeout(() => card.remove(), 500);
+                            console.log(`Removed finished game: ${eventId}`);
+                        } else {
+                            if (!sportCounts[sport]) sportCounts[sport] = 0;
+                            sportCounts[sport]++;
+                        }
+                    }
+                } catch (e) {
+                    // On error, keep the card and count it
+                    if (!sportCounts[sport]) sportCounts[sport] = 0;
+                    sportCounts[sport]++;
+                }
+            }
+
+            // Update tab counts
+            for (const [sport, count] of Object.entries(sportCounts)) {
+                const btn = document.querySelector(`.tab-btn[data-sport="${sport}"] .count`);
+                if (btn) btn.textContent = `(${count})`;
+            }
+
+            // Check for empty sections and show "no games" message
+            ['nba', 'nfl', 'nhl', 'ncaab', 'ncaaf'].forEach(sport => {
+                const section = document.getElementById(`${sport}-section`);
+                if (section) {
+                    const cards = section.querySelectorAll('.game-card');
+                    if (cards.length === 0 && !section.querySelector('.no-games')) {
+                        const noGames = document.createElement('div');
+                        noGames.className = 'no-games';
+                        noGames.textContent = `No ${sport.toUpperCase()} games currently in progress`;
+                        section.appendChild(noGames);
+                    }
+                }
+            });
+        }
+
+        // Initial check after 10 seconds, then every 60 seconds
+        setTimeout(checkGameStatus, 10000);
+        setInterval(checkGameStatus, 60000);
+    })();
     </script>
 </body>
 </html>
