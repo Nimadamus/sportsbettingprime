@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCAAB | December 24, 2025 | 3 Games | Sports Betting Prime</title>
-    <meta name="description" content="NCAAB betting analysis for December 22, 2025. 7 games with spreads, totals, and expert picks.">
+    <title>College Basketball | AP Top 25 Rankings & Analysis | Sports Betting Prime</title>
+    <meta name="description" content="College basketball betting analysis, AP Top 25 rankings, and expert picks. Updated daily with spreads, totals, and sharp action.">
     <link rel="canonical" href="https://sportsbettingprime.com/college-basketball.html">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,7 @@
             --accent: #f97316;
             --accent2: #ea580c;
             --gold: #f59e0b;
+            --green: #22c55e;
             --text: #f1f5f9;
             --muted: #94a3b8;
         }
@@ -31,23 +32,58 @@
         .page-header { text-align: center; margin-bottom: 3rem; }
         .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
         .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
-        .info-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; }
-        .info-box h2 { color: var(--accent); margin-bottom: 1rem; }
-        .info-box p { color: var(--muted); margin-bottom: 1rem; }
-        .rankings { display: grid; gap: 1rem; margin-top: 2rem; }
-        .rank-item { background: rgba(0, 0, 0, 0.2); padding: 1rem 1.5rem; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
-        .rank-num { font-size: 1.5rem; font-weight: 800; color: var(--gold); min-width: 40px; }
+
+        .notice-card { background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .notice-card h2 { color: var(--accent); margin-bottom: 0.5rem; }
+        .notice-card p { color: var(--muted); }
+
+        .section-title { font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+
+        .rankings-grid { display: grid; gap: 0.5rem; }
+        .rank-row { display: grid; grid-template-columns: 50px 40px 1fr auto auto; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; transition: all 0.2s; gap: 1rem; }
+        .rank-row:hover { border-color: var(--accent); transform: translateX(4px); }
+        .rank-num { font-size: 1.25rem; font-weight: 800; color: var(--gold); text-align: center; }
+        .rank-logo { width: 32px; height: 32px; object-fit: contain; }
         .rank-team { font-weight: 600; }
-        .rank-record { color: var(--muted); font-size: 0.875rem; margin-left: auto; }
+        .rank-record { color: var(--muted); font-size: 0.875rem; }
+        .rank-conf { color: var(--accent); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+
+        .upcoming-section { margin-top: 3rem; }
+        .game-preview { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+        .game-preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .game-preview-date { color: var(--gold); font-weight: 600; }
+        .game-preview-broadcast { color: var(--muted); font-size: 0.875rem; }
+        .game-preview-matchup { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .game-preview-matchup img { width: 40px; height: 40px; object-fit: contain; }
+        .game-preview-vs { color: var(--muted); font-weight: 600; }
+        .game-preview-team { font-weight: 600; }
+        .game-preview-team .record { color: var(--muted); font-size: 0.875rem; font-weight: 400; }
+        .game-preview-analysis { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+        .article-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+        .article-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05)); border-bottom: 1px solid var(--border); }
+        .article-header h3 { color: var(--text); font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .article-meta { color: var(--muted); font-size: 0.875rem; }
+        .article-body { padding: 1.5rem; }
+        .article-body p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+        .article-body p:last-child { margin-bottom: 0; }
+
         footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .rank-row { grid-template-columns: 40px 32px 1fr auto; }
+            .rank-conf { display: none; }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
             <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-                        <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="covers-consensus.html">Consensus</a></li>
                 <li><a href="handicapping-hub.html">Hub</a></li>
@@ -63,155 +99,279 @@
     <main>
         <div class="page-header">
             <h1>College Basketball</h1>
-            <div class="week-badge">DECEMBER 24, 2025</div>
-            <p style="color: var(--muted);">Wednesday, December 24, 2025 - 3 Games Today</p>
+            <div class="date-badge">2025-26 SEASON</div>
+            <p style="color: var(--muted);">AP Top 25 Rankings & Betting Analysis</p>
         </div>
 
-        <div class="game-card">
-            <div class="game-header">
-                <div class="team away">
-                    <img src="" alt="Columbia College (SC) Fighting Koalas" onerror="this.style.display='none'">
-                    <div class="team-info">
-                        <div class="name">Columbia College (SC) Fighting Koalas</div>
-                        <div class="record"></div>
-                    </div>
-                </div>
-                <div class="vs">@</div>
-                <div class="team home">
-                    <div class="team-info">
-                        <div class="name">UNC Wilmington Seahawks</div>
-                        <div class="record">10-2</div>
-                    </div>
-                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/350.png" alt="UNC Wilmington Seahawks" onerror="this.style.display='none'">
-                </div>
+        <div class="notice-card">
+            <h2>Christmas Break - December 24-26</h2>
+            <p>College basketball is on holiday break. No major conference games scheduled. Action resumes December 27.</p>
+        </div>
+
+        <div class="article-card">
+            <div class="article-header">
+                <h3>College Basketball Landscape: What You Need to Know</h3>
+                <div class="article-meta">December 24, 2025 | Season Analysis</div>
             </div>
-            <div class="game-meta">Saturday, Dec 27 | 05:00 PM ET | Trask Coliseum | FloSports</div>
-            <div class="game-analysis">
-                <h3>Columbia College (SC) Fighting Koalas vs UNC Wilmington Seahawks</h3>
-                <p>Everyone's sleeping on this. This Columbia College (SC) Fighting Koalas-UNC Wilmington Seahawks matchup has my attention. Records of  and 10-2 set the stage. </p>
-                <p>Here's where it gets interesting: Scoring 77.4 PPG at home, UNC Wilmington Seahawks has the crowd. Columbia College (SC) Fighting Koalas averages 79.9 but road games in hostile gyms are tough. </p>
-                <p>honestly, ATS records matter. UNC Wilmington Seahawks at 6-4 against the spread. Columbia College (SC) Fighting Koalas is 8-4. The value is clear. The numbers support it.</p>
-                <div class="key-factors">
-                    <div class="factor">
-                        <div class="title">Home Field</div>
-                        <div class="desc">UNC Wilmington Seahawks is 7-1 at home this season</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Records</div>
-                        <div class="desc">UNC Wilmington Seahawks: 10-2 | Columbia College (SC) Fighting Koalas: </div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Home Scoring</div>
-                        <div class="desc">UNC Wilmington Seahawks averages 77.1 PPG at home</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Line Movement</div>
-                        <div class="desc">Opened UNC Wilmington Seahawks , sharp action noted</div>
-                    </div>
-                </div>
+            <div class="article-body">
+                <p>We're at the midpoint of the non-conference schedule, and the picture is becoming clearer. Arizona and Michigan remain undefeated and are making serious cases for the top overall seed come March. Iowa State has been dominant, running through their schedule at 12-0 with a defense that's suffocating opponents.</p>
+                <p>The Big Ten is flexing its depth this year. Michigan, Purdue, Michigan State, and Illinois are all ranked, and Nebraska has emerged as the surprise of the conference at 12-0. The Cornhuskers are for real, folks. Their defensive efficiency numbers are elite and they're winning games they had no business winning a year ago.</p>
+                <p>For bettors, watch the line movement when conference play resumes in January. Teams like Duke (-6.5 typical home spread) and Kansas (-7.5 at Allen Fieldhouse) are being bet heavily, but the smart money is finding value in mid-majors. Gonzaga, BYU, and USC are all covering at 60%+ rates this season.</p>
             </div>
         </div>
 
-        <div class="game-card">
-            <div class="game-header">
-                <div class="team away">
-                    <img src="" alt="Cleary University Cougars" onerror="this.style.display='none'">
-                    <div class="team-info">
-                        <div class="name">Cleary University Cougars</div>
-                        <div class="record"></div>
-                    </div>
+        <h2 class="section-title">AP Top 25 Rankings</h2>
+
+        <div class="rankings-grid">
+            <div class="rank-row">
+                <div class="rank-num">1</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/12.png" alt="Arizona">
+                <div class="rank-team">Arizona Wildcats</div>
+                <div class="rank-record">11-0</div>
+                <div class="rank-conf">Pac-12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">2</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/130.png" alt="Michigan">
+                <div class="rank-team">Michigan Wolverines</div>
+                <div class="rank-record">11-0</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">3</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/66.png" alt="Iowa State">
+                <div class="rank-team">Iowa State Cyclones</div>
+                <div class="rank-record">12-0</div>
+                <div class="rank-conf">Big 12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">4</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/41.png" alt="UConn">
+                <div class="rank-team">UConn Huskies</div>
+                <div class="rank-record">12-1</div>
+                <div class="rank-conf">Big East</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">5</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png" alt="Purdue">
+                <div class="rank-team">Purdue Boilermakers</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">6</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" alt="Duke">
+                <div class="rank-team">Duke Blue Devils</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">ACC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">7</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png" alt="Gonzaga">
+                <div class="rank-team">Gonzaga Bulldogs</div>
+                <div class="rank-record">12-1</div>
+                <div class="rank-conf">WCC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">8</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/248.png" alt="Houston">
+                <div class="rank-team">Houston Cougars</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">Big 12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">9</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" alt="Michigan State">
+                <div class="rank-team">Michigan State Spartans</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">10</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" alt="BYU">
+                <div class="rank-team">BYU Cougars</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">Big 12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">11</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/238.png" alt="Vanderbilt">
+                <div class="rank-team">Vanderbilt Commodores</div>
+                <div class="rank-record">12-0</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">12</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/153.png" alt="North Carolina">
+                <div class="rank-team">North Carolina Tar Heels</div>
+                <div class="rank-record">11-1</div>
+                <div class="rank-conf">ACC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">13</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/158.png" alt="Nebraska">
+                <div class="rank-team">Nebraska Cornhuskers</div>
+                <div class="rank-record">12-0</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">14</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" alt="Alabama">
+                <div class="rank-team">Alabama Crimson Tide</div>
+                <div class="rank-record">9-3</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">15</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png" alt="Texas Tech">
+                <div class="rank-team">Texas Tech Red Raiders</div>
+                <div class="rank-record">9-3</div>
+                <div class="rank-conf">Big 12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">16</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/97.png" alt="Louisville">
+                <div class="rank-team">Louisville Cardinals</div>
+                <div class="rank-record">10-2</div>
+                <div class="rank-conf">ACC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">17</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png" alt="Kansas">
+                <div class="rank-team">Kansas Jayhawks</div>
+                <div class="rank-record">9-3</div>
+                <div class="rank-conf">Big 12</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">18</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/8.png" alt="Arkansas">
+                <div class="rank-team">Arkansas Razorbacks</div>
+                <div class="rank-record">9-3</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">19</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" alt="Tennessee">
+                <div class="rank-team">Tennessee Volunteers</div>
+                <div class="rank-record">9-3</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">20</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" alt="Illinois">
+                <div class="rank-team">Illinois Fighting Illini</div>
+                <div class="rank-record">8-3</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">21</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/258.png" alt="Virginia">
+                <div class="rank-team">Virginia Cavaliers</div>
+                <div class="rank-record">10-1</div>
+                <div class="rank-conf">ACC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">22</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png" alt="Florida">
+                <div class="rank-team">Florida Gators</div>
+                <div class="rank-record">8-4</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">23</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/61.png" alt="Georgia">
+                <div class="rank-team">Georgia Bulldogs</div>
+                <div class="rank-record">10-1</div>
+                <div class="rank-conf">SEC</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">24</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/30.png" alt="USC">
+                <div class="rank-team">USC Trojans</div>
+                <div class="rank-record">12-1</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+            <div class="rank-row">
+                <div class="rank-num">25</div>
+                <img class="rank-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" alt="Iowa">
+                <div class="rank-team">Iowa Hawkeyes</div>
+                <div class="rank-record">10-2</div>
+                <div class="rank-conf">Big Ten</div>
+            </div>
+        </div>
+
+        <div class="upcoming-section">
+            <h2 class="section-title">Upcoming Games to Watch</h2>
+
+            <div class="game-preview">
+                <div class="game-preview-header">
+                    <div class="game-preview-date">Monday, December 29</div>
+                    <div class="game-preview-broadcast">SEC Network | 8:00 PM ET</div>
                 </div>
-                <div class="vs">@</div>
-                <div class="team home">
-                    <div class="team-info">
-                        <div class="name">Duquesne Dukes</div>
-                        <div class="record">7-5</div>
-                    </div>
-                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2184.png" alt="Duquesne Dukes" onerror="this.style.display='none'">
+                <div class="game-preview-matchup">
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" alt="Tennessee">
+                    <div class="game-preview-team">#19 Tennessee <span class="record">(9-3)</span></div>
+                    <div class="game-preview-vs">vs</div>
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/256.png" alt="James Madison">
+                    <div class="game-preview-team">James Madison <span class="record">(8-4)</span></div>
+                </div>
+                <div class="game-preview-analysis">
+                    Tennessee is on a 43-game nonconference home winning streak. The Volunteers' defense is elite, holding opponents to 62 PPG. James Madison made the tournament last year but this is a tough road test. Look for Tennessee to cover as double-digit favorites.
                 </div>
             </div>
-            <div class="game-meta">Saturday, Dec 27 | 07:00 PM ET | UPMC Cooper Fieldhouse | ESPN+</div>
-            <div class="game-analysis">
-                <h3>Cleary University Cougars vs Duquesne Dukes</h3>
-                <p>Here's what the market is missing: The college basketball slate brings Cleary University Cougars at Duquesne Dukes - a game with serious betting value if you know where to look. </p>
-                <p>Consider this: Scoring 74.8 PPG at home, Duquesne Dukes has the crowd. Cleary University Cougars averages 78.4 but road games in hostile gyms are tough. </p>
-                <p>simply put, The betting trends are clear: Duquesne Dukes covers consistently (7-7 ATS). When a team covers at this rate, there's a reason. I like this a lot.</p>
-                <div class="key-factors">
-                    <div class="factor">
-                        <div class="title">Home Field</div>
-                        <div class="desc">Duquesne Dukes is 5-2 at home this season</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Records</div>
-                        <div class="desc">Duquesne Dukes: 7-5 | Cleary University Cougars: </div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Home Scoring</div>
-                        <div class="desc">Duquesne Dukes averages 72.9 PPG at home</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Line Movement</div>
-                        <div class="desc">Opened Duquesne Dukes , sharp action noted</div>
-                    </div>
+
+            <div class="game-preview">
+                <div class="game-preview-header">
+                    <div class="game-preview-date">Wednesday, December 31</div>
+                    <div class="game-preview-broadcast">ACC Network | 4:00 PM ET</div>
+                </div>
+                <div class="game-preview-matchup">
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/150.png" alt="Duke">
+                    <div class="game-preview-team">#6 Duke <span class="record">(11-1)</span></div>
+                    <div class="game-preview-vs">vs</div>
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/59.png" alt="Georgia Tech">
+                    <div class="game-preview-team">Georgia Tech <span class="record">(5-7)</span></div>
+                </div>
+                <div class="game-preview-analysis">
+                    Duke opens ACC play at Cameron Indoor where they're nearly unbeatable. Cooper Flagg has been everything advertised - 18.5 PPG, 8.2 RPG as a freshman. Georgia Tech is rebuilding and will struggle to keep this within 15. Duke -14.5 feels about right.
+                </div>
+            </div>
+
+            <div class="game-preview">
+                <div class="game-preview-header">
+                    <div class="game-preview-date">Wednesday, December 31</div>
+                    <div class="game-preview-broadcast">Peacock | 5:00 PM ET</div>
+                </div>
+                <div class="game-preview-matchup">
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/269.png" alt="Marquette">
+                    <div class="game-preview-team">Marquette <span class="record">(9-3)</span></div>
+                    <div class="game-preview-vs">@</div>
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2752.png" alt="Xavier">
+                    <div class="game-preview-team">Xavier <span class="record">(8-4)</span></div>
+                </div>
+                <div class="game-preview-analysis">
+                    Big East rivalry game on New Year's Eve. Marquette has been inconsistent but talented. Xavier's Cintas Center is one of the toughest road environments in college basketball. This should be a close one - look for under 145 in a grind-it-out affair.
                 </div>
             </div>
         </div>
 
-        <div class="game-card">
-            <div class="game-header">
-                <div class="team away">
-                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2463.png" alt="Cal State Northridge Matadors" onerror="this.style.display='none'">
-                    <div class="team-info">
-                        <div class="name">Cal State Northridge Matadors</div>
-                        <div class="record">8-5</div>
-                    </div>
-                </div>
-                <div class="vs">@</div>
-                <div class="team home">
-                    <div class="team-info">
-                        <div class="name">Stanford Cardinal</div>
-                        <div class="record">10-2</div>
-                    </div>
-                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/24.png" alt="Stanford Cardinal" onerror="this.style.display='none'">
-                </div>
+        <div class="article-card" style="margin-top: 2rem;">
+            <div class="article-header">
+                <h3>Betting Angles: Conference Play Preview</h3>
+                <div class="article-meta">December 24, 2025 | Sharp Money Analysis</div>
             </div>
-            <div class="game-meta">Sunday, Dec 28 | 01:00 AM ET | Maples Pavilion | ACC Extra</div>
-            <div class="game-odds">
-                <div class="odd-item"><span class="odd-label">Spread</span><span class="odd-value">STAN -16.5</span></div>
-                <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 165.5</span></div>
-                <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">STAN TBD</span></div>
-            </div>
-            <div class="game-analysis">
-                <h3>Cal State Northridge Matadors vs Stanford Cardinal</h3>
-                <p>Here's the thing: This Cal State Northridge Matadors-Stanford Cardinal matchup has my attention. Records of 8-5 and 10-2 set the stage. </p>
-                <p>It's worth noting Scoring 77.2 PPG at home, Stanford Cardinal has the crowd. Cal State Northridge Matadors averages 78.4 but road games in hostile gyms are tough. </p>
-                <p>honestly, Stanford Cardinal is 6-5 ATS this season and 4-2 at home. That's not coincidence - sharp money follows trends like this. This is a gift from the market.</p>
-                <div class="key-factors">
-                    <div class="factor">
-                        <div class="title">Home Field</div>
-                        <div class="desc">Stanford Cardinal is 7-3 at home this season</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Records</div>
-                        <div class="desc">Stanford Cardinal: 10-2 | Cal State Northridge Matadors: 8-5</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Home Scoring</div>
-                        <div class="desc">Stanford Cardinal averages 78.2 PPG at home</div>
-                    </div>
-                    <div class="factor">
-                        <div class="title">Line Movement</div>
-                        <div class="desc">Opened Stanford Cardinal -16.5, sharp action noted</div>
-                    </div>
-                </div>
+            <div class="article-body">
+                <p>Conference play tips off in January, and here's where the value lies. The Big Ten is loaded with six ranked teams, which means plenty of dog opportunities. Historically, Big Ten road underdogs getting 5-8 points cover at a 55% clip. Nebraska at +7.5 on the road against ranked teams is a situational spot to watch.</p>
+                <p>The SEC has four ranked squads, but Alabama (9-3) has been shaky. The Tide are 4-5 ATS this season and their defense has holes. Fade Alabama as favorites over -10 in conference play.</p>
+                <p>In the Big 12, Iowa State's defense is legit. They're holding opponents to 58 PPG and covering at a 67% rate. The Cyclones are the best bet in the country right now against the spread. Ride them until the market adjusts.</p>
             </div>
         </div>
 
     </main>
 
     <footer>
-        <p style="margin-bottom: 0.5rem;"><a href="covers-consensus.html" style="color: var(--accent);">View Full Consensus</a> | <a href="handicapping-hub.html" style="color: var(--accent);">Handicapping Hub</a></p>
-        <p>&copy; 2025 Sports Betting Prime | Updated Sunday, December 21, 2025</p>
+        <p style="margin-bottom: 0.5rem;"><a href="covers-consensus.html">View Full Consensus</a> | <a href="handicapping-hub.html">Handicapping Hub</a></p>
+        <p>&copy; 2025 Sports Betting Prime | Updated December 24, 2025</p>
     </footer>
 </body>
 </html>
