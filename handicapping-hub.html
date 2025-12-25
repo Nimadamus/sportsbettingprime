@@ -389,6 +389,8 @@
         }
         .cal-day.has-data:hover { background: #fd5000; transform: scale(1.1); }
         .cal-day.today { background: #fd5000; color: #fff; font-weight: 800; }
+        .cal-day.current-page { background: #ffd700; color: #1a1a2e; font-weight: 800; box-shadow: 0 0 10px #ffd700; border: 2px solid #ffd700; }
+        .cal-day.current-page:hover { background: #ffc800; transform: scale(1.1); }
         .cal-day.other { opacity: 0.3; }
         @media (max-width: 600px) {
             .archive-btn { top: 60px; right: 10px; padding: 8px 12px; font-size: 0.7rem; }
@@ -435,26 +437,6 @@
         .alert-text { flex: 1; }
 
     </style>
-
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Handicapping Hub",
-        "description": "One-stop shop for live odds, line movement, and advanced stats",
-        "url": "https://sportsbettingprime.com/handicapping-hub.html",
-        "isPartOf": {
-            "@type": "WebSite",
-            "name": "Sports Betting Prime",
-            "url": "https://sportsbettingprime.com/"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Sports Betting Prime"
-        }
-    }
-    </script>
 </head>
 <body>
     <nav class="nav">
@@ -502,28 +484,24 @@
             <div class="alerts-header">
                 <span class="alert-icon">⚠️</span>
                 <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">04:25 PM</span>
+                <span class="alert-time">08:10 PM</span>
             </div>
             <div class="alerts-scroll">
                 <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Cleveland Cavaliers @ New York Knicks (NBA) - Cleveland Cavaliers ML moved from 205 to 180</span>
+                    <span class="sport-tag">NCAAF</span>
+                    <span class="alert-text">SPREAD MOVE: California Golden Bears @ Hawaii Rainbow Warriors (NCAAF) - Spread moved from 1.5 to -2.5 (+4.0 pts)</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: San Antonio Spurs @ Oklahoma City Thunder (NBA) - Total moved from 235.5 to 232.5 (down)</span>
+                    <span class="sport-tag">NCAAF</span>
+                    <span class="alert-text">ML MOVE: California Golden Bears @ Hawaii Rainbow Warriors (NCAAF) - California Golden Bears ML moved from -102 to -166</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Minnesota Timberwolves @ Denver Nuggets (NBA) - Minnesota Timberwolves ML moved from 140 to 120</span>
+                    <span class="sport-tag">NCAAF</span>
+                    <span class="alert-text">TOTAL MOVE: California Golden Bears @ Hawaii Rainbow Warriors (NCAAF) - Total moved from 50.5 to 52.5 (up)</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Dallas Cowboys @ Washington Commanders (NFL) - Dallas Cowboys ML moved from -455 to -485</span>
-                </div>
-                <div class="alert-item">
-                    <span class="sport-tag">NFL</span>
-                    <span class="alert-text">ML MOVE: Denver Broncos @ Kansas City Chiefs (NFL) - Denver Broncos ML moved from -1050 to -1100</span>
+                    <span class="sport-tag">NCAAF</span>
+                    <span class="alert-text">ML MOVE: North Texas Mean Green @ San Diego State Aztecs (NCAAF) - North Texas Mean Green ML moved from -225 to -205</span>
                 </div>
             </div>
         </div>
@@ -581,7 +559,7 @@
                             <span class="team-name">CAL</span>
                             <span class="team-record">7-5</span>
                         </td>
-                        <td class="spread">+1.0</td>
+                        <td class="spread">-1.0</td>
                         <td class="ml">-110</td>
                         <td class="total">O 51.0</td>
                     </tr>
@@ -591,7 +569,7 @@
                             <span class="team-name">HAW</span>
                             <span class="team-record">8-4</span>
                         </td>
-                        <td class="spread">-1.0</td>
+                        <td class="spread">+1.0</td>
                         <td class="ml">-110</td>
                         <td class="total">U 51.0</td>
                     </tr>
@@ -659,7 +637,7 @@
         <!-- LINE MOVEMENT ALERTS -->
         <div class="line-movements-bar">
             <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -1.5 -> -1.0 (+0.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 52.5 -> 51.0 (-1.5)</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -3500 -> -110</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +1060 -> -110</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +19.5 -> +1.0 (-18.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 52.5 -> 51.0 (-1.5)</span>
         </div>
 
         <!-- SECTION 4: TRENDS BAR -->
@@ -4787,7 +4765,35 @@
         });
 
         // Archive Calendar
-        const archiveData = {"2025-12-24": "handicapping-hub.html", "2025-12-23": "handicapping-hub-2025-12-23.html", "2025-12-22": "handicapping-hub-2025-12-22.html", "2025-12-20": "handicapping-hub-2025-12-20.html", "2025-12-21": "handicapping-hub-2025-12-21.html"};
+        const archiveData = {
+            "2025-11-30": "handicapping-hub-archive/hub-2025-11-30.html",
+            "2025-12-01": "handicapping-hub-archive/hub-2025-12-01.html",
+            "2025-12-02": "handicapping-hub-archive/hub-2025-12-02.html",
+            "2025-12-03": "handicapping-hub-archive/hub-2025-12-03.html",
+            "2025-12-04": "handicapping-hub-archive/hub-2025-12-04.html",
+            "2025-12-05": "handicapping-hub-archive/hub-2025-12-05.html",
+            "2025-12-06": "handicapping-hub-archive/hub-2025-12-06.html",
+            "2025-12-07": "handicapping-hub-archive/hub-2025-12-07.html",
+            "2025-12-08": "handicapping-hub-archive/hub-2025-12-08.html",
+            "2025-12-09": "handicapping-hub-archive/hub-2025-12-09.html",
+            "2025-12-10": "handicapping-hub-archive/hub-2025-12-10.html",
+            "2025-12-11": "handicapping-hub-archive/hub-2025-12-11.html",
+            "2025-12-12": "handicapping-hub-archive/hub-2025-12-12.html",
+            "2025-12-13": "handicapping-hub-archive/hub-2025-12-13.html",
+            "2025-12-14": "handicapping-hub-archive/hub-2025-12-14.html",
+            "2025-12-15": "handicapping-hub-archive/hub-2025-12-15.html",
+            "2025-12-16": "handicapping-hub-archive/hub-2025-12-16.html",
+            "2025-12-17": "handicapping-hub-archive/hub-2025-12-17.html",
+            "2025-12-18": "handicapping-hub-archive/hub-2025-12-18.html",
+            "2025-12-19": "handicapping-hub-archive/hub-2025-12-19.html",
+            "2025-12-20": "handicapping-hub-2025-12-20.html",
+            "2025-12-21": "handicapping-hub-2025-12-21.html",
+            "2025-12-22": "handicapping-hub-2025-12-22.html",
+            "2025-12-23": "handicapping-hub-2025-12-23.html",
+            "2025-12-24": "handicapping-hub.html"
+        };
+        // Detect current page to highlight in calendar
+        const currentPage = window.location.pathname.split('/').pop() || 'handicapping-hub.html';
         let calDate = new Date();
         const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -4804,8 +4810,10 @@
                 const key = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
                 const isToday = y === today.getFullYear() && m === today.getMonth() && d === today.getDate();
                 const hasData = archiveData[key];
+                const isCurrentPage = hasData && (currentPage === hasData || currentPage === hasData.split('/').pop());
                 let cls = 'cal-day';
-                if (isToday) cls += ' today';
+                if (isCurrentPage) cls += ' current-page';
+                else if (isToday) cls += ' today';
                 else if (hasData) cls += ' has-data';
                 if (hasData) h += '<div class="' + cls + '" onclick="location.href=\'' + hasData + '\'">' + d + '</div>';
                 else h += '<div class="' + cls + '">' + d + '</div>';
