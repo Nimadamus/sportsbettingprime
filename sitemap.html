@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sitemap | Sports Betting Prime</title>
-    <meta name="description" content="Complete sitemap for Sports Betting Prime - all pages, archives, and resources.">
+    <meta name="description" content="Complete sitemap for Sports Betting Prime - all pages, archives, consensus data, and resources.">
     <link rel="canonical" href="https://sportsbettingprime.com/sitemap.html">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -12,11 +12,15 @@
         :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --accent: #22c55e; --gold: #f59e0b; --text: #f1f5f9; --muted: #94a3b8; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
         header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
         .logo .prime { color: var(--gold); }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; flex-wrap: wrap; }
+        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
         main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
         .sitemap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .sitemap-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
         .sitemap-section h2 { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
@@ -24,44 +28,80 @@
         .sitemap-section li { margin-bottom: 0.5rem; }
         .sitemap-section a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
         .sitemap-section a:hover { color: var(--accent); }
+        .badge { display: inline-block; background: var(--accent); color: white; font-size: 0.7rem; padding: 0.15rem 0.4rem; border-radius: 4px; margin-left: 0.5rem; font-weight: 600; }
         footer { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 2rem; }
         footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
     </style>
 </head>
 <body>
     <header>
         <nav>
             <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="handicapping-hub.html">Hub</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="college-basketball.html">NCAAB</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="archive-calendar.html">Archive</a></li>
+            </ul>
         </nav>
     </header>
     <main>
         <h1>Sitemap</h1>
+        <p class="subtitle">Complete index of all Sports Betting Prime pages - 148+ pages indexed</p>
         <div class="sitemap-grid">
 
         <div class="sitemap-section">
             <h2>Main Pages</h2>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="covers-consensus.html">Covers Consensus</a></li>
-                <li><a href="handicapping-hub.html">Handicapping Hub</a></li>
+                <li><a href="covers-consensus.html">Covers Consensus</a> <span class="badge">LIVE</span></li>
+                <li><a href="handicapping-hub.html">Handicapping Hub</a> <span class="badge">LIVE</span></li>
                 <li><a href="archive-calendar.html">Archive Calendar</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
 
         <div class="sitemap-section">
             <h2>Sports Analysis (Current)</h2>
             <ul>
-                <li><a href="nfl-gridiron-oracles.html">NFL Gridiron Oracles</a></li>
-                <li><a href="nba-court-vision.html">NBA Court Vision</a></li>
-                <li><a href="nhl-ice-oracles.html">NHL Ice Oracles</a></li>
-                <li><a href="college-basketball.html">College Basketball</a></li>
-                <li><a href="college-football.html">College Football</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL Gridiron Oracles</a> <span class="badge">LIVE</span></li>
+                <li><a href="nba-court-vision.html">NBA Court Vision</a> <span class="badge">LIVE</span></li>
+                <li><a href="nhl-ice-oracles.html">NHL Ice Oracles</a> <span class="badge">LIVE</span></li>
+                <li><a href="college-basketball.html">College Basketball</a> <span class="badge">LIVE</span></li>
+                <li><a href="college-football.html">College Football</a> <span class="badge">LIVE</span></li>
+                <li><a href="mlb-prime-directives.html">MLB Prime Directives</a></li>
+            </ul>
+        </div>
+
+        <div class="sitemap-section">
+            <h2>Sharp Consensus Library</h2>
+            <ul>
+                <li><a href="consensus_library/sharp-consensus.html">Today's Sharp Consensus</a> <span class="badge">LIVE</span></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-26.html">December 26, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-25.html">December 25, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-24.html">December 24, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-23.html">December 23, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-22.html">December 22, 2025</a></li>
+                <li><a href="consensus_library/sharp-consensus-2025-12-21.html">December 21, 2025</a></li>
             </ul>
         </div>
 
         <div class="sitemap-section">
             <h2>NFL Archive</h2>
             <ul>
+                <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-26.html">December 26, 2025</a></li>
                 <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-23.html">December 23, 2025</a></li>
@@ -69,9 +109,14 @@
                 <li><a href="archive/nfl/nfl-gridiron-oracles-2025-12-21.html">December 21, 2025</a></li>
             </ul>
         </div>
+
         <div class="sitemap-section">
             <h2>NBA Archive</h2>
             <ul>
+                <li><a href="archive/nba/nba-court-vision-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="archive/nba/nba-court-vision-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="archive/nba/nba-court-vision-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="archive/nba/nba-court-vision-2025-12-26.html">December 26, 2025</a></li>
                 <li><a href="archive/nba/nba-court-vision-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="archive/nba/nba-court-vision-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="archive/nba/nba-court-vision-2025-12-23.html">December 23, 2025</a></li>
@@ -79,9 +124,14 @@
                 <li><a href="archive/nba/nba-court-vision-2025-12-21.html">December 21, 2025</a></li>
             </ul>
         </div>
+
         <div class="sitemap-section">
             <h2>NHL Archive</h2>
             <ul>
+                <li><a href="archive/nhl/nhl-ice-oracles-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="archive/nhl/nhl-ice-oracles-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="archive/nhl/nhl-ice-oracles-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="archive/nhl/nhl-ice-oracles-2025-12-26.html">December 26, 2025</a></li>
                 <li><a href="archive/nhl/nhl-ice-oracles-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="archive/nhl/nhl-ice-oracles-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="archive/nhl/nhl-ice-oracles-2025-12-23.html">December 23, 2025</a></li>
@@ -89,18 +139,30 @@
                 <li><a href="archive/nhl/nhl-ice-oracles-2025-12-21.html">December 21, 2025</a></li>
             </ul>
         </div>
+
         <div class="sitemap-section">
             <h2>College Basketball Archive</h2>
             <ul>
+                <li><a href="archive/ncaab/college-basketball-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="archive/ncaab/college-basketball-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="archive/ncaab/college-basketball-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="archive/ncaab/college-basketball-2025-12-26.html">December 26, 2025</a></li>
+                <li><a href="archive/ncaab/college-basketball-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="archive/ncaab/college-basketball-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="archive/ncaab/college-basketball-2025-12-23.html">December 23, 2025</a></li>
                 <li><a href="archive/ncaab/college-basketball-2025-12-22.html">December 22, 2025</a></li>
                 <li><a href="archive/ncaab/college-basketball-2025-12-21.html">December 21, 2025</a></li>
             </ul>
         </div>
+
         <div class="sitemap-section">
             <h2>College Football Archive</h2>
             <ul>
+                <li><a href="archive/ncaaf/college-football-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="archive/ncaaf/college-football-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="archive/ncaaf/college-football-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="archive/ncaaf/college-football-2025-12-26.html">December 26, 2025</a></li>
+                <li><a href="archive/ncaaf/college-football-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="archive/ncaaf/college-football-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="archive/ncaaf/college-football-2025-12-23.html">December 23, 2025</a></li>
                 <li><a href="archive/ncaaf/college-football-2025-12-22.html">December 22, 2025</a></li>
@@ -111,6 +173,11 @@
         <div class="sitemap-section">
             <h2>Covers Consensus Archive</h2>
             <ul>
+                <li><a href="covers-consensus-2025-12-29.html">December 29, 2025</a></li>
+                <li><a href="covers-consensus-2025-12-28.html">December 28, 2025</a></li>
+                <li><a href="covers-consensus-2025-12-27.html">December 27, 2025</a></li>
+                <li><a href="covers-consensus-2025-12-26.html">December 26, 2025</a></li>
+                <li><a href="covers-consensus-2025-12-25.html">December 25, 2025</a></li>
                 <li><a href="covers-consensus-2025-12-24.html">December 24, 2025</a></li>
                 <li><a href="covers-consensus-2025-12-23.html">December 23, 2025</a></li>
                 <li><a href="covers-consensus-2025-12-22.html">December 22, 2025</a></li>
@@ -121,23 +188,15 @@
                 <li><a href="covers-consensus-2025-12-17.html">December 17, 2025</a></li>
                 <li><a href="covers-consensus-2025-12-16.html">December 16, 2025</a></li>
                 <li><a href="covers-consensus-2025-12-15.html">December 15, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-14.html">December 14, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-13.html">December 13, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-12.html">December 12, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-11.html">December 11, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-10.html">December 10, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-09.html">December 09, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-08.html">December 08, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-07.html">December 07, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-06.html">December 06, 2025</a></li>
-                <li><a href="covers-consensus-2025-12-05.html">December 05, 2025</a></li>
             </ul>
         </div>
+
         </div>
     </main>
     <footer>
-        <p><a href="index.html">Home</a> | <a href="archive-calendar.html">Archive Calendar</a></p>
-        <p>Sports Betting Prime | Updated: December 24, 2025</p>
+        <p><a href="index.html">Home</a> | <a href="archive-calendar.html">Archive Calendar</a> | <a href="consensus_library/sharp-consensus.html">Sharp Consensus</a></p>
+        <p>Sports Betting Prime | Updated: December 29, 2025</p>
+        <p style="margin-top: 1rem;">View <a href="sitemap.xml">XML Sitemap</a> for complete page index</p>
     </footer>
 </body>
 </html>
