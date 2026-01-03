@@ -513,6 +513,46 @@
         }
         .alert-text { flex: 1; }
 
+    
+        .alerts-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .alert-icon { font-size: 20px; }
+        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
+        .alerts-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .alert-item {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sport-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .alert-text { flex: 1; }
+
     </style>
 </head>
 <body>
@@ -534,6 +574,37 @@
         </div>
     </div>
     <div class="container">
+
+        <div class="alerts-banner">
+            <div class="alerts-header">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-title">LINE MOVEMENTS DETECTED</span>
+                <span class="alert-time">02:12 PM</span>
+            </div>
+            <div class="alerts-scroll">
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Houston Rockets @ Dallas Mavericks (NBA) - Houston Rockets ML moved from -340 to -310</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Utah Jazz @ Golden State Warriors (NBA) - Utah Jazz ML moved from 400 to 350</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NFL</span>
+                    <span class="alert-text">SPREAD MOVE: Carolina Panthers @ Tampa Bay Buccaneers (NFL) - Spread moved from 3.0 to 9.5 (+6.5 pts)</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NFL</span>
+                    <span class="alert-text">ML MOVE: Carolina Panthers @ Tampa Bay Buccaneers (NFL) - Carolina Panthers ML moved from 130 to 350</span>
+                </div>
+                <div class="alert-item">
+                    <span class="sport-tag">NFL</span>
+                    <span class="alert-text">TOTAL MOVE: Carolina Panthers @ Tampa Bay Buccaneers (NFL) - Total moved from 43.5 to 40.5 (down)</span>
+                </div>
+            </div>
+        </div>
+
 
         <div class="alerts-banner">
             <div class="alerts-header">
