@@ -42,8 +42,8 @@ DATE_STR = TODAY.strftime("%Y-%m-%d")
 DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
 DATE_FULL = TODAY.strftime("%A, %B %d, %Y")
 
-# API Keys (set via environment variable or GitHub Secrets)
-ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "[REDACTED_ODDS_API_KEY]")
+# API Keys (set via environment variable or GitHub Secrets - never hardcode)
+ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "")
 
 # ESPN API endpoints
 ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports"

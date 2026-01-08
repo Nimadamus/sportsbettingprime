@@ -19,7 +19,7 @@ DATE_DISPLAY = "December 25, 2025"
 DATE_FULL = "Thursday, December 25, 2025"
 ESPN_DATE = "20251225"
 
-ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "[REDACTED_ODDS_API_KEY]")
+ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "")
 
 ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports"
 ESPN_ENDPOINTS = {

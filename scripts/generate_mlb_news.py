@@ -27,11 +27,11 @@ from typing import Dict, List
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
 
-# FTP Configuration (Master account for all sites)
+# FTP Configuration (from environment variables)
 FTP_CONFIG = {
-    'host': '208.109.70.186',
-    'user': '[REDACTED_FTP_USER]',
-    'password': '[REDACTED_FTP_PASSWORD]',
+    'host': os.environ.get('FTP_HOST', ''),
+    'user': os.environ.get('FTP_USER', ''),
+    'password': os.environ.get('FTP_PASS', ''),
 }
 
 MLB_SITES = [

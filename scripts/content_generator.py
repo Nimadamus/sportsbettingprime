@@ -680,8 +680,8 @@ class ContentUpdater:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         })
 
-        # API key
-        self.odds_api_key = os.environ.get("ODDS_API_KEY", "[REDACTED_ODDS_API_KEY]")
+        # API key (from environment - never hardcode)
+        self.odds_api_key = os.environ.get("ODDS_API_KEY", "")
 
     def fetch_games(self, sport):
         """Fetch games from ESPN"""

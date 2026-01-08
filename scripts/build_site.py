@@ -54,8 +54,8 @@ DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
 DATE_FULL = TODAY.strftime("%A, %B %d, %Y")
 TIMESTAMP = TODAY.strftime("%I:%M %p ET")
 
-# API Configuration
-ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "[REDACTED_ODDS_API_KEY]")
+# API Configuration (from environment variables - never hardcode keys)
+ODDS_API_KEY = os.environ.get("ODDS_API_KEY", "")
 
 # ESPN API
 ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports"
