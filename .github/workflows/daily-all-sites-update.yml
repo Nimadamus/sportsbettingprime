@@ -64,12 +64,17 @@ jobs:
         run: python scripts/generate_ballsdeep.py
 
       - name: Upload Balls Deep
-        if: ${{ secrets.NEOCITIES_API_KEY != '' }}
+        env:
+          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
         run: |
           FILENAME=$(cat /tmp/bdi-filename.txt)
-          curl -H "Authorization: Bearer ${{ secrets.NEOCITIES_API_KEY }}" \
-            -F "blog/${FILENAME}=@/tmp/bdi-${FILENAME}" \
-            https://neocities.org/api/upload || true
+          if [ -n "$NEOCITIES_API_KEY" ]; then
+            curl -H "Authorization: Bearer $NEOCITIES_API_KEY" \
+              -F "blog/${FILENAME}=@/tmp/bdi-${FILENAME}" \
+              https://neocities.org/api/upload || echo "Neocities upload failed"
+          else
+            echo "Neocities API key not set - skipping"
+          fi
 
       # Commit & Push
       - name: Commit and Push
