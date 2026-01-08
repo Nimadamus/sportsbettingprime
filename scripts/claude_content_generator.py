@@ -6,6 +6,12 @@ Generates REAL human-written sports analysis by sending game data to Claude API.
 Claude writes the actual content - not templates, not fill-in-the-blank.
 
 This produces the same quality as when a human asks Claude to write analysis manually.
+
+Features:
+- Claude API for human-quality content generation
+- Full SEO optimization (OpenGraph, Twitter Cards, JSON-LD structured data)
+- ESPN team logos integrated into each game
+- Automatic image handling
 """
 
 import os
@@ -20,6 +26,48 @@ from typing import Dict, List, Optional
 
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
 ODDS_API_KEY = os.environ.get('ODDS_API_KEY', '')
+
+# ESPN CDN for team logos
+ESPN_LOGO_CDN = "https://a.espncdn.com/i/teamlogos"
+
+# Team abbreviation mappings for logos
+TEAM_ABBREVS = {
+    # NBA
+    'Atlanta Hawks': ('nba', 'atl'), 'Boston Celtics': ('nba', 'bos'), 'Brooklyn Nets': ('nba', 'bkn'),
+    'Charlotte Hornets': ('nba', 'cha'), 'Chicago Bulls': ('nba', 'chi'), 'Cleveland Cavaliers': ('nba', 'cle'),
+    'Dallas Mavericks': ('nba', 'dal'), 'Denver Nuggets': ('nba', 'den'), 'Detroit Pistons': ('nba', 'det'),
+    'Golden State Warriors': ('nba', 'gs'), 'Houston Rockets': ('nba', 'hou'), 'Indiana Pacers': ('nba', 'ind'),
+    'Los Angeles Clippers': ('nba', 'lac'), 'Los Angeles Lakers': ('nba', 'lal'), 'Memphis Grizzlies': ('nba', 'mem'),
+    'Miami Heat': ('nba', 'mia'), 'Milwaukee Bucks': ('nba', 'mil'), 'Minnesota Timberwolves': ('nba', 'min'),
+    'New Orleans Pelicans': ('nba', 'no'), 'New York Knicks': ('nba', 'ny'), 'Oklahoma City Thunder': ('nba', 'okc'),
+    'Orlando Magic': ('nba', 'orl'), 'Philadelphia 76ers': ('nba', 'phi'), 'Phoenix Suns': ('nba', 'phx'),
+    'Portland Trail Blazers': ('nba', 'por'), 'Sacramento Kings': ('nba', 'sac'), 'San Antonio Spurs': ('nba', 'sa'),
+    'Toronto Raptors': ('nba', 'tor'), 'Utah Jazz': ('nba', 'utah'), 'Washington Wizards': ('nba', 'wsh'),
+    # NHL
+    'Anaheim Ducks': ('nhl', 'ana'), 'Arizona Coyotes': ('nhl', 'ari'), 'Boston Bruins': ('nhl', 'bos'),
+    'Buffalo Sabres': ('nhl', 'buf'), 'Calgary Flames': ('nhl', 'cgy'), 'Carolina Hurricanes': ('nhl', 'car'),
+    'Chicago Blackhawks': ('nhl', 'chi'), 'Colorado Avalanche': ('nhl', 'col'), 'Columbus Blue Jackets': ('nhl', 'cbj'),
+    'Dallas Stars': ('nhl', 'dal'), 'Detroit Red Wings': ('nhl', 'det'), 'Edmonton Oilers': ('nhl', 'edm'),
+    'Florida Panthers': ('nhl', 'fla'), 'Los Angeles Kings': ('nhl', 'la'), 'Minnesota Wild': ('nhl', 'min'),
+    'Montreal Canadiens': ('nhl', 'mtl'), 'Nashville Predators': ('nhl', 'nsh'), 'New Jersey Devils': ('nhl', 'njd'),
+    'New York Islanders': ('nhl', 'nyi'), 'New York Rangers': ('nhl', 'nyr'), 'Ottawa Senators': ('nhl', 'ott'),
+    'Philadelphia Flyers': ('nhl', 'phi'), 'Pittsburgh Penguins': ('nhl', 'pit'), 'San Jose Sharks': ('nhl', 'sj'),
+    'Seattle Kraken': ('nhl', 'sea'), 'St. Louis Blues': ('nhl', 'stl'), 'Tampa Bay Lightning': ('nhl', 'tb'),
+    'Toronto Maple Leafs': ('nhl', 'tor'), 'Utah Hockey Club': ('nhl', 'utah'), 'Vancouver Canucks': ('nhl', 'van'),
+    'Vegas Golden Knights': ('nhl', 'vgk'), 'Washington Capitals': ('nhl', 'wsh'), 'Winnipeg Jets': ('nhl', 'wpg'),
+    # NFL
+    'Arizona Cardinals': ('nfl', 'ari'), 'Atlanta Falcons': ('nfl', 'atl'), 'Baltimore Ravens': ('nfl', 'bal'),
+    'Buffalo Bills': ('nfl', 'buf'), 'Carolina Panthers': ('nfl', 'car'), 'Chicago Bears': ('nfl', 'chi'),
+    'Cincinnati Bengals': ('nfl', 'cin'), 'Cleveland Browns': ('nfl', 'cle'), 'Dallas Cowboys': ('nfl', 'dal'),
+    'Denver Broncos': ('nfl', 'den'), 'Detroit Lions': ('nfl', 'det'), 'Green Bay Packers': ('nfl', 'gb'),
+    'Houston Texans': ('nfl', 'hou'), 'Indianapolis Colts': ('nfl', 'ind'), 'Jacksonville Jaguars': ('nfl', 'jax'),
+    'Kansas City Chiefs': ('nfl', 'kc'), 'Las Vegas Raiders': ('nfl', 'lv'), 'Los Angeles Chargers': ('nfl', 'lac'),
+    'Los Angeles Rams': ('nfl', 'lar'), 'Miami Dolphins': ('nfl', 'mia'), 'Minnesota Vikings': ('nfl', 'min'),
+    'New England Patriots': ('nfl', 'ne'), 'New Orleans Saints': ('nfl', 'no'), 'New York Giants': ('nfl', 'nyg'),
+    'New York Jets': ('nfl', 'nyj'), 'Philadelphia Eagles': ('nfl', 'phi'), 'Pittsburgh Steelers': ('nfl', 'pit'),
+    'San Francisco 49ers': ('nfl', 'sf'), 'Seattle Seahawks': ('nfl', 'sea'), 'Tampa Bay Buccaneers': ('nfl', 'tb'),
+    'Tennessee Titans': ('nfl', 'ten'), 'Washington Commanders': ('nfl', 'wsh'),
+}
 
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
@@ -55,6 +103,57 @@ SPORT_CONFIG = {
         'active': True,
     },
 }
+
+# =============================================================================
+# HELPER FUNCTIONS
+# =============================================================================
+
+def get_team_logo(team_name: str) -> str:
+    """Get ESPN CDN logo URL for a team"""
+    if team_name in TEAM_ABBREVS:
+        league, abbrev = TEAM_ABBREVS[team_name]
+        return f"{ESPN_LOGO_CDN}/{league}/500/{abbrev}.png"
+    return f"{ESPN_LOGO_CDN}/nba/500/nba.png"  # Default fallback
+
+
+def generate_json_ld(sport_name: str, game_count: int, games_data: List[Dict]) -> str:
+    """Generate JSON-LD structured data for SEO"""
+    first_game = games_data[0] if games_data else {}
+
+    json_ld = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": f"{sport_name} Betting Analysis - {DATE_DISPLAY}",
+        "description": f"Expert {sport_name} betting analysis for {DATE_DISPLAY}. {game_count} games covered with spreads, totals, and picks.",
+        "author": {
+            "@type": "Organization",
+            "name": "Sports Betting Prime"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sports Betting Prime",
+            "url": "https://sportsbettingprime.com"
+        },
+        "datePublished": DATE_STR,
+        "dateModified": DATE_STR,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": f"https://sportsbettingprime.com/daily/{sport_name.lower()}-analysis-{DATE_STR}.html"
+        },
+        "about": [
+            {"@type": "Thing", "name": sport_name},
+            {"@type": "Thing", "name": "Sports Betting"},
+            {"@type": "Thing", "name": "Betting Analysis"}
+        ]
+    }
+
+    # Add featured image from first game's home team
+    if first_game and first_game.get('home_team'):
+        logo = get_team_logo(first_game['home_team'])
+        json_ld["image"] = logo
+
+    return json.dumps(json_ld, indent=2)
+
 
 # =============================================================================
 # DATA FETCHING
@@ -181,15 +280,21 @@ def call_claude_api(prompt: str, max_tokens: int = 4000) -> str:
 def generate_sport_analysis(sport_name: str, games_data: List[Dict]) -> str:
     """Generate full analysis for a sport using Claude API"""
 
-    # Build the prompt with all game data
+    # Build the prompt with all game data including logo URLs
     games_info = ""
     for i, game in enumerate(games_data, 1):
         spread_str = f"{game['spread']:+.1f}" if game['spread'] else "N/A"
         home_ml_str = f"{game['home_ml']:+d}" if game['home_ml'] else "N/A"
         away_ml_str = f"{game['away_ml']:+d}" if game['away_ml'] else "N/A"
 
+        # Get logo URLs
+        away_logo = get_team_logo(game['away_team'])
+        home_logo = get_team_logo(game['home_team'])
+
         games_info += f"""
 Game {i}: {game['away_team']} @ {game['home_team']}
+- Away Logo URL: {away_logo}
+- Home Logo URL: {home_logo}
 - Away Record: {game['away_record']}
 - Home Record: {game['home_record']}
 - Spread: {game['home_team']} {spread_str}
@@ -215,9 +320,18 @@ REQUIREMENTS:
 9. NO placeholder text, NO "coming soon", NO generic filler
 10. Be opinionated - take stances on value, traps, and sharp angles
 
-Format your response as HTML with each game in this structure:
+Format your response as HTML with each game in this structure (INCLUDE THE TEAM LOGOS):
 <div class="game-analysis">
-    <h3>[Away Team] @ [Home Team]</h3>
+    <div class="game-header">
+        <img class="team-logo" src="[Away Logo URL]" alt="[Away Team]">
+        <h3>[Away Team] @ [Home Team]</h3>
+        <img class="team-logo" src="[Home Logo URL]" alt="[Home Team]">
+    </div>
+    <div class="betting-line">
+        <span>Spread: [Spread]</span>
+        <span>Total: [Total]</span>
+        <span>ML: [Away ML] / [Home ML]</span>
+    </div>
     <p class="game-time">[Time from data] ET</p>
     <div class="analysis-content">
         <p>[Paragraph 1]</p>
@@ -236,32 +350,81 @@ Write the analysis now. Remember: this should read like a human expert wrote it,
 # HTML GENERATION
 # =============================================================================
 
-def generate_full_html(sport_name: str, analysis_html: str, game_count: int) -> str:
-    """Wrap Claude's analysis in full HTML page"""
+def generate_full_html(sport_name: str, analysis_html: str, game_count: int, games_data: List[Dict]) -> str:
+    """Wrap Claude's analysis in full HTML page with full SEO optimization"""
+
+    # Get featured image from first game
+    featured_img = get_team_logo(games_data[0]['home_team']) if games_data else f"{ESPN_LOGO_CDN}/nba/500/nba.png"
+
+    # Generate JSON-LD structured data
+    json_ld = generate_json_ld(sport_name, game_count, games_data)
+
+    # SEO-optimized title and description
+    seo_title = f"{sport_name} Betting Analysis - {DATE_DISPLAY} | Sports Betting Prime"
+    seo_desc = f"Expert {sport_name} betting analysis for {DATE_DISPLAY}. {game_count}-game slate with spreads, totals, moneylines and in-depth breakdowns from veteran handicappers."
+    page_url = f"https://sportsbettingprime.com/daily/{sport_name.lower()}-analysis-{DATE_STR}.html"
 
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{sport_name} Analysis - {DATE_DISPLAY} | Sports Betting Prime</title>
-    <meta name="description" content="{sport_name} betting analysis for {DATE_DISPLAY}. {game_count}-game slate with spreads, totals, and expert breakdowns.">
+
+    <!-- Primary SEO -->
+    <title>{seo_title}</title>
+    <meta name="description" content="{seo_desc}">
+    <meta name="keywords" content="{sport_name} picks, {sport_name} betting, {sport_name} analysis, sports betting, {sport_name} spreads, {sport_name} predictions, {DATE_DISPLAY}">
+    <meta name="author" content="Sports Betting Prime">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{page_url}">
+
+    <!-- OpenGraph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{seo_title}">
+    <meta property="og:description" content="{seo_desc}">
+    <meta property="og:image" content="{featured_img}">
+    <meta property="og:url" content="{page_url}">
+    <meta property="og:site_name" content="Sports Betting Prime">
+    <meta property="article:published_time" content="{DATE_STR}T10:00:00-05:00">
+    <meta property="article:author" content="Sports Betting Prime">
+    <meta property="article:section" content="{sport_name}">
+    <meta property="article:tag" content="{sport_name}">
+    <meta property="article:tag" content="Sports Betting">
+    <meta property="article:tag" content="Picks">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{seo_title}">
+    <meta name="twitter:description" content="{seo_desc}">
+    <meta name="twitter:image" content="{featured_img}">
+    <meta name="twitter:site" content="@SportsBetPrime">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+{json_ld}
+    </script>
+
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         :root {{ --bg: #0f172a; --card: #1e293b; --accent: #22c55e; --gold: #f59e0b; --text: #f1f5f9; }}
         body {{ font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }}
         .container {{ max-width: 900px; margin: 0 auto; padding: 40px 20px; }}
-        h1 {{ background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; margin-bottom: 10px; line-height: 1.3; }}
+        h1 {{ background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 2.2rem; margin-bottom: 10px; line-height: 1.3; }}
         .meta {{ color: #94a3b8; margin-bottom: 30px; font-size: 14px; }}
         .intro {{ font-size: 18px; color: #cbd5e1; margin-bottom: 40px; padding: 20px; background: var(--card); border-radius: 12px; border-left: 4px solid var(--accent); }}
         .game-analysis {{ background: var(--card); border-radius: 12px; padding: 25px; margin-bottom: 25px; }}
-        .game-analysis h3 {{ color: var(--gold); font-size: 1.4rem; margin-bottom: 8px; }}
+        .game-header {{ display: flex; align-items: center; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }}
+        .team-logo {{ width: 40px; height: 40px; object-fit: contain; }}
+        .game-analysis h3 {{ color: var(--gold); font-size: 1.4rem; margin: 0; flex: 1; }}
         .game-time {{ color: #64748b; font-size: 13px; margin-bottom: 15px; }}
         .analysis-content p {{ margin-bottom: 16px; font-size: 16px; color: #cbd5e1; }}
+        .betting-line {{ background: rgba(34, 197, 94, 0.1); border: 1px solid var(--accent); border-radius: 8px; padding: 12px; margin-bottom: 15px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; }}
+        .betting-line span {{ font-size: 14px; color: var(--accent); font-weight: 500; }}
         a {{ color: var(--accent); text-decoration: none; }}
         a:hover {{ text-decoration: underline; }}
         .back-link {{ margin-top: 40px; text-align: center; }}
-        .back-link a {{ background: var(--accent); color: #000; padding: 12px 30px; border-radius: 8px; font-weight: 600; }}
+        .back-link a {{ background: var(--accent); color: #000; padding: 12px 30px; border-radius: 8px; font-weight: 600; display: inline-block; }}
+        @media (max-width: 600px) {{ .betting-line {{ flex-direction: column; align-items: center; }} }}
     </style>
 </head>
 <body>
@@ -336,8 +499,8 @@ def main():
             print(f"  [ERROR] Failed to generate: {e}")
             continue
 
-        # Generate full HTML
-        html = generate_full_html(config['name'], analysis_html, len(games_data))
+        # Generate full HTML with SEO
+        html = generate_full_html(config['name'], analysis_html, len(games_data), games_data)
 
         # Save
         filename = f"daily/{sport_key}-analysis-{DATE_STR}.html"
