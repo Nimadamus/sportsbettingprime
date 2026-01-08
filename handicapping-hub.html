@@ -3,542 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Handicapping Hub - Professional Sports Analysis</title>
-=======
     <title>Handicapping Hub - January 08, 2026 | BetLegend</title>
     <meta name="description" content="The best handicapping hub on the internet. Advanced stats, betting lines, and analysis for NBA, NFL, NHL, NCAAB, and NCAAF.">
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: #f8f9fa;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #1a1a1a;
-            min-height: 100vh;
-            font-size: 16px;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.4;
         }
-        .header {
-            background: #1a1a1a;
-            padding: 20px 30px;
-            position: sticky;
+
+        /* Navigation */
+        .nav {
+            background: #1a365d;
+            padding: 12px 20px;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #fd5000;
         }
-        .header-content {
+        .nav-inner {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: #fd5000; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 100%);
+            color: white;
+            padding: 80px 20px 25px;
+            text-align: center;
         }
         .header h1 {
-            font-size: 24px;
-            color: #fff;
+            font-size: 2rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             margin-bottom: 5px;
         }
         .header h1 span { color: #fd5000; }
-        .header .timestamp {
-            color: #888;
-            font-size: 12px;
-            margin-bottom: 15px;
+        .header .subtitle { opacity: 0.9; font-size: 0.95rem; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
+
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 8px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             flex-wrap: wrap;
         }
-        .tab {
-            background: transparent;
-            border: 1px solid #444;
-            padding: 8px 18px;
+        .tab-btn {
+            padding: 10px 20px;
+            background: #e8e8e8;
+            border: none;
             border-radius: 6px;
-            color: #ccc;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .tab:hover { background: #333; border-color: #666; color: #fff; }
-        .tab.active { background: #fd5000; border-color: #fd5000; color: #fff; }
-        .archive-link {
-            margin-top: 15px;
-        }
-        .archive-link a {
-            color: #888;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 8px 16px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .archive-link a:hover {
-            color: #fd5000;
-            border-color: #fd5000;
-            background: rgba(253, 80, 0, 0.1);
-        }
-        .container { max-width: 1400px; margin: 0 auto; padding: 30px; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .section-header {
-            margin-bottom: 25px;
-        }
-        .section-header h2 {
-            color: #1a1a1a;
-            font-size: 22px;
             font-weight: 700;
-            display: inline-block;
-            border-bottom: 3px solid #fd5000;
-            padding-bottom: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .section-header .count {
+        .tab-btn:hover { background: #d0d0d0; }
+        .tab-btn.active {
+            background: #1a365d;
+            color: white;
+        }
+        .tab-btn .count { opacity: 0.7; font-weight: 500; }
+
+        /* Sport Sections */
+        .sport-section { display: none; }
+        .sport-section.active { display: block; }
+        .no-games {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
             color: #666;
-            font-size: 14px;
-            margin-left: 15px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .game-header {
+            background: #1a365d;
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .game-time { color: #fd5000; }
+        .game-venue { opacity: 0.9; }
+        .game-network {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child { border-bottom: none; }
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1a365d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #fd5000;
+            display: inline-block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-bottom: 1px solid #eee;
+        }
+        .stats-grid .section {
+            border-bottom: none;
+        }
+        .stats-grid .section:first-child {
+            border-right: 1px solid #eee;
+        }
+
+        /* Tables */
+        .lines-table, .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .lines-table th, .stats-table th {
+            text-align: center;
+            padding: 6px 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        .lines-table td, .stats-table td {
+            text-align: center;
+            padding: 8px 4px;
+            font-weight: 600;
+        }
+        .lines-table .team-col, .stats-table .team-col {
+            text-align: left;
+            min-width: 140px;
+        }
+        .team-col {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+        .team-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .team-record {
+            font-size: 0.75rem;
+            color: #666;
             font-weight: 500;
         }
-        .no-games {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-            font-size: 16px;
-            background: #fff;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-        }
-        .game-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .game-card:hover {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-color: #ccc;
-        }
-        .matchup-header {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
-            align-items: center;
-            padding: 25px 30px;
-            background: linear-gradient(135deg, #fafafa, #fff);
-            border-bottom: 1px solid #eee;
-        }
-        .team-box { display: flex; align-items: center; gap: 15px; }
-        .team-box.home { flex-direction: row-reverse; text-align: right; }
-        .team-logo { width: 56px; height: 56px; object-fit: contain; }
-        .team-details h3 { font-size: 17px; color: #1a1a1a; font-weight: 700; margin-bottom: 4px; }
-        .team-records { font-size: 13px; color: #666; }
-        .team-records .overall { color: #1a1a1a; font-weight: 600; }
-        .vs-badge {
-            background: #1a1a1a;
-            padding: 10px 14px;
-            border-radius: 8px;
+        .team-abbr {
             font-weight: 700;
-            font-size: 12px;
-            color: #fff;
-            letter-spacing: 1px;
+            color: #1a365d;
+            text-align: left !important;
+            padding-left: 8px !important;
         }
-        .teams-layout {
-            display: flex;
-            flex-direction: column;
-        }
-        .team-section {
-            padding: 25px 30px;
-            border-top: 1px solid #eee;
-        }
-        .team-section.away { background: #fafafa; }
-        .team-section.home { background: #fff; }
-        .team-section-header {
+
+        /* Betting Lines Colors */
+        .spread { color: #1a365d; font-weight: 700; }
+        .ml { color: #2d7a2d; }
+        .total { color: #8b4513; }
+
+        .away-row { background: #fff; }
+        .home-row { background: #f8f9fa; }
+
+        /* Line Movements Bar */
+        .line-movements-bar {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: #e65100;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-left: 4px solid #ff9800;
         }
-        .team-section-logo { width: 50px; height: 50px; object-fit: contain; }
-        .team-section-info h4 {
-            font-size: 18px;
+        .movements-label {
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 3px;
-        }
-        .team-section-info .record {
-            font-size: 14px;
-            color: #666;
-        }
-        .team-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        .stats-column {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-        }
-        .team-section.away .stats-column { background: #fff; }
-        .team-section.home .stats-column { background: #f8f8f8; }
-        .stats-column-title {
-            font-size: 12px;
-            font-weight: 700;
+            color: #bf360c;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
-        }
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .stat-item:last-child { border-bottom: none; }
-        .stat-item .label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-        }
-        .stat-item .value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a1a1a;
-        }
-        .stat-item .value.good { color: #16a34a; }
-        .stat-item .value.bad { color: #dc2626; }
-        .middle-section {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-            padding: 25px 30px;
-            border-top: 1px solid #333;
-        }
-        .middle-section-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 15px;
-        }
-        .injury-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .injury-column h5 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #444;
-        }
-        .injury-list {
-            list-style: none;
-        }
-        .injury-list li {
-            font-size: 13px;
-            color: #ccc;
-            padding: 6px 0;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .injury-list li:last-child { border-bottom: none; }
-        .injury-list .player-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .injury-list .player-name { color: #fff; font-weight: 500; }
-        .injury-list .injury-type { font-size: 11px; color: #888; }
-        .injury-list .status {
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .injury-list .status.out { background: #dc2626; color: #fff; }
-        .injury-list .status.doubtful { background: #ea580c; color: #fff; }
-        .injury-list .status.questionable { background: #ca8a04; color: #fff; }
-        .injury-list .status.day-to-day { background: #0284c7; color: #fff; }
-        .injury-list .status.probable { background: #16a34a; color: #fff; }
-        .no-injuries {
-            color: #4ade80;
-            font-size: 13px;
-        }
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            border-top: 1px solid #eee;
-        }
-        .power-section {
-            padding: 20px 25px;
-            border-right: 1px solid #eee;
-            background: #fafafa;
-        }
-        .power-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 15px;
-        }
-        .power-ratings {
-            display: flex;
-            gap: 15px;
-        }
-        .power-box {
-            flex: 1;
-            text-align: center;
-        }
-        .power-box .team { font-size: 12px; font-weight: 600; color: #666; margin-bottom: 5px; }
-        .power-box .score { font-size: 28px; font-weight: 800; }
-        .power-box .score.high { color: #16a34a; }
-        .power-box .score.mid { color: #ca8a04; }
-        .power-box .score.low { color: #dc2626; }
-        .power-box .streak {
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-top: 5px;
-            display: inline-block;
-        }
-        .power-box .streak.win { background: #dcfce7; color: #16a34a; }
-        .power-box .streak.loss { background: #fee2e2; color: #dc2626; }
-        .lines-section {
-            padding: 20px 25px;
-        }
-        .lines-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 15px;
-        }
-        .betting-lines {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .line-box { text-align: center; }
-        .line-box .type {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 0.7rem;
             letter-spacing: 0.5px;
-            color: #999;
-            margin-bottom: 8px;
         }
-        .line-box .values { display: flex; flex-direction: column; gap: 4px; }
-        .line-box .value {
+        .movement-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            font-size: 14px;
-            color: #1a1a1a;
-            background: #f5f5f5;
-            padding: 6px 12px;
-            border-radius: 6px;
+            color: #bf360c;
         }
-        .line-box .value.na { color: #999; background: #fafafa; }
-        .h2h-section {
-            padding: 20px 30px;
-            background: #f8f8f8;
-            border-top: 1px solid #eee;
+        .move-icon {
+            font-size: 0.85rem;
         }
-        .h2h-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 12px;
-        }
-        .h2h-games {
+
+        /* Trends Bar */
+        .trends-bar {
+            background: #e3f2fd;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: #1565c0;
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
-        .h2h-game {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-        .h2h-game .date { color: #888; }
-        .h2h-game .score { font-weight: 600; margin-left: 8px; }
-        .l10-section {
-            padding: 20px 30px;
-            background: #fff;
-            border-top: 1px solid #eee;
-        }
-        .l10-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .l10-column h5 {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .l10-games {
+        .trend-item {
             display: flex;
+            align-items: center;
             gap: 6px;
-            flex-wrap: wrap;
         }
-        .l10-game {
-            width: 32px;
-            height: 32px;
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        footer a { color: #1a365d; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid .section:first-child {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            .game-header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .lines-table, .stats-table {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Archive Calendar Dropdown */
+        .archive-btn {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #fd5000, #ff7b3d);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(253, 80, 0, 0.4);
+        }
+        .archive-btn:hover { transform: scale(1.05); }
+        .archive-dropdown {
+            position: fixed;
+            top: 115px;
+            right: 20px;
+            z-index: 998;
+            background: rgba(13, 27, 42, 0.98);
+            border: 2px solid #fd5000;
+            border-radius: 12px;
+            padding: 15px;
+            width: 300px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .archive-dropdown.open { display: block; }
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .cal-title { color: #fff; font-weight: 700; font-size: 0.85rem; }
+        .cal-nav { display: flex; gap: 6px; align-items: center; }
+        .cal-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 4px 8px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        .cal-nav-btn:hover { background: #fd5000; }
+        .cal-month { color: #fd5000; font-weight: 700; font-size: 0.8rem; min-width: 90px; text-align: center; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+        }
+        .cal-day-hdr { text-align: center; color: #ffd700; font-size: 0.55rem; font-weight: 700; padding: 4px 0; }
+        .cal-day {
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 11px;
-            color: #fff;
-        }
-        .l10-game.win { background: #16a34a; }
-        .l10-game.loss { background: #dc2626; }
-        .advanced-section {
-            padding: 20px 30px;
-            background: #fafafa;
-            border-top: 1px solid #eee;
-        }
-<<<<<<< HEAD
-        .advanced-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fd5000;
-            margin-bottom: 15px;
-        }
-        .advanced-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-        .advanced-item {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .advanced-item .label {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #888;
-            margin-bottom: 5px;
-        }
-        .advanced-item .values {
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .advanced-item .values span {
-            display: inline-block;
-            margin: 0 5px;
-        }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 13px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        .back-link:hover { opacity: 1; }
-        @media (max-width: 900px) {
-            .matchup-header { grid-template-columns: 1fr; gap: 15px; text-align: center; }
-            .team-box, .team-box.home { flex-direction: column; text-align: center; }
-            .vs-badge { margin: 0 auto; }
-            .team-stats-grid { grid-template-columns: 1fr; }
-            .bottom-section { grid-template-columns: 1fr; }
-            .power-section { border-right: none; border-bottom: 1px solid #eee; }
-            .betting-lines { grid-template-columns: 1fr; }
-            .injury-grid { grid-template-columns: 1fr; }
-            .l10-grid { grid-template-columns: 1fr; }
-        }
-    
-        .alerts-banner {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            color: white;
-        }
-        .alerts-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .alert-icon { font-size: 20px; }
-        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
-        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
-        .alerts-scroll {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .alert-item {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .sport-tag {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 4px;
+            color: #555;
+            font-size: 0.7rem;
             font-weight: 600;
-            font-size: 11px;
         }
-        .alert-text { flex: 1; }
-
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="header-content">
-            <a href="index.html" class="back-link">&larr; Back to BetLegend</a>
-            <h1>HANDICAPPING <span>HUB</span></h1>
-            <div class="timestamp">Last updated: January 08, 2026 at 09:43 AM &bull; Data from ESPN</div>
-            <div class="tabs">
-            <button class="tab active" onclick="showSection('NBA')">NBA (0)</button>
-            <button class="tab " onclick="showSection('NFL')">NFL (0)</button>
-            <button class="tab " onclick="showSection('NHL')">NHL (0)</button>
-            <button class="tab " onclick="showSection('NCAAB')">NCAAB (0)</button>
-            <button class="tab " onclick="showSection('NCAAF')">NCAAF (0)</button>
-            </div>
-            <div class="archive-link">
-                <a href="handicapping-hub-calendar.html">View Archive Calendar</a>
-            </div>
-        </div>
-=======
+        .cal-day.has-data {
+            background: rgba(253, 80, 0, 0.25);
+            border-color: rgba(253, 80, 0, 0.5);
+            color: #fff;
+            cursor: pointer;
+        }
+        .cal-day.has-data:hover { background: #fd5000; transform: scale(1.1); }
+        .cal-day.today { background: #fd5000; color: #fff; font-weight: 800; }
+        .cal-day.other { opacity: 0.3; }
+        @media (max-width: 600px) {
+            .archive-btn { top: 60px; right: 10px; padding: 8px 12px; font-size: 0.7rem; }
+            .archive-dropdown { right: 10px; width: 260px; top: 100px; }
+        }
     
         .alerts-banner {
             background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -619,45 +474,40 @@
             </div>
         </div>
         <div class="cal-grid" id="calGrid"></div>
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
     </div>
+
     <div class="container">
 
         <div class="alerts-banner">
             <div class="alerts-header">
                 <span class="alert-icon">⚠️</span>
                 <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">11:32 AM</span>
+                <span class="alert-time">02:20 PM</span>
             </div>
             <div class="alerts-scroll">
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Miami Heat @ Chicago Bulls (NBA) - Total moved from 240.5 to 237.5 (down)</span>
+                    <span class="alert-text">SPREAD MOVE: Dallas Mavericks @ Utah Jazz (NBA) - Spread moved from -6.5 to -4.5 (+2.0 pts)</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Cleveland Cavaliers @ Minnesota Timberwolves (NBA) - Total moved from 240.5 to 237.5 (down)</span>
+                    <span class="alert-text">ML MOVE: Dallas Mavericks @ Utah Jazz (NBA) - Dallas Mavericks ML moved from -230 to -192</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Dallas Mavericks @ Utah Jazz (NBA) - Dallas Mavericks ML moved from -258 to -230</span>
+                    <span class="alert-text">ML MOVE: Toronto Raptors @ Boston Celtics (NBA) - Toronto Raptors ML moved from 210 to 245</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NHL</span>
-                    <span class="alert-text">ML MOVE: Columbus Blue Jackets @ Vegas Golden Knights (NHL) - Columbus Blue Jackets ML moved from 150 to 124</span>
+                    <span class="sport-tag">NFL</span>
+                    <span class="alert-text">ML MOVE: Los Angeles Rams @ Carolina Panthers (NFL) - Los Angeles Rams ML moved from -600 to -575</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NCAAB</span>
-                    <span class="alert-text">SPREAD MOVE: Hofstra Pride @ Towson Tigers (NCAAB) - Spread moved from 1.5 to -11.5 (+13.0 pts)</span>
+                    <span class="alert-text">SPREAD MOVE: Chicago St Cougars @ Fairleigh Dickinson Knights (NCAAB) - Spread moved from 3.5 to 8.5 (+5.0 pts)</span>
                 </div>
             </div>
         </div>
 
-<<<<<<< HEAD
-        <div id="NBA" class="section active">
-            <div class="section-header">
-                <h2>NBA Games</h2><span class="count">0 games today</span>
-=======
         <div class="tabs">
             <button class="tab-btn active" data-sport="nba">NBA <span class="count">(4)</span></button>
 <button class="tab-btn " data-sport="nfl">NFL <span class="count">(0)</span></button>
@@ -695,9 +545,9 @@
                             <span class="team-name">IND</span>
                             <span class="team-record">6-31</span>
                         </td>
-                        <td class="spread">+3.5</td>
-                        <td class="ml">+135</td>
-                        <td class="total">O 233.0</td>
+                        <td class="spread">+4.5</td>
+                        <td class="ml">+150</td>
+                        <td class="total">O 232.5</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -705,9 +555,9 @@
                             <span class="team-name">CHA</span>
                             <span class="team-record">13-24</span>
                         </td>
-                        <td class="spread">-3.5</td>
-                        <td class="ml">-160</td>
-                        <td class="total">U 233.0</td>
+                        <td class="spread">-4.5</td>
+                        <td class="ml">-175</td>
+                        <td class="total">U 232.5</td>
                     </tr>
                 </tbody>
             </table>
@@ -770,15 +620,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -4.0 -> -3.5 (+0.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 231.5 -> 233.0 (+1.5)</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 IND: T. Haliburton (G) - OUT, I. Jackson (F) - OUT, B. Mathurin (G) - OUT | CHA: R. Kalkbrenner (C) - OUT, B. Miller (F) - DTD, M. Plumlee (C) - OUT</span>
+            <span class="trend-item">🏥 IND: T. Haliburton (G) - OUT, I. Jackson (F) - OUT, B. Mathurin (G) - OUT | CHA: L. Ball (G) - DTD, R. Kalkbrenner (C) - OUT, B. Miller (F) - DTD</span>
         </div>
     </div>
     
@@ -808,9 +653,9 @@
                             <span class="team-name">MIA</span>
                             <span class="team-record">20-17</span>
                         </td>
-                        <td class="spread">-7.0</td>
-                        <td class="ml">-250</td>
-                        <td class="total">O 241.0</td>
+                        <td class="spread">-7.5</td>
+                        <td class="ml">-245</td>
+                        <td class="total">O 237.5</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -818,9 +663,9 @@
                             <span class="team-name">CHI</span>
                             <span class="team-record">17-20</span>
                         </td>
-                        <td class="spread">+7.0</td>
-                        <td class="ml">+210</td>
-                        <td class="total">U 241.0</td>
+                        <td class="spread">+7.5</td>
+                        <td class="ml">+205</td>
+                        <td class="total">U 237.5</td>
                     </tr>
                 </tbody>
             </table>
@@ -886,7 +731,7 @@
         <!-- LINE MOVEMENT ALERTS -->
         <div class="line-movements-bar">
             <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: +225 -> +210</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: -275 -> -250</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 238.5 -> 241.0 (+2.5)</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Home ML: +220 -> +205</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: -270 -> -245</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 238.5 -> 237.5 (-1.0)</span>
         </div>
 
         <!-- SECTION 4: TRENDS BAR -->
@@ -922,8 +767,8 @@
                             <span class="team-record">21-17</span>
                         </td>
                         <td class="spread">+2.5</td>
-                        <td class="ml">+120</td>
-                        <td class="total">O 240.5</td>
+                        <td class="ml">+125</td>
+                        <td class="total">O 238.0</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -932,8 +777,8 @@
                             <span class="team-record">24-13</span>
                         </td>
                         <td class="spread">-2.5</td>
-                        <td class="ml">-140</td>
-                        <td class="total">U 240.5</td>
+                        <td class="ml">-145</td>
+                        <td class="total">U 238.0</td>
                     </tr>
                 </tbody>
             </table>
@@ -996,15 +841,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">🎯</span> Total: 239.5 -> 240.5 (+1.0)</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 CLE: C. Livingston (F) - OUT, L. Jr. (F) - OUT, M. Strus (G) - OUT | MIN: T. Jr. (G) - OUT, R. Zikarsky (C) - DTD</span>
+            <span class="trend-item">🏥 CLE: D. Garland (G) - DTD, C. Livingston (F) - OUT, L. Jr. (F) - OUT | MIN: A. Edwards (G) - DTD, T. Jr. (G) - OUT, R. Zikarsky (C) - DTD</span>
         </div>
     </div>
     
@@ -1034,9 +874,9 @@
                             <span class="team-name">DAL</span>
                             <span class="team-record">14-23</span>
                         </td>
-                        <td class="spread">-7.0</td>
-                        <td class="ml">-250</td>
-                        <td class="total">O 240.0</td>
+                        <td class="spread">-5.0</td>
+                        <td class="ml">-190</td>
+                        <td class="total">O 242.0</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -1044,9 +884,9 @@
                             <span class="team-name">UTAH</span>
                             <span class="team-record">12-24</span>
                         </td>
-                        <td class="spread">+7.0</td>
-                        <td class="ml">+210</td>
-                        <td class="total">U 240.0</td>
+                        <td class="spread">+5.0</td>
+                        <td class="ml">+163</td>
+                        <td class="total">U 242.0</td>
                     </tr>
                 </tbody>
             </table>
@@ -1109,15 +949,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: +7.5 -> +7.0 (-0.5)</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 DAL: D. Exum (G) - OUT, K. Irving (G) - OUT, D. II (C) - OUT | UTAH: W. Kessler (C) - OUT, K. Love (F) - DTD, G. Niang (F) - OUT</span>
+            <span class="trend-item">🏥 DAL: D. Exum (G) - OUT, K. Irving (G) - OUT, D. II (C) - OUT | UTAH: A. Bailey (G) - DTD, W. Kessler (C) - OUT, G. Niang (F) - OUT</span>
         </div>
     </div>
     
@@ -1157,7 +992,7 @@
                         </td>
                         <td class="spread">+1.5</td>
                         <td class="ml">+110</td>
-                        <td class="total">O 6.0</td>
+                        <td class="total">O 6.5</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -1167,7 +1002,7 @@
                         </td>
                         <td class="spread">-1.5</td>
                         <td class="ml">-130</td>
-                        <td class="total">U 6.0</td>
+                        <td class="total">U 6.5</td>
                     </tr>
                 </tbody>
             </table>
@@ -1230,15 +1065,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -162 -> -130</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: +128 -> +110</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 CGY: J. Beecher (C) - OUT | BOS: H. Lindholm (D) - OUT</span>
+            <span class="trend-item">🏥 CGY: J. Beecher (C) - OUT, Z. Parekh (D) - OUT | BOS: H. Lindholm (D) - OUT</span>
         </div>
     </div>
     
@@ -1269,7 +1099,7 @@
                             <span class="team-record">22-17-3</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-120</td>
+                        <td class="ml">-110</td>
                         <td class="total">O 6.0</td>
                     </tr>
                     <tr class="home-row">
@@ -1279,7 +1109,7 @@
                             <span class="team-record">24-13-6</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+100</td>
+                        <td class="ml">-110</td>
                         <td class="total">U 6.0</td>
                     </tr>
                 </tbody>
@@ -1346,7 +1176,7 @@
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 FLA: J. Gadjovich (LW) - OUT, B. Marchand (LW) - DTD, M. Tkachuk (LW) - OUT | MTL: J. Evans (C) - OUT, J. Anderson (RW) - DTD</span>
+            <span class="trend-item">🏥 FLA: J. Gadjovich (LW) - OUT, B. Marchand (LW) - OUT, M. Tkachuk (LW) - OUT | MTL: J. Evans (C) - OUT, J. Anderson (RW) - DTD</span>
         </div>
     </div>
     
@@ -1377,7 +1207,7 @@
                             <span class="team-record">16-21-5</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+128</td>
+                        <td class="ml">+127</td>
                         <td class="total">O 6.0</td>
                     </tr>
                     <tr class="home-row">
@@ -1387,7 +1217,7 @@
                             <span class="team-record">25-15-4</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-157</td>
+                        <td class="ml">-156</td>
                         <td class="total">U 6.0</td>
                     </tr>
                 </tbody>
@@ -1451,11 +1281,6 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -175 -> -157</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
@@ -1490,7 +1315,7 @@
                             <span class="team-record">22-15-4</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-126</td>
+                        <td class="ml">-127</td>
                         <td class="total">O 6.0</td>
                     </tr>
                     <tr class="home-row">
@@ -1500,7 +1325,7 @@
                             <span class="team-record">20-18-6</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+103</td>
+                        <td class="ml">+104</td>
                         <td class="total">U 6.0</td>
                     </tr>
                 </tbody>
@@ -1567,7 +1392,7 @@
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 BUF: M. Kesselring (D) - OUT, A. Lyon (G) - OUT | NYR: A. Edstrom (C) - OUT, N. Laba (C) - OUT, A. Lafreniere (LW) - DTD</span>
+            <span class="trend-item">🏥 BUF: M. Kesselring (D) - OUT, A. Lyon (G) - OUT | NYR: A. Edstrom (C) - OUT, N. Laba (C) - OUT, C. Sheary (LW) - OUT</span>
         </div>
     </div>
     
@@ -1675,7 +1500,7 @@
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 TOR: D. Joshua (C) - OUT, W. Nylander (RW) - OUT, J. McCabe (D) - OUT | PHI: B. Brink (RW) - DTD, J. Drysdale (D) - DTD</span>
+            <span class="trend-item">🏥 TOR: D. Joshua (C) - OUT, W. Nylander (RW) - OUT, J. McCabe (D) - OUT | PHI: B. Brink (RW) - OUT, J. Drysdale (D) - OUT</span>
         </div>
     </div>
     
@@ -1706,7 +1531,7 @@
                             <span class="team-record">22-19-2</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">-103</td>
+                        <td class="ml">-104</td>
                         <td class="total">O 6.0</td>
                     </tr>
                     <tr class="home-row">
@@ -1716,7 +1541,7 @@
                             <span class="team-record">20-12-9</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-119</td>
+                        <td class="ml">-117</td>
                         <td class="total">U 6.0</td>
                     </tr>
                 </tbody>
@@ -1780,6 +1605,11 @@
         </div>
 
         
+        <!-- LINE MOVEMENT ALERTS -->
+        <div class="line-movements-bar">
+            <span class="movements-label">LINE MOVES:</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +102 -> -104</span>
+        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
@@ -1814,8 +1644,8 @@
                             <span class="team-record">21-19-3</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+182</td>
-                        <td class="total">O 6.5</td>
+                        <td class="ml">+174</td>
+                        <td class="total">O 7.0</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
@@ -1824,8 +1654,8 @@
                             <span class="team-record">26-14-3</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-228</td>
-                        <td class="total">U 6.5</td>
+                        <td class="ml">-216</td>
+                        <td class="total">U 7.0</td>
                     </tr>
                 </tbody>
             </table>
@@ -1888,10 +1718,15 @@
         </div>
 
         
+        <!-- LINE MOVEMENT ALERTS -->
+        <div class="line-movements-bar">
+            <span class="movements-label">LINE MOVES:</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +205 -> +174</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: -265 -> -216</span>
+        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 ANA: F. Vatrano (RW) - OUT, P. Mrazek (G) - OUT | CAR: N. Philp (C) - DTD, J. Slavin (D) - OUT, P. Kochetkov (G) - OUT</span>
+            <span class="trend-item">🏥 ANA: T. Terry (RW) - OUT, F. Vatrano (RW) - OUT, P. Mrazek (G) - OUT | CAR: N. Philp (C) - DTD, J. Slavin (D) - OUT, P. Kochetkov (G) - OUT</span>
         </div>
     </div>
     
@@ -1922,7 +1757,7 @@
                             <span class="team-record">24-15-4</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">-102</td>
+                        <td class="ml">+102</td>
                         <td class="total">O 5.5</td>
                     </tr>
                     <tr class="home-row">
@@ -1932,7 +1767,7 @@
                             <span class="team-record">19-19-4</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-120</td>
+                        <td class="ml">-124</td>
                         <td class="total">U 5.5</td>
                     </tr>
                 </tbody>
@@ -1996,15 +1831,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +100 -> -102</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 NYI: B. Horvat (C) - DTD, K. Palmieri (C) - OUT | NSH: J. Marchessault (RW) - DTD</span>
+            <span class="trend-item">🏥 NYI: B. Horvat (C) - OUT, K. Palmieri (C) - OUT | NSH: J. Marchessault (RW) - DTD</span>
         </div>
     </div>
     
@@ -2143,7 +1973,7 @@
                             <span class="team-record">20-17-5</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+210</td>
+                        <td class="ml">+223</td>
                         <td class="total">O 6.5</td>
                     </tr>
                     <tr class="home-row">
@@ -2153,7 +1983,7 @@
                             <span class="team-record">31-4-7</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-250</td>
+                        <td class="ml">-265</td>
                         <td class="total">U 6.5</td>
                     </tr>
                 </tbody>
@@ -2220,12 +2050,12 @@
         <!-- LINE MOVEMENT ALERTS -->
         <div class="line-movements-bar">
             <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -278 -> -250</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -315 -> -265</span>
         </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 OTT: L. Eller (C) - OUT, L. Ullmark (G) - OUT | COL: J. Kiviranta (LW) - DTD, G. Landeskog (LW) - OUT, D. Toews (D) - OUT</span>
+            <span class="trend-item">🏥 OTT: L. Ullmark (G) - OUT | COL: J. Kiviranta (LW) - OUT, G. Landeskog (LW) - OUT, D. Toews (D) - OUT</span>
         </div>
     </div>
     
@@ -2256,7 +2086,7 @@
                             <span class="team-record">18-17-7</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+140</td>
+                        <td class="ml">+126</td>
                         <td class="total">O 6.5</td>
                     </tr>
                     <tr class="home-row">
@@ -2266,7 +2096,7 @@
                             <span class="team-record">18-11-12</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-173</td>
+                        <td class="ml">-155</td>
                         <td class="total">U 6.5</td>
                     </tr>
                 </tbody>
@@ -2364,7 +2194,7 @@
                             <span class="team-record">25-11-8</span>
                         </td>
                         <td class="spread">-1.5</td>
-                        <td class="ml">-160</td>
+                        <td class="ml">-157</td>
                         <td class="total">O 6.0</td>
                     </tr>
                     <tr class="home-row">
@@ -2374,7 +2204,7 @@
                             <span class="team-record">20-14-7</span>
                         </td>
                         <td class="spread">+1.5</td>
-                        <td class="ml">+130</td>
+                        <td class="ml">+128</td>
                         <td class="total">U 6.0</td>
                     </tr>
                 </tbody>
@@ -2438,15 +2268,10 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -175 -> -160</span>
-        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
-            <span class="trend-item">🏥 MIN: Z. Bogosian (D) - OUT | SEA: J. Schwartz (C) - OUT, E. Tolvanen (RW) - DTD</span>
+            <span class="trend-item">🏥 MIN: Z. Bogosian (D) - OUT | SEA: J. Schwartz (C) - OUT, J. Eberle (RW) - DTD, E. Tolvanen (RW) - DTD</span>
         </div>
     </div>
     
@@ -2461,14 +2286,16 @@
             <span class="game-network">BTN</span>
         </div>
         
-        <!-- TEAMS INFO (No betting lines available) -->
-        <div class="section teams-info">
-            <div class="section-title">MATCHUP</div>
+        <!-- SECTION 1: BETTING LINES -->
+        <div class="section betting-lines">
+            <div class="section-title">BETTING LINES</div>
             <table class="lines-table">
                 <thead>
                     <tr>
                         <th class="team-col">TEAM</th>
-                        <th>RECORD</th>
+                        <th>SPREAD</th>
+                        <th>ML</th>
+                        <th>O/U</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -2476,15 +2303,21 @@
                         <td class="team-col">
                             <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/77.png" class="team-logo" onerror="this.style.display='none'">
                             <span class="team-name">NU</span>
+                            <span class="team-record">8-6</span>
                         </td>
-                        <td>8-6</td>
+                        <td class="spread">+13.0</td>
+                        <td class="ml">+600</td>
+                        <td class="total">O 143.0</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
                             <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" class="team-logo" onerror="this.style.display='none'">
                             <span class="team-name">MSU</span>
+                            <span class="team-record">13-2</span>
                         </td>
-                        <td>13-2</td>
+                        <td class="spread">-13.0</td>
+                        <td class="ml">-950</td>
+                        <td class="total">U 143.0</td>
                     </tr>
                 </tbody>
             </table>
@@ -2547,6 +2380,11 @@
         </div>
 
         
+        <!-- LINE MOVEMENT ALERTS -->
+        <div class="line-movements-bar">
+            <span class="movements-label">LINE MOVES:</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -1050 -> -950</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: +686 -> +600</span>
+        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
@@ -2647,6 +2485,11 @@
         </div>
 
         
+        <!-- LINE MOVEMENT ALERTS -->
+        <div class="line-movements-bar">
+            <span class="movements-label">LINE MOVES:</span>
+            <span class="movement-item"><span class="move-icon">🎯</span> Total: 145.0 -> 146.0 (+1.0)</span>
+        </div>
 
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
@@ -2661,14 +2504,16 @@
             <span class="game-network">ESPN2</span>
         </div>
         
-        <!-- TEAMS INFO (No betting lines available) -->
-        <div class="section teams-info">
-            <div class="section-title">MATCHUP</div>
+        <!-- SECTION 1: BETTING LINES -->
+        <div class="section betting-lines">
+            <div class="section-title">BETTING LINES</div>
             <table class="lines-table">
                 <thead>
                     <tr>
                         <th class="team-col">TEAM</th>
-                        <th>RECORD</th>
+                        <th>SPREAD</th>
+                        <th>ML</th>
+                        <th>O/U</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -2676,15 +2521,21 @@
                         <td class="team-col">
                             <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2541.png" class="team-logo" onerror="this.style.display='none'">
                             <span class="team-name">SCU</span>
+                            <span class="team-record">13-4</span>
                         </td>
-                        <td>13-4</td>
+                        <td class="spread">+14.5</td>
+                        <td class="ml">+800</td>
+                        <td class="total">O 164.0</td>
                     </tr>
                     <tr class="home-row">
                         <td class="team-col">
                             <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png" class="team-logo" onerror="this.style.display='none'">
                             <span class="team-name">GONZ</span>
+                            <span class="team-record">16-1</span>
                         </td>
-                        <td>16-1</td>
+                        <td class="spread">-14.5</td>
+                        <td class="ml">-1600</td>
+                        <td class="total">U 164.0</td>
                     </tr>
                 </tbody>
             </table>
@@ -2750,7 +2601,7 @@
         <!-- LINE MOVEMENT ALERTS -->
         <div class="line-movements-bar">
             <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -15.0 -> -15.5 (-0.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 166.0 -> 164.0 (-2.0)</span>
+            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -1400 -> -1600</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: +836 -> +800</span><span class="movement-item"><span class="move-icon">📊</span> Spread: -16.5 -> -14.5 (+2.0)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 166.0 -> 164.0 (-2.0)</span>
         </div>
 
         <!-- SECTION 4: TRENDS BAR -->
@@ -2790,7 +2641,7 @@
                             <span class="team-record">12-2</span>
                         </td>
                         <td class="spread">-3.5</td>
-                        <td class="ml">-165</td>
+                        <td class="ml">-170</td>
                         <td class="total">O 52.5</td>
                     </tr>
                     <tr class="home-row">
@@ -2800,7 +2651,7 @@
                             <span class="team-record">13-1</span>
                         </td>
                         <td class="spread">+3.5</td>
-                        <td class="ml">+135</td>
+                        <td class="ml">+140</td>
                         <td class="total">U 52.5</td>
                     </tr>
                 </tbody>
@@ -6037,17 +5888,23 @@
                         <tr><td class="team-abbr">OSU</td><td>35</td><td>8</td><td>78</td><td>11</td><td>30</td><td>58</td></tr>
                     </tbody>
                 </table>
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
             </div>
-            <div class="no-games">No games scheduled for today</div>
         </div>
-        <div id="NFL" class="section ">
-            <div class="section-header">
-                <h2>NFL Games</h2><span class="count">0 games today</span>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">MIA</td><td>73.5%</td><td>8.3</td><td>11.3</td><td>4.3</td><td>161.3</td><td>77.3%</td></tr>
+                        <tr><td class="team-abbr">OSU</td><td>76.7%</td><td>9.2</td><td>12.0</td><td>4.5</td><td>176.8</td><td>80.0%</td></tr>
+                    </tbody>
+                </table>
             </div>
-<<<<<<< HEAD
-            <div class="no-games">No games scheduled for today</div>
-=======
             <div class="section situational">
                 <div class="section-title">SITUATIONAL</div>
                 <table class="stats-table">
@@ -6675,21 +6532,379 @@
             <span class="game-time">12:00 PM ET</span>
             <span class="game-venue">Hard Rock Stadium</span>
             <span class="game-network">ESPN</span>
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
         </div>
-        <div id="NHL" class="section ">
-            <div class="section-header">
-                <h2>NHL Games</h2><span class="count">0 games today</span>
-            </div>
-            <div class="no-games">No games scheduled for today</div>
+        
+        <!-- TEAMS INFO (No betting lines available) -->
+        <div class="section teams-info">
+            <div class="section-title">MATCHUP</div>
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th class="team-col">TEAM</th>
+                        <th>RECORD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="away-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">ORE</span>
+                        </td>
+                        <td>13-1</td>
+                    </tr>
+                    <tr class="home-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">TTU</span>
+                        </td>
+                        <td>12-2</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="NCAAB" class="section ">
-            <div class="section-header">
-                <h2>NCAAB Games</h2><span class="count">0 games today</span>
+
+        <!-- SECTION 2: OFFENSE vs DEFENSE -->
+        <div class="stats-grid">
+            <div class="section offense">
+                <div class="section-title">OFFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>PPG</th><th>YPG</th><th>PASS</th><th>RUSH</th><th>1stD</th><th>3RD%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>38.1</td><td>457</td><td>251</td><td>206</td><td>311</td><td>45.4%</td></tr>
+                        <tr><td class="team-abbr">TTU</td><td>39.4</td><td>461</td><td>278</td><td>182</td><td>318</td><td>49.5%</td></tr>
+                    </tbody>
+                </table>
             </div>
-<<<<<<< HEAD
-            <div class="no-games">No games scheduled for today</div>
-=======
+            <div class="section defense">
+                <div class="section-title">DEFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>SACK</th><th>INT</th><th>TFL</th><th>FF</th><th>PD</th><th>PEN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>29</td><td>15</td><td>69</td><td>11</td><td>68</td><td>71</td></tr>
+                        <tr><td class="team-abbr">TTU</td><td>41</td><td>17</td><td>106</td><td>23</td><td>62</td><td>94</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>72.8%</td><td>8.9</td><td>12.2</td><td>5.5</td><td>166.8</td><td>79.2%</td></tr>
+                        <tr><td class="team-abbr">TTU</td><td>65.6%</td><td>8.0</td><td>12.2</td><td>4.6</td><td>151.3</td><td>82.4%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section situational">
+                <div class="section-title">SITUATIONAL</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>RZ%</th><th>4TH%</th><th>TO+/-</th><th>TOP</th><th>FG%</th><th>PWR</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>0.0%</td><td>60.0%</td><td>9</td><td>30:57</td><td>79.2%</td><td>92.9</td></tr>
+                        <tr><td class="team-abbr">TTU</td><td>0.0%</td><td>50.0%</td><td>14</td><td>29:40</td><td>82.4%</td><td>85.7</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <!-- SECTION 4: TRENDS BAR -->
+        <div class="trends-bar">
+            <span class="trend-item">🏥 ORE: No reported injuries | TTU: No reported injuries</span>
+        </div>
+    </div>
+    
+    <div class="game-card" data-event-id="401831583" data-sport="ncaaf">
+        <div class="game-header">
+            <span class="game-time">8:00 PM ET</span>
+            <span class="game-venue">Snapdragon Stadium</span>
+            <span class="game-network">FOX</span>
+        </div>
+        
+        <!-- TEAMS INFO (No betting lines available) -->
+        <div class="section teams-info">
+            <div class="section-title">MATCHUP</div>
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th class="team-col">TEAM</th>
+                        <th>RECORD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="away-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/12.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">ARIZ</span>
+                        </td>
+                        <td>9-4</td>
+                    </tr>
+                    <tr class="home-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">SMU</span>
+                        </td>
+                        <td>9-4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2: OFFENSE vs DEFENSE -->
+        <div class="stats-grid">
+            <div class="section offense">
+                <div class="section-title">OFFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>PPG</th><th>YPG</th><th>PASS</th><th>RUSH</th><th>1stD</th><th>3RD%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ARIZ</td><td>31.5</td><td>407</td><td>255</td><td>152</td><td>289</td><td>41.0%</td></tr>
+                        <tr><td class="team-abbr">SMU</td><td>32.2</td><td>416</td><td>283</td><td>133</td><td>269</td><td>40.8%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section defense">
+                <div class="section-title">DEFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>SACK</th><th>INT</th><th>TFL</th><th>FF</th><th>PD</th><th>PEN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ARIZ</td><td>21</td><td>22</td><td>81</td><td>10</td><td>59</td><td>73</td></tr>
+                        <tr><td class="team-abbr">SMU</td><td>35</td><td>18</td><td>82</td><td>9</td><td>65</td><td>91</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ARIZ</td><td>63.0%</td><td>7.4</td><td>11.8</td><td>4.3</td><td>143.4</td><td>59.4%</td></tr>
+                        <tr><td class="team-abbr">SMU</td><td>66.3%</td><td>8.0</td><td>12.1</td><td>4.3</td><td>146.5</td><td>65.2%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section situational">
+                <div class="section-title">SITUATIONAL</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>RZ%</th><th>4TH%</th><th>TO+/-</th><th>TOP</th><th>FG%</th><th>PWR</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ARIZ</td><td>0.0%</td><td>64.5%</td><td>18</td><td>30:57</td><td>59.4%</td><td>69.2</td></tr>
+                        <tr><td class="team-abbr">SMU</td><td>0.0%</td><td>66.7%</td><td>9</td><td>26:52</td><td>65.2%</td><td>69.2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <!-- SECTION 4: TRENDS BAR -->
+        <div class="trends-bar">
+            <span class="trend-item">🏥 ARIZ: No reported injuries | SMU: No reported injuries</span>
+        </div>
+    </div>
+    
+    <div class="game-card" data-event-id="401778332" data-sport="ncaaf">
+        <div class="game-header">
+            <span class="game-time">1:00 PM ET</span>
+            <span class="game-venue">Amon G. Carter Stadium</span>
+            <span class="game-network">ESPNU</span>
+        </div>
+        
+        <!-- TEAMS INFO (No betting lines available) -->
+        <div class="section teams-info">
+            <div class="section-title">MATCHUP</div>
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th class="team-col">TEAM</th>
+                        <th>RECORD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="away-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/242.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">RICE</span>
+                        </td>
+                        <td>5-8</td>
+                    </tr>
+                    <tr class="home-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/326.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">TXST</span>
+                        </td>
+                        <td>7-6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2: OFFENSE vs DEFENSE -->
+        <div class="stats-grid">
+            <div class="section offense">
+                <div class="section-title">OFFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>PPG</th><th>YPG</th><th>PASS</th><th>RUSH</th><th>1stD</th><th>3RD%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">RICE</td><td>19.1</td><td>302</td><td>97</td><td>204</td><td>222</td><td>34.0%</td></tr>
+                        <tr><td class="team-abbr">TXST</td><td>36.5</td><td>472</td><td>250</td><td>222</td><td>299</td><td>46.5%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section defense">
+                <div class="section-title">DEFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>SACK</th><th>INT</th><th>TFL</th><th>FF</th><th>PD</th><th>PEN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">RICE</td><td>26</td><td>3</td><td>68</td><td>6</td><td>40</td><td>62</td></tr>
+                        <tr><td class="team-abbr">TXST</td><td>25</td><td>9</td><td>96</td><td>4</td><td>34</td><td>91</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">RICE</td><td>66.1%</td><td>5.7</td><td>8.6</td><td>4.1</td><td>126.3</td><td>78.6%</td></tr>
+                        <tr><td class="team-abbr">TXST</td><td>70.1%</td><td>9.0</td><td>12.9</td><td>5.2</td><td>161.3</td><td>91.3%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section situational">
+                <div class="section-title">SITUATIONAL</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>RZ%</th><th>4TH%</th><th>TO+/-</th><th>TOP</th><th>FG%</th><th>PWR</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">RICE</td><td>0.0%</td><td>55.3%</td><td>-4</td><td>32:43</td><td>78.6%</td><td>38.5</td></tr>
+                        <tr><td class="team-abbr">TXST</td><td>0.0%</td><td>58.3%</td><td>-4</td><td>29:10</td><td>91.3%</td><td>53.8</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <!-- SECTION 4: TRENDS BAR -->
+        <div class="trends-bar">
+            <span class="trend-item">🏥 RICE: No reported injuries | TXST: No reported injuries</span>
+        </div>
+    </div>
+    
+    <div class="game-card" data-event-id="401778333" data-sport="ncaaf">
+        <div class="game-header">
+            <span class="game-time">4:30 PM ET</span>
+            <span class="game-venue">Simmons Bank Liberty Stadium</span>
+            <span class="game-network">ESPN</span>
+        </div>
+        
+        <!-- TEAMS INFO (No betting lines available) -->
+        <div class="section teams-info">
+            <div class="section-title">MATCHUP</div>
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th class="team-col">TEAM</th>
+                        <th>RECORD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="away-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2426.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">NAVY</span>
+                        </td>
+                        <td>11-2</td>
+                    </tr>
+                    <tr class="home-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">CIN</span>
+                        </td>
+                        <td>7-6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2: OFFENSE vs DEFENSE -->
+        <div class="stats-grid">
+            <div class="section offense">
+                <div class="section-title">OFFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>PPG</th><th>YPG</th><th>PASS</th><th>RUSH</th><th>1stD</th><th>3RD%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">NAVY</td><td>31.5</td><td>415</td><td>130</td><td>285</td><td>265</td><td>51.8%</td></tr>
+                        <tr><td class="team-abbr">CIN</td><td>30.3</td><td>407</td><td>231</td><td>176</td><td>255</td><td>38.7%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section defense">
+                <div class="section-title">DEFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>SACK</th><th>INT</th><th>TFL</th><th>FF</th><th>PD</th><th>PEN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">NAVY</td><td>27</td><td>7</td><td>58</td><td>10</td><td>28</td><td>74</td></tr>
+                        <tr><td class="team-abbr">CIN</td><td>22</td><td>2</td><td>55</td><td>12</td><td>38</td><td>92</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">NAVY</td><td>58.2%</td><td>9.3</td><td>15.9</td><td>5.8</td><td>151.4</td><td>90.9%</td></tr>
+                        <tr><td class="team-abbr">CIN</td><td>61.6%</td><td>8.2</td><td>13.4</td><td>5.7</td><td>154.7</td><td>76.5%</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="section situational">
                 <div class="section-title">SITUATIONAL</div>
                 <table class="stats-table">
@@ -6817,23 +7032,110 @@
             <span class="game-time">7:30 PM ET</span>
             <span class="game-venue">Mercedes-Benz Stadium</span>
             <span class="game-network">ESPN</span>
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
         </div>
-        <div id="NCAAF" class="section ">
-            <div class="section-header">
-                <h2>NCAAF Games</h2><span class="count">0 games today</span>
+        
+        <!-- TEAMS INFO (No betting lines available) -->
+        <div class="section teams-info">
+            <div class="section-title">MATCHUP</div>
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th class="team-col">TEAM</th>
+                        <th>RECORD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="away-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">ORE</span>
+                        </td>
+                        <td>13-1</td>
+                    </tr>
+                    <tr class="home-row">
+                        <td class="team-col">
+                            <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/84.png" class="team-logo" onerror="this.style.display='none'">
+                            <span class="team-name">IU</span>
+                        </td>
+                        <td>14-0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2: OFFENSE vs DEFENSE -->
+        <div class="stats-grid">
+            <div class="section offense">
+                <div class="section-title">OFFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>PPG</th><th>YPG</th><th>PASS</th><th>RUSH</th><th>1stD</th><th>3RD%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>38.1</td><td>457</td><td>251</td><td>206</td><td>311</td><td>45.4%</td></tr>
+                        <tr><td class="team-abbr">IU</td><td>41.6</td><td>468</td><td>247</td><td>220</td><td>342</td><td>56.5%</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="no-games">No games scheduled for today</div>
+            <div class="section defense">
+                <div class="section-title">DEFENSE</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>SACK</th><th>INT</th><th>TFL</th><th>FF</th><th>PD</th><th>PEN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>29</td><td>15</td><td>69</td><td>11</td><td>68</td><td>71</td></tr>
+                        <tr><td class="team-abbr">IU</td><td>42</td><td>17</td><td>118</td><td>11</td><td>39</td><td>50</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: EFFICIENCY vs SITUATIONAL -->
+        <div class="stats-grid">
+            <div class="section efficiency">
+                <div class="section-title">EFFICIENCY</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>CMP%</th><th>YPA</th><th>YPC</th><th>YPR</th><th>QBR</th><th>FG%</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>72.8%</td><td>8.9</td><td>12.2</td><td>5.5</td><td>166.8</td><td>79.2%</td></tr>
+                        <tr><td class="team-abbr">IU</td><td>72.1%</td><td>9.6</td><td>13.4</td><td>5.4</td><td>187.0</td><td>85.0%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section situational">
+                <div class="section-title">SITUATIONAL</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th></th><th>RZ%</th><th>4TH%</th><th>TO+/-</th><th>TOP</th><th>FG%</th><th>PWR</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="team-abbr">ORE</td><td>0.0%</td><td>60.0%</td><td>9</td><td>30:57</td><td>79.2%</td><td>92.9</td></tr>
+                        <tr><td class="team-abbr">IU</td><td>0.0%</td><td>50.0%</td><td>18</td><td>33:25</td><td>85.0%</td><td>100.0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <!-- SECTION 4: TRENDS BAR -->
+        <div class="trends-bar">
+            <span class="trend-item">🏥 ORE: No reported injuries | IU: No reported injuries</span>
         </div>
     </div>
+    
+            </div>
+        
+    </div>
+
+    <footer>
+        <p>&copy; 2025 BetLegend | Data: ESPN, The Odds API | <a href="index.html">Home</a> | <a href="handicapping-hub-archive.html">Hub Archive</a></p>
+    </footer>
+
     <script>
-<<<<<<< HEAD
-        function showSection(sport) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(sport).classList.add('active');
-            event.target.classList.add('active');
-=======
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -6844,7 +7146,7 @@
         });
 
         // Archive Calendar
-        const archiveData = {"2026-01-08": "handicapping-hub.html", "2025-12-27": "handicapping-hub-2025-12-27.html", "2025-12-25": "handicapping-hub-2025-12-25.html", "2026-01-05": "handicapping-hub-2026-01-05.html", "2025-12-24": "handicapping-hub-2025-12-24.html", "2026-01-06": "handicapping-hub-2026-01-06.html", "2025-12-31": "handicapping-hub-2025-12-31.html", "2026-01-04": "handicapping-hub-2026-01-04.html", "2025-12-23": "handicapping-hub-2025-12-23.html", "2025-12-30": "handicapping-hub-2025-12-30.html", "2025-12-26": "handicapping-hub-2025-12-26.html", "2026-01-02": "handicapping-hub-2026-01-02.html", "2026-01-07": "handicapping-hub-2026-01-07.html", "2025-12-28": "handicapping-hub-2025-12-28.html", "2025-12-29": "handicapping-hub-2025-12-29.html", "2025-12-22": "handicapping-hub-2025-12-22.html", "2026-01-03": "handicapping-hub-2026-01-03.html", "2025-12-20": "handicapping-hub-2025-12-20.html", "2026-01-01": "handicapping-hub-2026-01-01.html", "2025-12-21": "handicapping-hub-2025-12-21.html"};
+        const archiveData = {"2025-12-20": "handicapping-hub-2025-12-20.html", "2025-12-21": "handicapping-hub-2025-12-21.html", "2025-12-22": "handicapping-hub-2025-12-22.html", "2025-12-23": "handicapping-hub-2025-12-23.html", "2025-12-24": "handicapping-hub-2025-12-24.html", "2025-12-25": "handicapping-hub-2025-12-25.html", "2025-12-26": "handicapping-hub-2025-12-26.html", "2025-12-27": "handicapping-hub-2025-12-27.html", "2025-12-28": "handicapping-hub-2025-12-28.html", "2025-12-29": "handicapping-hub-2025-12-29.html", "2025-12-30": "handicapping-hub-2025-12-30.html", "2025-12-31": "handicapping-hub-2025-12-31.html", "2026-01-01": "handicapping-hub-2026-01-01.html", "2026-01-02": "handicapping-hub-2026-01-02.html", "2026-01-03": "handicapping-hub-2026-01-03.html", "2026-01-04": "handicapping-hub-2026-01-04.html", "2026-01-05": "handicapping-hub-2026-01-05.html", "2026-01-06": "handicapping-hub-2026-01-06.html", "2026-01-07": "handicapping-hub-2026-01-07.html", "2026-01-08": "handicapping-hub.html"};
         let calDate = new Date();
         const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -6870,8 +7172,87 @@
             const rem = (first + days) % 7;
             if (rem > 0) for (let d = 1; d <= 7 - rem; d++) h += '<div class="cal-day other">' + d + '</div>';
             document.getElementById('calGrid').innerHTML = h;
->>>>>>> d8b5ecdd617c098c328786c8be30e253f327fc93
         }
+        function calNav(delta) { calDate.setMonth(calDate.getMonth() + delta); renderCal(); }
+        renderCal();
+    </script>
+
+    <!-- Live Game Status Check - Removes finished games automatically -->
+    <script>
+    (function() {
+        const ESPN_ENDPOINTS = {
+            'nba': 'basketball/nba',
+            'nfl': 'football/nfl',
+            'nhl': 'hockey/nhl',
+            'ncaab': 'basketball/mens-college-basketball',
+            'ncaaf': 'football/college-football'
+        };
+
+        async function checkGameStatus() {
+            const cards = document.querySelectorAll('.game-card[data-event-id]');
+            const sportCounts = {};
+
+            for (const card of cards) {
+                const eventId = card.getAttribute('data-event-id');
+                const sport = card.getAttribute('data-sport');
+
+                if (!eventId || !sport) continue;
+
+                const endpoint = ESPN_ENDPOINTS[sport];
+                if (!endpoint) continue;
+
+                try {
+                    const resp = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${endpoint}/scoreboard/${eventId}`);
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        const status = data?.competitions?.[0]?.status?.type?.name || data?.status?.type?.name;
+
+                        if (status === 'STATUS_FINAL' || status === 'STATUS_POSTPONED' || status === 'STATUS_CANCELED') {
+                            card.style.transition = 'opacity 0.5s, max-height 0.5s';
+                            card.style.opacity = '0';
+                            card.style.maxHeight = '0';
+                            card.style.overflow = 'hidden';
+                            card.style.margin = '0';
+                            card.style.padding = '0';
+                            setTimeout(() => card.remove(), 500);
+                            console.log(`Removed finished game: ${eventId}`);
+                        } else {
+                            if (!sportCounts[sport]) sportCounts[sport] = 0;
+                            sportCounts[sport]++;
+                        }
+                    }
+                } catch (e) {
+                    // On error, keep the card and count it
+                    if (!sportCounts[sport]) sportCounts[sport] = 0;
+                    sportCounts[sport]++;
+                }
+            }
+
+            // Update tab counts
+            for (const [sport, count] of Object.entries(sportCounts)) {
+                const btn = document.querySelector(`.tab-btn[data-sport="${sport}"] .count`);
+                if (btn) btn.textContent = `(${count})`;
+            }
+
+            // Check for empty sections and show "no games" message
+            ['nba', 'nfl', 'nhl', 'ncaab', 'ncaaf'].forEach(sport => {
+                const section = document.getElementById(`${sport}-section`);
+                if (section) {
+                    const cards = section.querySelectorAll('.game-card');
+                    if (cards.length === 0 && !section.querySelector('.no-games')) {
+                        const noGames = document.createElement('div');
+                        noGames.className = 'no-games';
+                        noGames.textContent = `No ${sport.toUpperCase()} games currently in progress`;
+                        section.appendChild(noGames);
+                    }
+                }
+            });
+        }
+
+        // Initial check after 10 seconds, then every 60 seconds
+        setTimeout(checkGameStatus, 10000);
+        setInterval(checkGameStatus, 60000);
+    })();
     </script>
 </body>
 </html>
