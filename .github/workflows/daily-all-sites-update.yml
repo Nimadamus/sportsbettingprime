@@ -48,18 +48,14 @@ jobs:
             --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" \
             "ftp://208.109.70.186/lolsba.com/article-${DATE_STR}.html" || true
 
-      # MLB Sites
-      - name: Generate MLB
-        run: python scripts/generate_mlb.py
-
-      - name: Upload MLB Sites
+      # MLB Sites - Claude API generates daily news during offseason
+      - name: Generate MLB Daily News (Claude API)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          DATE_STR=$(date +%Y-%m-%d)
-          for SITE in dailymlbpicks.com mlbprediction.com bestmlbhandicapper.com; do
-            curl -T "/tmp/mlb-article-${DATE_STR}.html" \
-              --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" \
-              "ftp://208.109.70.186/${SITE}/article-${DATE_STR}.html" || true
-          done
+          echo "=== MLB DAILY NEWS ==="
+          echo "Using Claude API to generate MLB offseason news..."
+          python scripts/generate_mlb_news.py
 
       # Balls Deep International
       - name: Generate Balls Deep
@@ -90,7 +86,7 @@ jobs:
       - name: Summary
         run: |
           echo "## Daily Update Complete" >> $GITHUB_STEP_SUMMARY
-          echo "- Sports Betting Prime: Real odds from Odds API" >> $GITHUB_STEP_SUMMARY
+          echo "- Sports Betting Prime: Claude API analysis with real odds" >> $GITHUB_STEP_SUMMARY
           echo "- LOLSBA: SBA news (FTP)" >> $GITHUB_STEP_SUMMARY
-          echo "- MLB Sites x3 (FTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- MLB Sites x3: Claude API daily news (FTP upload)" >> $GITHUB_STEP_SUMMARY
           echo "- Balls Deep International (Neocities)" >> $GITHUB_STEP_SUMMARY
