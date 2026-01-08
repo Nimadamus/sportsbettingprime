@@ -26,13 +26,15 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml
 
-      # Sports Betting Prime - Real Odds API + ESPN Data
-      - name: Generate Sports Analysis
+      # Sports Betting Prime - CLAUDE API generates the actual content
+      - name: Generate Sports Analysis (Claude API)
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "=== SPORTS BETTING PRIME ==="
-          python scripts/daily_sports_analysis.py
+          echo "Using Claude API to generate human-quality content..."
+          python scripts/claude_content_generator.py
           python scripts/github_consensus_update.py || true
 
       # LOLSBA - SBA Advocacy
