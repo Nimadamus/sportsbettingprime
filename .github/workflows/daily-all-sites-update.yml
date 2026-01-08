@@ -77,6 +77,52 @@ jobs:
             echo "Neocities API key not set - skipping"
           fi
 
+      # ChatGPT Disaster - Claude API content, push to GitHub
+      - name: Generate ChatGPT Disaster
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "=== CHATGPT DISASTER ==="
+          python scripts/generate_chatgptdisaster.py
+
+      - name: Push ChatGPT Disaster to GitHub
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          DATE_STR=$(date +%Y-%m-%d)
+          if [ -f "/tmp/cgd-article-${DATE_STR}.html" ]; then
+            git clone https://x-access-token:${GH_PAT}@github.com/Nimadamus/chatgptdisaster.git cgd_repo || true
+            cp /tmp/cgd-article-${DATE_STR}.html cgd_repo/article-${DATE_STR}.html
+            cd cgd_repo
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git add -A
+            git diff --staged --quiet || git commit -m "Daily article ${DATE_STR}"
+            git push || echo "Push failed"
+          fi
+
+      # Real AI Girls - Claude API blog content
+      - name: Generate Real AI Girls Blog
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FTP_HOST: "208.109.70.186"
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          echo "=== REAL AI GIRLS ==="
+          python scripts/generate_realaigirls.py
+
+      # His Name Is Chip - Claude API humor content
+      - name: Generate His Name Is Chip
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FTP_HOST: "208.109.70.186"
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          echo "=== HIS NAME IS CHIP ==="
+          python scripts/generate_hisnameischip.py
+
       # Commit & Push
       - name: Commit and Push
         run: |
@@ -88,8 +134,15 @@ jobs:
 
       - name: Summary
         run: |
-          echo "## Daily Update Complete" >> $GITHUB_STEP_SUMMARY
-          echo "- Sports Betting Prime: Claude API analysis with real odds" >> $GITHUB_STEP_SUMMARY
-          echo "- LOLSBA: SBA news (FTP)" >> $GITHUB_STEP_SUMMARY
-          echo "- MLB Sites x3: Claude API daily news (FTP upload)" >> $GITHUB_STEP_SUMMARY
+          echo "## Daily Update Complete - All Sites" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Claude API Content Generation:" >> $GITHUB_STEP_SUMMARY
+          echo "- Sports Betting Prime: NBA, NHL, NFL, NCAAB analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- MLB Sites x3: Daily offseason news" >> $GITHUB_STEP_SUMMARY
+          echo "- ChatGPT Disaster: AI failure article" >> $GITHUB_STEP_SUMMARY
+          echo "- Real AI Girls: AI art blog post" >> $GITHUB_STEP_SUMMARY
+          echo "- His Name Is Chip: Humor blog post" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Other Sites:" >> $GITHUB_STEP_SUMMARY
+          echo "- LOLSBA: SBA advocacy (FTP)" >> $GITHUB_STEP_SUMMARY
           echo "- Balls Deep International (Neocities)" >> $GITHUB_STEP_SUMMARY
