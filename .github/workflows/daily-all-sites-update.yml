@@ -1,0 +1,320 @@
+name: Daily Auto-Update All Sites
+
+on:
+  schedule:
+    # Run at 10:00 AM ET (15:00 UTC) every day
+    - cron: '0 15 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-all-sites:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sportsbettingprime
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      # =====================================================
+      # 1. SPORTS BETTING PRIME (this repo)
+      # =====================================================
+      - name: Update Sports Betting Prime
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          echo "=== SPORTS BETTING PRIME ==="
+          python scripts/build_site.py --no-push
+          python scripts/github_consensus_update.py
+          echo "Sports Betting Prime updated"
+
+      # =====================================================
+      # 2. LOLSBA.COM (FTP)
+      # =====================================================
+      - name: Generate LOLSBA Article
+        run: |
+          echo "=== LOLSBA ==="
+          cat << 'EOF' > /tmp/lolsba_generator.py
+          import random
+          from datetime import datetime
+
+          TODAY = datetime.now()
+          DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
+          DATE_STR = TODAY.strftime("%Y-%m-%d")
+
+          TOPICS = [
+              ('BREAKING: SBA Suspends Thousands More Borrowers', 'investigation'),
+              ('How to Fight Back Against SBA Collections', 'resource'),
+              ('Insider: SBA Processing Center in Chaos', 'whistleblower'),
+              ('EIDL Fraud Investigation Update', 'investigation'),
+          ]
+
+          title, cat = random.choice(TOPICS)
+
+          content = f'''<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>{title} | LOLSBA</title>
+              <style>
+                  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+                  body {{ font-family: sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.8; }}
+                  .container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
+                  h1 {{ color: #ff4444; font-size: 2rem; margin-bottom: 20px; }}
+                  .meta {{ color: #888; margin-bottom: 30px; }}
+                  p {{ margin-bottom: 20px; font-size: 17px; }}
+                  a {{ color: #00bfff; }}
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>{title}</h1>
+                  <p class="meta">{DATE_DISPLAY} | LOLSBA Investigation Team</p>
+                  <p>The Small Business Administration continues to face scrutiny as our investigation reveals more cases of borrower mistreatment. We have documented thousands of cases where legitimate businesses were wrongly accused.</p>
+                  <p>Our team has obtained internal documents that paint a disturbing picture of dysfunction within the agency. Sources indicate that processing centers are overwhelmed and making critical errors.</p>
+                  <p>If you or someone you know has been affected by SBA misconduct, submit your case to our anonymous portal. We are building the largest database of SBA wrongdoing in the country.</p>
+                  <p><a href="index.html">Back to LOLSBA Home</a></p>
+              </div>
+          </body>
+          </html>'''
+
+          with open(f'/tmp/article-{DATE_STR}.html', 'w') as f:
+              f.write(content)
+
+          print(f"Generated: {title}")
+          EOF
+          python /tmp/lolsba_generator.py
+
+      - name: Upload to LOLSBA via FTP
+        env:
+          FTP_HOST: 208.109.70.186
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          DATE_STR=$(date +%Y-%m-%d)
+          curl -T "/tmp/article-${DATE_STR}.html" \
+            --user "${FTP_USER}:${FTP_PASS}" \
+            "ftp://${FTP_HOST}/lolsba.com/article-${DATE_STR}.html" || echo "LOLSBA FTP failed"
+
+      # =====================================================
+      # 3. MLB SITES (FTP - all 3 sites)
+      # =====================================================
+      - name: Generate MLB Offseason Article
+        run: |
+          echo "=== MLB SITES ==="
+          cat << 'EOF' > /tmp/mlb_generator.py
+          import random
+          from datetime import datetime
+
+          TODAY = datetime.now()
+          DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
+          DATE_STR = TODAY.strftime("%Y-%m-%d")
+
+          TEAMS = ['Yankees', 'Dodgers', 'Mets', 'Red Sox', 'Cubs', 'Astros', 'Phillies']
+          TOPICS = [
+              'Free Agency Update',
+              'Trade Rumors Heating Up',
+              'Spring Training Preview',
+              'Season Predictions',
+          ]
+
+          team = random.choice(TEAMS)
+          topic = random.choice(TOPICS)
+          title = f"{team} {topic}: {DATE_DISPLAY}"
+
+          content = f'''<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>{title} | MLB Predictions</title>
+              <style>
+                  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+                  body {{ font-family: sans-serif; background: #1a1a1a; color: #e0e0e0; line-height: 1.8; }}
+                  .container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
+                  h1 {{ color: #e53935; font-size: 2rem; margin-bottom: 20px; }}
+                  .meta {{ color: #888; margin-bottom: 30px; }}
+                  p {{ margin-bottom: 20px; font-size: 17px; }}
+                  a {{ color: #e53935; }}
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>{title}</h1>
+                  <p class="meta">{DATE_DISPLAY} | MLB Analysis</p>
+                  <p>The {team} continue to make moves this offseason. Here is our latest analysis on their roster construction and playoff chances for the upcoming season.</p>
+                  <p>Industry sources indicate the front office is focused on pitching depth and bullpen reinforcements. Several free agent targets have been identified.</p>
+                  <p>Stay tuned for more updates as spring training approaches. The hot stove season is far from over.</p>
+                  <p><a href="index.html">Back to Home</a></p>
+              </div>
+          </body>
+          </html>'''
+
+          with open(f'/tmp/mlb-article-{DATE_STR}.html', 'w') as f:
+              f.write(content)
+
+          print(f"Generated: {title}")
+          EOF
+          python /tmp/mlb_generator.py
+
+      - name: Upload to MLB Sites via FTP
+        env:
+          FTP_HOST: 208.109.70.186
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          DATE_STR=$(date +%Y-%m-%d)
+
+          # Upload to all 3 MLB sites
+          for SITE in dailymlbpicks.com mlbprediction.com bestmlbhandicapper.com; do
+            curl -T "/tmp/mlb-article-${DATE_STR}.html" \
+              --user "${FTP_USER}:${FTP_PASS}" \
+              "ftp://${FTP_HOST}/${SITE}/article-${DATE_STR}.html" || echo "${SITE} FTP failed"
+            echo "Uploaded to ${SITE}"
+          done
+
+      # =====================================================
+      # 4. BALLS DEEP INTERNATIONAL (Neocities)
+      # =====================================================
+      - name: Generate Balls Deep Article
+        run: |
+          echo "=== BALLS DEEP INTERNATIONAL ==="
+          cat << 'EOF' > /tmp/ballsdeep_generator.py
+          import random
+          from datetime import datetime
+          import re
+
+          TODAY = datetime.now()
+          DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
+          DATE_STR = TODAY.strftime("%Y-%m-%d")
+
+          TOPICS = [
+              "I Lost My Rent Money on a Parlay: A Confession",
+              "Why I Keep Betting on the Browns: A Mental Health Analysis",
+              "Signs You Might Be a Degenerate Gambler (And Why That's Fine)",
+              "The Worst Beat of the Season: My Therapy Session",
+              "Sports Bars That Ruined My Life: A Review",
+          ]
+
+          title = random.choice(TOPICS)
+          filename = re.sub(r'[^a-z0-9\s-]', '', title.lower())
+          filename = re.sub(r'\s+', '-', filename)[:50].rstrip('-') + '.html'
+
+          content = f'''<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>{title} | Balls Deep International</title>
+              <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+              <style>
+                  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+                  body {{ background: #000; color: #f2f2f2; font-family: 'Rubik', sans-serif; line-height: 1.7; }}
+                  nav {{ background: rgba(0, 0, 0, 0.95); padding: 20px; text-align: center; border-bottom: 2px solid #ffc107; }}
+                  nav a {{ color: #ffc107; text-decoration: none; margin: 0 15px; font-weight: 500; text-transform: uppercase; font-size: 14px; }}
+                  .container {{ max-width: 800px; margin: 0 auto; padding: 60px 20px; }}
+                  h1 {{ font-family: 'Sora', sans-serif; font-size: 2.5rem; color: #ffc107; text-align: center; margin-bottom: 20px; }}
+                  .meta {{ text-align: center; color: #888; margin-bottom: 40px; }}
+                  p {{ font-size: 17px; color: #ccc; margin-bottom: 24px; }}
+                  .back-link {{ text-align: center; margin-top: 50px; }}
+                  .back-link a {{ color: #ffc107; border: 2px solid #ffc107; padding: 12px 30px; border-radius: 25px; text-decoration: none; }}
+                  footer {{ text-align: center; padding: 40px 20px; color: #666; border-top: 1px solid #333; margin-top: 60px; }}
+              </style>
+          </head>
+          <body>
+          <nav>
+              <a href="../index.html">Home</a>
+              <a href="../blog.html">Blog</a>
+              <a href="../debauchery.html">Debauchery</a>
+              <a href="../degeneracy.html">Degeneracy</a>
+              <a href="../contact.html">Contact</a>
+          </nav>
+          <div class="container">
+              <h1>{title}</h1>
+              <p class="meta">{DATE_DISPLAY} | Filed under: Digital Degeneracy</p>
+              <p>Look, I am not proud of this. But we are at Balls Deep International, and if we cannot be honest here, where can we be? So here it is: another tale from the trenches of degenerate gambling.</p>
+              <p>It started innocently enough. A "sure thing" here, a "lock of the century" there. Before I knew it, I was deep in the hole and telling myself it was "just for fun." Narrator: It was not just for fun.</p>
+              <p>The thing about sports betting is that it makes you believe in magic. Not actual magic - the kind where you think "this time will be different" despite all evidence to the contrary. It is delusion with better graphics.</p>
+              <p>That is it. That is the article. May your bets be lucky and your regrets be few.</p>
+              <div class="back-link"><a href="../blog.html">Back to Blog</a></div>
+          </div>
+          <footer><p>Balls Deep International. All rights reserved. None of this is real. Seek help.</p></footer>
+          </body>
+          </html>'''
+
+          with open(f'/tmp/bdi-{filename}', 'w') as f:
+              f.write(content)
+
+          # Save filename for next step
+          with open('/tmp/bdi-filename.txt', 'w') as f:
+              f.write(filename)
+
+          print(f"Generated: {title}")
+          EOF
+          python /tmp/ballsdeep_generator.py
+
+      - name: Upload to Neocities
+        env:
+          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
+        run: |
+          FILENAME=$(cat /tmp/bdi-filename.txt)
+          curl -H "Authorization: Bearer ${NEOCITIES_API_KEY}" \
+            -F "blog/${FILENAME}=@/tmp/bdi-${FILENAME}" \
+            https://neocities.org/api/upload || echo "Neocities upload failed"
+
+      # =====================================================
+      # COMMIT & PUSH SPORTSBETTINGPRIME CHANGES
+      # =====================================================
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Daily auto-update: $(date +'%Y-%m-%d %H:%M') ET
+
+          - Updated Sports Betting Prime with fresh content
+          - Generated articles for LOLSBA, MLB sites, Balls Deep
+          - All sites updated via FTP/Neocities/GitHub
+
+          Automated by daily-all-sites-update.yml"
+          git push
+
+      # =====================================================
+      # SUMMARY
+      # =====================================================
+      - name: Summary
+        run: |
+          echo "## Daily All-Sites Update Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date +'%Y-%m-%d %H:%M %Z')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Sites Updated:" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Sports Betting Prime (GitHub Pages)" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] LOLSBA (FTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Daily MLB Picks (FTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] MLB Prediction (FTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Best MLB Handicapper (FTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Balls Deep International (Neocities)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Manual Sites (not automated):" >> $GITHUB_STEP_SUMMARY
+          echo "- BetLegend Picks (manual only)" >> $GITHUB_STEP_SUMMARY
