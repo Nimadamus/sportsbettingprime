@@ -52,6 +52,9 @@ jobs:
       - name: Generate MLB Daily News (Claude API)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FTP_HOST: "208.109.70.186"
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
           echo "=== MLB DAILY NEWS ==="
           echo "Using Claude API to generate MLB offseason news..."
