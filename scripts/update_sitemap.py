@@ -168,45 +168,60 @@ def generate_archive_calendar(pages):
 
 
 def generate_sitemap_xml(pages):
-    """Generate sitemap.xml for SEO."""
+    """Generate COMPREHENSIVE sitemap.xml for SEO - includes ALL HTML pages."""
 
     urls = []
+    exclude_patterns = ['google6f74b54ecd988601', 'BACKUP', '.git']
 
-    # Main pages
-    main_pages = [
-        "index.html",
-        "covers-consensus.html",
-        "handicapping-hub.html",
-        "archive-calendar.html",
-        "sitemap.html",
-        "nfl-gridiron-oracles.html",
-        "nba-court-vision.html",
-        "nhl-ice-oracles.html",
-        "college-basketball.html",
-        "college-football.html",
-    ]
+    # Scan ALL HTML files in the entire repo
+    for root, dirs, files in os.walk(REPO):
+        dirs[:] = [d for d in dirs if d != '.git']
 
-    for page in main_pages:
-        urls.append(f"https://sportsbettingprime.com/{page}")
+        for filename in files:
+            if filename.endswith('.html'):
+                # Skip excluded files
+                if any(pattern in filename for pattern in exclude_patterns):
+                    continue
 
-    # Archive pages
-    for sport_key, sport_pages in pages.items():
-        for page in sport_pages:
-            urls.append(f"https://sportsbettingprime.com/{page['path']}")
+                filepath = os.path.join(root, filename)
+                rel_path = os.path.relpath(filepath, REPO).replace('\\', '/')
 
-    # Consensus pages
-    for f in os.listdir(REPO):
-        if f.startswith("covers-consensus-") and f.endswith(".html"):
-            urls.append(f"https://sportsbettingprime.com/{f}")
+                # Skip hidden/internal history files
+                if 'history/' in rel_path and '23-44' in rel_path:
+                    continue
+
+                urls.append(f"https://sportsbettingprime.com/{rel_path}")
+
+    # Sort for consistent ordering
+    urls.sort()
+
+    # Determine priority based on page type
+    def get_priority_and_freq(url):
+        if 'index.html' in url and url.count('/') == 3:
+            return '1.0', 'daily'
+        elif 'covers-consensus.html' in url or 'handicapping-hub.html' in url:
+            return '1.0', 'daily'
+        elif any(x in url for x in ['nba-court', 'nfl-gridiron', 'nhl-ice']):
+            return '0.9', 'daily'
+        elif 'college-' in url:
+            return '0.8', 'daily'
+        elif '/archive/' in url:
+            return '0.6', 'monthly'
+        elif 'consensus_library/' in url or 'sharp-consensus' in url:
+            return '0.7', 'weekly'
+        else:
+            return '0.5', 'weekly'
 
     xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
     for url in urls:
+        priority, freq = get_priority_and_freq(url)
         xml_content += f'''  <url>
     <loc>{url}</loc>
     <lastmod>{TODAY.strftime("%Y-%m-%d")}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>{freq}</changefreq>
+    <priority>{priority}</priority>
   </url>
 '''
 
@@ -214,7 +229,7 @@ def generate_sitemap_xml(pages):
 
     with open(os.path.join(REPO, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write(xml_content)
-    print(f"Updated sitemap.xml ({len(urls)} URLs)")
+    print(f"Updated sitemap.xml ({len(urls)} URLs) - COMPREHENSIVE")
 
 
 def generate_sitemap_html(pages):
