@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCAAB | January 11, 2026 | 2 Games | Sports Betting Prime</title>
+    <meta name="description" content="College basketball betting analysis, AP Top 25 rankings, and expert picks. Updated daily with spreads, totals, and sharp action.">
+    <link rel="canonical" href="https://sportsbettingprime.com/college-basketball.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --accent: #f97316;
+            --accent2: #ea580c;
+            --gold: #f59e0b;
+            --green: #22c55e;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
+        .logo .prime { color: var(--gold); }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; flex-wrap: wrap; }
+        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+        .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
+
+        .notice-card { background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .notice-card h2 { color: var(--accent); margin-bottom: 0.5rem; }
+        .notice-card p { color: var(--muted); }
+
+        .section-title { font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+
+        .rankings-grid { display: grid; gap: 0.5rem; }
+        .rank-row { display: grid; grid-template-columns: 50px 40px 1fr auto auto; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; transition: all 0.2s; gap: 1rem; }
+        .rank-row:hover { border-color: var(--accent); transform: translateX(4px); }
+        .rank-num { font-size: 1.25rem; font-weight: 800; color: var(--gold); text-align: center; }
+        .rank-logo { width: 32px; height: 32px; object-fit: contain; }
+        .rank-team { font-weight: 600; }
+        .rank-record { color: var(--muted); font-size: 0.875rem; }
+        .rank-conf { color: var(--accent); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+
+        .upcoming-section { margin-top: 3rem; }
+        .game-preview { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+        .game-preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .game-preview-date { color: var(--gold); font-weight: 600; }
+        .game-preview-broadcast { color: var(--muted); font-size: 0.875rem; }
+        .game-preview-matchup { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .game-preview-matchup img { width: 40px; height: 40px; object-fit: contain; }
+        .game-preview-vs { color: var(--muted); font-weight: 600; }
+        .game-preview-team { font-weight: 600; }
+        .game-preview-team .record { color: var(--muted); font-size: 0.875rem; font-weight: 400; }
+        .game-preview-analysis { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+        .article-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+        .article-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05)); border-bottom: 1px solid var(--border); }
+        .article-header h3 { color: var(--text); font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .article-meta { color: var(--muted); font-size: 0.875rem; }
+        .article-body { padding: 1.5rem; }
+        .article-body p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+        .article-body p:last-child { margin-bottom: 0; }
+
+        footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .rank-row { grid-template-columns: 40px 32px 1fr auto; }
+            .rank-conf { display: none; }
+        }
+    
+/* Calendar Sidebar Styles */
+.page-layout { display: flex; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 2rem; }
+.calendar-sidebar { position: sticky; top: 100px; width: 280px; flex-shrink: 0; height: fit-content; }
+.main-content { flex: 1; min-width: 0; }
+.calendar-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+.calendar-title { font-size: 0.875rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; text-align: center; }
+.year-display { font-size: 1.5rem; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 0.75rem; }
+.month-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.625rem; font-size: 0.875rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
+.calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+.calendar-weekdays span { text-align: center; font-size: 0.7rem; font-weight: 600; color: var(--muted); padding: 4px 0; }
+.calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--muted); background: rgba(0,0,0,0.2); border-radius: 4px; cursor: default; }
+.cal-day.empty { background: transparent; }
+.cal-day.has-content { background: rgba(34, 197, 94, 0.2); color: #22c55e; cursor: pointer; font-weight: 600; border: 1px solid rgba(34, 197, 94, 0.3); }
+.cal-day.has-content:hover { background: rgba(34, 197, 94, 0.4); transform: scale(1.1); }
+.cal-day.today { box-shadow: inset 0 0 0 2px var(--gold); }
+.mobile-archive { display: none; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+.mobile-archive-title { font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem; }
+.mobile-archive-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.5rem; font-size: 0.875rem; border-radius: 6px; }
+@media (max-width: 1024px) { .calendar-sidebar { display: none; } .mobile-archive { display: block; } .page-layout { padding: 1rem; } }
+
+    </style>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "College Basketball",
+        "description": "NCAAB betting analysis with AP Top 25 rankings and expert picks",
+        "url": "https://sportsbettingprime.com/college-basketball.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Sports Betting Prime",
+            "url": "https://sportsbettingprime.com/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sports Betting Prime"
+        }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="handicapping-hub.html">Hub</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="college-basketball.html" class="active">NCAAB</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>College Basketball</h1>
+            <div class="week-badge">JANUARY 11, 2026</div>
+            <p style="color: var(--muted);">Sunday, January 11, 2026 - 2 Games Today</p>
+        </div>
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="team away">
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/356.png" alt="Illinois Fighting Illini" onerror="this.style.display='none'">
+                    <div class="team-info">
+                        <div class="name">Illinois Fighting Illini</div>
+                        <div class="record">12-3</div>
+                    </div>
+                </div>
+                <div class="vs">@</div>
+                <div class="team home">
+                    <div class="team-info">
+                        <div class="name">Iowa Hawkeyes</div>
+                        <div class="record">12-3</div>
+                    </div>
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" alt="Iowa Hawkeyes" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="game-meta">Sunday, Jan 11 | 05:00 PM ET | Carver-Hawkeye Arena | FOX</div>
+            <div class="game-odds">
+                <div class="odd-item"><span class="odd-label">Spread</span><span class="odd-value">IOWA +5.5</span></div>
+                <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 141.5</span></div>
+                <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">IOWA +200</span></div>
+            </div>
+            <div class="game-analysis">
+                <h3>Illinois Fighting Illini vs Iowa Hawkeyes</h3>
+                <p>Let me break this down. In college basketball, home court advantage is worth more than people think. Illinois Fighting Illini (12-3) travels to face Iowa Hawkeyes (12-3). </p>
+                <p>But here's the thing - Scoring 79.0 PPG at home, Iowa Hawkeyes has the crowd. Illinois Fighting Illini averages 75.6 but road games in hostile gyms are tough. </p>
+                <p>look, The betting trends are clear: Iowa Hawkeyes covers consistently (6-3 ATS). When a team covers at this rate, there's a reason. This is the play.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <div class="title">Home Field</div>
+                        <div class="desc">Iowa Hawkeyes is 6-3 at home this season</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Records</div>
+                        <div class="desc">Iowa Hawkeyes: 12-3 | Illinois Fighting Illini: 12-3</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Home Scoring</div>
+                        <div class="desc">Iowa Hawkeyes averages 74.5 PPG at home</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Line Movement</div>
+                        <div class="desc">Opened Iowa Hawkeyes +5.5, sharp action noted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="team away">
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png" alt="Cincinnati Bearcats" onerror="this.style.display='none'">
+                    <div class="team-info">
+                        <div class="name">Cincinnati Bearcats</div>
+                        <div class="record">8-7</div>
+                    </div>
+                </div>
+                <div class="vs">@</div>
+                <div class="team home">
+                    <div class="team-info">
+                        <div class="name">UCF Knights</div>
+                        <div class="record">12-2</div>
+                    </div>
+                    <img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2116.png" alt="UCF Knights" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="game-meta">Sunday, Jan 11 | 10:00 PM ET | Addition Financial Arena | ESPN2</div>
+            <div class="game-odds">
+                <div class="odd-item"><span class="odd-label">Spread</span><span class="odd-value">UCF -2.5</span></div>
+                <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 150.5</span></div>
+                <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">UCF -170</span></div>
+            </div>
+            <div class="game-analysis">
+                <h3>Cincinnati Bearcats vs UCF Knights</h3>
+                <p>Sometimes the obvious play is right. In college basketball, home court advantage is worth more than people think. Cincinnati Bearcats (8-7) travels to face UCF Knights (12-2). </p>
+                <p>Here's the kicker: Scoring 71.6 PPG at home, UCF Knights has the crowd. Cincinnati Bearcats averages 73.8 but road games in hostile gyms are tough. </p>
+                <p>honestly, UCF Knights is 9-7 ATS this season and 3-1 at home. That's not coincidence - sharp money follows trends like this. Lock it in.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <div class="title">Home Field</div>
+                        <div class="desc">UCF Knights is 7-2 at home this season</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Records</div>
+                        <div class="desc">UCF Knights: 12-2 | Cincinnati Bearcats: 8-7</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Home Scoring</div>
+                        <div class="desc">UCF Knights averages 74.8 PPG at home</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Line Movement</div>
+                        <div class="desc">Opened UCF Knights -2.5, sharp action noted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p style="margin-bottom: 0.5rem;"><a href="covers-consensus.html">View Full Consensus</a> | <a href="handicapping-hub.html">Handicapping Hub</a></p>
+        <p>&copy; 2026 Sports Betting Prime | Updated January 04, 2026</p>
+    </footer>
+
+<script>
+const ARCHIVE_DATA = {
+            "2025-12-21": "archive/ncaab/college-basketball-2025-12-21.html",
+            "2025-12-22": "archive/ncaab/college-basketball-2025-12-22.html",
+            "2025-12-23": "archive/ncaab/college-basketball-2025-12-23.html",
+            "2025-12-24": "archive/ncaab/college-basketball-2025-12-24.html"
+        };
+
+const CURRENT_SPORT = "NCAAB";
+
+function initCalendar() {
+    const today = new Date();
+    const monthSelect = document.getElementById('month-select');
+    const calendarDays = document.getElementById('calendar-days');
+    const yearDisplay = document.getElementById('cal-year');
+    const mobileSelect = document.getElementById('mobile-archive-select');
+
+    // Populate month dropdown
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December'];
+
+    for (let i = 0; i < 12; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = months[i];
+        if (i === today.getMonth()) opt.selected = true;
+        monthSelect.appendChild(opt);
+    }
+
+    // Populate mobile dropdown
+    Object.keys(ARCHIVE_DATA).sort().reverse().forEach(date => {
+        const opt = document.createElement('option');
+        opt.value = ARCHIVE_DATA[date];
+        const d = new Date(date + 'T12:00:00');
+        opt.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        mobileSelect.appendChild(opt);
+    });
+
+    mobileSelect.addEventListener('change', function() {
+        if (this.value) window.location.href = this.value;
+    });
+
+    function renderCalendar(year, month) {
+        yearDisplay.textContent = year;
+        calendarDays.innerHTML = '';
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // Empty cells for days before month starts
+        for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'cal-day empty';
+            calendarDays.appendChild(empty);
+        }
+
+        // Days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const dayEl = document.createElement('div');
+            dayEl.className = 'cal-day';
+            dayEl.textContent = day;
+
+            if (ARCHIVE_DATA[dateStr]) {
+                dayEl.classList.add('has-content');
+                dayEl.addEventListener('click', () => {
+                    window.location.href = ARCHIVE_DATA[dateStr];
+                });
+            }
+
+            // Highlight today
+            if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+                dayEl.classList.add('today');
+            }
+
+            calendarDays.appendChild(dayEl);
+        }
+    }
+
+    monthSelect.addEventListener('change', function() {
+        renderCalendar(today.getFullYear(), parseInt(this.value));
+    });
+
+    renderCalendar(today.getFullYear(), today.getMonth());
+}
+
+document.addEventListener('DOMContentLoaded', initCalendar);
+</script>
+
+</body>
+</html>
