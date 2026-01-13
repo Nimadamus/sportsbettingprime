@@ -57,8 +57,8 @@ class CoversConsensusScraper:
         self.all_picks = []
         self.pick_counter = Counter()
 
-    def get_leaderboard(self, sport_code, pages=2):
-        """Fetch top contestants from leaderboard"""
+    def get_leaderboard(self, sport_code, pages=4):
+        """Fetch top contestants from leaderboard - 4 pages = ~200 contestants"""
         print(f"\n  Fetching {self.sports.get(sport_code, sport_code)} leaderboard...")
         contestants = []
 
@@ -224,10 +224,10 @@ class CoversConsensusScraper:
 
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
-            contestants = self.get_leaderboard(sport_code, pages=2)  # 2 pages = 100 contestants
+            contestants = self.get_leaderboard(sport_code, pages=4)  # 4 pages = ~200 contestants
 
             picks_found = 0
-            for i, contestant in enumerate(contestants[:100], 1):  # Process top 100
+            for i, contestant in enumerate(contestants[:200], 1):  # Process top 200
                 picks = self.get_contestant_picks(contestant, sport_name)
 
                 if picks:
