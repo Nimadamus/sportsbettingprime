@@ -57,6 +57,143 @@ class CoversConsensusScraper:
         self.all_picks = []
         self.pick_counter = Counter()
 
+    def scrape_public_consensus(self, sport_code):
+        """Scrape public consensus data from Covers.com topconsensus pages
+        This provides ADDITIONAL data beyond King of Covers contestants"""
+        sport_name = self.sports.get(sport_code, sport_code)
+        print(f"\n  Fetching {sport_name} public consensus...")
+
+        picks_added = 0
+
+        # Scrape SIDES (spread/ML) consensus
+        try:
+            sides_url = f"https://contests.covers.com/consensus/topconsensus/{sport_code}/overall"
+            response = self.session.get(sides_url, timeout=15)
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            table = soup.find('table', class_='responsive')
+            if table:
+                for row in table.find_all('tr')[1:]:
+                    cells = row.find_all('td')
+                    if len(cells) >= 5:
+                        matchup_raw = cells[0].get_text(strip=True)
+                        consensus_raw = cells[2].get_text(strip=True)
+                        sides_raw = cells[3].get_text(strip=True)
+
+                        # Parse matchup (e.g., "NHLDetBos" -> "Detroit @ Boston")
+                        matchup = self.parse_matchup(matchup_raw, sport_code)
+
+                        # Parse consensus percentages (e.g., "45%55%" -> [45, 55])
+                        pcts = re.findall(r'(\d+)%', consensus_raw)
+                        if len(pcts) >= 2:
+                            pct1, pct2 = int(pcts[0]), int(pcts[1])
+
+                            # Parse pick counts - use separator for <br/> tags (e.g., "201<br/>307")
+                            picks_text = cells[4].get_text(separator='|', strip=True)
+                            pick_counts = re.findall(r'(\d+)', picks_text)
+                            if len(pick_counts) >= 2:
+                                count1, count2 = int(pick_counts[0]), int(pick_counts[1])
+
+                                # Parse sides (e.g., "+113-116" -> ["+113", "-116"])
+                                sides_parts = re.findall(r'([+-]\d+)', sides_raw)
+                                if len(sides_parts) >= 2:
+                                    pick_type = 'Spread (ATS)'
+
+                                    # Add picks if significant consensus
+                                    if count1 >= 50:
+                                        key1 = f"{sport_name}|{matchup}|{pick_type}|{sides_parts[0]}"
+                                        self.pick_counter[key1] += max(1, count1 // 20)
+                                        picks_added += 1
+
+                                    if count2 >= 50:
+                                        key2 = f"{sport_name}|{matchup}|{pick_type}|{sides_parts[1]}"
+                                        self.pick_counter[key2] += max(1, count2 // 20)
+                                        picks_added += 1
+        except Exception as e:
+            print(f"    Error scraping sides: {e}")
+
+        # Scrape TOTALS (over/under) consensus
+        try:
+            totals_url = f"https://contests.covers.com/consensus/topoverunderconsensus/{sport_code}/overall"
+            response = self.session.get(totals_url, timeout=15)
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            table = soup.find('table', class_='responsive')
+            if table:
+                for row in table.find_all('tr')[1:]:
+                    cells = row.find_all('td')
+                    if len(cells) >= 5:
+                        matchup_raw = cells[0].get_text(strip=True)
+                        consensus_raw = cells[2].get_text(strip=True)
+                        total_line = cells[3].get_text(strip=True)
+
+                        matchup = self.parse_matchup(matchup_raw, sport_code)
+
+                        # Parse "73 % Over27 % Under" format
+                        over_match = re.search(r'(\d+)\s*%\s*Over', consensus_raw)
+                        under_match = re.search(r'(\d+)\s*%\s*Under', consensus_raw)
+
+                        if over_match and under_match:
+                            over_pct = int(over_match.group(1))
+                            under_pct = int(under_match.group(1))
+
+                            # Parse pick counts - use separator for <br/> tags
+                            picks_text = cells[4].get_text(separator='|', strip=True)
+                            pick_counts = re.findall(r'(\d+)', picks_text)
+                            if len(pick_counts) >= 2:
+                                over_count, under_count = int(pick_counts[0]), int(pick_counts[1])
+
+                                # Add Over picks if significant
+                                if over_count >= 50:
+                                    key_over = f"{sport_name}|{matchup}|Total (Over)|Over {total_line}"
+                                    self.pick_counter[key_over] += max(1, over_count // 20)
+                                    picks_added += 1
+
+                                # Add Under picks if significant
+                                if under_count >= 50:
+                                    key_under = f"{sport_name}|{matchup}|Total (Under)|Under {total_line}"
+                                    self.pick_counter[key_under] += max(1, under_count // 20)
+                                    picks_added += 1
+        except Exception as e:
+            print(f"    Error scraping totals: {e}")
+
+        print(f"    Added {picks_added} public consensus picks")
+        return picks_added
+
+    def parse_matchup(self, raw, sport_code):
+        """Parse matchup from compressed format like 'NHLDetBos' to 'Detroit @ Boston'"""
+        raw = re.sub(r'^(NHL|NBA|NFL|NCAAB|NCAAF)', '', raw, flags=re.IGNORECASE)
+
+        teams = {
+            'Ana': 'Anaheim', 'Ari': 'Arizona', 'Bos': 'Boston', 'Buf': 'Buffalo',
+            'Cgy': 'Calgary', 'Cal': 'Calgary', 'Car': 'Carolina', 'Chi': 'Chicago',
+            'Col': 'Colorado', 'Clb': 'Columbus', 'Dal': 'Dallas', 'Det': 'Detroit',
+            'Edm': 'Edmonton', 'Fla': 'Florida', 'La': 'Los Angeles', 'Min': 'Minnesota',
+            'Mon': 'Montreal', 'Mtl': 'Montreal', 'Nsh': 'Nashville', 'Nj': 'New Jersey',
+            'Nyi': 'NY Islanders', 'Nyr': 'NY Rangers', 'Ott': 'Ottawa', 'Phi': 'Philadelphia',
+            'Pit': 'Pittsburgh', 'Sj': 'San Jose', 'Sea': 'Seattle', 'Stl': 'St. Louis',
+            'Tb': 'Tampa Bay', 'Tor': 'Toronto', 'Utah': 'Utah', 'Van': 'Vancouver',
+            'Vgk': 'Vegas', 'Was': 'Washington', 'Wpg': 'Winnipeg',
+            'Atl': 'Atlanta', 'Bkn': 'Brooklyn', 'Cha': 'Charlotte', 'Cle': 'Cleveland',
+            'Den': 'Denver', 'Gsw': 'Golden State', 'Gs': 'Golden State', 'Hou': 'Houston',
+            'Ind': 'Indiana', 'Lac': 'L.A. Clippers', 'Lal': 'L.A. Lakers', 'Mem': 'Memphis',
+            'Mia': 'Miami', 'Mil': 'Milwaukee', 'No': 'New Orleans', 'Ny': 'New York',
+            'Okc': 'Oklahoma City', 'Orl': 'Orlando', 'Phx': 'Phoenix', 'Por': 'Portland',
+            'Sac': 'Sacramento', 'Sa': 'San Antonio', 'Uta': 'Utah',
+            'Arz': 'Arizona', 'Bal': 'Baltimore', 'Cin': 'Cincinnati', 'Gb': 'Green Bay',
+            'Jax': 'Jacksonville', 'Kc': 'Kansas City', 'Lv': 'Las Vegas', 'Lar': 'L.A. Rams',
+            'Ne': 'New England', 'Nyg': 'NY Giants', 'Nyj': 'NY Jets', 'Sf': 'San Francisco',
+            'Ten': 'Tennessee',
+        }
+
+        parts = re.findall(r'[A-Z][a-z]+', raw)
+        if len(parts) >= 2:
+            away = teams.get(parts[0], parts[0])
+            home = teams.get(parts[1], parts[1])
+            return f"{away} @ {home}"
+
+        return raw
+
     def get_leaderboard(self, sport_code, pages=4):
         """Fetch top contestants from leaderboard - 4 pages = ~200 contestants"""
         print(f"\n  Fetching {self.sports.get(sport_code, sport_code)} leaderboard...")
@@ -259,13 +396,15 @@ class CoversConsensusScraper:
         return pick_text
 
     def scrape_all(self):
-        """Scrape all sports"""
+        """Scrape all sports - combines King of Covers contestants AND public consensus"""
         print("\n" + "=" * 60)
         print("SCRAPING COVERS.COM CONSENSUS DATA")
         print("=" * 60)
 
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
+
+            # 1. Scrape King of Covers contestants (expert picks)
             contestants = self.get_leaderboard(sport_code, pages=4)  # 4 pages = ~200 contestants
 
             picks_found = 0
@@ -282,7 +421,10 @@ class CoversConsensusScraper:
 
                 time.sleep(0.3)
 
-            print(f"    Total picks found: {picks_found}")
+            print(f"    Expert picks found: {picks_found}")
+
+            # 2. ALSO scrape public consensus (adds more complete coverage, especially totals)
+            self.scrape_public_consensus(sport_code)
 
         return self.aggregate_picks()
 
