@@ -161,14 +161,42 @@ class CoversConsensusScraper:
                         continue
 
                     pick_lower = pick_text.lower()
+
+                    # Determine pick type with better logic
                     if 'over' in pick_lower:
                         pick_type = 'Total (Over)'
                     elif 'under' in pick_lower:
                         pick_type = 'Total (Under)'
-                    elif '+' in pick_text or '-' in pick_text:
-                        pick_type = 'Spread (ATS)'
-                    else:
+                    elif '+ml' in pick_lower or '-ml' in pick_lower or 'ml' in pick_lower:
+                        # Explicit moneyline notation
                         pick_type = 'Moneyline'
+                    else:
+                        # Check for moneyline odds (3-digit numbers like +104, -150)
+                        import re as pick_re
+                        ml_pattern = pick_re.search(r'[+-]\d{3,}', pick_text)
+                        spread_pattern = pick_re.search(r'[+-]\d+\.5', pick_text)
+
+                        if ml_pattern and not spread_pattern:
+                            # Has 3+ digit odds = moneyline
+                            pick_type = 'Moneyline'
+                        elif spread_pattern:
+                            # Has .5 = spread
+                            pick_type = 'Spread (ATS)'
+                        elif '+' in pick_text or '-' in pick_text:
+                            # Small numbers without .5 - check if looks like ML odds
+                            num_match = pick_re.search(r'[+-](\d+)', pick_text)
+                            if num_match:
+                                num = int(num_match.group(1))
+                                if num >= 100:
+                                    # 3-digit number = moneyline
+                                    pick_type = 'Moneyline'
+                                else:
+                                    # Small number = spread
+                                    pick_type = 'Spread (ATS)'
+                            else:
+                                pick_type = 'Spread (ATS)'
+                        else:
+                            pick_type = 'Moneyline'
 
                     picks.append({
                         'sport': sport,
