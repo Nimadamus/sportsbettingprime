@@ -150,71 +150,113 @@ class CoversConsensusScraper:
                 away = teams[0] if teams else ''
                 home = teams[1] if len(teams) > 1 else ''
 
-                # Extract picks - get text from FIRST div only to avoid concatenation issues
+                # Extract picks - get ALL divs and deduplicate (KEY FIX!)
                 picks_cell = cells[3] if len(cells) > 3 else None
                 if not picks_cell:
                     continue
 
-                # Get the first div's text only (subsequent divs are duplicates)
-                first_div = picks_cell.find('div')
-                if first_div:
-                    pick_text = first_div.get_text(strip=True)
-                else:
-                    # Fallback to direct text content if no div
-                    pick_text = picks_cell.get_text(strip=True)
+                # Get ALL pick divs and deduplicate
+                pick_divs = picks_cell.find_all('div')
+                pick_texts = []
+                seen_picks = set()
 
-                if not pick_text or len(pick_text) < 3:
-                    continue
+                for div in pick_divs:
+                    pick_text = div.text.strip()
+                    if pick_text and pick_text not in seen_picks:
+                        pick_texts.append(pick_text)
+                        seen_picks.add(pick_text)
 
-                pick_lower = pick_text.lower()
+                # If no divs found, try getting direct text
+                if not pick_texts:
+                    direct_text = picks_cell.get_text(strip=True)
+                    if direct_text and len(direct_text) >= 3:
+                        pick_texts.append(direct_text)
 
-                # Determine pick type with better logic
-                if 'over' in pick_lower:
-                    pick_type = 'Total (Over)'
-                elif 'under' in pick_lower:
-                    pick_type = 'Total (Under)'
-                elif '+ml' in pick_lower or '-ml' in pick_lower or 'ml' in pick_lower:
-                    # Explicit moneyline notation
-                    pick_type = 'Moneyline'
-                else:
-                    # Check for moneyline odds (3-digit numbers like +104, -150)
-                    import re as pick_re
-                    ml_pattern = pick_re.search(r'[+-]\d{3,}', pick_text)
-                    spread_pattern = pick_re.search(r'[+-]\d+\.5', pick_text)
+                # Process EACH unique pick for this game
+                for pick_text in pick_texts:
+                    if not pick_text or len(pick_text) < 3:
+                        continue
 
-                    if ml_pattern and not spread_pattern:
-                        # Has 3+ digit odds = moneyline
+                    pick_lower = pick_text.lower()
+
+                    # Determine pick type
+                    if 'over' in pick_lower:
+                        pick_type = 'Total (Over)'
+                    elif 'under' in pick_lower:
+                        pick_type = 'Total (Under)'
+                    elif '+ml' in pick_lower or '-ml' in pick_lower or 'ml' in pick_lower:
                         pick_type = 'Moneyline'
-                    elif spread_pattern:
-                        # Has .5 = spread
-                        pick_type = 'Spread (ATS)'
-                    elif '+' in pick_text or '-' in pick_text:
-                        # Small numbers without .5 - check if looks like ML odds
-                        num_match = pick_re.search(r'[+-](\d+)', pick_text)
-                        if num_match:
-                            num = int(num_match.group(1))
-                            if num >= 100:
-                                # 3-digit number = moneyline
-                                pick_type = 'Moneyline'
+                    else:
+                        # Check for moneyline odds (3-digit numbers like +104, -150)
+                        ml_pattern = re.search(r'[+-]\d{3,}', pick_text)
+                        spread_pattern = re.search(r'[+-]\d+\.5', pick_text)
+
+                        if ml_pattern and not spread_pattern:
+                            pick_type = 'Moneyline'
+                        elif spread_pattern:
+                            pick_type = 'Spread (ATS)'
+                        elif '+' in pick_text or '-' in pick_text:
+                            num_match = re.search(r'[+-](\d+)', pick_text)
+                            if num_match:
+                                num = int(num_match.group(1))
+                                if num >= 100:
+                                    pick_type = 'Moneyline'
+                                else:
+                                    pick_type = 'Spread (ATS)'
                             else:
-                                # Small number = spread
                                 pick_type = 'Spread (ATS)'
                         else:
-                            pick_type = 'Spread (ATS)'
-                    else:
-                        pick_type = 'Moneyline'
+                            pick_type = 'Moneyline'
 
-                picks.append({
-                    'sport': sport,
-                    'matchup': f"{away} @ {home}",
-                    'pick_type': pick_type,
-                    'pick_text': pick_text
-                })
+                    # Normalize pick text for better aggregation
+                    normalized_pick = self.normalize_pick_for_aggregation(pick_text, pick_type)
+
+                    picks.append({
+                        'sport': sport,
+                        'matchup': f"{away} @ {home}",
+                        'pick_type': pick_type,
+                        'pick_text': normalized_pick
+                    })
 
             return picks
 
         except Exception as e:
             return []
+
+    def normalize_pick_for_aggregation(self, pick_text, pick_type):
+        """Normalize pick text to group similar picks together"""
+        # For totals, round to nearest 0.5
+        if 'Over' in pick_text or 'Under' in pick_text:
+            match = re.search(r'(Over|Under)\s*(\d+\.?\d*)', pick_text)
+            if match:
+                direction = match.group(1)
+                number = float(match.group(2))
+                rounded = round(number * 2) / 2
+                return f"{direction} {rounded}"
+            return pick_text
+
+        # For moneyline picks (large + or - numbers like +150, -185)
+        # Group by team + direction only (convert odds to +ML/-ML)
+        match = re.search(r'([A-Z]{2,4})\s*([+-])(\d+)', pick_text)
+        if match:
+            team = match.group(1)
+            sign = match.group(2)
+            number = int(match.group(3))
+
+            # If number >= 100, it's a moneyline - normalize to +ML/-ML
+            if number >= 100:
+                return f"{team} {sign}ML"
+
+            # Otherwise it's a spread - round to nearest 0.5
+            full_number = float(f"{sign}{number}")
+            if '.' in pick_text:
+                decimal_match = re.search(r'([+-]?\d+\.?\d*)', pick_text)
+                if decimal_match:
+                    full_number = float(decimal_match.group(1))
+            rounded = round(full_number * 2) / 2
+            return f"{team} {'+' if rounded > 0 else ''}{rounded}"
+
+        return pick_text
 
     def scrape_all(self):
         """Scrape all sports"""
