@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bankroll Calculator | Unit Size & Kelly Criterion | Sports Betting Prime</title>
+    <meta name="description" content="Free sports betting bankroll calculator. Calculate optimal unit sizes, Kelly Criterion bets, and track your betting ROI. Manage your money like a professional.">
+    <link rel="canonical" href="https://sportsbettingprime.com/bankroll-calculator.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Sports Betting Bankroll Calculator | Sports Betting Prime">
+    <meta property="og:description" content="Calculate optimal bet sizes with our free bankroll management tools. Kelly Criterion, unit sizing, and ROI tracking.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sportsbettingprime.com/bankroll-calculator.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #030308;
+            --card: rgba(15, 15, 25, 0.9);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #00f0ff;
+            --accent2: #8b5cf6;
+            --green: #22c55e;
+            --red: #ef4444;
+            --gold: #ffd700;
+            --text: #e4e4e7;
+            --muted: #71717a;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            z-index: -1;
+        }
+        header {
+            background: rgba(3, 3, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); background: var(--card); }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-size: 1.15rem;
+            margin-bottom: 3rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .calc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .calc-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .calc-card .description {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .input-group input::placeholder {
+            color: var(--muted);
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .calc-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+        }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-label {
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 0.25rem;
+        }
+
+        .result-detail {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Unit Size Table */
+        .unit-table-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .unit-table-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        tr:hover td {
+            background: rgba(0, 240, 255, 0.03);
+        }
+
+        /* Educational Section */
+        .edu-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .edu-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .edu-section h3 {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .edu-section p {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .formula-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            color: var(--accent);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+            border: 1px solid var(--green);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tip-box h4 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+            border: 1px solid var(--red);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: var(--red);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING PRIME</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="handicapping-hub.html">Hub</a></li>
+                <li><a href="betting-guide.html">Guide</a></li>
+                <li><a href="reverse-line-movement-guide.html">RLM Guide</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bankroll Calculator</h1>
+        <p class="subtitle">Calculate optimal bet sizes, track ROI, and manage your sports betting bankroll like a professional.</p>
+
+        <div class="calculator-grid">
+            <!-- Unit Size Calculator -->
+            <div class="calc-card">
+                <h2>Unit Size Calculator</h2>
+                <p class="description">Determine your standard bet size based on your total bankroll. Most professionals use 1-3% per bet.</p>
+
+                <div class="input-group">
+                    <label>Total Bankroll ($)</label>
+                    <input type="number" id="bankroll" placeholder="e.g., 1000" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label>Unit Percentage (%)</label>
+                    <select id="unitPercent">
+                        <option value="1">1% (Conservative)</option>
+                        <option value="2" selected>2% (Standard)</option>
+                        <option value="3">3% (Moderate)</option>
+                        <option value="5">5% (Aggressive)</option>
+                    </select>
+                </div>
+
+                <button class="calc-btn" onclick="calculateUnit()">Calculate Unit Size</button>
+
+                <div class="result-box" id="unitResult">
+                    <div class="result-label">Your Standard Unit</div>
+                    <div class="result-value" id="unitValue">$0</div>
+                    <div class="result-detail" id="unitDetail"></div>
+                </div>
+            </div>
+
+            <!-- Kelly Criterion Calculator -->
+            <div class="calc-card">
+                <h2>Kelly Criterion Calculator</h2>
+                <p class="description">Calculate mathematically optimal bet size based on your edge and the odds offered.</p>
+
+                <div class="input-group">
+                    <label>Your Bankroll ($)</label>
+                    <input type="number" id="kellyBankroll" placeholder="e.g., 1000" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label>Odds (American)</label>
+                    <input type="number" id="kellyOdds" placeholder="e.g., -110 or +150">
+                </div>
+
+                <div class="input-group">
+                    <label>Win Probability (%)</label>
+                    <input type="number" id="winProb" placeholder="e.g., 55" min="1" max="99">
+                </div>
+
+                <button class="calc-btn" onclick="calculateKelly()">Calculate Kelly Bet</button>
+
+                <div class="result-box" id="kellyResult">
+                    <div class="result-label">Kelly Recommended Bet</div>
+                    <div class="result-value" id="kellyValue">$0</div>
+                    <div class="result-detail" id="kellyDetail"></div>
+                </div>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="calc-card">
+                <h2>ROI Calculator</h2>
+                <p class="description">Calculate your return on investment based on your betting history.</p>
+
+                <div class="input-group">
+                    <label>Total Amount Wagered ($)</label>
+                    <input type="number" id="totalWagered" placeholder="e.g., 5000" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label>Total Profit/Loss ($)</label>
+                    <input type="number" id="totalProfit" placeholder="e.g., 350 or -200">
+                </div>
+
+                <button class="calc-btn" onclick="calculateROI()">Calculate ROI</button>
+
+                <div class="result-box" id="roiResult">
+                    <div class="result-label">Your ROI</div>
+                    <div class="result-value" id="roiValue">0%</div>
+                    <div class="result-detail" id="roiDetail"></div>
+                </div>
+            </div>
+
+            <!-- Break-Even Calculator -->
+            <div class="calc-card">
+                <h2>Break-Even Calculator</h2>
+                <p class="description">Find the win percentage needed to break even at any given odds.</p>
+
+                <div class="input-group">
+                    <label>Odds (American)</label>
+                    <input type="number" id="breakEvenOdds" placeholder="e.g., -110 or +150">
+                </div>
+
+                <button class="calc-btn" onclick="calculateBreakEven()">Calculate Break-Even %</button>
+
+                <div class="result-box" id="breakEvenResult">
+                    <div class="result-label">Break-Even Win Rate</div>
+                    <div class="result-value" id="breakEvenValue">0%</div>
+                    <div class="result-detail" id="breakEvenDetail"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Table -->
+        <div class="unit-table-section">
+            <h2>Quick Unit Reference</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bankroll</th>
+                        <th>1% Unit</th>
+                        <th>2% Unit</th>
+                        <th>3% Unit</th>
+                        <th>5% Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$500</td>
+                        <td>$5</td>
+                        <td>$10</td>
+                        <td>$15</td>
+                        <td>$25</td>
+                    </tr>
+                    <tr>
+                        <td>$1,000</td>
+                        <td>$10</td>
+                        <td>$20</td>
+                        <td>$30</td>
+                        <td>$50</td>
+                    </tr>
+                    <tr>
+                        <td>$2,500</td>
+                        <td>$25</td>
+                        <td>$50</td>
+                        <td>$75</td>
+                        <td>$125</td>
+                    </tr>
+                    <tr>
+                        <td>$5,000</td>
+                        <td>$50</td>
+                        <td>$100</td>
+                        <td>$150</td>
+                        <td>$250</td>
+                    </tr>
+                    <tr>
+                        <td>$10,000</td>
+                        <td>$100</td>
+                        <td>$200</td>
+                        <td>$300</td>
+                        <td>$500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Educational Content -->
+        <div class="edu-section">
+            <h2>Understanding the Kelly Criterion</h2>
+            <p>The Kelly Criterion is a mathematical formula that determines the optimal bet size to maximize long-term growth while minimizing the risk of ruin. It was developed by John Kelly at Bell Labs in 1956.</p>
+
+            <div class="formula-box">
+                Kelly % = (bp - q) / b
+                <br><br>
+                b = decimal odds - 1 | p = win probability | q = loss probability (1 - p)
+            </div>
+
+            <h3>Why Kelly Matters</h3>
+            <p>Betting too much of your bankroll on any single bet exposes you to unnecessary risk. Betting too little leaves money on the table. Kelly finds the sweet spot - the exact amount that maximizes your expected growth rate.</p>
+
+            <div class="tip-box">
+                <h4>Pro Tip: Use Fractional Kelly</h4>
+                <p>Most professional bettors use "half Kelly" or "quarter Kelly" - betting 25-50% of what the Kelly formula suggests. This reduces volatility while still capturing most of the expected growth. Full Kelly can lead to large drawdowns that are psychologically difficult to handle.</p>
+            </div>
+
+            <h3>When Kelly Doesn't Apply</h3>
+            <p>The Kelly Criterion assumes you know your true edge - but in sports betting, this is nearly impossible to calculate precisely. Use Kelly as a guide, not gospel. If you're unsure about your edge, flat betting (same amount on every bet) is a safer approach.</p>
+
+            <div class="warning-box">
+                <h4>Critical Warning: Edge Estimation</h4>
+                <p>If you overestimate your edge, Kelly will tell you to bet too much. If you think you have a 55% win rate but you actually have 50%, Kelly could lead you to ruin. Always be conservative in your edge estimates.</p>
+            </div>
+        </div>
+
+        <div class="edu-section">
+            <h2>Bankroll Management Principles</h2>
+
+            <h3>The Golden Rules</h3>
+            <p>Professional sports bettors follow strict bankroll management rules. These aren't suggestions - they're the difference between long-term success and going broke.</p>
+
+            <ul style="margin: 1.5rem 0 1.5rem 1.5rem; color: var(--text);">
+                <li style="margin-bottom: 0.75rem;"><strong>Never bet more than 5% on a single game</strong> - Even your strongest plays should be capped</li>
+                <li style="margin-bottom: 0.75rem;"><strong>Don't chase losses</strong> - Increasing bet sizes after losses is a path to ruin</li>
+                <li style="margin-bottom: 0.75rem;"><strong>Track every bet</strong> - You can't improve what you don't measure</li>
+                <li style="margin-bottom: 0.75rem;"><strong>Reassess unit size monthly</strong> - As your bankroll grows or shrinks, adjust</li>
+                <li style="margin-bottom: 0.75rem;"><strong>Separate gambling money from living expenses</strong> - Only bet what you can afford to lose</li>
+            </ul>
+
+            <h3>The 1-3-5 Unit System</h3>
+            <p>Many handicappers use a tiered confidence system:</p>
+            <ul style="margin: 1rem 0 1.5rem 1.5rem; color: var(--text);">
+                <li style="margin-bottom: 0.75rem;"><strong>1 Unit:</strong> Standard plays - slight edge identified</li>
+                <li style="margin-bottom: 0.75rem;"><strong>3 Units:</strong> Strong plays - clear edge with multiple supporting factors</li>
+                <li style="margin-bottom: 0.75rem;"><strong>5 Units:</strong> Max plays - only 1-2 per month, very high confidence</li>
+            </ul>
+
+            <div class="tip-box">
+                <h4>Variance is Real</h4>
+                <p>Even a 55% bettor will experience 10+ game losing streaks. Your bankroll needs to survive these inevitable downswings. At 2% units, a 10-game losing streak only costs 20% of your bankroll - painful but survivable. At 10% units, you're down 65% and likely out of the game.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sports Betting Prime. Sharp analysis. Zero fluff.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="index.html">Home</a>
+            <a href="covers-consensus.html">Consensus</a>
+            <a href="betting-guide.html">Betting Guide</a>
+            <a href="reverse-line-movement-guide.html">RLM Guide</a>
+            <a href="sitemap.html">Sitemap</a>
+        </p>
+    </footer>
+
+    <script>
+        function calculateUnit() {
+            const bankroll = parseFloat(document.getElementById('bankroll').value);
+            const percent = parseFloat(document.getElementById('unitPercent').value);
+
+            if (!bankroll || bankroll <= 0) {
+                alert('Please enter a valid bankroll amount');
+                return;
+            }
+
+            const unit = bankroll * (percent / 100);
+            document.getElementById('unitValue').textContent = '$' + unit.toFixed(2);
+            document.getElementById('unitDetail').innerHTML =
+                `<strong>Breakdown:</strong><br>` +
+                `1 Unit = $${unit.toFixed(2)}<br>` +
+                `2 Units = $${(unit * 2).toFixed(2)}<br>` +
+                `3 Units = $${(unit * 3).toFixed(2)}<br>` +
+                `5 Units (Max) = $${(unit * 5).toFixed(2)}`;
+            document.getElementById('unitResult').classList.add('show');
+        }
+
+        function calculateKelly() {
+            const bankroll = parseFloat(document.getElementById('kellyBankroll').value);
+            const odds = parseFloat(document.getElementById('kellyOdds').value);
+            const winProb = parseFloat(document.getElementById('winProb').value) / 100;
+
+            if (!bankroll || !odds || !winProb) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Convert American odds to decimal
+            let decimal;
+            if (odds > 0) {
+                decimal = (odds / 100) + 1;
+            } else {
+                decimal = (100 / Math.abs(odds)) + 1;
+            }
+
+            const b = decimal - 1;
+            const q = 1 - winProb;
+            const kellyPercent = (b * winProb - q) / b;
+
+            if (kellyPercent <= 0) {
+                document.getElementById('kellyValue').textContent = '$0';
+                document.getElementById('kellyValue').style.color = '#ef4444';
+                document.getElementById('kellyDetail').innerHTML =
+                    `<span style="color: #ef4444;"><strong>No edge detected!</strong></span><br>` +
+                    `At ${(winProb * 100).toFixed(1)}% win probability and ${odds > 0 ? '+' : ''}${odds} odds, you don't have a mathematical edge. Kelly says don't bet.`;
+            } else {
+                const kellyBet = bankroll * kellyPercent;
+                const halfKelly = kellyBet / 2;
+                const quarterKelly = kellyBet / 4;
+
+                document.getElementById('kellyValue').textContent = '$' + kellyBet.toFixed(2);
+                document.getElementById('kellyValue').style.color = '#00f0ff';
+                document.getElementById('kellyDetail').innerHTML =
+                    `<strong>Kelly %:</strong> ${(kellyPercent * 100).toFixed(2)}% of bankroll<br><br>` +
+                    `<strong>Full Kelly:</strong> $${kellyBet.toFixed(2)}<br>` +
+                    `<strong>Half Kelly (Recommended):</strong> $${halfKelly.toFixed(2)}<br>` +
+                    `<strong>Quarter Kelly (Conservative):</strong> $${quarterKelly.toFixed(2)}`;
+            }
+            document.getElementById('kellyResult').classList.add('show');
+        }
+
+        function calculateROI() {
+            const wagered = parseFloat(document.getElementById('totalWagered').value);
+            const profit = parseFloat(document.getElementById('totalProfit').value);
+
+            if (!wagered || wagered <= 0) {
+                alert('Please enter valid amounts');
+                return;
+            }
+
+            const roi = (profit / wagered) * 100;
+            const roiValue = document.getElementById('roiValue');
+            roiValue.textContent = roi.toFixed(2) + '%';
+            roiValue.style.color = roi >= 0 ? '#22c55e' : '#ef4444';
+
+            let assessment;
+            if (roi > 10) assessment = "Elite level - you're in the top 1% of sports bettors";
+            else if (roi > 5) assessment = "Excellent - professional-grade returns";
+            else if (roi > 2) assessment = "Good - sustainable profitability";
+            else if (roi > 0) assessment = "Positive - keep refining your approach";
+            else if (roi > -5) assessment = "Slight loss - review bet selection";
+            else assessment = "Significant loss - reassess strategy";
+
+            document.getElementById('roiDetail').innerHTML =
+                `<strong>Assessment:</strong> ${assessment}<br><br>` +
+                `<strong>Context:</strong> Sharp bettors target 3-7% ROI over the long term. ` +
+                `Anything above 5% consistently puts you in elite territory.`;
+            document.getElementById('roiResult').classList.add('show');
+        }
+
+        function calculateBreakEven() {
+            const odds = parseFloat(document.getElementById('breakEvenOdds').value);
+
+            if (!odds) {
+                alert('Please enter valid odds');
+                return;
+            }
+
+            let breakEven;
+            if (odds > 0) {
+                breakEven = 100 / (odds + 100) * 100;
+            } else {
+                breakEven = Math.abs(odds) / (Math.abs(odds) + 100) * 100;
+            }
+
+            document.getElementById('breakEvenValue').textContent = breakEven.toFixed(2) + '%';
+
+            const profitThreshold = breakEven + 2;
+            document.getElementById('breakEvenDetail').innerHTML =
+                `<strong>To break even</strong> at ${odds > 0 ? '+' : ''}${odds} odds, you need to win <strong>${breakEven.toFixed(2)}%</strong> of the time.<br><br>` +
+                `<strong>To profit,</strong> you need to win more than ${breakEven.toFixed(2)}%.<br>` +
+                `A ${profitThreshold.toFixed(1)}% win rate would yield roughly 2% ROI at these odds.`;
+            document.getElementById('breakEvenResult').classList.add('show');
+        }
+    </script>
+</body>
+</html>
