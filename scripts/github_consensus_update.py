@@ -112,7 +112,7 @@ class CoversConsensusScraper:
                                         # First value is typically the away team
                                         if val1 >= 100:
                                             pick_type1 = 'Moneyline'
-                                            pick_text1 = f"{away_team} ML"
+                                            pick_text1 = f"{away_team} ML ({sides_parts[0]})"
                                         else:
                                             pick_type1 = 'Spread (ATS)'
                                             pick_text1 = f"{away_team} {sides_parts[0]}"
@@ -124,7 +124,7 @@ class CoversConsensusScraper:
                                         # Second value is typically the home team
                                         if val2 >= 100:
                                             pick_type2 = 'Moneyline'
-                                            pick_text2 = f"{home_team} ML"
+                                            pick_text2 = f"{home_team} ML ({sides_parts[1]})"
                                         else:
                                             pick_type2 = 'Spread (ATS)'
                                             pick_text2 = f"{home_team} {sides_parts[1]}"
@@ -395,16 +395,16 @@ class CoversConsensusScraper:
             return pick_text
 
         # For moneyline picks (large + or - numbers like +150, -185)
-        # Group by team + direction only (convert odds to +ML/-ML)
+        # Keep team and odds together: "SEA ML (+133)"
         match = re.search(r'([A-Z]{2,4})\s*([+-])(\d+)', pick_text)
         if match:
             team = match.group(1)
             sign = match.group(2)
             number = int(match.group(3))
 
-            # If number >= 100, it's a moneyline - normalize to +ML/-ML
+            # If number >= 100, it's a moneyline - format as "TEAM ML (±odds)"
             if number >= 100:
-                return f"{team} {sign}ML"
+                return f"{team} ML ({sign}{number})"
 
             # Otherwise it's a spread - round to nearest 0.5
             full_number = float(f"{sign}{number}")
