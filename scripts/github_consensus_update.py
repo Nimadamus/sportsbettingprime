@@ -97,16 +97,38 @@ class CoversConsensusScraper:
                                 # Parse sides (e.g., "+113-116" -> ["+113", "-116"])
                                 sides_parts = re.findall(r'([+-]\d+)', sides_raw)
                                 if len(sides_parts) >= 2:
-                                    pick_type = 'Spread (ATS)'
+                                    # Extract team names from matchup (e.g., "Detroit @ Boston")
+                                    teams = matchup.split(' @ ')
+                                    away_team = teams[0].strip() if len(teams) >= 1 else "Away"
+                                    home_team = teams[1].strip() if len(teams) >= 2 else "Home"
+
+                                    # Determine pick type based on value
+                                    # Moneylines are typically >= 100, spreads < 100
+                                    val1 = abs(int(sides_parts[0]))
+                                    val2 = abs(int(sides_parts[1]))
 
                                     # Add picks if significant consensus
                                     if count1 >= 50:
-                                        key1 = f"{sport_name}|{matchup}|{pick_type}|{sides_parts[0]}"
+                                        # First value is typically the away team
+                                        if val1 >= 100:
+                                            pick_type1 = 'Moneyline'
+                                            pick_text1 = f"{away_team} ML"
+                                        else:
+                                            pick_type1 = 'Spread (ATS)'
+                                            pick_text1 = f"{away_team} {sides_parts[0]}"
+                                        key1 = f"{sport_name}|{matchup}|{pick_type1}|{pick_text1}"
                                         self.pick_counter[key1] += max(1, count1 // 20)
                                         picks_added += 1
 
                                     if count2 >= 50:
-                                        key2 = f"{sport_name}|{matchup}|{pick_type}|{sides_parts[1]}"
+                                        # Second value is typically the home team
+                                        if val2 >= 100:
+                                            pick_type2 = 'Moneyline'
+                                            pick_text2 = f"{home_team} ML"
+                                        else:
+                                            pick_type2 = 'Spread (ATS)'
+                                            pick_text2 = f"{home_team} {sides_parts[1]}"
+                                        key2 = f"{sport_name}|{matchup}|{pick_type2}|{pick_text2}"
                                         self.pick_counter[key2] += max(1, count2 // 20)
                                         picks_added += 1
         except Exception as e:
