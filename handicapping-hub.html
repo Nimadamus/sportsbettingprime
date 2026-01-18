@@ -474,6 +474,46 @@
         }
         .alert-text { flex: 1; }
 
+    
+        .alerts-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .alert-icon { font-size: 20px; }
+        .alert-title { font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .alert-time { margin-left: auto; font-size: 12px; opacity: 0.8; }
+        .alerts-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .alert-item {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sport-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .alert-text { flex: 1; }
+
     </style>
 </head>
 <body>
@@ -538,31 +578,32 @@
             <div class="alerts-header">
                 <span class="alert-icon">⚠️</span>
                 <span class="alert-title">LINE MOVEMENTS DETECTED</span>
-                <span class="alert-time">02:00 PM</span>
+                <span class="alert-time">05:08 PM</span>
             </div>
             <div class="alerts-scroll">
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Indiana Pacers @ Detroit Pistons (NBA) - Indiana Pacers ML moved from 625 to 600</span>
+                    <span class="alert-text">SPREAD MOVE: Boston Celtics @ Atlanta Hawks (NBA) - Spread moved from -3.5 to -7.5 (+4.0 pts)</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">ML MOVE: Washington Wizards @ Denver Nuggets (NBA) - Washington Wizards ML moved from 455 to 425</span>
+                    <span class="alert-text">ML MOVE: Boston Celtics @ Atlanta Hawks (NBA) - Boston Celtics ML moved from -162 to -298</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Washington Wizards @ Denver Nuggets (NBA) - Total moved from 231.5 to 228.5 (down)</span>
+                    <span class="alert-text">TOTAL MOVE: Boston Celtics @ Atlanta Hawks (NBA) - Total moved from 229.5 to 221.5 (down)</span>
                 </div>
                 <div class="alert-item">
                     <span class="sport-tag">NBA</span>
-                    <span class="alert-text">TOTAL MOVE: Orlando Magic @ Memphis Grizzlies (NBA) - Total moved from 228.5 to 231.5 (up)</span>
+                    <span class="alert-text">SPREAD MOVE: Indiana Pacers @ Detroit Pistons (NBA) - Spread moved from 15.5 to 25.5 (+10.0 pts)</span>
                 </div>
                 <div class="alert-item">
-                    <span class="sport-tag">NHL</span>
-                    <span class="alert-text">SPREAD MOVE: New York Islanders @ Calgary Flames (NHL) - Spread moved from -1.5 to 3.5 (+5.0 pts)</span>
+                    <span class="sport-tag">NBA</span>
+                    <span class="alert-text">ML MOVE: Indiana Pacers @ Detroit Pistons (NBA) - Indiana Pacers ML moved from 600 to 3000</span>
                 </div>
             </div>
         </div>
+
 
         <div class="tabs">
             <button class="tab-btn active" data-sport="nba">NBA <span class="count">(9)</span></button>
@@ -674,15 +715,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -3.5 -> -3.0 (+0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 UTAH: E. Harkless (G) - OUT, W. Kessler (C) - OUT, L. Markkanen (F) - OUT | DAL: A. Davis (F) - OUT, D. Exum (G) - OUT, C. Flagg (F) - OUT</span>
         </div>
@@ -787,15 +820,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">🎯</span> Total: 229.5 -> 230.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 BOS: J. Minott (F) - OUT, P. Pritchard (G) - OUT, J. Tatum (F) - OUT | ATL: D. Daniels (G) - DTD, N. Dante (C) - OUT, K. Porzingis (C) - OUT</span>
         </div>
@@ -900,15 +925,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -900 -> -1000</span><span class="movement-item"><span class="move-icon">💰</span> Away ML: +610 -> +650</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 225.5 -> 226.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 IND: T. Haliburton (G) - OUT, I. Jackson (F) - OUT, B. Mathurin (G) - OUT | DET: C. Cunningham (G) - DTD, W. Jr. (F) - OUT, P. Reed (F) - DTD</span>
         </div>
@@ -1013,15 +1030,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -2.0 -> -2.5 (-0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 PHX: D. Booker (G) - DTD, J. Bouyea (G) - OUT, J. Green (G) - OUT | NY: J. Brunson (G) - DTD, J. Hart (G) - DTD</span>
         </div>
@@ -1126,15 +1135,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: +360 -> +340</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 OKC: I. Hartenstein (C) - OUT, T. Sorber (C) - OUT, N. Topic (G) - OUT | MIA: T. Herro (G) - DTD, J. Jr. (F) - OUT, N. Jovic (F) - DTD</span>
         </div>
@@ -1239,15 +1240,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">🎯</span> Total: 231.5 -> 232.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 MIN: R. Gobert (C) - DTD, T. Jr. (G) - OUT | SA: S. Castle (G) - DTD, D. Vassell (G) - OUT</span>
         </div>
@@ -1352,15 +1345,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +235 -> +220</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: -290 -> -275</span><span class="movement-item"><span class="move-icon">📊</span> Spread: -7.0 -> -7.5 (-0.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 236.5 -> 237.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 CHA: M. Diabate (F) - OUT, M. Plumlee (C) - OUT | GS: S. Curry (SG) - OUT, G. Santos (F) - OUT</span>
         </div>
@@ -1465,15 +1450,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +440 -> +425</span><span class="movement-item"><span class="move-icon">📊</span> Spread: -12.5 -> -11.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 WSH: B. Coulibaly (G) - OUT, T. Vukcevic (F) - OUT, C. Whitmore (F) - OUT | DEN: T. Bates (G) - OUT, C. Braun (G) - OUT, B. Brown (G) - DTD</span>
         </div>
@@ -1690,15 +1667,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -1.5 -> -1.0 (+0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 BUF: T. Grable (OT) - OUT, T. Johnson (RB) - OUT, K. Latu (TE) - OUT | DEN: S. Ehlinger (QB) - OUT, C. Lohner (TE) - OUT, E. Moore (WR) - OUT</span>
         </div>
@@ -1803,15 +1772,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +245 -> +295</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: -305 -> -390</span><span class="movement-item"><span class="move-icon">📊</span> Spread: -7.0 -> -8.0 (-1.0)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 44.5 -> 45.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 SF: R. Pearsall (WR) - Q, J. Brown (S) - OUT, L. Gifford (LB) - Q | SEA: S. Darnold (QB) - Q, J. Jones (G) - OUT, E. Arroyo (TE) - OUT</span>
         </div>
@@ -2120,15 +2081,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">📊</span> Spread: -4.5 -> -3.5 (+1.0)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 6.5 -> 7.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 NYI: B. Horvat (C) - OUT, K. Palmieri (C) - OUT | CGY: J. Beecher (C) - OUT, B. Coleman (LW) - OUT</span>
         </div>
@@ -2233,15 +2186,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -210 -> -180</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 SEA: No reported injuries | UTA: A. Kerfoot (C) - OUT</span>
         </div>
@@ -3102,15 +3047,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -230 -> -205</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 NSH: J. Marchessault (RW) - OUT, A. Wilsby (D) - DTD | VGK: B. Howden (C) - DTD, W. Karlsson (C) - OUT, B. Saad (LW) - OUT</span>
         </div>
@@ -4029,12 +3966,6 @@
         </div>
 
         
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -460 -> -2500</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +320 -> +950</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +1.5 -> +3.5 (+2.0)</span>
-        </div>
-
         <!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 FLA: No reported injuries | VAN: No reported injuries</span>
@@ -4340,15 +4271,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -2000 -> -1200</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +830 -> +650</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 ARIZ: No reported injuries | UCF: No reported injuries</span>
         </div>
@@ -4453,15 +4376,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: +1800 -> +1850</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 154.5 -> 153.5 (-1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 MICH: No reported injuries | ORE: No reported injuries</span>
         </div>
@@ -4566,15 +4481,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -280 -> -235</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +210 -> +180</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +5.5 -> +4.5 (-1.0)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 148.5 -> 149.5 (+1.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 NEB: No reported injuries | NU: No reported injuries</span>
         </div>
@@ -4679,15 +4586,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">🎯</span> Total: 161.5 -> 163.5 (+2.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 UNC: No reported injuries | CAL: No reported injuries</span>
         </div>
@@ -4792,15 +4691,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: +500 -> +425</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: -850 -> -650</span><span class="movement-item"><span class="move-icon">📊</span> Spread: -10.5 -> -13.5 (-3.0)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 182.5 -> 184.5 (+2.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 ARK: No reported injuries | UGA: No reported injuries</span>
         </div>
@@ -4905,15 +4796,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -430 -> -450</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +330 -> +355</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +8.5 -> +9.0 (+0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 PUR: No reported injuries | USC: No reported injuries</span>
         </div>
@@ -5018,15 +4901,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -720 -> -700</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +10.5 -> +11.0 (+0.5)</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 147.5 -> 146.0 (-1.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 DUKE: No reported injuries | STAN: No reported injuries</span>
         </div>
@@ -5239,15 +5114,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: -166 -> -145</span><span class="movement-item"><span class="move-icon">🎯</span> Total: 163.5 -> 165.5 (+2.0)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 BYU: No reported injuries | TTU: No reported injuries</span>
         </div>
@@ -5352,15 +5219,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Away ML: -345 -> -310</span><span class="movement-item"><span class="move-icon">💰</span> Home ML: +270 -> +255</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +7.5 -> +7.0 (-0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 LOU: No reported injuries | PITT: No reported injuries</span>
         </div>
@@ -5465,15 +5324,7 @@
                 </table>
             </div>
         </div>
-
-        
-        <!-- LINE MOVEMENT ALERTS -->
-        <div class="line-movements-bar">
-            <span class="movements-label">LINE MOVES:</span>
-            <span class="movement-item"><span class="move-icon">💰</span> Home ML: +800 -> +750</span><span class="movement-item"><span class="move-icon">📊</span> Spread: +14.5 -> +14.0 (-0.5)</span>
-        </div>
-
-        <!-- SECTION 4: TRENDS BAR -->
+<!-- SECTION 4: TRENDS BAR -->
         <div class="trends-bar">
             <span class="trend-item">🏥 GONZ: No reported injuries | SEA: No reported injuries</span>
         </div>
