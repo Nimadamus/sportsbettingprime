@@ -1,51 +1,37 @@
 #!/usr/bin/env python3
 """
-MLB Daily News Generator
-=========================
-Generates daily MLB news articles during the offseason.
-Searches for latest MLB news, sends to Claude API for human-quality writing,
-and uploads to all 3 MLB sites via FTP.
+MLB Research Gatherer
+=====================
+Gathers REAL MLB news from ESPN APIs and saves structured research.
+Does NOT generate final content - Claude Code processes this into elite articles.
+
+The research is saved to pending_content/mlb_research_YYYY-MM-DD.json
+When user runs /daily-content, Claude Code reads this and writes quality journalism
+for all 3 MLB sites (each gets UNIQUE content, different angles).
 
 Sites:
-- dailymlbpicks.com
-- mlbprediction.com
-- bestmlbhandicapper.com
+- dailymlbpicks.com (AI/beginner angle)
+- mlbprediction.com (analytics/data angle)
+- bestmlbhandicapper.com (sharp/expert angle)
 """
 
 import os
 import json
 import requests
-import ftplib
-import io
 from datetime import datetime
 from typing import Dict, List
-
-# =============================================================================
-# CONFIGURATION
-# =============================================================================
-
-ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
-ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
-
-# FTP Configuration (from environment variables)
-FTP_CONFIG = {
-    'host': os.environ.get('FTP_HOST', ''),
-    'user': os.environ.get('FTP_USER', ''),
-    'password': os.environ.get('FTP_PASS', ''),
-}
-
-MLB_SITES = [
-    {'dir': '/dailymlbpicks.com/', 'name': 'Daily MLB Picks'},
-    {'dir': '/mlbprediction.com/', 'name': 'MLB Prediction'},
-    {'dir': '/bestmlbhandicapper.com/', 'name': 'Best MLB Handicapper'},
-]
+import re
 
 TODAY = datetime.now()
 DATE_STR = TODAY.strftime("%Y-%m-%d")
 DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
+OUTPUT_DIR = os.environ.get('OUTPUT_DIR', '/tmp')
 
-# ESPN MLB News API
+# ESPN APIs
 ESPN_MLB_NEWS = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news"
+ESPN_MLB_TRANSACTIONS = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/transactions"
+ESPN_MLB_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
+ESPN_MLB_TEAMS = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams"
 
 # =============================================================================
 # NEWS FETCHING
@@ -54,39 +40,40 @@ ESPN_MLB_NEWS = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news
 def fetch_mlb_news() -> List[Dict]:
     """Fetch latest MLB news from ESPN API"""
     try:
-        response = requests.get(ESPN_MLB_NEWS, timeout=30)
+        response = requests.get(ESPN_MLB_NEWS, timeout=30, headers={'User-Agent': 'Mozilla/5.0'})
         response.raise_for_status()
         data = response.json()
 
         articles = []
-        for article in data.get('articles', [])[:10]:  # Get top 10 stories
+        for article in data.get('articles', [])[:15]:
             articles.append({
                 'headline': article.get('headline', ''),
                 'description': article.get('description', ''),
                 'published': article.get('published', ''),
                 'type': article.get('type', 'article'),
+                'categories': [c.get('description', '') for c in article.get('categories', [])],
             })
 
         return articles
     except Exception as e:
-        print(f"  [ERROR] ESPN News API: {e}")
+        print(f"  [WARN] ESPN News API: {e}")
         return []
 
 
 def fetch_mlb_transactions() -> List[Dict]:
     """Fetch recent MLB transactions"""
-    url = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/transactions"
     try:
-        response = requests.get(url, timeout=30)
+        response = requests.get(ESPN_MLB_TRANSACTIONS, timeout=30, headers={'User-Agent': 'Mozilla/5.0'})
         response.raise_for_status()
         data = response.json()
 
         transactions = []
-        for item in data.get('items', [])[:15]:  # Get recent transactions
+        for item in data.get('items', [])[:20]:
             transactions.append({
                 'date': item.get('date', ''),
                 'description': item.get('description', ''),
                 'team': item.get('team', {}).get('displayName', ''),
+                'type': item.get('type', ''),
             })
 
         return transactions
@@ -95,194 +82,156 @@ def fetch_mlb_transactions() -> List[Dict]:
         return []
 
 
-# =============================================================================
-# CLAUDE API CONTENT GENERATION
-# =============================================================================
-
-def call_claude_api(prompt: str, max_tokens: int = 4000) -> str:
-    """Call Claude API to generate content"""
-    if not ANTHROPIC_API_KEY:
-        raise ValueError("ANTHROPIC_API_KEY not set")
-
-    headers = {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-    }
-
-    payload = {
-        "model": "claude-sonnet-4-20250514",
-        "max_tokens": max_tokens,
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
-    }
-
+def fetch_team_standings() -> List[Dict]:
+    """Fetch current MLB standings/teams info"""
     try:
-        response = requests.post(ANTHROPIC_API_URL, headers=headers, json=payload, timeout=120)
+        response = requests.get(ESPN_MLB_TEAMS, timeout=30, headers={'User-Agent': 'Mozilla/5.0'})
         response.raise_for_status()
         data = response.json()
-        return data['content'][0]['text']
+
+        teams = []
+        for team in data.get('sports', [{}])[0].get('leagues', [{}])[0].get('teams', []):
+            team_data = team.get('team', {})
+            teams.append({
+                'name': team_data.get('displayName', ''),
+                'abbreviation': team_data.get('abbreviation', ''),
+                'location': team_data.get('location', ''),
+            })
+
+        return teams
     except Exception as e:
-        print(f"  [ERROR] Claude API: {e}")
-        raise
+        print(f"  [WARN] Teams API: {e}")
+        return []
 
 
-def generate_news_article(news: List[Dict], transactions: List[Dict]) -> str:
-    """Generate a daily news article using Claude API"""
+def extract_player_names(text: str) -> List[str]:
+    """Extract player names from text"""
+    # Common patterns for player names (First Last)
+    names = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\b', text)
+    # Filter out common non-names
+    skip_words = {'The', 'This', 'That', 'Major League', 'New York', 'Los Angeles', 'San Francisco', 'San Diego'}
+    return [n for n in names if n not in skip_words and len(n.split()) <= 3]
 
-    # Build news summary for Claude
-    news_summary = "\n".join([
-        f"- {item['headline']}: {item['description']}"
-        for item in news if item['headline']
-    ])
 
-    transaction_summary = "\n".join([
-        f"- {item['team']}: {item['description']}"
-        for item in transactions if item['description']
-    ]) or "No major transactions today."
+def extract_contract_info(text: str) -> List[Dict]:
+    """Extract contract/money information from text"""
+    contracts = []
 
-    prompt = f"""You are a veteran baseball writer covering MLB for a popular sports betting site. Today is {DATE_DISPLAY}.
+    # Dollar amounts
+    dollars = re.findall(r'\$[\d,]+(?:\.\d+)?(?:\s*(?:million|billion|M|B))?', text, re.I)
+    for d in dollars:
+        contracts.append({'type': 'money', 'value': d})
 
-Write an engaging daily MLB news roundup article. Here's today's news and transactions:
+    # Year terms
+    years = re.findall(r'(\d+)-year', text, re.I)
+    for y in years:
+        contracts.append({'type': 'years', 'value': f"{y} years"})
 
-**TOP HEADLINES:**
-{news_summary}
-
-**RECENT TRANSACTIONS:**
-{transaction_summary}
-
-REQUIREMENTS:
-1. Write 5-7 paragraphs covering the most interesting stories
-2. Be conversational and engaging - write like a passionate baseball fan
-3. Include analysis on how news affects betting futures (team win totals, division odds, MVP odds)
-4. Mention specific players and their fantasy/betting implications
-5. Use contractions and casual language
-6. Include a section on "What This Means for Bettors"
-7. End with what to watch for tomorrow
-8. NO placeholder text, NO generic filler
-9. Make it feel like insider analysis, not just news regurgitation
-
-Format your response as the article body HTML (just the content, I'll add the wrapper):
-<div class="article-content">
-    <p class="intro">[Opening hook paragraph]</p>
-    <h2>Today's Top Stories</h2>
-    <p>[Story 1 analysis]</p>
-    <p>[Story 2 analysis]</p>
-    <h2>Transaction Wire</h2>
-    <p>[Transaction analysis]</p>
-    <h2>What This Means for Bettors</h2>
-    <p>[Betting implications]</p>
-    <h2>Looking Ahead</h2>
-    <p>[What to watch tomorrow]</p>
-</div>
-
-Write the article now. Make it feel like expert analysis from someone who lives and breathes baseball."""
-
-    return call_claude_api(prompt)
+    return contracts
 
 
 # =============================================================================
-# HTML GENERATION
+# RESEARCH GATHERING
 # =============================================================================
 
-def generate_full_html(article_html: str, headline: str) -> str:
-    """Generate full HTML page with SEO optimization"""
+def gather_research():
+    """Main research gathering function"""
+    print("=" * 60)
+    print(f"MLB RESEARCH GATHERER - {DATE_DISPLAY}")
+    print("=" * 60)
 
-    seo_desc = f"MLB Daily News for {DATE_DISPLAY}. Latest trades, signings, rumors and what they mean for baseball bettors."
+    research = {
+        'site': 'mlb_sites',  # Will be used for all 3 MLB sites
+        'target_sites': [
+            {'name': 'dailymlbpicks', 'angle': 'AI predictions, beginner-friendly, futures focus'},
+            {'name': 'mlbprediction', 'angle': 'Analytics, advanced stats (xBA, WAR, xFIP), data-driven'},
+            {'name': 'bestmlbhandicapper', 'angle': 'Sharp money, expert handicapping, situational angles'},
+        ],
+        'date': DATE_STR,
+        'gathered_at': datetime.now().isoformat(),
+        'status': 'pending_processing',
+        'news_items': [],
+        'transactions': [],
+        'teams': [],
+        'extracted_players': [],
+        'extracted_contracts': [],
+        'key_storylines': [],
+    }
 
-    return f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    # Fetch news
+    print("\n[1/3] Fetching ESPN MLB News...")
+    news = fetch_mlb_news()
+    research['news_items'] = news
+    print(f"  Found {len(news)} news articles")
 
-    <!-- SEO -->
-    <title>{headline} | MLB Daily News - {DATE_DISPLAY}</title>
-    <meta name="description" content="{seo_desc}">
-    <meta name="keywords" content="MLB news, baseball news, MLB trades, MLB signings, MLB rumors, baseball betting, {DATE_DISPLAY}">
-    <meta name="author" content="MLB Prediction">
-    <meta name="robots" content="index, follow">
+    # Fetch transactions
+    print("\n[2/3] Fetching MLB Transactions...")
+    transactions = fetch_mlb_transactions()
+    research['transactions'] = transactions
+    print(f"  Found {len(transactions)} transactions")
 
-    <!-- OpenGraph -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{headline}">
-    <meta property="og:description" content="{seo_desc}">
-    <meta property="og:image" content="https://a.espncdn.com/i/teamlogos/mlb/500/mlb.png">
-    <meta property="article:published_time" content="{DATE_STR}T10:00:00-05:00">
+    # Fetch team info
+    print("\n[3/3] Fetching Team Data...")
+    teams = fetch_team_standings()
+    research['teams'] = teams
+    print(f"  Found {len(teams)} teams")
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{headline}">
-    <meta name="twitter:description" content="{seo_desc}">
+    # Extract entities from all text
+    print("\n[4/4] Extracting key entities...")
+    all_text = ""
+    for item in news:
+        all_text += f" {item.get('headline', '')} {item.get('description', '')}"
+    for item in transactions:
+        all_text += f" {item.get('description', '')}"
 
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {{
-        "@context": "https://schema.org",
-        "@type": "NewsArticle",
-        "headline": "{headline}",
-        "datePublished": "{DATE_STR}",
-        "author": {{"@type": "Organization", "name": "MLB Prediction"}},
-        "publisher": {{"@type": "Organization", "name": "MLB Prediction"}}
-    }}
-    </script>
+    # Extract players
+    players = extract_player_names(all_text)
+    research['extracted_players'] = list(set(players))[:20]
+    print(f"  Players mentioned: {len(research['extracted_players'])}")
 
-    <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        :root {{ --bg: #1a1a2e; --card: #16213e; --accent: #e94560; --gold: #f1c40f; --text: #eee; }}
-        body {{ font-family: 'Georgia', serif; background: var(--bg); color: var(--text); line-height: 1.9; }}
-        .container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
-        header {{ text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--accent); }}
-        h1 {{ color: var(--gold); font-size: 2rem; margin-bottom: 10px; }}
-        .date {{ color: #888; font-size: 14px; }}
-        .article-content {{ background: var(--card); padding: 30px; border-radius: 12px; }}
-        .article-content h2 {{ color: var(--accent); font-size: 1.4rem; margin: 25px 0 15px 0; padding-bottom: 8px; border-bottom: 1px solid #333; }}
-        .article-content p {{ margin-bottom: 18px; font-size: 17px; }}
-        .intro {{ font-size: 19px !important; font-style: italic; color: #ccc; }}
-        .back-link {{ text-align: center; margin-top: 30px; }}
-        .back-link a {{ color: var(--accent); text-decoration: none; font-weight: bold; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>{headline}</h1>
-            <p class="date">{DATE_DISPLAY} | MLB Daily News</p>
-        </header>
+    # Extract contract info
+    contracts = extract_contract_info(all_text)
+    research['extracted_contracts'] = contracts
+    print(f"  Contract details found: {len(contracts)}")
 
-        {article_html}
+    # Identify key storylines
+    storylines = []
+    for item in news[:5]:
+        headline = item.get('headline', '')
+        if headline:
+            storylines.append({
+                'headline': headline,
+                'description': item.get('description', ''),
+                'categories': item.get('categories', []),
+            })
+    research['key_storylines'] = storylines
 
-        <div class="back-link">
-            <a href="index.html">← Back to Home</a>
-        </div>
-    </div>
-</body>
-</html>'''
+    return research
 
 
-# =============================================================================
-# FTP UPLOAD
-# =============================================================================
+def save_research(research):
+    """Save research to JSON files"""
+    # Save to /tmp for GitHub Actions
+    tmp_path = os.path.join(OUTPUT_DIR, f"mlb_research_{DATE_STR}.json")
+    with open(tmp_path, 'w', encoding='utf-8') as f:
+        json.dump(research, f, indent=2, ensure_ascii=False)
+    print(f"\nSaved to: {tmp_path}")
 
-def upload_to_site(html_content: str, site_config: Dict, filename: str) -> bool:
-    """Upload HTML content to a site via FTP"""
+    # Also save to pending_content for local processing
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_dir = os.path.dirname(script_dir)
+    pending_dir = os.path.join(repo_dir, 'pending_content')
+
     try:
-        ftp = ftplib.FTP()
-        ftp.connect(FTP_CONFIG['host'], 21, timeout=30)
-        ftp.login(FTP_CONFIG['user'], FTP_CONFIG['password'])
-        ftp.cwd(site_config['dir'])
-
-        # Upload the file
-        upload_data = io.BytesIO(html_content.encode('utf-8'))
-        ftp.storbinary(f'STOR {filename}', upload_data)
-
-        ftp.quit()
-        print(f"  ✓ Uploaded to {site_config['name']}")
-        return True
+        os.makedirs(pending_dir, exist_ok=True)
+        local_path = os.path.join(pending_dir, f"mlb_research_{DATE_STR}.json")
+        with open(local_path, 'w', encoding='utf-8') as f:
+            json.dump(research, f, indent=2, ensure_ascii=False)
+        print(f"Also saved to: {local_path}")
     except Exception as e:
-        print(f"  ✗ Failed {site_config['name']}: {e}")
-        return False
+        print(f"[WARN] Could not save to pending_content: {e}")
+
+    return tmp_path
 
 
 # =============================================================================
@@ -290,69 +239,24 @@ def upload_to_site(html_content: str, site_config: Dict, filename: str) -> bool:
 # =============================================================================
 
 def main():
-    print("=" * 60)
-    print("MLB DAILY NEWS GENERATOR")
-    print(f"Date: {DATE_DISPLAY}")
-    print("=" * 60)
-
-    if not ANTHROPIC_API_KEY:
-        print("\n[ERROR] ANTHROPIC_API_KEY not set.")
-        return
-
-    # Fetch news
-    print("\n[1] Fetching MLB news from ESPN...")
-    news = fetch_mlb_news()
-    print(f"  Found {len(news)} news articles")
-
-    print("\n[2] Fetching MLB transactions...")
-    transactions = fetch_mlb_transactions()
-    print(f"  Found {len(transactions)} transactions")
-
-    if not news:
-        print("\n[ERROR] No news found. Skipping generation.")
-        return
-
-    # Generate article via Claude
-    print("\n[3] Generating article via Claude API...")
-    try:
-        article_html = generate_news_article(news, transactions)
-        print(f"  Generated {len(article_html)} characters")
-    except Exception as e:
-        print(f"  [ERROR] Failed: {e}")
-        return
-
-    # Create headline from top story
-    headline = f"MLB Daily: {news[0]['headline'][:50]}..." if news else f"MLB News Roundup - {DATE_DISPLAY}"
-
-    # Generate full HTML
-    html = generate_full_html(article_html, headline)
-
-    # Save locally
-    filename = f"mlb-news-{DATE_STR}.html"
-    os.makedirs('daily', exist_ok=True)
-    local_path = f"daily/{filename}"
-    with open(local_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"\n[4] Saved locally: {local_path}")
-
-    # Upload to all MLB sites
-    print("\n[5] Uploading to MLB sites...")
-    for site in MLB_SITES:
-        upload_to_site(html, site, filename)
-
-    # Also save to /tmp for GitHub Actions
-    tmp_path = f"/tmp/mlb-article-{DATE_STR}.html"
-    try:
-        with open(tmp_path, 'w', encoding='utf-8') as f:
-            f.write(html)
-        print(f"\n[6] Saved for workflow: {tmp_path}")
-    except:
-        pass
+    research = gather_research()
+    save_research(research)
 
     print("\n" + "=" * 60)
-    print("MLB NEWS GENERATION COMPLETE")
+    print("MLB RESEARCH COMPLETE")
     print("=" * 60)
+    print(f"News articles: {len(research['news_items'])}")
+    print(f"Transactions: {len(research['transactions'])}")
+    print(f"Players mentioned: {len(research['extracted_players'])}")
+    print(f"Key storylines: {len(research['key_storylines'])}")
+    print(f"\nTarget sites: {', '.join([s['name'] for s in research['target_sites']])}")
+    print(f"Each site will get UNIQUE content with different angle")
+    print(f"\nStatus: {research['status']}")
+    print("Run /daily-content in Claude Code to process into elite articles")
+    print("=" * 60)
+
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())

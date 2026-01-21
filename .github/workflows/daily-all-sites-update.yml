@@ -1,4 +1,4 @@
-name: Daily Auto-Update All Sites
+name: Daily Research Gatherer (No API Costs)
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  update-all-sites:
+  gather-research:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,123 +26,89 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml
 
-      # Sports Betting Prime - CLAUDE API generates the actual content
-      - name: Generate Sports Analysis (Claude API)
+      - name: Create pending_content directory
+        run: mkdir -p pending_content
+
+      # Sports Betting Prime - Consensus and Hub updates (these work independently)
+      - name: Update Sports Betting Prime
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "=== SPORTS BETTING PRIME ==="
-          echo "Using Claude API to generate human-quality content..."
-          python scripts/claude_content_generator.py
           python scripts/github_consensus_update.py || true
 
-      # LOLSBA - SBA Advocacy
-      - name: Generate LOLSBA
-        run: python scripts/generate_lolsba.py
-
-      - name: Upload LOLSBA
+      # LOLSBA Research Gathering
+      - name: Gather LOLSBA Research
         run: |
-          DATE_STR=$(date +%Y-%m-%d)
-          curl -T "/tmp/article-${DATE_STR}.html" \
-            --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" \
-            "ftp://208.109.70.186/lolsba.com/article-${DATE_STR}.html" || true
+          echo "=== LOLSBA RESEARCH ==="
+          python scripts/generate_lolsba.py
+          echo "Research saved - Claude Code will process into elite article"
 
-      # MLB Sites - Claude API generates daily news during offseason
-      - name: Generate MLB Daily News (Claude API)
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          FTP_HOST: "208.109.70.186"
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
+      # MLB Research Gathering (for all 3 MLB sites)
+      - name: Gather MLB Research
         run: |
-          echo "=== MLB DAILY NEWS ==="
-          echo "Using Claude API to generate MLB offseason news..."
+          echo "=== MLB RESEARCH ==="
           python scripts/generate_mlb_news.py
+          echo "Research saved - Claude Code will create unique articles for each MLB site"
 
-      # Balls Deep International
-      - name: Generate Balls Deep
-        run: python scripts/generate_ballsdeep.py
-
-      - name: Upload Balls Deep
-        env:
-          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
+      # Balls Deep Research Gathering
+      - name: Gather Balls Deep Research
         run: |
-          FILENAME=$(cat /tmp/bdi-filename.txt)
-          if [ -n "$NEOCITIES_API_KEY" ]; then
-            curl -H "Authorization: Bearer $NEOCITIES_API_KEY" \
-              -F "blog/${FILENAME}=@/tmp/bdi-${FILENAME}" \
-              https://neocities.org/api/upload || echo "Neocities upload failed"
-          else
-            echo "Neocities API key not set - skipping"
-          fi
+          echo "=== BALLS DEEP RESEARCH ==="
+          python scripts/generate_ballsdeep.py
+          echo "Research saved - Claude Code will write satire article"
 
-      # ChatGPT Disaster - Claude API content, push to GitHub
-      - name: Generate ChatGPT Disaster
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # ChatGPT Disaster Research Gathering
+      - name: Gather ChatGPT Disaster Research
         run: |
-          echo "=== CHATGPT DISASTER ==="
+          echo "=== CHATGPT DISASTER RESEARCH ==="
           python scripts/generate_chatgptdisaster.py
+          echo "Research saved - Claude Code will write tech journalism"
 
-      - name: Push ChatGPT Disaster to GitHub
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+      # Real AI Girls Research Gathering
+      - name: Gather Real AI Girls Research
+        run: |
+          echo "=== REAL AI GIRLS RESEARCH ==="
+          python scripts/generate_realaigirls.py
+          echo "Research saved - Claude Code will write blog post"
+
+      # Copy research files from /tmp to pending_content
+      - name: Collect Research Files
         run: |
           DATE_STR=$(date +%Y-%m-%d)
-          if [ -f "/tmp/cgd-article-${DATE_STR}.html" ]; then
-            git clone https://x-access-token:${GH_PAT}@github.com/Nimadamus/chatgptdisaster.git cgd_repo || true
-            cp /tmp/cgd-article-${DATE_STR}.html cgd_repo/article-${DATE_STR}.html
-            cd cgd_repo
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git add -A
-            git diff --staged --quiet || git commit -m "Daily article ${DATE_STR}"
-            git push || echo "Push failed"
-          fi
+          cp /tmp/lolsba_research_${DATE_STR}.json pending_content/ || true
+          cp /tmp/mlb_research_${DATE_STR}.json pending_content/ || true
+          cp /tmp/ballsdeep_research_${DATE_STR}.json pending_content/ || true
+          cp /tmp/chatgptdisaster_research_${DATE_STR}.json pending_content/ || true
+          cp /tmp/realaigirls_research_${DATE_STR}.json pending_content/ || true
+          echo "Research files collected:"
+          ls -la pending_content/
 
-      # Real AI Girls - Claude API blog content
-      - name: Generate Real AI Girls Blog
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          FTP_HOST: "208.109.70.186"
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
-        run: |
-          echo "=== REAL AI GIRLS ==="
-          python scripts/generate_realaigirls.py
-
-      # His Name Is Chip - Claude API humor content
-      - name: Generate His Name Is Chip
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          FTP_HOST: "208.109.70.186"
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
-        run: |
-          echo "=== HIS NAME IS CHIP ==="
-          python scripts/generate_hisnameischip.py
-
-      # Commit & Push
-      - name: Commit and Push
+      # Commit & Push research files
+      - name: Commit Research Files
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add -A
-          git diff --staged --quiet || git commit -m "Daily auto-update $(date +'%Y-%m-%d')"
+          git add pending_content/
+          git diff --staged --quiet || git commit -m "Daily research gathered $(date +'%Y-%m-%d') - run /daily-content to process"
           git push || true
 
       - name: Summary
         run: |
-          echo "## Daily Update Complete - All Sites" >> $GITHUB_STEP_SUMMARY
+          echo "## Daily Research Gathered - Ready for Processing" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Claude API Content Generation:" >> $GITHUB_STEP_SUMMARY
-          echo "- Sports Betting Prime: NBA, NHL, NFL, NCAAB analysis" >> $GITHUB_STEP_SUMMARY
-          echo "- MLB Sites x3: Daily offseason news" >> $GITHUB_STEP_SUMMARY
-          echo "- ChatGPT Disaster: AI failure article" >> $GITHUB_STEP_SUMMARY
-          echo "- Real AI Girls: AI art blog post" >> $GITHUB_STEP_SUMMARY
-          echo "- His Name Is Chip: Humor blog post" >> $GITHUB_STEP_SUMMARY
+          echo "### Research Files Created:" >> $GITHUB_STEP_SUMMARY
+          echo "- LOLSBA: SBA/PPP fraud news research" >> $GITHUB_STEP_SUMMARY
+          echo "- MLB (x3 sites): MLB news and transactions" >> $GITHUB_STEP_SUMMARY
+          echo "- Balls Deep: Sports scores and satire angles" >> $GITHUB_STEP_SUMMARY
+          echo "- ChatGPT Disaster: AI failure news" >> $GITHUB_STEP_SUMMARY
+          echo "- Real AI Girls: AI art news" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Other Sites:" >> $GITHUB_STEP_SUMMARY
-          echo "- LOLSBA: SBA advocacy (FTP)" >> $GITHUB_STEP_SUMMARY
-          echo "- Balls Deep International (Neocities)" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Open Claude Code" >> $GITHUB_STEP_SUMMARY
+          echo "2. Run: git pull (to get research files)" >> $GITHUB_STEP_SUMMARY
+          echo "3. Run: /daily-content" >> $GITHUB_STEP_SUMMARY
+          echo "4. Claude Code writes elite articles from research" >> $GITHUB_STEP_SUMMARY
+          echo "5. Articles uploaded to all sites" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**NO API COSTS - Research gathering is FREE**" >> $GITHUB_STEP_SUMMARY

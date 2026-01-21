@@ -1,163 +1,315 @@
 #!/usr/bin/env python3
 """
-ChatGPT Disaster Daily Content Generator
-=========================================
-Generates daily articles about AI failures, ChatGPT controversies,
-and tech disasters using Claude API.
+ChatGPT Disaster Research Gatherer
+====================================
+Gathers REAL AI failure news, ChatGPT controversies, and tech disasters.
+Does NOT generate final content - Claude Code processes this into elite articles.
+
+The research is saved to pending_content/chatgptdisaster_research_YYYY-MM-DD.json
+When user runs /daily-content, Claude Code reads this and writes quality journalism.
 
 Site: chatgptdisaster.com (GitHub hosted: Nimadamus/chatgptdisaster)
+Topics: AI failures, hallucinations, controversies, tech disasters, AI safety
 """
 
 import os
 import json
 import requests
+import xml.etree.ElementTree as ET
 from datetime import datetime
-
-# =============================================================================
-# CONFIGURATION
-# =============================================================================
-
-ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
-ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
+from urllib.parse import quote_plus
+import re
 
 TODAY = datetime.now()
 DATE_STR = TODAY.strftime("%Y-%m-%d")
 DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
+OUTPUT_DIR = os.environ.get('OUTPUT_DIR', '/tmp')
+
+# Search queries for AI disaster news
+SEARCH_QUERIES = [
+    "ChatGPT failure",
+    "AI hallucination lawsuit",
+    "artificial intelligence controversy",
+    "OpenAI scandal",
+    "AI bias discrimination",
+    "deepfake misinformation",
+    "AI job replacement disaster",
+    "AI safety concerns",
+    "ChatGPT lawsuit",
+    "AI generated mistakes",
+]
 
 # =============================================================================
-# CLAUDE API
+# NEWS FETCHING
 # =============================================================================
 
-def call_claude_api(prompt: str, max_tokens: int = 4000) -> str:
-    """Call Claude API to generate content"""
-    if not ANTHROPIC_API_KEY:
-        raise ValueError("ANTHROPIC_API_KEY not set")
+def fetch_google_news_rss(query):
+    """Fetch news from Google News RSS"""
+    results = []
+    try:
+        url = f"https://news.google.com/rss/search?q={quote_plus(query)}&hl=en-US&gl=US&ceid=US:en"
+        resp = requests.get(url, timeout=15, headers={'User-Agent': 'Mozilla/5.0'})
+        if resp.status_code == 200:
+            root = ET.fromstring(resp.content)
+            for item in root.findall('.//item')[:5]:
+                title_el = item.find('title')
+                link_el = item.find('link')
+                pub_date_el = item.find('pubDate')
+                desc_el = item.find('description')
 
-    headers = {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
+                if title_el is not None:
+                    results.append({
+                        'title': title_el.text,
+                        'url': link_el.text if link_el is not None else '',
+                        'date': pub_date_el.text if pub_date_el is not None else '',
+                        'snippet': desc_el.text[:300] if desc_el is not None and desc_el.text else '',
+                        'source': 'google_news',
+                        'query': query,
+                    })
+    except Exception as e:
+        print(f"  [WARN] Google News fetch failed for '{query}': {e}")
+    return results
+
+
+def fetch_hacker_news_ai():
+    """Fetch AI-related controversy posts from Hacker News"""
+    results = []
+    try:
+        # Search for AI controversy/failure stories
+        url = "https://hn.algolia.com/api/v1/search?query=AI%20failure%20OR%20ChatGPT%20OR%20OpenAI&tags=story&hitsPerPage=15"
+        resp = requests.get(url, timeout=15)
+        if resp.status_code == 200:
+            data = resp.json()
+            for hit in data.get('hits', [])[:15]:
+                title = hit.get('title', '').lower()
+                # Filter for controversy/failure related posts
+                if any(word in title for word in ['fail', 'problem', 'issue', 'concern', 'wrong', 'lawsuit', 'controversy', 'bias', 'harm', 'danger', 'mistake', 'error']):
+                    results.append({
+                        'title': hit.get('title', ''),
+                        'url': hit.get('url', f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}"),
+                        'points': hit.get('points', 0),
+                        'comments': hit.get('num_comments', 0),
+                        'source': 'hacker_news',
+                    })
+    except Exception as e:
+        print(f"  [WARN] Hacker News fetch failed: {e}")
+    return results
+
+
+def fetch_reddit_ai_controversy():
+    """Fetch from AI controversy subreddits"""
+    results = []
+    subreddits = ['ChatGPT', 'artificial', 'technology', 'Futurology']
+
+    for sub in subreddits:
+        try:
+            url = f"https://www.reddit.com/r/{sub}/search.json?q=AI+failure+OR+controversy+OR+problem&restrict_sr=1&limit=5&sort=new"
+            resp = requests.get(url, timeout=15, headers={'User-Agent': 'Mozilla/5.0 (research bot)'})
+            if resp.status_code == 200:
+                data = resp.json()
+                for post in data.get('data', {}).get('children', []):
+                    post_data = post.get('data', {})
+                    if not post_data.get('stickied', False):
+                        results.append({
+                            'title': post_data.get('title', ''),
+                            'url': f"https://reddit.com{post_data.get('permalink', '')}",
+                            'upvotes': post_data.get('ups', 0),
+                            'comments': post_data.get('num_comments', 0),
+                            'subreddit': sub,
+                            'source': 'reddit',
+                        })
+        except Exception as e:
+            print(f"  [WARN] Reddit fetch failed for r/{sub}: {e}")
+
+    return results
+
+
+def categorize_stories(items):
+    """Categorize stories by type of AI disaster"""
+    categories = {
+        'hallucination': [],
+        'lawsuit': [],
+        'bias': [],
+        'job_loss': [],
+        'safety': [],
+        'deepfake': [],
+        'privacy': [],
+        'general_failure': [],
     }
 
-    payload = {
-        "model": "claude-sonnet-4-20250514",
-        "max_tokens": max_tokens,
-        "messages": [
-            {"role": "user", "content": prompt}
+    keywords = {
+        'hallucination': ['hallucination', 'made up', 'fake', 'fabricated', 'invented', 'false'],
+        'lawsuit': ['lawsuit', 'sued', 'legal', 'court', 'lawyer', 'attorney'],
+        'bias': ['bias', 'discriminat', 'racist', 'sexist', 'unfair'],
+        'job_loss': ['job', 'layoff', 'replace', 'automat', 'worker', 'employment'],
+        'safety': ['safety', 'danger', 'risk', 'harm', 'concern', 'warning'],
+        'deepfake': ['deepfake', 'fake video', 'synthetic', 'impersonat'],
+        'privacy': ['privacy', 'data', 'leak', 'breach', 'personal information'],
+    }
+
+    for item in items:
+        title_lower = item.get('title', '').lower()
+        snippet_lower = item.get('snippet', '').lower()
+        text = title_lower + ' ' + snippet_lower
+
+        categorized = False
+        for category, kws in keywords.items():
+            if any(kw in text for kw in kws):
+                categories[category].append(item)
+                categorized = True
+                break
+
+        if not categorized:
+            categories['general_failure'].append(item)
+
+    return categories
+
+
+def extract_companies_mentioned(items):
+    """Extract AI companies mentioned in the news"""
+    companies = []
+    company_patterns = [
+        'OpenAI', 'ChatGPT', 'GPT-4', 'GPT-5',
+        'Google', 'Gemini', 'Bard',
+        'Anthropic', 'Claude',
+        'Microsoft', 'Copilot', 'Bing',
+        'Meta', 'Llama',
+        'Midjourney', 'Stable Diffusion', 'DALL-E',
+        'Tesla', 'Autopilot', 'FSD',
+        'Amazon', 'Alexa',
+        'Apple', 'Siri',
+    ]
+
+    for item in items:
+        text = item.get('title', '') + ' ' + item.get('snippet', '')
+        for company in company_patterns:
+            if company.lower() in text.lower():
+                if company not in companies:
+                    companies.append(company)
+
+    return companies
+
+
+# =============================================================================
+# RESEARCH GATHERING
+# =============================================================================
+
+def gather_research():
+    """Main research gathering function"""
+    print("=" * 60)
+    print(f"CHATGPT DISASTER RESEARCH GATHERER - {DATE_DISPLAY}")
+    print("=" * 60)
+
+    research = {
+        'site': 'chatgptdisaster',
+        'date': DATE_STR,
+        'gathered_at': datetime.now().isoformat(),
+        'status': 'pending_processing',
+        'news_items': [],
+        'hacker_news': [],
+        'reddit_posts': [],
+        'categories': {},
+        'companies_mentioned': [],
+        'suggested_topics': [],
+    }
+
+    # Gather from Google News
+    print("\n[1/3] Fetching AI Disaster News...")
+    all_news = []
+    for query in SEARCH_QUERIES:
+        print(f"  Searching: {query}")
+        items = fetch_google_news_rss(query)
+        all_news.extend(items)
+        print(f"    Found {len(items)} results")
+
+    # Deduplicate by title
+    seen_titles = set()
+    unique_news = []
+    for item in all_news:
+        title_key = item['title'].lower()[:50] if item.get('title') else ''
+        if title_key and title_key not in seen_titles:
+            seen_titles.add(title_key)
+            unique_news.append(item)
+
+    research['news_items'] = unique_news[:20]
+    print(f"  Total unique news items: {len(research['news_items'])}")
+
+    # Gather from Hacker News
+    print("\n[2/3] Fetching Hacker News...")
+    hn_items = fetch_hacker_news_ai()
+    research['hacker_news'] = hn_items[:10]
+    print(f"  Found {len(research['hacker_news'])} relevant HN posts")
+
+    # Gather from Reddit
+    print("\n[3/3] Fetching Reddit discussions...")
+    reddit_items = fetch_reddit_ai_controversy()
+    research['reddit_posts'] = reddit_items[:10]
+    print(f"  Found {len(research['reddit_posts'])} Reddit posts")
+
+    # Categorize all stories
+    print("\n[4/4] Categorizing stories...")
+    all_items = research['news_items'] + research['hacker_news'] + research['reddit_posts']
+    research['categories'] = categorize_stories(all_items)
+
+    for cat, items in research['categories'].items():
+        if items:
+            print(f"  {cat}: {len(items)} stories")
+
+    # Extract companies mentioned
+    research['companies_mentioned'] = extract_companies_mentioned(all_items)
+    print(f"  Companies mentioned: {research['companies_mentioned']}")
+
+    # Generate suggested topics
+    research['suggested_topics'] = []
+
+    if research['categories']['hallucination']:
+        research['suggested_topics'].append("AI Hallucination: When Chatbots Make Things Up")
+
+    if research['categories']['lawsuit']:
+        research['suggested_topics'].append("The Legal Battles Brewing in AI-Land")
+
+    if research['categories']['bias']:
+        research['suggested_topics'].append("AI's Bias Problem Isn't Getting Better")
+
+    if research['categories']['safety']:
+        research['suggested_topics'].append("AI Safety Warnings You Should Actually Pay Attention To")
+
+    if 'OpenAI' in research['companies_mentioned'] or 'ChatGPT' in research['companies_mentioned']:
+        research['suggested_topics'].append("OpenAI's Latest Mess: A Deep Dive")
+
+    if not research['suggested_topics']:
+        research['suggested_topics'] = [
+            "This Week in AI Disasters",
+            "Why Your AI Chatbot Can't Be Trusted",
+            "The AI Hype vs Reality Check",
         ]
-    }
+
+    return research
+
+
+def save_research(research):
+    """Save research to JSON files"""
+    # Save to /tmp for GitHub Actions
+    tmp_path = os.path.join(OUTPUT_DIR, f"chatgptdisaster_research_{DATE_STR}.json")
+    with open(tmp_path, 'w', encoding='utf-8') as f:
+        json.dump(research, f, indent=2, ensure_ascii=False)
+    print(f"\nSaved to: {tmp_path}")
+
+    # Also save to pending_content for local processing
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_dir = os.path.dirname(script_dir)
+    pending_dir = os.path.join(repo_dir, 'pending_content')
 
     try:
-        response = requests.post(ANTHROPIC_API_URL, headers=headers, json=payload, timeout=120)
-        response.raise_for_status()
-        data = response.json()
-        return data['content'][0]['text']
+        os.makedirs(pending_dir, exist_ok=True)
+        local_path = os.path.join(pending_dir, f"chatgptdisaster_research_{DATE_STR}.json")
+        with open(local_path, 'w', encoding='utf-8') as f:
+            json.dump(research, f, indent=2, ensure_ascii=False)
+        print(f"Also saved to: {local_path}")
     except Exception as e:
-        print(f"  [ERROR] Claude API: {e}")
-        raise
+        print(f"[WARN] Could not save to pending_content: {e}")
 
-
-def generate_article() -> tuple:
-    """Generate a daily AI disaster/controversy article"""
-
-    prompt = f"""You are a tech journalist who covers AI failures, ChatGPT controversies, and technology disasters. Today is {DATE_DISPLAY}.
-
-Write a compelling, well-researched article about ONE of these topics (pick the most interesting):
-
-TOPIC OPTIONS:
-1. A recent AI hallucination incident (lawyers citing fake cases, medical misdiagnosis, etc.)
-2. ChatGPT or AI chatbot controversy (privacy concerns, biased outputs, jailbreaks)
-3. AI company scandal or failure (layoffs, product failures, ethical issues)
-4. Deepfake or AI-generated misinformation incident
-5. AI replacing workers gone wrong
-6. AI in healthcare, legal, or finance causing problems
-7. Tech giant AI project that flopped
-8. AI safety concerns from researchers
-
-REQUIREMENTS:
-1. Write 800-1200 words
-2. Use a catchy, clickbait-worthy headline
-3. Be factual but entertaining - this is for a site called "ChatGPT Disaster"
-4. Include specific examples, dates, and details (you can reference real incidents from your knowledge)
-5. Add commentary and analysis
-6. End with implications for the future of AI
-7. Be conversational and engaging, not dry academic writing
-8. Include 2-3 subheadings to break up the content
-
-FORMAT YOUR RESPONSE AS:
-HEADLINE: [Your catchy headline here]
----
-[Article content with HTML formatting: <h2> for subheads, <p> for paragraphs, <strong> for emphasis]
-
-Write the article now:"""
-
-    content = call_claude_api(prompt)
-
-    # Parse headline and body
-    parts = content.split('---', 1)
-    if len(parts) == 2:
-        headline = parts[0].replace('HEADLINE:', '').strip()
-        body = parts[1].strip()
-    else:
-        headline = f"AI Disaster Report - {DATE_DISPLAY}"
-        body = content
-
-    return headline, body
-
-
-def generate_full_html(headline: str, body: str) -> str:
-    """Generate full HTML page"""
-
-    seo_desc = f"Daily coverage of AI failures, ChatGPT disasters, and tech controversies. {DATE_DISPLAY} edition."
-
-    return f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{headline} | ChatGPT Disaster</title>
-    <meta name="description" content="{seo_desc}">
-    <meta name="keywords" content="ChatGPT, AI failures, AI disasters, artificial intelligence, tech news, AI controversy">
-    <meta property="og:title" content="{headline}">
-    <meta property="og:description" content="{seo_desc}">
-    <meta property="og:type" content="article">
-    <meta name="twitter:card" content="summary_large_image">
-    <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        :root {{ --bg: #1a1a1a; --card: #2d2d2d; --accent: #ff4444; --text: #e0e0e0; --muted: #888; }}
-        body {{ font-family: 'Georgia', serif; background: var(--bg); color: var(--text); line-height: 1.9; }}
-        .container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
-        header {{ text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--accent); }}
-        .site-title {{ color: var(--accent); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }}
-        h1 {{ color: #fff; font-size: 2.2rem; line-height: 1.3; margin-bottom: 15px; }}
-        .meta {{ color: var(--muted); font-size: 14px; }}
-        article {{ background: var(--card); padding: 35px; border-radius: 8px; }}
-        article h2 {{ color: var(--accent); font-size: 1.5rem; margin: 30px 0 15px 0; }}
-        article p {{ margin-bottom: 20px; font-size: 18px; }}
-        article strong {{ color: #fff; }}
-        .back-link {{ text-align: center; margin-top: 40px; }}
-        .back-link a {{ color: var(--accent); text-decoration: none; font-weight: bold; }}
-        .back-link a:hover {{ text-decoration: underline; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="site-title">ChatGPT Disaster</div>
-            <h1>{headline}</h1>
-            <p class="meta">{DATE_DISPLAY} | Daily AI Disaster Report</p>
-        </header>
-
-        <article>
-            {body}
-        </article>
-
-        <div class="back-link">
-            <a href="index.html">&larr; Back to Home</a>
-        </div>
-    </div>
-</body>
-</html>'''
+    return tmp_path
 
 
 # =============================================================================
@@ -165,47 +317,25 @@ def generate_full_html(headline: str, body: str) -> str:
 # =============================================================================
 
 def main():
-    print("=" * 60)
-    print("CHATGPT DISASTER CONTENT GENERATOR")
-    print(f"Date: {DATE_DISPLAY}")
-    print("=" * 60)
-
-    if not ANTHROPIC_API_KEY:
-        print("\n[ERROR] ANTHROPIC_API_KEY not set.")
-        return
-
-    # Generate article
-    print("\n[1] Generating AI disaster article via Claude API...")
-    try:
-        headline, body = generate_article()
-        print(f"  Generated: {headline[:50]}...")
-    except Exception as e:
-        print(f"  [ERROR] Failed: {e}")
-        return
-
-    # Generate HTML
-    html = generate_full_html(headline, body)
-
-    # Save locally
-    os.makedirs('daily', exist_ok=True)
-    filename = f"daily/cgd-article-{DATE_STR}.html"
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"\n[2] Saved: {filename}")
-
-    # Also save to /tmp for workflow
-    tmp_path = f"/tmp/cgd-article-{DATE_STR}.html"
-    try:
-        with open(tmp_path, 'w', encoding='utf-8') as f:
-            f.write(html)
-        print(f"[3] Saved for workflow: {tmp_path}")
-    except:
-        pass
+    research = gather_research()
+    save_research(research)
 
     print("\n" + "=" * 60)
-    print("CHATGPT DISASTER GENERATION COMPLETE")
+    print("RESEARCH COMPLETE")
     print("=" * 60)
+    print(f"News items gathered: {len(research['news_items'])}")
+    print(f"Hacker News posts: {len(research['hacker_news'])}")
+    print(f"Reddit posts: {len(research['reddit_posts'])}")
+    print(f"Companies mentioned: {', '.join(research['companies_mentioned']) or 'None'}")
+    print(f"\nSuggested topics:")
+    for topic in research['suggested_topics']:
+        print(f"  - {topic}")
+    print(f"\nStatus: {research['status']}")
+    print("Run /daily-content in Claude Code to process into elite article")
+    print("=" * 60)
+
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())
