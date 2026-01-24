@@ -274,7 +274,7 @@ def main():
         print("[SUCCESS] ALL STEPS COMPLETED SUCCESSFULLY!")
         print("=" * 60)
         print(f"\nNew page: {new_filename}")
-        print(f"URL: https://www.sportsbettingprime.com/consensus_library/{new_filename}")
+        print(f"URL: https://sportsbettingprime.com/consensus_library/{new_filename}")
 
     except Exception as e:
         print(f"\n[ERROR] {e}")

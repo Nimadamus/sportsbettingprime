@@ -14,7 +14,7 @@ SITE_URL = 'https://sportsbettingprime.com'
 
 def fix_duplicate_canonicals():
     """Remove duplicate canonical tags pointing to wrong URLs"""
-    bad_canonical = '<link href="https://www.sportsbettingprime.com/sportsbettingprime-covers-consensus.html" rel="canonical"/>'
+    bad_canonical = '<link href="https://sportsbettingprime.com/sportsbettingprime-covers-consensus.html" rel="canonical"/>'
 
     files_fixed = 0
     for root, dirs, files in os.walk(REPO_PATH):

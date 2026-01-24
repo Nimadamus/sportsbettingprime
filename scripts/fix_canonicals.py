@@ -28,8 +28,8 @@ def fix_canonical_in_file(filepath):
     if match:
         old_url = match.group(1)
         # Fix www to non-www
-        if 'www.sportsbettingprime.com' in old_url:
-            new_url = old_url.replace('www.sportsbettingprime.com', 'sportsbettingprime.com')
+        if 'sportsbettingprime.com' in old_url:
+            new_url = old_url.replace('sportsbettingprime.com', 'sportsbettingprime.com')
             content = content.replace(old_url, new_url)
             changes.append(f'Fixed www: {old_url} -> {new_url}')
     else:
