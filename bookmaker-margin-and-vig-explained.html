@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmaker Margin and Vig Explained | How the Overround Works | Sports Betting Prime</title>
+    <meta name="description" content="How the vigorish (vig) works in sports betting. The mechanics of bookmaker margin, overround calculation, implied probability, and how the market operator extracts revenue.">
+    <link rel="canonical" href="https://sportsbettingprime.com/bookmaker-margin-and-vig-explained.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Bookmaker Margin and Vig Explained | Sports Betting Prime">
+    <meta property="og:description" content="How the vigorish works in sports betting. Bookmaker margin, overround calculation, and revenue extraction mechanics.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sportsbettingprime.com/bookmaker-margin-and-vig-explained.html">
+    <meta property="og:site_name" content="Sports Betting Prime">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bookmaker Margin and Vig Explained | Sports Betting Prime">
+    <meta name="twitter:description" content="How the vigorish works in sports betting. Overround, implied probability, and margin mechanics.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Bookmaker Margin and Vig Explained: How the Overround Works in Sports Betting",
+        "description": "How the vigorish works in sports betting. The mechanics of bookmaker margin, overround calculation, implied probability, and revenue extraction.",
+        "author": { "@type": "Organization", "name": "Sports Betting Prime" },
+        "publisher": { "@type": "Organization", "name": "Sports Betting Prime", "url": "https://sportsbettingprime.com" },
+        "datePublished": "2026-01-26",
+        "dateModified": "2026-01-26",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://sportsbettingprime.com/bookmaker-margin-and-vig-explained.html" },
+        "keywords": "vig, vigorish, bookmaker margin, overround, juice, implied probability, breakeven rate, betting margin"
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #0a0a12; --card: #12121f; --border: #1e1e2e; --accent: #00f0ff; --accent2: #8b5cf6; --text: #e4e4e7; --muted: #71717a; --green: #22c55e; --red: #ef4444; --gold: #ffd700; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+        header { background: rgba(10, 10, 18, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; transition: all 0.2s; }
+        .nav-links a:hover { color: var(--text); background: var(--card); }
+        main { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 1.5rem; font-weight: 700; margin: 3rem 0 1rem; color: var(--accent); }
+        h3 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--text); }
+        p { margin-bottom: 1.5rem; color: var(--text); font-size: 1.05rem; }
+        .lead { font-size: 1.25rem; color: var(--muted); margin-bottom: 2rem; }
+        .toc { background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 12px; margin: 2rem 0; }
+        .toc h3 { margin-top: 0; color: var(--accent); }
+        .toc ul { list-style: none; margin: 1rem 0 0 0; }
+        .toc li { margin: 0.5rem 0; }
+        .toc a { color: var(--text); text-decoration: none; }
+        .toc a:hover { color: var(--accent); }
+        .example-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: 8px; }
+        .example-box h4 { color: var(--accent); margin-bottom: 1rem; font-size: 1rem; }
+        ul, ol { margin: 1rem 0 2rem 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--text); }
+        .key-concept { background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); border: 1px solid var(--gold); border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+        .key-concept h4 { color: var(--gold); margin-bottom: 0.5rem; }
+        .info-box { background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 240, 255, 0.05)); border: 1px solid var(--accent); border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+        .info-box h4 { color: var(--accent); margin-bottom: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: var(--card); color: var(--accent); font-weight: 600; }
+        td { color: var(--text); }
+        .hub-link { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; margin: 3rem 0; text-align: center; }
+        .hub-link a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
+        .hub-link a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); }
+        footer a { color: var(--accent); text-decoration: none; margin: 0 0.5rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SPORTS BETTING <span>PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="handicapping-hub.html">Hub</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="betting-guide.html">Guide</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bookmaker Margin and Vig Explained</h1>
+        <p class="lead">The vigorish is the structural mechanism through which every sportsbook generates revenue. It is the tax on every transaction, the spread between what the market charges and what the market pays, and the reason the house has a mathematical edge on every single bet regardless of who wins. This is how the vig works at a mechanical level.</p>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-is-vig">1. What the Vig Is</a></li>
+                <li><a href="#overround">2. The Overround: Vig as Implied Probability</a></li>
+                <li><a href="#calculating">3. Calculating the Vig</a></li>
+                <li><a href="#breakeven">4. Breakeven Rates and the Vig's Real Cost</a></li>
+                <li><a href="#variable">5. Variable Vig Across Markets</a></li>
+                <li><a href="#competition">6. How Competition Compresses Margins</a></li>
+                <li><a href="#asymmetric">7. Asymmetric Vig and Line Shading</a></li>
+                <li><a href="#financial-parallel">8. The Bid-Ask Spread Parallel</a></li>
+                <li><a href="#takeaways">Key Takeaways</a></li>
+            </ul>
+        </div>
+
+        <h2 id="what-is-vig">1. What the Vig Is</h2>
+
+        <p>The vigorish, commonly shortened to vig and also called juice, is the commission a sportsbook builds into every betting line. It is the price of participation in the market. Without the vig, the sportsbook would be a zero-sum intermediary, passing all money from losers to winners with nothing left for the operator. The vig ensures the operator extracts revenue from every transaction, win or lose.</p>
+
+        <p>At its most fundamental level, the vig creates a mathematical environment where the bettor must win more often than their fair share to break even. In a 50/50 proposition with no vig, a bettor needs to win 50% of the time to break even. With standard vig applied, that breakeven rate rises to approximately 52.4%. The gap between the fair breakeven rate and the vigorished breakeven rate is the sportsbook's structural edge.</p>
+
+        <div class="key-concept">
+            <h4>The Core Mechanic</h4>
+            <p>The vig does not change who wins or loses the game. It changes the price at which risk is transferred between participants. By making both sides of a bet slightly more expensive than their fair value, the sportsbook creates a mathematical space where it collects margin regardless of the outcome. The vig is not a prediction fee. It is a transaction cost, the sportsbook's charge for hosting the market.</p>
+        </div>
+
+        <h2 id="overround">2. The Overround: Vig as Implied Probability</h2>
+
+        <p>The overround is the most precise way to express the vig. It is calculated by converting the odds on all sides of a market into implied probabilities and summing them. In a perfectly fair market, the sum would be exactly 100%. In a vigorished market, it exceeds 100%. The excess is the overround.</p>
+
+        <div class="example-box">
+            <h4>Example: Standard Point Spread Vig</h4>
+            <p>Team A -3.5 (-110) implied probability: 110 / (110 + 100) = 52.38%<br>
+            Team B +3.5 (-110) implied probability: 110 / (110 + 100) = 52.38%<br>
+            Combined: 52.38% + 52.38% = 104.76%<br><br>
+            The 4.76% above 100% is the overround. It represents the mathematical space the sportsbook occupies in the market, a built-in margin that ensures revenue regardless of outcome.</p>
+        </div>
+
+        <h3>Overround on Three-Way Markets</h3>
+
+        <p>In sports with three possible outcomes (win, draw, lose), such as soccer, the overround calculation includes three implied probabilities. A typical soccer match might be priced with a combined overround of 105% to 108%, with the additional margin distributed across the three outcomes. The extra outcome gives the book an additional degree of freedom in setting prices, which typically results in slightly higher total margins than two-way markets.</p>
+
+        <h3>What the Overround Means Structurally</h3>
+
+        <p>The overround is the sportsbook's cost of capital, expressed as a percentage. It tells you exactly how much the market is charging for the service of risk intermediation. A 104% overround means the book is extracting approximately 4% of the total handle as margin. A 108% overround means 8%. The lower the overround, the more efficient the market and the lower the cost to participants.</p>
+
+        <h2 id="calculating">3. Calculating the Vig</h2>
+
+        <p>Converting American odds to implied probability follows a simple formula. For negative odds: implied probability = |odds| / (|odds| + 100). For positive odds: implied probability = 100 / (odds + 100). The vig is then derived from the total implied probability minus 100%.</p>
+
+        <table>
+            <tr>
+                <th>Market Pricing</th>
+                <th>Side A Implied</th>
+                <th>Side B Implied</th>
+                <th>Total</th>
+                <th>Overround (Vig)</th>
+            </tr>
+            <tr>
+                <td>-110 / -110</td>
+                <td>52.38%</td>
+                <td>52.38%</td>
+                <td>104.76%</td>
+                <td>4.76%</td>
+            </tr>
+            <tr>
+                <td>-105 / -115</td>
+                <td>51.22%</td>
+                <td>53.49%</td>
+                <td>104.71%</td>
+                <td>4.71%</td>
+            </tr>
+            <tr>
+                <td>-108 / -108</td>
+                <td>51.92%</td>
+                <td>51.92%</td>
+                <td>103.85%</td>
+                <td>3.85%</td>
+            </tr>
+            <tr>
+                <td>-150 / +130</td>
+                <td>60.00%</td>
+                <td>43.48%</td>
+                <td>103.48%</td>
+                <td>3.48%</td>
+            </tr>
+            <tr>
+                <td>-200 / +170</td>
+                <td>66.67%</td>
+                <td>37.04%</td>
+                <td>103.70%</td>
+                <td>3.70%</td>
+            </tr>
+        </table>
+
+        <h3>Removing the Vig to Find Fair Odds</h3>
+
+        <p>To determine the "no-vig" or "fair" price, each implied probability is divided by the total implied probability sum, normalizing back to 100%. Using the -110/-110 example: fair probability for each side is 52.38% / 104.76% = 50%. The fair odds are +100 on both sides. The difference between +100 (fair) and -110 (actual) is the cost the bettor pays for market access.</p>
+
+        <h2 id="breakeven">4. Breakeven Rates and the Vig's Real Cost</h2>
+
+        <p>The most practical way to understand the vig's impact is through breakeven win rates: how often a bettor must win just to avoid losing money.</p>
+
+        <table>
+            <tr>
+                <th>Odds</th>
+                <th>Breakeven Win Rate</th>
+                <th>Premium Over 50%</th>
+            </tr>
+            <tr>
+                <td>-110</td>
+                <td>52.38%</td>
+                <td>+2.38%</td>
+            </tr>
+            <tr>
+                <td>-115</td>
+                <td>53.49%</td>
+                <td>+3.49%</td>
+            </tr>
+            <tr>
+                <td>-120</td>
+                <td>54.55%</td>
+                <td>+4.55%</td>
+            </tr>
+            <tr>
+                <td>-105</td>
+                <td>51.22%</td>
+                <td>+1.22%</td>
+            </tr>
+        </table>
+
+        <p>The table illustrates a structural reality: at -110 odds, a bettor must win 52.38% of the time to break even. At -120, the breakeven rises to 54.55%. This difference of 2.17 percentage points in breakeven rate, driven entirely by the size of the vig, has an enormous cumulative impact over hundreds or thousands of bets. The vig does not take a large bite from any single bet. It takes a small, persistent bite from every bet, and over time, those bites compound.</p>
+
+        <div class="info-box">
+            <h4>The Compounding Effect</h4>
+            <p>Over 1,000 bets at -110 odds, a bettor winning at exactly 50% will lose approximately 45.4 units. The same bettor at -120 odds winning at 50% will lose approximately 83.3 units. The difference, nearly 38 units, is entirely attributable to the higher vig. This is why the vig is not a minor detail. It is the single largest structural factor determining the long-run cost of market participation.</p>
+        </div>
+
+        <h2 id="variable">5. Variable Vig Across Markets</h2>
+
+        <p>The vig is not uniform. It varies by sport, by market type, by operator, and by timing. These variations are not arbitrary. They reflect underlying differences in market depth, pricing confidence, and competitive dynamics.</p>
+
+        <h3>By Market Type</h3>
+        <ul>
+            <li><strong>NFL sides and totals:</strong> Tightest margins in the industry. Typically -108 to -110 at competitive books. High liquidity, high competition between operators, and deep pricing data compress margins.</li>
+            <li><strong>NBA, NHL, MLB sides:</strong> Standard -110 to -112. Slightly wider than NFL but still highly competitive.</li>
+            <li><strong>Player props:</strong> Wider margins, often -115 to -130 or more. Lower liquidity, less competitive pressure, and more pricing uncertainty allow operators to charge more.</li>
+            <li><strong>Parlays and exotics:</strong> Highest margins. Parlay payouts are structured to include substantial built-in vig beyond what the individual legs would carry. The book's margin on parlays can be 15% to 30% or more, depending on the number of legs.</li>
+        </ul>
+
+        <h3>By Operator Type</h3>
+        <p>Market-making books typically offer lower vig because they compete for volume from professional bettors who are price-sensitive. Retail books, which cater to recreational customers who are less price-sensitive, can sustain wider margins. The difference between -105 at a market-making book and -115 at a retail book on the same event reflects the different competitive environments each operator serves.</p>
+
+        <h2 id="competition">6. How Competition Compresses Margins</h2>
+
+        <p>In any market, competition between operators drives margins lower. The US sports betting market, with dozens of legal operators competing for the same customer base, has produced meaningful vig compression in high-liquidity markets.</p>
+
+        <p>Before the expansion of legal US sportsbooks, standard vig on NFL sides was -110 across the board. Today, competitive books routinely offer -108 or even -105 on NFL sides, and some operators offer reduced juice as a promotional feature. This compression benefits participants but squeezes operator margins, creating business model pressure that incentivizes books to widen margins on less competitive markets (props, exotics) to compensate.</p>
+
+        <h3>The Race to the Bottom</h3>
+
+        <p>Margin compression follows a predictable pattern. In deeply liquid, heavily traded markets, competition among operators drives the vig toward the minimum level at which the book can sustain profitability. In thin, lightly traded markets, competition is minimal and margins remain wide. This creates a structural bifurcation: major markets have tight, efficient pricing while niche markets carry substantial built-in costs for participants.</p>
+
+        <h2 id="asymmetric">7. Asymmetric Vig and Line Shading</h2>
+
+        <p>Standard vig is symmetric: -110 on both sides of a point spread. But real-world pricing is often asymmetric, with one side carrying more juice than the other. This asymmetry reveals information about how the book is managing its risk position.</p>
+
+        <h3>How Shading Works</h3>
+
+        <p>If a book expects heavy public action on the favorite, it might price the spread as Favorite -3 (-115) / Underdog +3 (-105). The total overround is similar to -110/-110 pricing, but the cost is distributed asymmetrically. The favorite side is more expensive because the book expects it to attract disproportionate volume. The underdog side is cheaper because the book wants to attract balancing action. The asymmetry does not change the total margin. It redirects where the margin is extracted based on the book's expectation of how the public will bet.</p>
+
+        <div class="example-box">
+            <h4>Example: Asymmetric Vig in a Primetime Game</h4>
+            <p>Monday Night Football: Chiefs vs. Broncos. The book knows the Chiefs are a public favorite. The standard price would be Chiefs -7 (-110) / Broncos +7 (-110). The retail book shades it to Chiefs -7 (-115) / Broncos +7 (-105). Public bettors who bet on the Chiefs pay 5 cents more juice. Public bettors are unlikely to notice or care about a -115 vs. -110 difference on a game they are betting for entertainment. The book captures additional margin from the predictable flow pattern without changing its spread number.</p>
+        </div>
+
+        <h2 id="financial-parallel">8. The Bid-Ask Spread Parallel</h2>
+
+        <p>The vig in sports betting is structurally identical to the bid-ask spread in financial markets. Both are the market maker's compensation for providing liquidity, absorbing risk, and maintaining a two-sided market.</p>
+
+        <p>In equity markets, you can buy a stock at the ask price and sell it at the bid price. The difference, the spread, goes to the market maker. In betting markets, you can bet on Side A at -110 and Side B at -110. If you bet both sides simultaneously, you lose 10 cents of vig, which goes to the sportsbook. The vig is the gap between what you pay to enter a position and what you receive if your position is correct.</p>
+
+        <h3>Tighter Spreads, Tighter Vig</h3>
+
+        <p>Just as financial market bid-ask spreads tighten with increased competition and liquidity (Apple stock has a penny spread, a micro-cap stock has a dollar spread), the vig tightens in liquid, competitive betting markets and widens in thin, less competitive ones. The mechanism is the same: more participants, more capital, and more competition among market makers all drive the cost of transacting lower.</p>
+
+        <h3>The Structural Implication</h3>
+
+        <p>The vig is not punitive. It is the cost of operating a market. Without the vig, there would be no sportsbook, and without the sportsbook, there would be no organized market for risk transfer. The vig pays for the pricing infrastructure, the risk management systems, the technology, the compliance, and the human expertise that maintains the market. It is the price of the market's existence, collected incrementally from every transaction that passes through it.</p>
+
+        <h2 id="takeaways">Key Takeaways</h2>
+
+        <ol>
+            <li><strong>The vig is the sportsbook's margin,</strong> built into every line. It ensures the operator extracts revenue from every transaction regardless of outcome.</li>
+            <li><strong>The overround measures the vig</strong> by summing implied probabilities. Standard -110/-110 pricing carries a 4.76% overround.</li>
+            <li><strong>Breakeven win rates rise with the vig.</strong> At -110, you need 52.38% to break even. At -120, you need 54.55%. This difference compounds dramatically over time.</li>
+            <li><strong>Vig varies by market.</strong> NFL sides carry the tightest margins. Player props and parlays carry the widest. The variation reflects differences in liquidity, competition, and pricing confidence.</li>
+            <li><strong>Competition compresses margins</strong> in liquid markets. The expansion of legal US sportsbooks has driven NFL vig below -110 at competitive operators.</li>
+            <li><strong>Asymmetric vig reveals the book's expectation</strong> of how the public will bet. Heavier juice on the popular side extracts additional margin from predictable flow patterns.</li>
+            <li><strong>The vig is structurally identical to a bid-ask spread</strong> in financial markets. Both are the market maker's compensation for providing liquidity and absorbing risk.</li>
+            <li><strong>The vig is a transaction cost, not a penalty.</strong> It is the price of the market's existence, collected from every participant on every transaction.</li>
+        </ol>
+
+        <div class="hub-link">
+            <p>Part of the <a href="how-sports-betting-markets-work.html">How Sports Betting Markets Work</a> series</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sports Betting Prime. Market mechanics. Zero fluff.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="index.html">Home</a>
+            <a href="covers-consensus.html">Consensus</a>
+            <a href="about.html">About</a>
+            <a href="sitemap.html">Sitemap</a>
+        </p>
+    </footer>
+</body>
+</html>
