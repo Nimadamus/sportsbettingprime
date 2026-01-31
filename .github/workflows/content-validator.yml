@@ -1,0 +1,271 @@
+name: Content Validator - Automatic False Information Detector
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '*.html'
+      - 'news/**'
+      - 'blog/**'
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+    name: Check for False Information
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Create validator script
+        run: |
+          cat << 'VALIDATOR_EOF' > validator.py
+          #!/usr/bin/env python3
+          """
+          AUTOMATIC CONTENT VALIDATOR
+          Runs on every push - Claude CANNOT bypass this
+          """
+          import os
+          import re
+          import sys
+          import json
+          import requests
+          from pathlib import Path
+          from datetime import datetime
+
+          # =========================================================================
+          # KNOWN FACTS DATABASE - January 2026
+          # These are VERIFIED facts that override any claims in content
+          # =========================================================================
+
+          PLAYER_CURRENT_TEAMS = {
+              # NBA 2025 Trades
+              "de'aaron fox": "san antonio spurs",
+              "deaaron fox": "san antonio spurs",
+              "fox": "san antonio spurs",
+              "kevin durant": "houston rockets",
+              "durant": "houston rockets",
+              "zach lavine": "sacramento kings",
+              "lavine": "sacramento kings",
+              "jimmy butler": "golden state warriors",
+              "butler": "golden state warriors",
+              "brandon ingram": "toronto raptors",
+              "ingram": "toronto raptors",
+
+              # MLB 2026 Signings
+              "alex bregman": "chicago cubs",
+              "bregman": "chicago cubs",
+              "kyle tucker": "los angeles dodgers",
+              "tucker": "los angeles dodgers",
+              "pete alonso": "baltimore orioles",
+              "alonso": "baltimore orioles",
+              "dylan cease": "toronto blue jays",
+              "cease": "toronto blue jays",
+
+              # NHL 2025 Trades
+              "mitch marner": "vegas golden knights",
+              "marner": "vegas golden knights",
+          }
+
+          # Players on WRONG teams - these associations are FALSE
+          WRONG_ASSOCIATIONS = [
+              ("fox", "kings", "De'Aaron Fox is on the SPURS, not Kings"),
+              ("fox", "heat", "De'Aaron Fox is on the SPURS - he was NEVER on the Heat"),
+              ("fox", "miami", "De'Aaron Fox is on the SPURS - he was NEVER on the Heat"),
+              ("bregman", "astros", "Alex Bregman signed with the CUBS in January 2026"),
+              ("bregman", "houston", "Alex Bregman signed with the CUBS in January 2026"),
+              ("tucker", "astros", "Kyle Tucker was traded to the DODGERS"),
+              ("alonso", "mets", "Pete Alonso signed with the ORIOLES"),
+              ("durant", "suns", "Kevin Durant was traded to the ROCKETS"),
+              ("durant", "phoenix", "Kevin Durant was traded to the ROCKETS"),
+              ("marner", "maple leafs", "Mitch Marner was traded to the GOLDEN KNIGHTS"),
+              ("marner", "leafs", "Mitch Marner was traded to the GOLDEN KNIGHTS"),
+              ("marner", "toronto", "Mitch Marner was traded to the GOLDEN KNIGHTS"),
+              ("lavine", "bulls", "Zach LaVine was traded to the KINGS"),
+              ("butler", "heat", "Jimmy Butler was traded to the WARRIORS"),
+              ("ingram", "pelicans", "Brandon Ingram was traded to the RAPTORS"),
+          ]
+
+          # Injuries - Tatum has ACHILLES not ACL
+          INJURY_FACTS = {
+              "tatum": {"correct": "achilles", "wrong": "acl", "message": "Jayson Tatum has ACHILLES injury, NOT ACL"},
+          }
+
+          errors = []
+          warnings = []
+
+          def check_file(filepath):
+              """Check a single HTML file for false information."""
+              global errors, warnings
+
+              try:
+                  with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                      content = f.read()
+              except Exception as e:
+                  return
+
+              content_lower = content.lower()
+              filename = os.path.basename(filepath)
+
+              # Skip non-content files
+              if any(skip in filename for skip in ['calendar', 'script', 'style', 'template']):
+                  return
+
+              # CHECK 1: Wrong player-team associations
+              for player, wrong_team, error_msg in WRONG_ASSOCIATIONS:
+                  for match in re.finditer(rf'\b{re.escape(player)}\b', content_lower):
+                      pos = match.start()
+                      # Get sentence context
+                      sent_start = max(
+                          content_lower.rfind('.', 0, pos) + 1,
+                          content_lower.rfind('\n', 0, pos) + 1,
+                          0
+                      )
+                      sent_end = min(
+                          content_lower.find('.', pos) if content_lower.find('.', pos) != -1 else len(content_lower),
+                          content_lower.find('\n', pos) if content_lower.find('\n', pos) != -1 else len(content_lower)
+                      )
+                      sentence = content_lower[sent_start:sent_end]
+
+                      if re.search(rf'\b{re.escape(wrong_team)}\b', sentence):
+                          # Check if describing trade history
+                          trade_words = ['traded', 'former', 'ex-', 'left', 'was with', 'from the', 'no longer', 'previously']
+                          if not any(tw in sentence for tw in trade_words):
+                              errors.append(f"[{filename}] FALSE INFO: {error_msg}")
+
+              # CHECK 2: Wrong injury types
+              for player, injury_info in INJURY_FACTS.items():
+                  if player in content_lower:
+                      # Find player mentions
+                      for match in re.finditer(rf'\b{re.escape(player)}\b', content_lower):
+                          pos = match.start()
+                          context = content_lower[max(0, pos-100):pos+100]
+                          if injury_info["wrong"] in context and injury_info["correct"] not in context:
+                              errors.append(f"[{filename}] WRONG INJURY: {injury_info['message']}")
+
+              # CHECK 3: Placeholder content
+              placeholders = [
+                  r'\bcoming soon\b',
+                  r'\bTBD\b',
+                  r'\bTBA\b',
+                  r'\{[a-z_]+\}',
+                  r'N/A(?![a-z])',
+              ]
+              for pattern in placeholders:
+                  if re.search(pattern, content, re.IGNORECASE):
+                      # Skip if in CSS/JS
+                      match = re.search(pattern, content, re.IGNORECASE)
+                      if match:
+                          ctx = content[max(0, match.start()-100):match.start()]
+                          if '<style' not in ctx.lower() and '<script' not in ctx.lower():
+                              errors.append(f"[{filename}] PLACEHOLDER: Found '{match.group()}' - incomplete content")
+
+              # CHECK 4: Impossible statistics
+              for match in re.finditer(r'(\d{3,})\s*%', content):
+                  pct = int(match.group(1))
+                  if pct > 100:
+                      errors.append(f"[{filename}] IMPOSSIBLE STAT: {pct}% is over 100%")
+
+              for match in re.finditer(r'(\d{2,})\s*(?:PPG|points per game)', content, re.IGNORECASE):
+                  ppg = int(match.group(1))
+                  if ppg > 50:
+                      errors.append(f"[{filename}] IMPOSSIBLE STAT: {ppg} PPG is unrealistic")
+
+          def main():
+              global errors, warnings
+
+              print("=" * 70)
+              print("    AUTOMATIC CONTENT VALIDATOR - FALSE INFORMATION DETECTOR")
+              print("    This runs on EVERY push - Claude cannot bypass this")
+              print("=" * 70)
+              print()
+
+              # Find all HTML files
+              html_files = []
+              for root, dirs, files in os.walk('.'):
+                  # Skip .git directory
+                  if '.git' in root:
+                      continue
+                  for f in files:
+                      if f.endswith('.html'):
+                          html_files.append(os.path.join(root, f))
+
+              print(f"Scanning {len(html_files)} HTML files...")
+              print()
+
+              for filepath in html_files:
+                  check_file(filepath)
+
+              # Remove duplicates
+              errors = list(set(errors))
+              warnings = list(set(warnings))
+
+              if errors:
+                  print("!" * 70)
+                  print("    FALSE INFORMATION DETECTED - BUILD FAILED")
+                  print("!" * 70)
+                  print()
+                  for err in errors:
+                      print(f"  [ERROR] {err}")
+                  print()
+                  print("=" * 70)
+                  print("  ACTION REQUIRED: Fix false information before merging")
+                  print("=" * 70)
+                  sys.exit(1)
+
+              if warnings:
+                  print("Warnings (review recommended):")
+                  for warn in warnings:
+                      print(f"  [WARN] {warn}")
+                  print()
+
+              print("[OK] All content validated - no false information detected")
+              print()
+              sys.exit(0)
+
+          if __name__ == "__main__":
+              main()
+          VALIDATOR_EOF
+
+      - name: Run content validator
+        run: python validator.py
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🚨 FALSE INFORMATION DETECTED IN CONTENT';
+            const body = `## Automatic Content Validation Failed
+
+            The automatic validator detected false information in the latest push.
+
+            **Commit:** ${context.sha}
+            **Pushed by:** ${context.actor}
+            **Time:** ${new Date().toISOString()}
+
+            ### What to do:
+            1. Check the workflow run for specific errors
+            2. Fix the false information
+            3. Push the corrected content
+
+            This check runs automatically on every push and CANNOT be bypassed.`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['false-information', 'urgent']
+            });
