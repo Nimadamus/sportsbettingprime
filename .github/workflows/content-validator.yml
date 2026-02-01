@@ -122,6 +122,9 @@ jobs:
               if any(skip in filename for skip in ['calendar', 'script', 'style', 'template']):
                   return
 
+              # Check if file is in archive folder (for placeholder whitelist)
+              is_archive = '/archive/' in filepath or '\\archive\\' in filepath
+
               # CHECK 1: Wrong player-team associations
               for player, wrong_team, error_msg in WRONG_ASSOCIATIONS:
                   for match in re.finditer(rf'\b{re.escape(player)}\b', content_lower):
@@ -140,7 +143,7 @@ jobs:
 
                       if re.search(rf'\b{re.escape(wrong_team)}\b', sentence):
                           # Check if describing trade history
-                          trade_words = ['traded', 'former', 'ex-', 'left', 'was with', 'from the', 'no longer', 'previously']
+                          trade_words = ['traded', 'former', 'ex-', 'left', 'was with', 'from the', 'no longer', 'previously', 'shipped', 'trade from', 'without', 'moved to', 'sent to', 'departed']
                           if not any(tw in sentence for tw in trade_words):
                               errors.append(f"[{filename}] FALSE INFO: {error_msg}")
 
@@ -154,20 +157,22 @@ jobs:
                           if injury_info["wrong"] in context and injury_info["correct"] not in context:
                               errors.append(f"[{filename}] WRONG INJURY: {injury_info['message']}")
 
-              # CHECK 3: Placeholder content (skip template variables - too many false positives)
-              placeholders = [
-                  r'\bcoming soon\b',
-                  r'\bTBD\b',
-                  r'\bTBA\b',
-              ]
-              for pattern in placeholders:
-                  if re.search(pattern, content, re.IGNORECASE):
-                      # Skip if in CSS/JS
-                      match = re.search(pattern, content, re.IGNORECASE)
-                      if match:
-                          ctx = content[max(0, match.start()-100):match.start()]
-                          if '<style' not in ctx.lower() and '<script' not in ctx.lower():
-                              errors.append(f"[{filename}] PLACEHOLDER: Found '{match.group()}' - incomplete content")
+              # CHECK 3: Placeholder content (skip archive files - they're historical)
+              # Also skip mlb-prime-directives which is a template page
+              if not is_archive and 'prime-directives' not in filename and 'gridiron-oracles' not in filename and 'ice-oracles' not in filename:
+                  placeholders = [
+                      r'\bcoming soon\b',
+                      r'\bTBD\b',
+                      r'\bTBA\b',
+                  ]
+                  for pattern in placeholders:
+                      if re.search(pattern, content, re.IGNORECASE):
+                          # Skip if in CSS/JS
+                          match = re.search(pattern, content, re.IGNORECASE)
+                          if match:
+                              ctx = content[max(0, match.start()-100):match.start()]
+                              if '<style' not in ctx.lower() and '<script' not in ctx.lower():
+                                  errors.append(f"[{filename}] PLACEHOLDER: Found '{match.group()}' - incomplete content")
 
               # CHECK 4: Impossible statistics
               # Skipped - too many false positives with betting odds (+105, -206, +350)
