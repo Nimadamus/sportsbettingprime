@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NHL Ice Oracles | February 2, 2026 | 10 Games | Sports Betting Prime</title>
-    <meta name="description" content="NHL betting analysis for Monday February 2, 2026. 10-game slate featuring Jets at Stars, Red Wings at Avalanche, Maple Leafs at Flames with puck lines, totals, and expert picks.">
-    <link rel="canonical" href="https://sportsbettingprime.com/archive/nhl/nhl-ice-oracles-2026-02-02.html">
+    <title>NHL | February 02, 2026 | 3 Games | Sports Betting Prime</title>
+    <meta name="description" content="NHL betting analysis for January 19, 2026. 10-game slate featuring Capitals at Avalanche, Panthers vs Sharks, Rangers at Ducks with puck lines, totals, and expert picks.">
+    <link rel="canonical" href="https://sportsbettingprime.com/nhl-ice-oracles.html">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,11 +33,10 @@
         .page-header { text-align: center; margin-bottom: 3rem; }
         .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
         .date-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
-        .olympics-badge { display: inline-block; background: linear-gradient(135deg, #1e3a5f, #0f172a); border: 2px solid #0ea5e9; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; color: var(--accent); }
+        .week-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
         .games-grid { display: grid; gap: 1.5rem; }
         .game-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s; }
         .game-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
-        .game-card.featured { border: 2px solid var(--gold); }
         .game-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(6, 182, 212, 0.1)); }
         .team { display: flex; align-items: center; gap: 1rem; }
         .team img { width: 56px; height: 56px; object-fit: contain; }
@@ -46,35 +45,82 @@
         .team.away { justify-content: flex-start; }
         .team.home { justify-content: flex-end; text-align: right; }
         .vs { font-weight: 800; color: var(--accent); font-size: 0.875rem; padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; }
-        .game-meta { padding: 0.75rem 1.5rem; color: var(--muted); font-size: 0.875rem; border-bottom: 1px solid var(--border); text-align: center; }
+        .game-meta { padding: 0.75rem 1.5rem; color: var(--muted); font-size: 0.875rem; border-bottom: 1px solid var(--border); }
         .game-odds { display: flex; gap: 2rem; padding: 1rem 1.5rem; background: rgba(0, 0, 0, 0.2); flex-wrap: wrap; }
         .odd-item { display: flex; flex-direction: column; }
         .odd-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
         .odd-value { font-weight: 700; color: var(--gold); }
+        .pick-badge { margin-left: auto; background: linear-gradient(135deg, var(--green), #16a34a); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.875rem; }
         .game-analysis { padding: 1.5rem; }
         .game-analysis h3 { color: var(--accent); font-size: 1rem; margin-bottom: 1rem; }
-        .game-analysis p { color: var(--text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+        .game-analysis p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
         .goalie-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 8px; }
         .goalie { text-align: center; }
         .goalie .name { font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
         .goalie .stats { font-size: 0.875rem; color: var(--muted); }
         .goalie .sv { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
         footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .game-header { grid-template-columns: 1fr; gap: 1rem; text-align: center; } .team { justify-content: center !important; text-align: center !important; } .goalie-box { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .game-header { grid-template-columns: 1fr; gap: 1rem; text-align: center; } .team { justify-content: center !important; text-align: center !important; } }
+    
+/* Calendar Sidebar Styles */
+.page-layout { display: flex; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 2rem; }
+.calendar-sidebar { position: sticky; top: 100px; width: 280px; flex-shrink: 0; height: fit-content; }
+.main-content { flex: 1; min-width: 0; }
+.calendar-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+.calendar-title { font-size: 0.875rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; text-align: center; }
+.year-display { font-size: 1.5rem; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 0.75rem; }
+.month-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.625rem; font-size: 0.875rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
+.calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+.calendar-weekdays span { text-align: center; font-size: 0.7rem; font-weight: 600; color: var(--muted); padding: 4px 0; }
+.calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--muted); background: rgba(0,0,0,0.2); border-radius: 4px; cursor: default; }
+.cal-day.empty { background: transparent; }
+.cal-day.has-content { background: rgba(34, 197, 94, 0.2); color: #22c55e; cursor: pointer; font-weight: 600; border: 1px solid rgba(34, 197, 94, 0.3); }
+.cal-day.has-content:hover { background: rgba(34, 197, 94, 0.4); transform: scale(1.1); }
+.cal-day.today { box-shadow: inset 0 0 0 2px var(--gold); }
+.mobile-archive { display: none; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+.mobile-archive-title { font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem; }
+.mobile-archive-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.5rem; font-size: 0.875rem; border-radius: 6px; }
+@media (max-width: 1024px) { .calendar-sidebar { display: none; } .mobile-archive { display: block; } .page-layout { padding: 1rem; } }
+
     </style>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "NHL Ice Oracles",
+        "description": "NHL betting analysis with goalie matchups and puck line breakdowns",
+        "url": "https://sportsbettingprime.com/nhl-ice-oracles.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Sports Betting Prime",
+            "url": "https://sportsbettingprime.com/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sports Betting Prime"
+        }
+    }
+    </script>
 </head>
 <body>
     <header>
         <nav>
-            <a href="../../index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-            <ul class="nav-links">
-                <li><a href="../../index.html">Home</a></li>
-                <li><a href="../../consensus_library/covers-consensus.html">Consensus</a></li>
-                <li><a href="../../nfl-gridiron-oracles.html">NFL</a></li>
-                <li><a href="../../nba-court-vision.html">NBA</a></li>
-                <li><a href="../../nhl-ice-oracles.html" class="active">NHL</a></li>
-                <li><a href="../../college-basketball.html">NCAAB</a></li>
-                <li><a href="../../blog/blog-2026-02-02.html">Blog</a></li>
+            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
+                        <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="covers-consensus.html">Consensus</a></li>
+                <li><a href="handicapping-hub.html">Hub</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html" class="active">NHL</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="college-basketball.html">NCAAB</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="archive-calendar.html">Archive</a></li>
             </ul>
         </nav>
     </header>
@@ -82,296 +128,259 @@
     <main>
         <div class="page-header">
             <h1>NHL Ice Oracles</h1>
-            <div class="olympics-badge">OLYMPICS BREAK APPROACHING - LAST GAMES BEFORE MID-FEB PAUSE</div>
-            <div class="date-badge">FEBRUARY 2, 2026</div>
-            <p style="color: var(--muted);">Monday, February 2, 2026 - 10 Games Tonight</p>
+            <div class="week-badge">FEBRUARY 02, 2026</div>
+            <p style="color: var(--muted);">Monday, February 02, 2026 - 3 Games Today</p>
         </div>
 
-        <div class="games-grid">
-
-            <!-- FEATURED: Jets @ Stars -->
-            <div class="game-card featured">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/wpg.png" alt="Winnipeg Jets" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Winnipeg Jets</div>
-                            <div class="record">22-25-7</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Dallas Stars</div>
-                            <div class="record">32-14-9</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/dal.png" alt="Dallas Stars" onerror="this.style.display='none'">
+        <div class="game-card">
+            <div class="game-header">
+                <div class="team away">
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/la.png" alt="Los Angeles Kings" onerror="this.style.display='none'">
+                    <div class="team-info">
+                        <div class="name">Los Angeles Kings</div>
+                        <div class="record"></div>
                     </div>
                 </div>
-                <div class="game-meta">Monday, Feb 2 | 8:30 PM ET | American Airlines Center</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">DAL -1.5 (+150)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 5.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">DAL -195</span></div>
+                <div class="vs">@</div>
+                <div class="team home">
+                    <div class="team-info">
+                        <div class="name">Carolina Hurricanes</div>
+                        <div class="record"></div>
+                    </div>
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png" alt="Carolina Hurricanes" onerror="this.style.display='none'">
                 </div>
-                <div class="game-analysis">
-                    <h3>Central Division Clash: Jets Looking to Turn Season Around</h3>
-                    <p>The Jets limp into Dallas having lost 4-1 to Tampa Bay in their last outing, part of a frustrating stretch that has seen them fall to 22-25-7 on the season. Winnipeg's playoff hopes are fading rapidly, and they desperately need points against a Stars team that has been rock solid at home.</p>
-                    <p>Dallas enters with one of the best home records in the Western Conference at 18-6-4 at American Airlines Center. The Stars' defensive structure under Pete DeBoer remains elite, allowing just 2.4 goals per game at home this season. Jake Oettinger has been outstanding in net, and the Stars' depth scoring has been a difference-maker.</p>
-                    <p>The Jets have struggled mightily on the road, posting a 9-14-4 away record. Their power play, once a strength, has cooled to just 18.2% in the last 15 games. Against a disciplined Stars penalty kill (83.4%), Winnipeg will need to generate offense at even strength, which has been a challenge.</p>
-                    <div class="goalie-box">
-                        <div class="goalie">
-                            <div class="name">Connor Hellebuyck</div>
-                            <div class="sv">.908 SV%</div>
-                            <div class="stats">WPG | 18-20-5 | 2.89 GAA</div>
-                        </div>
-                        <div class="goalie">
-                            <div class="name">Jake Oettinger</div>
-                            <div class="sv">.921 SV%</div>
-                            <div class="stats">DAL | 24-9-5 | 2.28 GAA</div>
-                        </div>
+            </div>
+            <div class="game-meta">Sunday, Feb 01 | 08:00 PM ET | Lenovo Center | ESPN+</div>
+            <div class="game-analysis">
+                <h3>Los Angeles Kings vs Carolina Hurricanes</h3>
+                <p>Pay attention to this one. The puck drops on an intriguing matchup - Los Angeles Kings () visits Carolina Hurricanes () at Lenovo Center. </p>
+                <p>Plus, Goaltending is everything in hockey. Carolina Hurricanes allows 2.68 goals per game while scoring 2.9. Check the starting netminders - that's where the edge is. </p>
+                <p>simply put, The betting trends are clear: Carolina Hurricanes covers consistently (8-6 ATS). When a team covers at this rate, there's a reason. Lock it in.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <div class="title">Home Field</div>
+                        <div class="desc">Carolina Hurricanes is 7-1 at home this season</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Records</div>
+                        <div class="desc">Carolina Hurricanes:  | Los Angeles Kings: </div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Goals Against</div>
+                        <div class="desc">Carolina Hurricanes GAA: 2.65</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Line Movement</div>
+                        <div class="desc">Opened Carolina Hurricanes , sharp action noted</div>
                     </div>
                 </div>
             </div>
-
-            <!-- FEATURED: Red Wings @ Avalanche -->
-            <div class="game-card featured">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/det.png" alt="Detroit Red Wings" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Detroit Red Wings</div>
-                            <div class="record">32-17-6</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Colorado Avalanche</div>
-                            <div class="record">35-8-9</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/col.png" alt="Colorado Avalanche" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 9:00 PM ET | Ball Arena</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">COL -1.5 (+120)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 6.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">COL -175</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Stanley Cup Favorite vs Surging Red Wings</h3>
-                    <p>This is one of the most intriguing matchups of the night. The Avalanche remain the clear Stanley Cup favorites at +220, but they're coming off a surprising 7-3 loss to Montreal where their defense was shredded. Detroit, meanwhile, has been the feel-good story of the season, sitting at 32-17-6 and firmly in a playoff position.</p>
-                    <p>Colorado's depth at forward is unmatched in the league, with Nathan MacKinnon, Mikko Rantanen, and Cale Makar leading one of the most potent offenses in hockey. But Detroit's goaltender John Gibson has rebounded to become the top-ranked fantasy goalie in the league, and the Red Wings' defensive structure has been surprisingly stout.</p>
-                    <p>The 6.5 total is the highest on the board tonight, and for good reason. Colorado averages 3.8 goals per game at home, and Detroit isn't far behind at 3.4 on the road. Both teams can light the lamp, making the over an attractive option despite the altitude factor at Ball Arena.</p>
-                    <div class="goalie-box">
-                        <div class="goalie">
-                            <div class="name">John Gibson</div>
-                            <div class="sv">.924 SV%</div>
-                            <div class="stats">DET | 22-12-4 | 2.41 GAA</div>
-                        </div>
-                        <div class="goalie">
-                            <div class="name">Alexandar Georgiev</div>
-                            <div class="sv">.909 SV%</div>
-                            <div class="stats">COL | 25-5-6 | 2.68 GAA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sabres @ Panthers -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/buf.png" alt="Buffalo Sabres" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Buffalo Sabres</div>
-                            <div class="record">20-28-5</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Florida Panthers</div>
-                            <div class="record">33-15-6</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/fla.png" alt="Florida Panthers" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 7:00 PM ET | FLA Live Arena</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">FLA -1.5 (+110)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 6.0</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">FLA -210</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Back-to-Back Champs Host Struggling Sabres</h3>
-                    <p>Florida continues their pursuit of a three-peat, sitting comfortably in the Atlantic Division with a 33-15-6 record. The Panthers' balanced attack and championship experience make them one of the toughest home teams to beat. Buffalo's playoff drought extends another year as they sit at 20-28-5.</p>
-                    <p>The Sabres have shown fight at times but lack the consistency needed for meaningful improvement. Florida's home record of 18-6-3 is among the best in the Eastern Conference, and Sergei Bobrovsky continues to provide steady goaltending when needed.</p>
-                </div>
-            </div>
-
-            <!-- Senators @ Penguins -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/ott.png" alt="Ottawa Senators" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Ottawa Senators</div>
-                            <div class="record">26-22-6</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Pittsburgh Penguins</div>
-                            <div class="record">24-23-7</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/pit.png" alt="Pittsburgh Penguins" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 7:00 PM ET | PPG Paints Arena</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">PIT -1.5 (+175)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 6.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">PIT -135</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Playoff Race Implications for Both Sides</h3>
-                    <p>Two teams fighting for their playoff lives meet in Pittsburgh. The Senators at 26-22-6 are in the wild card hunt, while the Penguins at 24-23-7 are fading. Sidney Crosby and the aging core continue to battle, but Pittsburgh's window is closing rapidly. Ottawa's young talent gives them the edge in a game that could go either way.</p>
-                </div>
-            </div>
-
-            <!-- Islanders @ Capitals -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/nyi.png" alt="New York Islanders" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">New York Islanders</div>
-                            <div class="record">23-25-6</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Washington Capitals</div>
-                            <div class="record">30-18-5</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png" alt="Washington Capitals" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 7:00 PM ET | Capital One Arena</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">WSH -1.5 (+145)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 5.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">WSH -165</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Ovechkin Watch Continues in Washington</h3>
-                    <p>Alex Ovechkin's chase for Gretzky's goal record continues to be the storyline in D.C. The Capitals at 30-18-5 have been solid, while the Islanders' playoff hopes are dimming at 23-25-6. Washington's home ice advantage at Capital One Arena has been significant this season, with the Caps going 16-8-2 at home.</p>
-                </div>
-            </div>
-
-            <!-- Canadiens @ Wild -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png" alt="Montreal Canadiens" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Montreal Canadiens</div>
-                            <div class="record">25-24-5</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Minnesota Wild</div>
-                            <div class="record">29-19-6</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/min.png" alt="Minnesota Wild" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 7:30 PM ET | Xcel Energy Center</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">MIN -1.5 (+155)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 5.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">MIN -155</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Wild Host Surprising Canadiens</h3>
-                    <p>Montreal is coming off a stunning 7-3 victory over Colorado, proving they can hang with anyone when their offense clicks. Minnesota has been steady all season, sitting at 29-19-6 with Kirill Kaprizov leading the charge. The Wild's home record of 15-8-3 makes them a solid favorite in this cross-conference matchup.</p>
-                </div>
-            </div>
-
-            <!-- Blues @ Predators -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/stl.png" alt="St. Louis Blues" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">St. Louis Blues</div>
-                            <div class="record">22-27-5</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Nashville Predators</div>
-                            <div class="record">21-28-5</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/nsh.png" alt="Nashville Predators" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 8:00 PM ET | Bridgestone Arena</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">NSH -1.5 (+175)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 5.5</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">NSH -125</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Central Division Basement Battle</h3>
-                    <p>Two disappointing teams meet in Nashville. Both the Blues and Predators have underperformed expectations, and this game has "avoid" written all over it for bettors. Nashville's home ice gives them a slight edge, but neither team inspires confidence right now.</p>
-                </div>
-            </div>
-
-            <!-- Maple Leafs @ Flames -->
-            <div class="game-card">
-                <div class="game-header">
-                    <div class="team away">
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/tor.png" alt="Toronto Maple Leafs" onerror="this.style.display='none'">
-                        <div class="team-info">
-                            <div class="name">Toronto Maple Leafs</div>
-                            <div class="record">30-18-6</div>
-                        </div>
-                    </div>
-                    <div class="vs">@</div>
-                    <div class="team home">
-                        <div class="team-info">
-                            <div class="name">Calgary Flames</div>
-                            <div class="record">26-22-6</div>
-                        </div>
-                        <img src="https://a.espncdn.com/i/teamlogos/nhl/500/cgy.png" alt="Calgary Flames" onerror="this.style.display='none'">
-                    </div>
-                </div>
-                <div class="game-meta">Monday, Feb 2 | 10:00 PM ET | Scotiabank Saddledome</div>
-                <div class="game-odds">
-                    <div class="odd-item"><span class="odd-label">Puck Line</span><span class="odd-value">TOR -1.5 (+165)</span></div>
-                    <div class="odd-item"><span class="odd-label">Total</span><span class="odd-value">O/U 6.0</span></div>
-                    <div class="odd-item"><span class="odd-label">ML</span><span class="odd-value">TOR -145</span></div>
-                </div>
-                <div class="game-analysis">
-                    <h3>Leafs Continue Western Swing</h3>
-                    <p>Toronto's post-Marner era has been surprisingly successful. After trading Mitch Marner to Vegas, the Maple Leafs have relied more heavily on Auston Matthews and their depth, and it's worked. Calgary has been inconsistent but dangerous at home. This late start favors bettors looking for live betting opportunities as the Leafs may start slow on the second night of a back-to-back.</p>
-                </div>
-            </div>
-
         </div>
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="team away">
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/bos.png" alt="Boston Bruins" onerror="this.style.display='none'">
+                    <div class="team-info">
+                        <div class="name">Boston Bruins</div>
+                        <div class="record"></div>
+                    </div>
+                </div>
+                <div class="vs">@</div>
+                <div class="team home">
+                    <div class="team-info">
+                        <div class="name">Tampa Bay Lightning</div>
+                        <div class="record"></div>
+                    </div>
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tb.png" alt="Tampa Bay Lightning" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="game-meta">Sunday, Feb 01 | 11:30 PM ET | Raymond James Stadium | ESPN</div>
+            <div class="game-analysis">
+                <h3>Boston Bruins vs Tampa Bay Lightning</h3>
+                <p>Don't overthink this. This Boston Bruins-Tampa Bay Lightning game is flying under the radar. At  and , both teams are playing meaningful hockey. </p>
+                <p>You have to consider Goaltending is everything in hockey. Tampa Bay Lightning allows 2.67 goals per game while scoring 2.84. Check the starting netminders - that's where the edge is. </p>
+                <p>at the end of the day, ATS records matter. Tampa Bay Lightning at 8-6 against the spread. Boston Bruins is 6-8. The value is clear. The numbers support it.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <div class="title">Home Field</div>
+                        <div class="desc">Tampa Bay Lightning is 6-3 at home this season</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Records</div>
+                        <div class="desc">Tampa Bay Lightning:  | Boston Bruins: </div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Goals Against</div>
+                        <div class="desc">Tampa Bay Lightning GAA: 3.05</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Line Movement</div>
+                        <div class="desc">Opened Tampa Bay Lightning , sharp action noted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="team away">
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/vgk.png" alt="Vegas Golden Knights" onerror="this.style.display='none'">
+                    <div class="team-info">
+                        <div class="name">Vegas Golden Knights</div>
+                        <div class="record"></div>
+                    </div>
+                </div>
+                <div class="vs">@</div>
+                <div class="team home">
+                    <div class="team-info">
+                        <div class="name">Anaheim Ducks</div>
+                        <div class="record"></div>
+                    </div>
+                    <img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ana.png" alt="Anaheim Ducks" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="game-meta">Monday, Feb 02 | 02:30 AM ET | Honda Center | ESPN</div>
+            <div class="game-analysis">
+                <h3>Vegas Golden Knights vs Anaheim Ducks</h3>
+                <p>I've watched the tape. This Vegas Golden Knights-Anaheim Ducks game is flying under the radar. At  and , both teams are playing meaningful hockey. </p>
+                <p>You have to consider Goaltending is everything in hockey. Anaheim Ducks allows 2.96 goals per game while scoring 2.81. Check the starting netminders - that's where the edge is. </p>
+                <p>here's the deal: The betting trends are clear: Anaheim Ducks covers consistently (6-4 ATS). When a team covers at this rate, there's a reason. This is a gift from the market.</p>
+                <div class="key-factors">
+                    <div class="factor">
+                        <div class="title">Home Field</div>
+                        <div class="desc">Anaheim Ducks is 4-2 at home this season</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Records</div>
+                        <div class="desc">Anaheim Ducks:  | Vegas Golden Knights: </div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Goals Against</div>
+                        <div class="desc">Anaheim Ducks GAA: 2.86</div>
+                    </div>
+                    <div class="factor">
+                        <div class="title">Line Movement</div>
+                        <div class="desc">Opened Anaheim Ducks , sharp action noted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
+    <!-- Pagination Section -->
+    <section style="max-width: 1200px; margin: 0 auto 2rem; padding: 0 2rem;">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+            <h3 style="color: var(--gold); font-size: 1.25rem; margin-bottom: 1rem; text-align: center;">Previous Days</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem;">
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-17.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 17</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-16.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 16</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-15.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 15</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-14.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 14</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-13.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 13</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-12.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 12</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-11.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 11</a>
+                <a href="archive/nhl/nhl-ice-oracles-2026-01-10.html" style="display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;">Jan 10</a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem;"><a href="archive-calendar.html" style="color: var(--accent); text-decoration: none;">View Full Archive →</a></p>
+        </div>
+    </section>
+
     <footer>
-        <p>Sports Betting Prime | NHL Ice Oracles | February 2, 2026</p>
-        <p style="margin-top: 1rem;"><a href="nhl-ice-oracles-2026-02-01.html">Previous Day</a> | <a href="../../blog/blog-2026-02-02.html">Super Bowl LX Preview</a></p>
+        <p>&copy; 2026 Sports Betting Prime | Updated Sunday, January 19, 2026</p>
+        <p>Data from NHL.com, ESPN, Natural Stat Trick</p>
     </footer>
+
+<script>
+const ARCHIVE_DATA = {
+            "2025-12-21": "archive/nhl/nhl-ice-oracles-2025-12-21.html",
+            "2025-12-22": "archive/nhl/nhl-ice-oracles-2025-12-22.html",
+            "2025-12-23": "archive/nhl/nhl-ice-oracles-2025-12-23.html",
+            "2025-12-24": "archive/nhl/nhl-ice-oracles-2025-12-24.html",
+            "2025-12-25": "archive/nhl/nhl-ice-oracles-2025-12-25.html"
+        };
+
+const CURRENT_SPORT = "NHL";
+
+function initCalendar() {
+    const today = new Date();
+    const monthSelect = document.getElementById('month-select');
+    const calendarDays = document.getElementById('calendar-days');
+    const yearDisplay = document.getElementById('cal-year');
+    const mobileSelect = document.getElementById('mobile-archive-select');
+
+    // Populate month dropdown
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December'];
+
+    for (let i = 0; i < 12; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = months[i];
+        if (i === today.getMonth()) opt.selected = true;
+        monthSelect.appendChild(opt);
+    }
+
+    // Populate mobile dropdown
+    Object.keys(ARCHIVE_DATA).sort().reverse().forEach(date => {
+        const opt = document.createElement('option');
+        opt.value = ARCHIVE_DATA[date];
+        const d = new Date(date + 'T12:00:00');
+        opt.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        mobileSelect.appendChild(opt);
+    });
+
+    mobileSelect.addEventListener('change', function() {
+        if (this.value) window.location.href = this.value;
+    });
+
+    function renderCalendar(year, month) {
+        yearDisplay.textContent = year;
+        calendarDays.innerHTML = '';
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // Empty cells for days before month starts
+        for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'cal-day empty';
+            calendarDays.appendChild(empty);
+        }
+
+        // Days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const dayEl = document.createElement('div');
+            dayEl.className = 'cal-day';
+            dayEl.textContent = day;
+
+            if (ARCHIVE_DATA[dateStr]) {
+                dayEl.classList.add('has-content');
+                dayEl.addEventListener('click', () => {
+                    window.location.href = ARCHIVE_DATA[dateStr];
+                });
+            }
+
+            // Highlight today
+            if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+                dayEl.classList.add('today');
+            }
+
+            calendarDays.appendChild(dayEl);
+        }
+    }
+
+    monthSelect.addEventListener('change', function() {
+        renderCalendar(today.getFullYear(), parseInt(this.value));
+    });
+
+    renderCalendar(today.getFullYear(), today.getMonth());
+}
+
+document.addEventListener('DOMContentLoaded', initCalendar);
+</script>
+
 </body>
 </html>
