@@ -10,6 +10,12 @@ WHAT THIS SCRIPT DOES:
 3. Groups picks by game (card layout)
 4. Updates both sharp-consensus.html and covers-consensus.html
 (Git commit/push handled by GitHub Actions workflow)
+
+AGGREGATION FIX (Feb 2026):
+- Uses SIDE-BASED aggregation so expert picks and public consensus combine
+- "MIA +6.5" and "Miami +5.5" both count as "Miami ATS" picks
+- Public consensus weighted by percentage strength, not raw count
+- College team abbreviations properly resolved
 """
 
 import os
@@ -39,6 +45,40 @@ DATE_FULL = TODAY.strftime("%A, %B %d, %Y")
 class CoversConsensusScraper:
     """Scrape Covers.com King of Covers contests"""
 
+    # Map ALL-CAPS abbreviations (from expert pick text) to full names
+    TEAM_ABBREV = {
+        # NBA
+        'MIA': 'Miami', 'BOS': 'Boston', 'PHO': 'Phoenix', 'PHX': 'Phoenix',
+        'DET': 'Detroit', 'LAL': 'L.A. Lakers', 'LAC': 'L.A. Clippers',
+        'GS': 'Golden State', 'GSW': 'Golden State', 'HOU': 'Houston',
+        'IND': 'Indiana', 'MIL': 'Milwaukee', 'MIN': 'Minnesota',
+        'NO': 'New Orleans', 'NOP': 'New Orleans', 'NY': 'New York',
+        'NYK': 'New York', 'OKC': 'Oklahoma City', 'ORL': 'Orlando',
+        'SAC': 'Sacramento', 'SA': 'San Antonio', 'SAS': 'San Antonio',
+        'POR': 'Portland', 'MEM': 'Memphis', 'CHA': 'Charlotte',
+        'CHI': 'Chicago', 'CLE': 'Cleveland', 'DAL': 'Dallas',
+        'DEN': 'Denver', 'ATL': 'Atlanta', 'BKN': 'Brooklyn', 'BK': 'Brooklyn',
+        'TOR': 'Toronto', 'UTA': 'Utah', 'WAS': 'Washington',
+        # NHL
+        'ANA': 'Anaheim', 'ARI': 'Arizona', 'BUF': 'Buffalo',
+        'CGY': 'Calgary', 'CAR': 'Carolina', 'COL': 'Colorado',
+        'CBJ': 'Columbus', 'EDM': 'Edmonton', 'FLA': 'Florida',
+        'LA': 'Los Angeles', 'LAK': 'Los Angeles', 'MTL': 'Montreal',
+        'NSH': 'Nashville', 'NJ': 'New Jersey', 'NJD': 'New Jersey',
+        'NYI': 'NY Islanders', 'NYR': 'NY Rangers', 'OTT': 'Ottawa',
+        'PHI': 'Philadelphia', 'PIT': 'Pittsburgh', 'SJ': 'San Jose',
+        'SJS': 'San Jose', 'SEA': 'Seattle', 'STL': 'St. Louis',
+        'TB': 'Tampa Bay', 'TBL': 'Tampa Bay', 'VAN': 'Vancouver',
+        'VGK': 'Vegas', 'WPG': 'Winnipeg',
+        # NFL
+        'BAL': 'Baltimore', 'CIN': 'Cincinnati', 'GB': 'Green Bay',
+        'GNB': 'Green Bay', 'JAX': 'Jacksonville', 'KC': 'Kansas City',
+        'KAN': 'Kansas City', 'LV': 'Las Vegas', 'LAR': 'L.A. Rams',
+        'NE': 'New England', 'NEP': 'New England',
+        'NYG': 'NY Giants', 'NYJ': 'NY Jets', 'SF': 'San Francisco',
+        'TEN': 'Tennessee',
+    }
+
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
@@ -55,7 +95,105 @@ class CoversConsensusScraper:
         }
 
         self.all_picks = []
-        self.pick_counter = Counter()
+
+        # Side-based aggregation: groups picks by SIDE (team + direction)
+        # instead of exact line value, so "MIA +6.5" and "Miami +5.5" combine
+        self.side_counter = Counter()       # "sport|matchup|side" -> total count
+        self.side_lines = defaultdict(Counter)  # "sport|matchup|side" -> {line_text: count}
+        self.side_type = {}                 # "sport|matchup|side" -> pick_type
+
+    def _consensus_weight(self, pct):
+        """Convert consensus percentage to weight for pick counting.
+        Stronger consensus = higher weight. This replaces the old count//20
+        formula which produced uniform ~8 for every game."""
+        if pct >= 75:
+            return 8
+        elif pct >= 70:
+            return 6
+        elif pct >= 65:
+            return 5
+        elif pct >= 60:
+            return 4
+        elif pct >= 55:
+            return 3
+        elif pct >= 52:
+            return 2
+        else:
+            return 1
+
+    def _resolve_team_abbrev(self, abbrev):
+        """Resolve a team abbreviation to full name"""
+        return self.TEAM_ABBREV.get(abbrev.upper(), abbrev)
+
+    def _match_team_to_side(self, token, away, home):
+        """Match a team token from pick text to away/home team name"""
+        token_clean = token.upper().rstrip('.,;:')
+
+        # Direct full-name match
+        if token_clean == away.upper() or away.upper().startswith(token_clean):
+            return away
+        if token_clean == home.upper() or home.upper().startswith(token_clean):
+            return home
+
+        # Abbreviation lookup
+        full = self.TEAM_ABBREV.get(token_clean)
+        if full:
+            if full.lower() in away.lower() or away.lower() in full.lower():
+                return away
+            if full.lower() in home.lower() or home.lower() in full.lower():
+                return home
+
+        # Partial/substring match
+        for team in [away, home]:
+            team_compressed = team.upper().replace(' ', '').replace('.', '')
+            if token_clean in team_compressed or team_compressed.startswith(token_clean):
+                return team
+
+        return token  # Fallback to raw token
+
+    def _extract_side(self, pick_text, pick_type, matchup):
+        """Extract the betting SIDE from pick text for aggregation.
+        Returns (side_label, display_line) where:
+        - side_label: e.g. "Miami ATS" or "Over" (used as aggregation key)
+        - display_line: e.g. "+5.5" or "229.5" (used for display)"""
+        teams = matchup.split(' @ ')
+        away = teams[0].strip() if teams else ''
+        home = teams[1].strip() if len(teams) > 1 else ''
+
+        if 'Over' in pick_type:
+            # Extract total number
+            match = re.search(r'(\d+\.?\d*)', pick_text)
+            line = match.group(1) if match else ''
+            return 'Over', line
+
+        if 'Under' in pick_type:
+            match = re.search(r'(\d+\.?\d*)', pick_text)
+            line = match.group(1) if match else ''
+            return 'Under', line
+
+        # For spread/ML, identify the team
+        first_token = pick_text.split()[0] if pick_text.split() else ''
+        team = self._match_team_to_side(first_token, away, home)
+
+        # Extract the line value
+        line_match = re.search(r'([+-]\d+\.?\d*)', pick_text)
+        line = line_match.group(1) if line_match else ''
+
+        if 'Moneyline' in pick_type:
+            # For ML, extract odds
+            ml_match = re.search(r'\(([+-]\d+)\)', pick_text)
+            odds = ml_match.group(1) if ml_match else line
+            return f"{team} ML", odds
+        else:
+            return f"{team} ATS", line
+
+    def _add_to_side_counter(self, sport, matchup, pick_type, pick_text, weight=1):
+        """Add a pick to the side-based counter"""
+        side_label, display_line = self._extract_side(pick_text, pick_type, matchup)
+        side_key = f"{sport}|{matchup}|{side_label}"
+        self.side_counter[side_key] += weight
+        self.side_lines[side_key][display_line] += weight
+        self.side_type[side_key] = pick_type
 
     def scrape_public_consensus(self, sport_code):
         """Scrape public consensus data from Covers.com topconsensus pages
@@ -107,29 +245,29 @@ class CoversConsensusScraper:
                                     val1 = abs(int(sides_parts[0]))
                                     val2 = abs(int(sides_parts[1]))
 
+                                    # Use percentage-based weight instead of count//20
+                                    weight1 = self._consensus_weight(pct1)
+                                    weight2 = self._consensus_weight(pct2)
+
                                     # Add picks if significant consensus
                                     if count1 >= 50:
-                                        # First value is typically the away team
                                         if val1 >= 100:
                                             pick_type1 = 'Moneyline'
                                             pick_text1 = f"{away_team} ML ({sides_parts[0]})"
                                         else:
                                             pick_type1 = 'Spread (ATS)'
                                             pick_text1 = f"{away_team} {sides_parts[0]}"
-                                        key1 = f"{sport_name}|{matchup}|{pick_type1}|{pick_text1}"
-                                        self.pick_counter[key1] += max(1, count1 // 20)
+                                        self._add_to_side_counter(sport_name, matchup, pick_type1, pick_text1, weight1)
                                         picks_added += 1
 
                                     if count2 >= 50:
-                                        # Second value is typically the home team
                                         if val2 >= 100:
                                             pick_type2 = 'Moneyline'
                                             pick_text2 = f"{home_team} ML ({sides_parts[1]})"
                                         else:
                                             pick_type2 = 'Spread (ATS)'
                                             pick_text2 = f"{home_team} {sides_parts[1]}"
-                                        key2 = f"{sport_name}|{matchup}|{pick_type2}|{pick_text2}"
-                                        self.pick_counter[key2] += max(1, count2 // 20)
+                                        self._add_to_side_counter(sport_name, matchup, pick_type2, pick_text2, weight2)
                                         picks_added += 1
         except Exception as e:
             print(f"    Error scraping sides: {e}")
@@ -167,14 +305,16 @@ class CoversConsensusScraper:
 
                                 # Add Over picks if significant
                                 if over_count >= 50:
-                                    key_over = f"{sport_name}|{matchup}|Total (Over)|Over {total_line}"
-                                    self.pick_counter[key_over] += max(1, over_count // 20)
+                                    over_weight = self._consensus_weight(over_pct)
+                                    pick_text_over = f"Over {total_line}"
+                                    self._add_to_side_counter(sport_name, matchup, 'Total (Over)', pick_text_over, over_weight)
                                     picks_added += 1
 
                                 # Add Under picks if significant
                                 if under_count >= 50:
-                                    key_under = f"{sport_name}|{matchup}|Total (Under)|Under {total_line}"
-                                    self.pick_counter[key_under] += max(1, under_count // 20)
+                                    under_weight = self._consensus_weight(under_pct)
+                                    pick_text_under = f"Under {total_line}"
+                                    self._add_to_side_counter(sport_name, matchup, 'Total (Under)', pick_text_under, under_weight)
                                     picks_added += 1
         except Exception as e:
             print(f"    Error scraping totals: {e}")
@@ -182,11 +322,50 @@ class CoversConsensusScraper:
         print(f"    Added {picks_added} public consensus picks")
         return picks_added
 
+    # Common abbreviated team names from Covers.com profile pages
+    # Maps "profile name" -> "full name" to prevent duplicate matchups
+    PROFILE_TEAM_NORMALIZE = {
+        'Murray St.': 'Murray State', 'Michigan St.': 'Michigan State',
+        'Oklahoma St.': 'Oklahoma State', 'Oregon St.': 'Oregon State',
+        'Arizona St.': 'Arizona State', 'Boise St.': 'Boise State',
+        'Colorado St.': 'Colorado State', 'Fresno St.': 'Fresno State',
+        'Iowa St.': 'Iowa State', 'Kansas St.': 'Kansas State',
+        'Kent St.': 'Kent State', 'Mississippi St.': 'Mississippi State',
+        'Penn St.': 'Penn State', 'Ohio St.': 'Ohio State',
+        'San Diego St.': 'San Diego State', 'San Jose St.': 'San Jose State',
+        'Washington St.': 'Washington State', 'Wichita St.': 'Wichita State',
+        'Ball St.': 'Ball State', 'Appalachian St.': 'Appalachian State',
+        'N. Dakota St.': 'North Dakota State', 'S. Dakota St.': 'South Dakota State',
+        'Southern IL': 'Southern Illinois', 'Northern IL': 'Northern Illinois',
+        'E. Michigan': 'Eastern Michigan', 'W. Michigan': 'Western Michigan',
+        'C. Michigan': 'Central Michigan', 'N. Illinois': 'Northern Illinois',
+        'S. Illinois': 'Southern Illinois', 'E. Kentucky': 'Eastern Kentucky',
+        'W. Kentucky': 'Western Kentucky', 'N. Carolina': 'North Carolina',
+        'S. Carolina': 'South Carolina', 'N. Texas': 'North Texas',
+        'W. Virginia': 'West Virginia',
+        'G. Washington': 'George Washington', 'G. Mason': 'George Mason',
+    }
+
+    def _normalize_profile_team(self, name):
+        """Normalize a team name from a Covers.com contestant profile"""
+        # Direct mapping
+        normalized = self.PROFILE_TEAM_NORMALIZE.get(name)
+        if normalized:
+            return normalized
+        # Try removing trailing period from abbreviated names
+        if name.endswith('.'):
+            no_dot = name[:-1]
+            normalized = self.PROFILE_TEAM_NORMALIZE.get(no_dot + '.')
+            if normalized:
+                return normalized
+        return name
+
     def parse_matchup(self, raw, sport_code):
         """Parse matchup from compressed format like 'NHLDetBos' to 'Detroit @ Boston'"""
         raw = re.sub(r'^(NHL|NBA|NFL|NCAAB|NCAAF)', '', raw, flags=re.IGNORECASE)
 
         teams = {
+            # NHL
             'Ana': 'Anaheim', 'Ari': 'Arizona', 'Bos': 'Boston', 'Buf': 'Buffalo',
             'Cgy': 'Calgary', 'Cal': 'Calgary', 'Car': 'Carolina', 'Chi': 'Chicago',
             'Col': 'Colorado', 'Clb': 'Columbus', 'Dal': 'Dallas', 'Det': 'Detroit',
@@ -196,16 +375,119 @@ class CoversConsensusScraper:
             'Pit': 'Pittsburgh', 'Sj': 'San Jose', 'Sea': 'Seattle', 'Stl': 'St. Louis',
             'Tb': 'Tampa Bay', 'Tor': 'Toronto', 'Utah': 'Utah', 'Van': 'Vancouver',
             'Vgk': 'Vegas', 'Was': 'Washington', 'Wpg': 'Winnipeg',
-            'Atl': 'Atlanta', 'Bkn': 'Brooklyn', 'Cha': 'Charlotte', 'Cle': 'Cleveland',
-            'Den': 'Denver', 'Gsw': 'Golden State', 'Gs': 'Golden State', 'Hou': 'Houston',
-            'Ind': 'Indiana', 'Lac': 'L.A. Clippers', 'Lal': 'L.A. Lakers', 'Mem': 'Memphis',
-            'Mia': 'Miami', 'Mil': 'Milwaukee', 'No': 'New Orleans', 'Ny': 'New York',
-            'Okc': 'Oklahoma City', 'Orl': 'Orlando', 'Phx': 'Phoenix', 'Por': 'Portland',
-            'Sac': 'Sacramento', 'Sa': 'San Antonio', 'Uta': 'Utah',
+            # NBA
+            'Atl': 'Atlanta', 'Bkn': 'Brooklyn', 'Bk': 'Brooklyn', 'Cha': 'Charlotte',
+            'Cle': 'Cleveland', 'Den': 'Denver', 'Gsw': 'Golden State', 'Gs': 'Golden State',
+            'Hou': 'Houston', 'Ind': 'Indiana', 'Lac': 'L.A. Clippers', 'Lal': 'L.A. Lakers',
+            'Mem': 'Memphis', 'Mia': 'Miami', 'Mil': 'Milwaukee', 'No': 'New Orleans',
+            'Ny': 'New York', 'Okc': 'Oklahoma City', 'Orl': 'Orlando', 'Phx': 'Phoenix',
+            'Pho': 'Phoenix', 'Por': 'Portland', 'Sac': 'Sacramento', 'Sa': 'San Antonio',
+            'Uta': 'Utah',
+            # NFL
             'Arz': 'Arizona', 'Bal': 'Baltimore', 'Cin': 'Cincinnati', 'Gb': 'Green Bay',
             'Jax': 'Jacksonville', 'Kc': 'Kansas City', 'Lv': 'Las Vegas', 'Lar': 'L.A. Rams',
             'Ne': 'New England', 'Nyg': 'NY Giants', 'Nyj': 'NY Jets', 'Sf': 'San Francisco',
             'Ten': 'Tennessee',
+            # NCAAB / NCAAF - Covers.com abbreviations
+            'Alab': 'Alabama', 'Ala': 'Alabama', 'Alb': 'Albany',
+            'Alst': 'Alabama State', 'Amec': 'American',
+            'Apst': 'Appalachian State', 'Ariz': 'Arizona', 'Arst': 'Arizona State',
+            'Ark': 'Arkansas', 'Arks': 'Arkansas State', 'Army': 'Army',
+            'Aub': 'Auburn', 'Ball': 'Ball State', 'Bay': 'Baylor',
+            'Bel': 'Belmont', 'Bgr': 'Bowling Green', 'Bois': 'Boise State',
+            'Brad': 'Bradley', 'Brwn': 'Brown', 'Brya': 'Bryant', 'Bry': 'Bryant',
+            'Buck': 'Bucknell', 'Butl': 'Butler', 'Byu': 'BYU',
+            'Camp': 'Campbell', 'Cani': 'Canisius',
+            'Cent': 'Central Michigan', 'Char': 'Charlotte', 'Chat': 'Chattanooga',
+            'Chso': 'Charleston Southern', 'Cinn': 'Cincinnati', 'Cit': 'The Citadel',
+            'Clem': 'Clemson', 'Clev': 'Cleveland State', 'Coas': 'Coastal Carolina',
+            'Colg': 'Colgate', 'Conn': 'UConn', 'Cop': 'Coppin State',
+            'Corn': 'Cornell', 'Crei': 'Creighton', 'Dart': 'Dartmouth',
+            'Dav': 'Davidson', 'Day': 'Dayton', 'Dela': 'Delaware',
+            'Depa': 'DePaul', 'Drke': 'Drake', 'Drew': 'Drew', 'Drex': 'Drexel',
+            'Duke': 'Duke', 'Duqu': 'Duquesne', 'Ecar': 'East Carolina',
+            'Eill': 'Eastern Illinois', 'Eky': 'Eastern Kentucky',
+            'Emic': 'Eastern Michigan', 'Ewas': 'Eastern Washington',
+            'Elon': 'Elon', 'Evan': 'Evansville', 'Fair': 'Fairfield',
+            'Fdu': 'FDU', 'Flor': 'Florida', 'Flat': 'Florida Atlantic',
+            'Flin': 'Florida International', 'Flst': 'Florida State',
+            'Ford': 'Fordham', 'Fres': 'Fresno State', 'Furl': 'Furman',
+            'Gema': 'George Mason', 'Gewa': 'George Washington',
+            'Geto': 'Georgetown', 'Gast': 'Georgia State', 'Gate': 'Georgia Tech',
+            'Ga': 'Georgia', 'Gonz': 'Gonzaga',
+            'Gram': 'Grambling', 'Harv': 'Harvard', 'Haw': 'Hawaii',
+            'Hart': 'Hartford', 'Hofs': 'Hofstra', 'Hocr': 'Holy Cross',
+            'Hous': 'Houston', 'How': 'Howard', 'Idah': 'Idaho',
+            'Idst': 'Idaho State', 'Il': 'Illinois',
+            'Ilst': 'Illinois State', 'Inch': 'Incarnate Word',
+            'Iowa': 'Iowa', 'Iost': 'Iowa State',
+            'Iupui': 'IUPUI', 'Jkst': 'Jackson State',
+            'Jmu': 'James Madison', 'Kans': 'Kansas', 'Knst': 'Kansas State',
+            'Kent': 'Kent State', 'Ken': 'Kentucky', 'Laf': 'Lafayette',
+            'Lam': 'Lamar', 'Lasa': 'La Salle', 'Lehi': 'Lehigh',
+            'Lib': 'Liberty', 'Lips': 'Lipscomb',
+            'Liub': 'LIU Brooklyn', 'Long': 'Long Beach State',
+            'Lou': 'Louisville', 'Loyt': 'Loyola Chicago',
+            'Loym': 'Loyola Marymount', 'Lsu': 'LSU', 'Main': 'Maine',
+            'Manh': 'Manhattan', 'Mari': 'Marist', 'Marq': 'Marquette',
+            'Mars': 'Marshall', 'Mary': 'Maryland', 'Massl': 'UMass Lowell',
+            'Mass': 'UMass', 'Mcne': 'McNeese', 'Memp': 'Memphis',
+            'Merc': 'Mercer', 'Mich': 'Michigan', 'Mist': 'Michigan State',
+            'Mioh': 'Miami (OH)', 'Miss': 'Ole Miss', 'Msst': 'Mississippi State',
+            'Mist': 'Michigan State', 'Mo': 'Missouri', 'Most': 'Missouri State',
+            'Mona': 'Monmouth', 'Mont': 'Montana', 'Mnst': 'Montana State',
+            'More': 'Morehead State', 'Morg': 'Morgan State',
+            'Murr': 'Murray State', 'Navy': 'Navy',
+            'Neb': 'Nebraska', 'Nev': 'Nevada', 'Niag': 'Niagara',
+            'Nich': 'Nicholls', 'Njit': 'NJIT',
+            'Nmex': 'New Mexico', 'Nmst': 'New Mexico State',
+            'Norf': 'Norfolk State', 'Noal': 'North Alabama',
+            'Nc': 'North Carolina', 'Ncat': 'NC A&T', 'Nccu': 'NC Central',
+            'Ncst': 'NC State', 'Ndak': 'North Dakota', 'Ndst': 'North Dakota State',
+            'Nofl': 'North Florida', 'Ntex': 'North Texas',
+            'Neoh': 'Northeast Ohio', 'Noil': 'Northern Illinois',
+            'Niow': 'Northern Iowa', 'Nky': 'Northern Kentucky',
+            'Nwes': 'Northwestern', 'Nwst': 'Northwestern State',
+            'Notr': 'Notre Dame', 'Oak': 'Oakland', 'Ohio': 'Ohio',
+            'Ohst': 'Ohio State', 'Okla': 'Oklahoma', 'Okst': 'Oklahoma State',
+            'Oldm': 'Old Dominion', 'Oreg': 'Oregon', 'Orst': 'Oregon State',
+            'Pac': 'Pacific', 'Penn': 'Penn', 'Pnst': 'Penn State',
+            'Pepp': 'Pepperdine', 'Port': 'Portland',
+            'Prv': 'Providence', 'Purd': 'Purdue',
+            'Quin': 'Quinnipiac', 'Radf': 'Radford', 'Rice': 'Rice',
+            'Rich': 'Richmond', 'Ride': 'Rider', 'Robe': 'Robert Morris',
+            'Rutg': 'Rutgers', 'Sacr': 'Sacramento State',
+            'Shll': 'Seton Hall', 'Shu': 'Sacred Heart',
+            'Sjsu': 'San Jose State', 'Sju': "St. John's",
+            'Slou': 'Saint Louis', 'Smar': "Saint Mary's",
+            'Sbon': 'St. Bonaventure', 'Stjo': "St. Joseph's",
+            'Smu': 'SMU', 'Sdst': 'South Dakota State', 'Sdak': 'South Dakota',
+            'Sfla': 'South Florida', 'Scar': 'South Carolina',
+            'Scst': 'SC State', 'Sela': 'SE Louisiana', 'Semo': 'Southeast Missouri',
+            'Siue': 'SIU Edwardsville', 'Siu': 'Southern Illinois',
+            'Smis': 'Southern Miss', 'Sout': 'Southern',
+            'Stan': 'Stanford', 'Step': 'Stephen F. Austin',
+            'Sten': 'Stetson', 'Ston': 'Stony Brook', 'Syra': 'Syracuse',
+            'Tcu': 'TCU', 'Temp': 'Temple', 'Tenn': 'Tennessee',
+            'Tnst': 'Tennessee State', 'Tntc': 'Tennessee Tech',
+            'Tex': 'Texas', 'Txam': 'Texas A&M', 'Txar': 'UT Arlington',
+            'Txch': 'Texas Tech', 'Txso': 'Texas Southern', 'Txst': 'Texas State',
+            'Tols': 'Toledo', 'Town': 'Towson', 'Troy': 'Troy',
+            'Tuln': 'Tulane', 'Tuls': 'Tulsa', 'Uab': 'UAB',
+            'Ucf': 'UCF', 'Ucla': 'UCLA', 'Uic': 'UIC',
+            'Unc': 'North Carolina', 'Uncg': 'UNC Greensboro',
+            'Unca': 'UNC Asheville', 'Uncw': 'UNC Wilmington',
+            'Uni': 'Northern Iowa', 'Unlv': 'UNLV',
+            'Utep': 'UTEP', 'Utsa': 'UTSA',
+            'Valp': 'Valparaiso', 'Vand': 'Vanderbilt', 'Van': 'Vanderbilt',
+            'Vcu': 'VCU', 'Vill': 'Villanova', 'Virg': 'Virginia',
+            'Vtec': 'Virginia Tech', 'Vmi': 'VMI',
+            'Wag': 'Wagner', 'Wake': 'Wake Forest',
+            'Wash': 'Washington', 'Wast': 'Washington State',
+            'Webb': 'Weber State', 'West': 'West Virginia', 'Wisc': 'Wisconsin',
+            'Wof': 'Wofford', 'Wrst': 'Wright State', 'Wyo': 'Wyoming',
+            'Uk': 'Kentucky', 'Ky': 'Kentucky',
+            'Xav': 'Xavier', 'Yale': 'Yale', 'Yosu': 'Youngstown State',
         }
 
         parts = re.findall(r'[A-Z][a-z]+', raw)
@@ -303,11 +585,11 @@ class CoversConsensusScraper:
                     if score and any(c.isdigit() for c in score):
                         continue
 
-                # Extract teams
+                # Extract teams and normalize names to match public consensus format
                 teams_text = cells[0].text.strip().split('\n')
                 teams = [t.strip() for t in teams_text if t.strip()]
-                away = teams[0] if teams else ''
-                home = teams[1] if len(teams) > 1 else ''
+                away = self._normalize_profile_team(teams[0]) if teams else ''
+                home = self._normalize_profile_team(teams[1]) if len(teams) > 1 else ''
 
                 # Extract picks - get ALL divs and deduplicate (KEY FIX!)
                 picks_cell = cells[3] if len(cells) > 3 else None
@@ -367,55 +649,17 @@ class CoversConsensusScraper:
                         else:
                             pick_type = 'Moneyline'
 
-                    # Normalize pick text for better aggregation
-                    normalized_pick = self.normalize_pick_for_aggregation(pick_text, pick_type)
-
                     picks.append({
                         'sport': sport,
                         'matchup': f"{away} @ {home}",
                         'pick_type': pick_type,
-                        'pick_text': normalized_pick
+                        'pick_text': pick_text
                     })
 
             return picks
 
         except Exception as e:
             return []
-
-    def normalize_pick_for_aggregation(self, pick_text, pick_type):
-        """Normalize pick text to group similar picks together"""
-        # For totals, round to nearest 0.5
-        if 'Over' in pick_text or 'Under' in pick_text:
-            match = re.search(r'(Over|Under)\s*(\d+\.?\d*)', pick_text)
-            if match:
-                direction = match.group(1)
-                number = float(match.group(2))
-                rounded = round(number * 2) / 2
-                return f"{direction} {rounded}"
-            return pick_text
-
-        # For moneyline picks (large + or - numbers like +150, -185)
-        # Keep team and odds together: "SEA ML (+133)"
-        match = re.search(r'([A-Z]{2,4})\s*([+-])(\d+)', pick_text)
-        if match:
-            team = match.group(1)
-            sign = match.group(2)
-            number = int(match.group(3))
-
-            # If number >= 100, it's a moneyline - format as "TEAM ML (±odds)"
-            if number >= 100:
-                return f"{team} ML ({sign}{number})"
-
-            # Otherwise it's a spread - round to nearest 0.5
-            full_number = float(f"{sign}{number}")
-            if '.' in pick_text:
-                decimal_match = re.search(r'([+-]?\d+\.?\d*)', pick_text)
-                if decimal_match:
-                    full_number = float(decimal_match.group(1))
-            rounded = round(full_number * 2) / 2
-            return f"{team} {'+' if rounded > 0 else ''}{rounded}"
-
-        return pick_text
 
     def scrape_all(self):
         """Scrape all sports - combines King of Covers contestants AND public consensus"""
@@ -438,8 +682,12 @@ class CoversConsensusScraper:
                     self.all_picks.extend(picks)
 
                     for pick in picks:
-                        key = f"{pick['sport']}|{pick['matchup']}|{pick['pick_type']}|{pick['pick_text']}"
-                        self.pick_counter[key] += 1
+                        # Add to side-based counter (expert picks get weight 1 each)
+                        self._add_to_side_counter(
+                            pick['sport'], pick['matchup'],
+                            pick['pick_type'], pick['pick_text'],
+                            weight=1
+                        )
 
                 time.sleep(0.3)
 
@@ -451,26 +699,48 @@ class CoversConsensusScraper:
         return self.aggregate_picks()
 
     def aggregate_picks(self):
-        """Aggregate picks - return ALL picks with 2+ experts"""
+        """Aggregate picks using side-based counter for better grouping.
+        "MIA +6.5" and "Miami +5.5" both count under "Miami ATS" now."""
         aggregated = []
 
-        for pick_key, count in self.pick_counter.most_common():
+        for side_key, count in self.side_counter.most_common():
             if count < 2:
                 continue
 
-            parts = pick_key.split('|')
-            if len(parts) == 4:
-                sport, matchup, pick_type, pick_text = parts
-                aggregated.append({
-                    'count': count,
-                    'sport': sport,
-                    'matchup': matchup,
-                    'pickType': pick_type,
-                    'pick': pick_text
-                })
+            parts = side_key.split('|', 2)
+            if len(parts) != 3:
+                continue
+
+            sport, matchup, side_label = parts
+            pick_type = self.side_type.get(side_key, 'Spread (ATS)')
+
+            # Get the most common line value for display
+            line_counts = self.side_lines[side_key]
+            best_line = line_counts.most_common(1)[0][0] if line_counts else ''
+
+            # Build display text
+            if 'Over' in side_label:
+                display_pick = f"Over {best_line}" if best_line else "Over"
+            elif 'Under' in side_label:
+                display_pick = f"Under {best_line}" if best_line else "Under"
+            elif 'ML' in side_label:
+                team_name = side_label.replace(' ML', '')
+                display_pick = f"{team_name} ML ({best_line})" if best_line else f"{team_name} ML"
+            else:
+                # ATS
+                team_name = side_label.replace(' ATS', '')
+                display_pick = f"{team_name} {best_line}" if best_line else team_name
+
+            aggregated.append({
+                'count': count,
+                'sport': sport,
+                'matchup': matchup,
+                'pickType': pick_type,
+                'pick': display_pick
+            })
 
         aggregated.sort(key=lambda x: -x['count'])
-        print(f"\n[OK] Aggregated {len(aggregated)} consensus picks")
+        print(f"\n[OK] Aggregated {len(aggregated)} consensus picks (side-based)")
         return aggregated  # Return ALL, not limited
 
 
