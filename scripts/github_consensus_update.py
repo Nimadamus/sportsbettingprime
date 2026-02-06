@@ -79,6 +79,32 @@ class CoversConsensusScraper:
         'TEN': 'Tennessee',
     }
 
+    # Normalize alternate team names to ONE canonical form
+    # This prevents "Connecticut @ St. John's" and "UConn @ St. John's" from being separate games
+    TEAM_NAME_CANONICAL = {
+        'Connecticut': 'UConn',
+        'Illinois-Chicago': 'UIC',
+        'Illinois St.': 'Illinois State',
+        'Loyola Chicago': 'Loyola-Chicago',
+        'N.C. State': 'NC State',
+        'N.C.State': 'NC State',
+        'UTSA': 'UT San Antonio',
+        'UTEP': 'UT El Paso',
+        'UMass': 'Massachusetts',
+        'UConn': 'UConn',
+        'SMU': 'SMU',
+        'USC': 'USC',
+        'UCLA': 'UCLA',
+        'UCF': 'UCF',
+        'LSU': 'LSU',
+        'BYU': 'BYU',
+        'VCU': 'VCU',
+        'UIC': 'UIC',
+        'UNLV': 'UNLV',
+        'Miami (FL)': 'Miami',
+        'St. John\'s (NY)': "St. John's",
+    }
+
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
@@ -187,8 +213,31 @@ class CoversConsensusScraper:
         else:
             return f"{team} ATS", line
 
+    def _normalize_team_name(self, name):
+        """Normalize a single team name to its canonical form"""
+        canonical = self.TEAM_NAME_CANONICAL.get(name)
+        if canonical:
+            return canonical
+        # Also try stripping trailing period variations
+        if name.endswith('.'):
+            canonical = self.TEAM_NAME_CANONICAL.get(name[:-1])
+            if canonical:
+                return canonical
+        return name
+
+    def _normalize_matchup(self, matchup):
+        """Normalize a matchup string so the same game always has the same key.
+        e.g. 'Connecticut @ St. John's' and 'UConn @ St. John's' both become 'UConn @ St. John's'"""
+        parts = matchup.split(' @ ')
+        if len(parts) == 2:
+            away = self._normalize_team_name(parts[0].strip())
+            home = self._normalize_team_name(parts[1].strip())
+            return f"{away} @ {home}"
+        return matchup
+
     def _add_to_side_counter(self, sport, matchup, pick_type, pick_text, weight=1):
         """Add a pick to the side-based counter"""
+        matchup = self._normalize_matchup(matchup)
         side_label, display_line = self._extract_side(pick_text, pick_type, matchup)
         side_key = f"{sport}|{matchup}|{side_label}"
         self.side_counter[side_key] += weight
