@@ -612,16 +612,68 @@
             .stats-container { grid-template-columns: repeat(2, 1fr); }
         }
 
+        /* Mobile hamburger menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--neon-cyan);
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(3, 3, 8, 0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                z-index: 999;
+                padding: 80px 2rem 2rem;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 1.1rem; padding: 1rem 2rem; width: 100%; text-align: center; }
             .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero { padding: 120px 1.5rem 60px; }
             .sports-grid { grid-template-columns: 1fr; }
             .stats-container { grid-template-columns: repeat(2, 1fr); }
             .stat-value { font-size: 2rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .cta-section h2 { font-size: 1.8rem; }
+            nav { padding: 0.75rem 1rem; }
+            .logo { font-size: 1rem; }
+            .hero-badge { font-size: 0.75rem; padding: 0.5rem 1rem; }
         }
 
         @media (max-width: 480px) {
             .stats-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn-primary, .btn-secondary { width: 100%; text-align: center; justify-content: center; }
+            .sport-card { padding: 1.5rem; }
+            .footer-links { flex-direction: column; align-items: center; gap: 0.5rem; }
         }
     </style>
 
@@ -638,6 +690,9 @@
     <header>
         <nav>
             <a href="index.html" class="logo">SPORTS BETTING PRIME</a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open'); this.classList.toggle('active');" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="covers-consensus.html">Consensus</a></li>
