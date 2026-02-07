@@ -357,7 +357,7 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">20</div>
+                <div class="stat-number" id="topConsensus">25</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
@@ -414,18 +414,46 @@
     <script>
         const consensusData = [
         {
-                "count": 20,
+                "count": 25,
                 "sport": "NBA",
                 "matchup": "Denver @ Chicago",
                 "pickType": "Total (Over)",
                 "pick": "Over 232.5"
         },
         {
-                "count": 19,
+                "count": 24,
+                "sport": "NBA",
+                "matchup": "Dallas @ San Antonio",
+                "pickType": "Spread (ATS)",
+                "pick": "Dallas +10.5"
+        },
+        {
+                "count": 24,
                 "sport": "NBA",
                 "matchup": "Utah @ Orlando",
                 "pickType": "Spread (ATS)",
                 "pick": "Utah +7.5"
+        },
+        {
+                "count": 22,
+                "sport": "NBA",
+                "matchup": "Denver @ Chicago",
+                "pickType": "Spread (ATS)",
+                "pick": "Denver -5.5"
+        },
+        {
+                "count": 20,
+                "sport": "NBA",
+                "matchup": "Golden State @ L.A. Lakers",
+                "pickType": "Total (Under)",
+                "pick": "Under 222.5"
+        },
+        {
+                "count": 19,
+                "sport": "NBA",
+                "matchup": "Charlotte @ Atlanta",
+                "pickType": "Spread (ATS)",
+                "pick": "Charlotte -1.5"
         },
         {
                 "count": 17,
@@ -444,23 +472,23 @@
         {
                 "count": 17,
                 "sport": "NBA",
-                "matchup": "Houston @ Oklahoma City",
+                "matchup": "Memphis @ Portland",
+                "pickType": "Total (Under)",
+                "pick": "Under 234.5"
+        },
+        {
+                "count": 17,
+                "sport": "College Basketball",
+                "matchup": "Illinois @ Michigan State",
                 "pickType": "Spread (ATS)",
-                "pick": "Houston +2.5"
+                "pick": "Illinois +1.5"
         },
         {
                 "count": 16,
                 "sport": "NBA",
-                "matchup": "Charlotte @ Atlanta",
+                "matchup": "Cleveland @ Sacramento",
                 "pickType": "Spread (ATS)",
-                "pick": "Charlotte -1.5"
-        },
-        {
-                "count": 16,
-                "sport": "NBA",
-                "matchup": "Denver @ Chicago",
-                "pickType": "Spread (ATS)",
-                "pick": "Denver -5.5"
+                "pick": "Sacramento +12.5"
         },
         {
                 "count": 15,
@@ -471,38 +499,52 @@
         },
         {
                 "count": 15,
-                "sport": "College Basketball",
-                "matchup": "Oklahoma @ Vanderbilt",
-                "pickType": "Spread (ATS)",
-                "pick": "Oklahoma +13.5"
+                "sport": "NBA",
+                "matchup": "Utah @ Orlando",
+                "pickType": "Total (Over)",
+                "pick": "Over 236.5"
         },
         {
-                "count": 14,
+                "count": 15,
                 "sport": "NBA",
-                "matchup": "Washington @ Brooklyn",
+                "matchup": "Memphis @ Portland",
                 "pickType": "Spread (ATS)",
-                "pick": "Brooklyn -5.5"
+                "pick": "Memphis +8.5"
+        },
+        {
+                "count": 15,
+                "sport": "NBA",
+                "matchup": "Golden State @ L.A. Lakers",
+                "pickType": "Spread (ATS)",
+                "pick": "L.A. Lakers -2.5"
+        },
+        {
+                "count": 15,
+                "sport": "College Basketball",
+                "matchup": "San Francisco @ Saint Mary's",
+                "pickType": "Spread (ATS)",
+                "pick": "San Francisco +13.5"
         },
         {
                 "count": 14,
                 "sport": "NBA",
                 "matchup": "Golden State @ L.A. Lakers",
-                "pickType": "Total (Under)",
-                "pick": "Under 222.5"
+                "pickType": "Spread (ATS)",
+                "pick": "Golden State +3.5"
         },
         {
                 "count": 14,
-                "sport": "NBA",
-                "matchup": "Memphis @ Portland",
-                "pickType": "Spread (ATS)",
-                "pick": "Memphis +7.5"
+                "sport": "College Basketball",
+                "matchup": "Tennessee @ Kentucky",
+                "pickType": "Total (Over)",
+                "pick": "Over 145.5"
         },
         {
                 "count": 13,
                 "sport": "NBA",
-                "matchup": "Dallas @ San Antonio",
-                "pickType": "Spread (ATS)",
-                "pick": "Dallas +10.5"
+                "matchup": "Utah @ Orlando",
+                "pickType": "Total (Under)",
+                "pick": "Under 237.5"
         },
         {
                 "count": 13,
@@ -513,129 +555,178 @@
         },
         {
                 "count": 13,
-                "sport": "NBA",
-                "matchup": "Washington @ Brooklyn",
-                "pickType": "Spread (ATS)",
-                "pick": "Washington +4.5"
-        },
-        {
-                "count": 13,
-                "sport": "NBA",
-                "matchup": "Cleveland @ Sacramento",
-                "pickType": "Spread (ATS)",
-                "pick": "Sacramento +12.5"
-        },
-        {
-                "count": 13,
-                "sport": "NBA",
-                "matchup": "Golden State @ L.A. Lakers",
-                "pickType": "Spread (ATS)",
-                "pick": "L.A. Lakers -2"
-        },
-        {
-                "count": 13,
                 "sport": "College Basketball",
-                "matchup": "Missouri @ South Carolina",
-                "pickType": "Spread (ATS)",
-                "pick": "MIZZ -1.5"
-        },
-        {
-                "count": 13,
-                "sport": "College Basketball",
-                "matchup": "Tennessee @ Kentucky",
-                "pickType": "Total (Over)",
-                "pick": "Over 145.5"
+                "matchup": "Cornell @ Columbia",
+                "pickType": "Total (Under)",
+                "pick": "Under 172.5"
         },
         {
                 "count": 12,
                 "sport": "NBA",
-                "matchup": "Memphis @ Portland",
-                "pickType": "Total (Under)",
-                "pick": "Under 235.5"
+                "matchup": "Charlotte @ Atlanta",
+                "pickType": "Spread (ATS)",
+                "pick": "Atlanta +1.5"
         },
         {
                 "count": 12,
-                "sport": "NBA",
-                "matchup": "Utah @ Orlando",
-                "pickType": "Total (Under)",
-                "pick": "Under 237.5"
+                "sport": "College Basketball",
+                "matchup": "Southern Indiana @ SE Missouri St.",
+                "pickType": "Spread (ATS)",
+                "pick": "USI +11.5"
+        },
+        {
+                "count": 12,
+                "sport": "College Basketball",
+                "matchup": "Prairie View A&M @ Bethune-Cookman",
+                "pickType": "Spread (ATS)",
+                "pick": "PV +11.5"
+        },
+        {
+                "count": 12,
+                "sport": "College Basketball",
+                "matchup": "Ohio @ Old Dominion",
+                "pickType": "Spread (ATS)",
+                "pick": "ODU +2.5"
+        },
+        {
+                "count": 12,
+                "sport": "College Basketball",
+                "matchup": "Oral Roberts @ St. Thomas (MN)",
+                "pickType": "Spread (ATS)",
+                "pick": "ORU +16.5"
         },
         {
                 "count": 11,
                 "sport": "College Basketball",
-                "matchup": "Duke @ North Carolina",
-                "pickType": "Total (Over)",
-                "pick": "Over 150.5"
+                "matchup": "Binghamton @ NJIT",
+                "pickType": "Spread (ATS)",
+                "pick": "Binghamton +9.5"
         },
         {
                 "count": 11,
                 "sport": "College Basketball",
-                "matchup": "Duke @ North Carolina",
+                "matchup": "Texas Southern @ Florida A&M",
                 "pickType": "Spread (ATS)",
-                "pick": "UNC +5.5"
+                "pick": "TXSO +3.5"
         },
         {
-                "count": 10,
-                "sport": "NBA",
-                "matchup": "Cleveland @ Sacramento",
-                "pickType": "Total (Over)",
-                "pick": "Over 233.5"
-        },
-        {
-                "count": 10,
+                "count": 11,
                 "sport": "College Basketball",
-                "matchup": "Baylor @ Iowa State",
+                "matchup": "UMass Lowell @ Albany",
                 "pickType": "Spread (ATS)",
-                "pick": "Baylor +15.5"
+                "pick": "UMass Lowell +3.5"
         },
         {
-                "count": 10,
+                "count": 11,
                 "sport": "College Basketball",
-                "matchup": "Gonzaga @ Oregon State",
-                "pickType": "Spread (ATS)",
-                "pick": "Gonzaga -17.5"
-        },
-        {
-                "count": 10,
-                "sport": "College Basketball",
-                "matchup": "San Francisco @ Saint Mary's",
-                "pickType": "Spread (ATS)",
-                "pick": "San Francisco +13.5"
-        },
-        {
-                "count": 10,
-                "sport": "College Basketball",
-                "matchup": "Alabama @ Auburn",
-                "pickType": "Spread (ATS)",
-                "pick": "Alabama +3.5"
-        },
-        {
-                "count": 10,
-                "sport": "College Basketball",
-                "matchup": "Illinois @ Michigan State",
-                "pickType": "Spread (ATS)",
-                "pick": "Illinois +1.5"
-        },
-        {
-                "count": 9,
-                "sport": "NBA",
-                "matchup": "Utah @ Orlando",
-                "pickType": "Total (Over)",
-                "pick": "Over 237.5"
-        },
-        {
-                "count": 9,
-                "sport": "NBA",
-                "matchup": "Washington @ Brooklyn",
-                "pickType": "Total (Over)",
-                "pick": "Over 219.5"
-        },
-        {
-                "count": 9,
-                "sport": "NBA",
-                "matchup": "Houston @ Oklahoma City",
+                "matchup": "Houston @ Brigham Young",
                 "pickType": "Total (Under)",
-                "pick": "Under 214.5"
+                "pick": "Under 149.5"
+        },
+        {
+                "count": 11,
+                "sport": "College Basketball",
+                "matchup": "Florida @ Texas A&M",
+                "pickType": "Spread (ATS)",
+                "pick": "TXAM +6.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "Charlotte @ Atlanta",
+                "pickType": "Total (Over)",
+                "pick": "Over 231.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "Denver @ Chicago",
+                "pickType": "Spread (ATS)",
+                "pick": "Chicago +5.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "Philadelphia @ Phoenix",
+                "pickType": "Spread (ATS)",
+                "pick": "Philadelphia +1.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "Philadelphia @ Phoenix",
+                "pickType": "Spread (ATS)",
+                "pick": "Phoenix -1.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Sacred Heart @ Manhattan",
+                "pickType": "Total (Over)",
+                "pick": "Over 160.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "NC Central @ Norfolk State",
+                "pickType": "Spread (ATS)",
+                "pick": "NCCU +5.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Radford @ High Point",
+                "pickType": "Spread (ATS)",
+                "pick": "High Point -12.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Clemson @ California",
+                "pickType": "Total (Under)",
+                "pick": "Under 136.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Fresno State @ Nevada",
+                "pickType": "Total (Over)",
+                "pick": "Over 144.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Cleveland St. @ IUPUI",
+                "pickType": "Spread (ATS)",
+                "pick": "Cleveland St. +1.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Florida @ Texas A&M",
+                "pickType": "Spread (ATS)",
+                "pick": "Florida -6.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Florida @ Texas A&M",
+                "pickType": "Total (Over)",
+                "pick": "Over 164.5"
+        },
+        {
+                "count": 10,
+                "sport": "College Basketball",
+                "matchup": "Washington @ UCLA",
+                "pickType": "Spread (ATS)",
+                "pick": "UCLA -5.5"
+        },
+        {
+                "count": 9,
+                "sport": "NFL",
+                "matchup": "Seattle @ New England",
+                "pickType": "Total (Over)",
+                "pick": "Over 46.0"
         },
         {
                 "count": 9,
@@ -647,324 +738,324 @@
         {
                 "count": 9,
                 "sport": "NBA",
-                "matchup": "Golden State @ L.A. Lakers",
-                "pickType": "Spread (ATS)",
-                "pick": "Golden State +3.5"
-        },
-        {
-                "count": 9,
-                "sport": "College Basketball",
-                "matchup": "Eastern Michigan @ Appalachian State",
-                "pickType": "Total (Over)",
-                "pick": "Over 129.5"
-        },
-        {
-                "count": 9,
-                "sport": "College Basketball",
-                "matchup": "Campbell @ NC A&T",
-                "pickType": "Spread (ATS)",
-                "pick": "Campbell -3.5"
-        },
-        {
-                "count": 9,
-                "sport": "College Basketball",
-                "matchup": "Cornell @ Columbia",
-                "pickType": "Total (Under)",
-                "pick": "Under 172.5"
-        },
-        {
-                "count": 9,
-                "sport": "College Basketball",
-                "matchup": "Oklahoma @ Vanderbilt",
-                "pickType": "Total (Over)",
-                "pick": "Over 158.5"
-        },
-        {
-                "count": 9,
-                "sport": "College Basketball",
-                "matchup": "Oklahoma State @ Arizona",
-                "pickType": "Spread (ATS)",
-                "pick": "OKST +20.5"
-        },
-        {
-                "count": 8,
-                "sport": "NFL",
-                "matchup": "Seattle @ New England",
-                "pickType": "Total (Over)",
-                "pick": "Over 46.0"
-        },
-        {
-                "count": 8,
-                "sport": "NBA",
-                "matchup": "Memphis @ Portland",
-                "pickType": "Total (Over)",
-                "pick": "Over 237.5"
-        },
-        {
-                "count": 8,
-                "sport": "College Basketball",
-                "matchup": "Richmond @ Rhode Island",
-                "pickType": "Total (Over)",
-                "pick": "Over 139.5"
-        },
-        {
-                "count": 8,
-                "sport": "College Basketball",
-                "matchup": "Alabama @ Auburn",
-                "pickType": "Total (Over)",
-                "pick": "Over 175"
-        },
-        {
-                "count": 8,
-                "sport": "College Basketball",
-                "matchup": "Houston @ Brigham Young",
-                "pickType": "Total (Under)",
-                "pick": "Under 150.5"
-        },
-        {
-                "count": 8,
-                "sport": "College Basketball",
-                "matchup": "Florida @ Texas A&M",
-                "pickType": "Total (Over)",
-                "pick": "Over 164.5"
-        },
-        {
-                "count": 8,
-                "sport": "College Basketball",
-                "matchup": "Oregon @ Purdue",
-                "pickType": "Spread (ATS)",
-                "pick": "Oregon +19.5"
-        },
-        {
-                "count": 7,
-                "sport": "NBA",
-                "matchup": "Denver @ Chicago",
-                "pickType": "Spread (ATS)",
-                "pick": "Chicago +5.5"
-        },
-        {
-                "count": 7,
-                "sport": "NBA",
-                "matchup": "Houston @ Oklahoma City",
-                "pickType": "Total (Over)",
-                "pick": "Over 213.5"
-        },
-        {
-                "count": 7,
-                "sport": "NBA",
-                "matchup": "Charlotte @ Atlanta",
-                "pickType": "Total (Over)",
-                "pick": "Over 231.5"
-        },
-        {
-                "count": 7,
-                "sport": "NBA",
-                "matchup": "Charlotte @ Atlanta",
-                "pickType": "Spread (ATS)",
-                "pick": "Atlanta +1.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Middle TN @ Delaware",
-                "pickType": "Total (Over)",
-                "pick": "Over 130.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Sacred Heart @ Manhattan",
-                "pickType": "Total (Over)",
-                "pick": "Over 160.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Cleveland St. @ IUPUI",
-                "pickType": "Total (Under)",
-                "pick": "Under 170.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Butler @ Marquette",
-                "pickType": "Total (Under)",
-                "pick": "Under 157.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "GW @ Duquesne",
-                "pickType": "Spread (ATS)",
-                "pick": "GW +1.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "NC Central @ Norfolk State",
-                "pickType": "Spread (ATS)",
-                "pick": "NCCU +5.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Fresno State @ Nevada",
-                "pickType": "Total (Over)",
-                "pick": "Over 144.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Missouri @ South Carolina",
-                "pickType": "Total (Over)",
-                "pick": "Over 145.5"
-        },
-        {
-                "count": 7,
-                "sport": "College Basketball",
-                "matchup": "Washington @ UCLA",
-                "pickType": "Spread (ATS)",
-                "pick": "UCLA -5"
-        },
-        {
-                "count": 6,
-                "sport": "NBA",
-                "matchup": "Denver @ Chicago",
-                "pickType": "Total (Under)",
-                "pick": "Under 232.5"
-        },
-        {
-                "count": 6,
-                "sport": "NBA",
                 "matchup": "Cleveland @ Sacramento",
                 "pickType": "Total (Under)",
                 "pick": "Under 233.5"
         },
         {
-                "count": 6,
-                "sport": "NBA",
-                "matchup": "Dallas @ San Antonio",
-                "pickType": "Total (Under)",
-                "pick": "Under 229.5"
-        },
-        {
-                "count": 6,
+                "count": 9,
                 "sport": "NBA",
                 "matchup": "Philadelphia @ Phoenix",
-                "pickType": "Spread (ATS)",
-                "pick": "Philadelphia +1.5"
+                "pickType": "Total (Under)",
+                "pick": "Under 223.5"
         },
         {
-                "count": 6,
+                "count": 9,
                 "sport": "NBA",
                 "matchup": "Cleveland @ Sacramento",
                 "pickType": "Spread (ATS)",
                 "pick": "Cleveland -12.5"
         },
         {
-                "count": 6,
-                "sport": "College Basketball",
-                "matchup": "Loyola (MD) @ Boston U",
-                "pickType": "Spread (ATS)",
-                "pick": "BU -3.5"
+                "count": 9,
+                "sport": "NBA",
+                "matchup": "Memphis @ Portland",
+                "pickType": "Total (Over)",
+                "pick": "Over 234.5"
         },
         {
-                "count": 6,
+                "count": 9,
                 "sport": "College Basketball",
-                "matchup": "St. Francis (PA) @ Le Moyne",
-                "pickType": "Spread (ATS)",
-                "pick": "SFPA +8.5"
-        },
-        {
-                "count": 6,
-                "sport": "College Basketball",
-                "matchup": "Mississippi @ Texas",
+                "matchup": "Cleveland St. @ IUPUI",
                 "pickType": "Total (Under)",
-                "pick": "Under 146.5"
+                "pick": "Under 170.5"
         },
         {
-                "count": 6,
+                "count": 9,
+                "sport": "College Basketball",
+                "matchup": "Detroit Mercy @ Green Bay",
+                "pickType": "Total (Over)",
+                "pick": "Over 151.5"
+        },
+        {
+                "count": 9,
                 "sport": "College Basketball",
                 "matchup": "North Florida @ Queens NC",
                 "pickType": "Spread (ATS)",
                 "pick": "UNF +15.5"
         },
         {
-                "count": 6,
+                "count": 9,
                 "sport": "College Basketball",
-                "matchup": "Binghamton @ NJIT",
-                "pickType": "Spread (ATS)",
-                "pick": "Binghamton +9.5"
+                "matchup": "Delaware State @ Coppin St.",
+                "pickType": "Total (Under)",
+                "pick": "Under 133.5"
         },
         {
-                "count": 6,
-                "sport": "College Basketball",
-                "matchup": "Florida State @ Notre Dame",
-                "pickType": "Spread (ATS)",
-                "pick": "FSU +2.5"
-        },
-        {
-                "count": 6,
-                "sport": "College Basketball",
-                "matchup": "Southern Indiana @ SE Missouri St.",
-                "pickType": "Spread (ATS)",
-                "pick": "USI +11.5"
-        },
-        {
-                "count": 6,
+                "count": 9,
                 "sport": "College Basketball",
                 "matchup": "Clemson @ California",
-                "pickType": "Total (Under)",
-                "pick": "Under 137.5"
-        },
-        {
-                "count": 6,
-                "sport": "College Basketball",
-                "matchup": "Utah St. @ Wyoming",
                 "pickType": "Spread (ATS)",
-                "pick": "USU -7.5"
+                "pick": "California +4.5"
         },
         {
-                "count": 6,
+                "count": 9,
+                "sport": "College Basketball",
+                "matchup": "Tennessee @ Kentucky",
+                "pickType": "Spread (ATS)",
+                "pick": "Tennessee +1.5"
+        },
+        {
+                "count": 8,
+                "sport": "NBA",
+                "matchup": "Cleveland @ Sacramento",
+                "pickType": "Total (Over)",
+                "pick": "Over 233.5"
+        },
+        {
+                "count": 8,
+                "sport": "College Basketball",
+                "matchup": "Arizona State @ Colorado",
+                "pickType": "Spread (ATS)",
+                "pick": "ASU +4.5"
+        },
+        {
+                "count": 8,
                 "sport": "College Basketball",
                 "matchup": "Fresno State @ Nevada",
                 "pickType": "Spread (ATS)",
                 "pick": "Nevada -10.5"
         },
         {
-                "count": 6,
+                "count": 8,
                 "sport": "College Basketball",
-                "matchup": "Florida @ Texas A&M",
+                "matchup": "Marist @ Fairfield",
                 "pickType": "Spread (ATS)",
-                "pick": "Florida -6.5"
+                "pick": "MRST +1.5"
         },
         {
-                "count": 6,
+                "count": 8,
                 "sport": "College Basketball",
                 "matchup": "Washington @ UCLA",
                 "pickType": "Total (Over)",
                 "pick": "Over 142.5"
         },
         {
-                "count": 6,
+                "count": 8,
                 "sport": "College Basketball",
-                "matchup": "La Salle @ Saint Louis",
+                "matchup": "Lamar @ SFA",
                 "pickType": "Spread (ATS)",
-                "pick": "La Salle +23.5"
+                "pick": "Lamar +8.5"
+        },
+        {
+                "count": 8,
+                "sport": "College Basketball",
+                "matchup": "Northern CO @ Idaho State",
+                "pickType": "Spread (ATS)",
+                "pick": "IDST +2.5"
+        },
+        {
+                "count": 8,
+                "sport": "College Basketball",
+                "matchup": "Houston @ Brigham Young",
+                "pickType": "Spread (ATS)",
+                "pick": "Houston -1.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Denver @ Chicago",
+                "pickType": "Total (Under)",
+                "pick": "Under 232.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Dallas @ San Antonio",
+                "pickType": "Total (Under)",
+                "pick": "Under 230.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Golden State @ L.A. Lakers",
+                "pickType": "Total (Over)",
+                "pick": "Over 222.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Memphis @ Portland",
+                "pickType": "Spread (ATS)",
+                "pick": "Portland -8.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Jacksonville @ West Georgia",
+                "pickType": "Spread (ATS)",
+                "pick": "UWG +1.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Cal Poly SLO @ UC Davis",
+                "pickType": "Spread (ATS)",
+                "pick": "CP +6.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Marist @ Fairfield",
+                "pickType": "Total (Under)",
+                "pick": "Under 138.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Utah St. @ Wyoming",
+                "pickType": "Spread (ATS)",
+                "pick": "USU -7.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "New Mexico St. @ Texas-El Paso",
+                "pickType": "Spread (ATS)",
+                "pick": "UTEP +1.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Portland St. @ Sacramento State",
+                "pickType": "Total (Over)",
+                "pick": "Over 153.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Maine @ Bryant",
+                "pickType": "Total (Over)",
+                "pick": "Over 128.5"
+        },
+        {
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Fresno State @ Nevada",
+                "pickType": "Spread (ATS)",
+                "pick": "Fresno State +11.5"
+        },
+        {
+                "count": 6,
+                "sport": "NBA",
+                "matchup": "Utah @ Orlando",
+                "pickType": "Spread (ATS)",
+                "pick": "Orlando -7.5"
         },
         {
                 "count": 6,
                 "sport": "College Basketball",
-                "matchup": "Florida @ Texas A&M",
-                "pickType": "Spread (ATS)",
-                "pick": "TXAM +6.5"
+                "matchup": "Charleston So @ USC Upstate",
+                "pickType": "Total (Under)",
+                "pick": "Under 150.5"
         },
         {
                 "count": 6,
                 "sport": "College Basketball",
-                "matchup": "Kansas State @ Texas Christian",
+                "matchup": "Oral Roberts @ St. Thomas (MN)",
+                "pickType": "Total (Under)",
+                "pick": "Under 151.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "San Jose State @ Colorado State",
+                "pickType": "Total (Under)",
+                "pick": "Under 135.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Georgia Tech @ Stanford",
+                "pickType": "Total (Under)",
+                "pick": "Under 151.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Delaware State @ Coppin St.",
                 "pickType": "Spread (ATS)",
-                "pick": "KSU +9.5"
+                "pick": "Coppin St. +1.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "San Diego State @ Air Force",
+                "pickType": "Spread (ATS)",
+                "pick": "AFA +21.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Fort Wayne @ Wright St.",
+                "pickType": "Spread (ATS)",
+                "pick": "IPFW +7.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Mount St. Mary's @ Iona",
+                "pickType": "Spread (ATS)",
+                "pick": "MSM +4.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Merrimack @ Rider",
+                "pickType": "Spread (ATS)",
+                "pick": "Rider +8.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Radford @ High Point",
+                "pickType": "Spread (ATS)",
+                "pick": "Radford +12.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Pacific @ Pepperdine",
+                "pickType": "Spread (ATS)",
+                "pick": "Pepperdine +7.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Seattle @ Portland",
+                "pickType": "Spread (ATS)",
+                "pick": "Portland +3.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Utah St. @ Wyoming",
+                "pickType": "Spread (ATS)",
+                "pick": "Wyoming +8.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Houston @ Brigham Young",
+                "pickType": "Spread (ATS)",
+                "pick": "BYU +1.5"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
+                "matchup": "Seattle @ Portland",
+                "pickType": "Total (Over)",
+                "pick": "Over 140.5"
         },
         {
                 "count": 6,
@@ -976,142 +1067,51 @@
         {
                 "count": 6,
                 "sport": "College Basketball",
+                "matchup": "Ipfw @ Wright State",
+                "pickType": "Total (Over)",
+                "pick": "Over 150"
+        },
+        {
+                "count": 6,
+                "sport": "College Basketball",
                 "matchup": "Vanderbilt @ Ole Miss",
                 "pickType": "Total (Over)",
                 "pick": "Over 149.5"
         },
         {
                 "count": 5,
-                "sport": "NBA",
-                "matchup": "Washington @ Brooklyn",
+                "sport": "College Basketball",
+                "matchup": "NC Central @ Norfolk State",
                 "pickType": "Total (Under)",
-                "pick": "Under 219.5"
-        },
-        {
-                "count": 5,
-                "sport": "NBA",
-                "matchup": "Philadelphia @ Phoenix",
-                "pickType": "Total (Under)",
-                "pick": "Under 223.5"
-        },
-        {
-                "count": 5,
-                "sport": "NBA",
-                "matchup": "Golden State @ L.A. Lakers",
-                "pickType": "Total (Over)",
-                "pick": "Over 222.5"
-        },
-        {
-                "count": 5,
-                "sport": "NBA",
-                "matchup": "Philadelphia @ Phoenix",
-                "pickType": "Spread (ATS)",
-                "pick": "Phoenix -1.5"
+                "pick": "Under 148.5"
         },
         {
                 "count": 5,
                 "sport": "College Basketball",
-                "matchup": "Oregon @ Purdue",
+                "matchup": "San Diego @ Loyola Marymount",
                 "pickType": "Spread (ATS)",
-                "pick": "Purdue -19.5"
+                "pick": "LMU -5.5"
         },
         {
                 "count": 5,
                 "sport": "College Basketball",
-                "matchup": "William & Mary @ Hampton",
+                "matchup": "Northern Arizona @ Weber St.",
                 "pickType": "Total (Under)",
                 "pick": "Under 152.5"
         },
         {
                 "count": 5,
                 "sport": "College Basketball",
-                "matchup": "Utah @ Kansas",
-                "pickType": "Spread (ATS)",
-                "pick": "Utah +19.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "La Salle @ Saint Louis",
+                "matchup": "Texas R-G Valley @ New Orleans",
                 "pickType": "Total (Over)",
-                "pick": "Over 152.5"
+                "pick": "Over 150.5"
         },
         {
                 "count": 5,
                 "sport": "College Basketball",
-                "matchup": "Delaware State @ Coppin St.",
-                "pickType": "Total (Under)",
-                "pick": "Under 134.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Prairie View A&M @ Bethune-Cookman",
+                "matchup": "Gardner-Webb @ Presbyterian",
                 "pickType": "Spread (ATS)",
-                "pick": "PV +11.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Seton Hall @ Creighton",
-                "pickType": "Total (Under)",
-                "pick": "Under 139.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Marist @ Fairfield",
-                "pickType": "Total (Under)",
-                "pick": "Under 138.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Radford @ High Point",
-                "pickType": "Spread (ATS)",
-                "pick": "High Point -12.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Ohio @ Old Dominion",
-                "pickType": "Spread (ATS)",
-                "pick": "ODU +3.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "DePaul @ Providence",
-                "pickType": "Spread (ATS)",
-                "pick": "Providence -4.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Niagara @ Quinnipiac",
-                "pickType": "Spread (ATS)",
-                "pick": "Niagara +13"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "SC State @ Howard",
-                "pickType": "Spread (ATS)",
-                "pick": "SC State +14"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Mississippi @ Texas",
-                "pickType": "Spread (ATS)",
-                "pick": "Mississippi +9.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Ucsd @ Hawaii",
-                "pickType": "Spread (ATS)",
-                "pick": "Hawaii -7"
+                "pick": "Presbyterian -16.5"
         }
 ];
 
