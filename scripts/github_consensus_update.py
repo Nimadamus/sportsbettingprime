@@ -69,7 +69,7 @@ class CoversConsensusScraper:
         'PHI': 'Philadelphia', 'PIT': 'Pittsburgh', 'SJ': 'San Jose',
         'SJS': 'San Jose', 'SEA': 'Seattle', 'STL': 'St. Louis',
         'TB': 'Tampa Bay', 'TBL': 'Tampa Bay', 'VAN': 'Vancouver',
-        'VGK': 'Vegas', 'WPG': 'Winnipeg',
+        'VEG': 'Vegas', 'VGK': 'Vegas', 'WIN': 'Winnipeg', 'WPG': 'Winnipeg',
         # NFL
         'BAL': 'Baltimore', 'CIN': 'Cincinnati', 'GB': 'Green Bay',
         'GNB': 'Green Bay', 'JAX': 'Jacksonville', 'KC': 'Kansas City',
@@ -244,6 +244,18 @@ class CoversConsensusScraper:
         self.side_lines[side_key][display_line] += weight
         self.side_type[side_key] = pick_type
 
+    # Minimum pick count thresholds per sport for public consensus.
+    # NHL gets far fewer public picks (~30-100 per game) compared to
+    # NBA (~100-200) or NCAAB (~200-500), so a universal threshold of 50
+    # filters out most NHL games. Sport-specific thresholds fix this.
+    MIN_PICKS_THRESHOLD = {
+        'nhl': 10,
+        'nfl': 20,
+        'nba': 30,
+        'ncaab': 30,
+        'ncaaf': 20,
+    }
+
     def scrape_public_consensus(self, sport_code):
         """Scrape public consensus data from Covers.com topconsensus pages
         This provides ADDITIONAL data beyond King of Covers contestants"""
@@ -251,6 +263,7 @@ class CoversConsensusScraper:
         print(f"\n  Fetching {sport_name} public consensus...")
 
         picks_added = 0
+        min_picks = self.MIN_PICKS_THRESHOLD.get(sport_code, 30)
 
         # Scrape SIDES (spread/ML) consensus
         try:
@@ -298,8 +311,8 @@ class CoversConsensusScraper:
                                     weight1 = self._consensus_weight(pct1)
                                     weight2 = self._consensus_weight(pct2)
 
-                                    # Add picks if significant consensus
-                                    if count1 >= 50:
+                                    # Add picks if enough consensus (sport-specific threshold)
+                                    if count1 >= min_picks:
                                         if val1 >= 100:
                                             pick_type1 = 'Moneyline'
                                             pick_text1 = f"{away_team} ML ({sides_parts[0]})"
@@ -309,7 +322,7 @@ class CoversConsensusScraper:
                                         self._add_to_side_counter(sport_name, matchup, pick_type1, pick_text1, weight1)
                                         picks_added += 1
 
-                                    if count2 >= 50:
+                                    if count2 >= min_picks:
                                         if val2 >= 100:
                                             pick_type2 = 'Moneyline'
                                             pick_text2 = f"{home_team} ML ({sides_parts[1]})"
@@ -352,15 +365,15 @@ class CoversConsensusScraper:
                             if len(pick_counts) >= 2:
                                 over_count, under_count = int(pick_counts[0]), int(pick_counts[1])
 
-                                # Add Over picks if significant
-                                if over_count >= 50:
+                                # Add Over picks if significant (sport-specific threshold)
+                                if over_count >= min_picks:
                                     over_weight = self._consensus_weight(over_pct)
                                     pick_text_over = f"Over {total_line}"
                                     self._add_to_side_counter(sport_name, matchup, 'Total (Over)', pick_text_over, over_weight)
                                     picks_added += 1
 
                                 # Add Under picks if significant
-                                if under_count >= 50:
+                                if under_count >= min_picks:
                                     under_weight = self._consensus_weight(under_pct)
                                     pick_text_under = f"Under {total_line}"
                                     self._add_to_side_counter(sport_name, matchup, 'Total (Under)', pick_text_under, under_weight)
@@ -423,7 +436,7 @@ class CoversConsensusScraper:
             'Nyi': 'NY Islanders', 'Nyr': 'NY Rangers', 'Ott': 'Ottawa', 'Phi': 'Philadelphia',
             'Pit': 'Pittsburgh', 'Sj': 'San Jose', 'Sea': 'Seattle', 'Stl': 'St. Louis',
             'Tb': 'Tampa Bay', 'Tor': 'Toronto', 'Utah': 'Utah', 'Van': 'Vancouver',
-            'Vgk': 'Vegas', 'Was': 'Washington', 'Wpg': 'Winnipeg',
+            'Veg': 'Vegas', 'Vgk': 'Vegas', 'Win': 'Winnipeg', 'Was': 'Washington', 'Wpg': 'Winnipeg',
             # NBA
             'Atl': 'Atlanta', 'Bkn': 'Brooklyn', 'Bk': 'Brooklyn', 'Cha': 'Charlotte',
             'Cle': 'Cleveland', 'Den': 'Denver', 'Gsw': 'Golden State', 'Gs': 'Golden State',
@@ -539,10 +552,21 @@ class CoversConsensusScraper:
             'Xav': 'Xavier', 'Yale': 'Yale', 'Yosu': 'Youngstown State',
         }
 
+        # Sport-specific overrides for abbreviation collisions
+        # (e.g., "Van" = Vancouver in NHL but Vanderbilt in NCAAB)
+        sport_overrides = {
+            'nhl': {'Van': 'Vancouver', 'Win': 'Winnipeg', 'Veg': 'Vegas',
+                    'Cal': 'Calgary', 'Col': 'Colorado', 'Min': 'Minnesota',
+                    'Fla': 'Florida', 'Car': 'Carolina'},
+            'nba': {'Min': 'Minnesota', 'Cha': 'Charlotte', 'Ind': 'Indiana',
+                    'Orl': 'Orlando', 'Mil': 'Milwaukee', 'Sac': 'Sacramento'},
+        }
+
         parts = re.findall(r'[A-Z][a-z]+', raw)
         if len(parts) >= 2:
-            away = teams.get(parts[0], parts[0])
-            home = teams.get(parts[1], parts[1])
+            overrides = sport_overrides.get(sport_code, {})
+            away = overrides.get(parts[0]) or teams.get(parts[0], parts[0])
+            home = overrides.get(parts[1]) or teams.get(parts[1], parts[1])
             return f"{away} @ {home}"
 
         return raw
