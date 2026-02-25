@@ -978,31 +978,27 @@ def update_covers_consensus(picks):
         html
     )
 
-    # Update archive section with current date and recent archives
-    current_date_short = TODAY.strftime('%b %d').replace(' 0', ' ').replace('Dec 0', 'Dec ')
-    # Generate last 4 days for archive links
-    archive_links = []
-    for i in range(1, 5):
+    # Update page navigation with correct previous day link
+    # Find the most recent previous day that has a consensus file
+    prev_day_link = '<span class="disabled">&larr; Previous Day</span>'
+    for i in range(1, 10):
         prev_date = TODAY - timedelta(days=i)
-        date_str = prev_date.strftime('%Y-%m-%d')
-        date_short = prev_date.strftime('%b %d').replace(' 0', ' ')
-        archive_file = f"covers-consensus-{date_str}.html"
-        if os.path.exists(os.path.join(REPO, archive_file)):
-            archive_links.append(f'<a href="{archive_file}">{date_short}</a>')
+        prev_date_str = prev_date.strftime('%Y-%m-%d')
+        prev_date_short = prev_date.strftime('%b %-d') if os.name != 'nt' else prev_date.strftime('%b %d').replace(' 0', ' ')
+        prev_file = f"covers-consensus-{prev_date_str}.html"
+        if os.path.exists(os.path.join(REPO, prev_file)):
+            prev_day_link = f'<a href="{prev_file}">&larr; Previous Day ({prev_date_short})</a>'
+            break
 
-    archive_section = f'''<!-- Archive -->
-        <div class="archive-section">
-            <h3>Previous Days</h3>
-            <div class="archive-links">
-                <span class="current">{current_date_short} (Current)</span>
-                {chr(10).join('                ' + link for link in archive_links)}
-            </div>
+    new_page_nav = f'''<!-- Page Navigation -->
+        <div class="page-nav">
+            {prev_day_link}
+            <span class="disabled">Next Day &rarr;</span>
         </div>'''
 
-    # Replace existing archive section
     html = re.sub(
-        r'<!-- Archive -->.*?</div>\s*</div>\s*</div>\s*<script>',
-        archive_section + '\n    </div>\n\n    <script>',
+        r'<!-- Page Navigation -->.*?</div>',
+        new_page_nav,
         html,
         flags=re.DOTALL
     )
@@ -1104,6 +1100,56 @@ def update_index_html():
     print(f"  index.html OK")
 
 
+def sync_archive_calendar():
+    """Sync ARCHIVE_DATA in covers-consensus.html with all dated files on disk.
+    This ensures the calendar sidebar always shows every available date."""
+    main_file = os.path.join(REPO, "covers-consensus.html")
+    if not os.path.exists(main_file):
+        print("  [ERROR] covers-consensus.html not found")
+        return
+
+    # Find all dated consensus files
+    consensus_files = []
+    for filename in os.listdir(REPO):
+        match = re.match(r'covers-consensus-(\d{4}-\d{2}-\d{2})\.html', filename)
+        if match:
+            consensus_files.append((match.group(1), filename))
+    consensus_files.sort()
+
+    if not consensus_files:
+        print("  No dated consensus files found")
+        return
+
+    # Build new ARCHIVE_DATA entries
+    archive_entries = []
+    for date_str, filename in consensus_files:
+        archive_entries.append(f'            {{ date: "{date_str}", page: "{filename}" }}')
+    new_archive_data = "const ARCHIVE_DATA = [\n" + ",\n".join(archive_entries) + "\n        ];"
+
+    # Pattern to match existing ARCHIVE_DATA
+    pattern = r'const ARCHIVE_DATA = \[.*?\];'
+
+    # Update main consensus page
+    with open(main_file, 'r', encoding='utf-8', errors='ignore') as f:
+        content = f.read()
+    updated = re.sub(pattern, new_archive_data, content, flags=re.DOTALL)
+    if updated != content:
+        with open(main_file, 'w', encoding='utf-8') as f:
+            f.write(updated)
+
+    # Update today's dated archive page too (it was copied before calendar sync)
+    today_archive = os.path.join(REPO, f"covers-consensus-{DATE_STR}.html")
+    if os.path.exists(today_archive):
+        with open(today_archive, 'r', encoding='utf-8', errors='ignore') as f:
+            arc_content = f.read()
+        arc_updated = re.sub(pattern, new_archive_data, arc_content, flags=re.DOTALL)
+        if arc_updated != arc_content:
+            with open(today_archive, 'w', encoding='utf-8') as f:
+                f.write(arc_updated)
+
+    print(f"  Synced ARCHIVE_DATA with {len(consensus_files)} dated files")
+
+
 def main():
     print("=" * 60)
     print("SPORTSBETTINGPRIME CONSENSUS UPDATE")
@@ -1134,6 +1180,10 @@ def main():
     # 4. Update index.html
     print("\n[4] Checking index.html...")
     update_index_html()
+
+    # 5. Sync calendar ARCHIVE_DATA with all dated files
+    print("\n[5] Syncing calendar ARCHIVE_DATA...")
+    sync_archive_calendar()
 
     print("\n" + "=" * 60)
     print("CONSENSUS UPDATE COMPLETE!")
