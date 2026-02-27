@@ -294,8 +294,8 @@ class CoversConsensusScraper:
                             if len(pick_counts) >= 2:
                                 count1, count2 = int(pick_counts[0]), int(pick_counts[1])
 
-                                # Parse sides (e.g., "+113-116" -> ["+113", "-116"])
-                                sides_parts = re.findall(r'([+-]\d+)', sides_raw)
+                                # Parse sides (e.g., "+113-116" or "+8.5-8.5")
+                                sides_parts = re.findall(r'([+-]\d+\.?\d*)', sides_raw)
                                 if len(sides_parts) >= 2:
                                     # Extract team names from matchup (e.g., "Detroit @ Boston")
                                     teams = matchup.split(' @ ')
@@ -304,8 +304,8 @@ class CoversConsensusScraper:
 
                                     # Determine pick type based on value
                                     # Moneylines are typically >= 100, spreads < 100
-                                    val1 = abs(int(sides_parts[0]))
-                                    val2 = abs(int(sides_parts[1]))
+                                    val1 = abs(float(sides_parts[0]))
+                                    val2 = abs(float(sides_parts[1]))
 
                                     # Use percentage-based weight instead of count//20
                                     weight1 = self._consensus_weight(pct1)
@@ -422,9 +422,26 @@ class CoversConsensusScraper:
                 return normalized
         return name
 
+    # Known hyphenated abbreviations from Covers.com
+    # These must be replaced BEFORE the [A-Z][a-z]+ regex split
+    HYPHENATED_ABBREVS = {
+        'M-Oh': 'Mioh',   # Miami (OH)
+        'W-Ky': 'Wky',    # Western Kentucky
+        'E-Ky': 'Eky',    # Eastern Kentucky
+        'W-Mi': 'Wmu',    # Western Michigan
+        'E-Mi': 'Emic',   # Eastern Michigan
+        'C-Mi': 'Cent',   # Central Michigan
+        'N-Il': 'Noil',   # Northern Illinois
+        'S-Il': 'Siu',    # Southern Illinois
+    }
+
     def parse_matchup(self, raw, sport_code):
         """Parse matchup from compressed format like 'NHLDetBos' to 'Detroit @ Boston'"""
         raw = re.sub(r'^(NHL|NBA|NFL|NCAAB|NCAAF)', '', raw, flags=re.IGNORECASE)
+
+        # Handle hyphenated abbreviations before regex split
+        for hyph, replacement in self.HYPHENATED_ABBREVS.items():
+            raw = raw.replace(hyph, replacement)
 
         teams = {
             # NHL
@@ -550,6 +567,29 @@ class CoversConsensusScraper:
             'Wof': 'Wofford', 'Wrst': 'Wright State', 'Wyo': 'Wyoming',
             'Uk': 'Kentucky', 'Ky': 'Kentucky',
             'Xav': 'Xavier', 'Yale': 'Yale', 'Yosu': 'Youngstown State',
+            # Additional Covers.com abbreviations (shorter forms used on consensus pages)
+            'Akr': 'Akron', 'App': 'Appalachian State', 'Can': 'Canisius',
+            'Ccar': 'Coastal Carolina', 'Clmb': 'Columbia', 'Cor': 'Cornell',
+            'Gaso': 'Georgia Southern', 'Gw': 'George Washington',
+            'Iona': 'Iona', 'Isu': 'Iowa State', 'Ku': 'Kansas',
+            'Man': 'Manhattan', 'Mrsh': 'Marshall', 'Msm': "Mount St. Mary's",
+            'Mw': 'Merrimack', 'Odu': 'Old Dominion', 'Oh': 'Ohio',
+            'Prin': 'Princeton', 'Rid': 'Rider', 'Sie': 'Siena',
+            'Spc': "St. Peter's", 'Ttu': 'Texas Tech', 'Ull': 'Louisiana',
+            'Ulm': 'UL Monroe', 'Usa': 'South Alabama', 'Usm': 'Southern Miss',
+            'Uva': 'Virginia', 'Wmu': 'Western Michigan', 'Mioh': 'Miami (OH)',
+            'Wky': 'Western Kentucky', 'Stet': 'Stetson', 'Sfa': 'Stephen F. Austin',
+            'Hamp': 'Hampton', 'Norf': 'Norfolk State', 'Prv': 'Providence',
+            'High': 'High Point', 'Loy': 'Loyola Chicago', 'Sfpa': 'San Francisco',
+            'Rmu': 'Robert Morris', 'Sac': 'Sacramento State',
+            'Wint': 'Winthrop', 'Ncat': 'NC A&T', 'Gard': 'Gardner-Webb',
+            'Stet': 'Stetson', 'Tol': 'Toledo', 'Buff': 'Buffalo',
+            'Emu': 'Eastern Michigan', 'Cmu': 'Central Michigan',
+            'Niu': 'Northern Illinois', 'Wiu': 'Western Illinois',
+            'Sam': 'Sam Houston', 'Lam': 'Lamar', 'Nwst': 'Northwestern State',
+            'Sela': 'SE Louisiana', 'Mcn': 'McNeese', 'Nic': 'Nicholls',
+            'Abil': 'Abilene Christian', 'Tar': 'Tarleton State',
+            'Utrgv': 'UT Rio Grande Valley', 'Siu': 'Southern Illinois',
         }
 
         # Sport-specific overrides for abbreviation collisions
@@ -562,11 +602,21 @@ class CoversConsensusScraper:
                     'Orl': 'Orlando', 'Mil': 'Milwaukee', 'Sac': 'Sacramento'},
         }
 
+        # Also handle multi-character uppercase abbreviations (e.g., 'Utrgv')
+        # and single-word teams that might not match [A-Z][a-z]+
         parts = re.findall(r'[A-Z][a-z]+', raw)
         if len(parts) >= 2:
             overrides = sport_overrides.get(sport_code, {})
             away = overrides.get(parts[0]) or teams.get(parts[0], parts[0])
             home = overrides.get(parts[1]) or teams.get(parts[1], parts[1])
+            # Warn about unresolved abbreviations so we can add them
+            # Skip warning for names that are already valid (e.g., Duke, Yale, Troy)
+            known_full_names = {'Duke', 'Yale', 'Penn', 'Troy', 'Rice', 'Navy', 'Army',
+                                'Utah', 'Iona', 'Ohio', 'Elon', 'Maine'}
+            if away == parts[0] and parts[0] not in known_full_names:
+                print(f"    [WARN] Unknown team abbreviation: '{parts[0]}' (sport: {sport_code})")
+            if home == parts[1] and parts[1] not in known_full_names:
+                print(f"    [WARN] Unknown team abbreviation: '{parts[1]}' (sport: {sport_code})")
             return f"{away} @ {home}"
 
         return raw
