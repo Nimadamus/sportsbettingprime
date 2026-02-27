@@ -354,6 +354,47 @@
     .sport-nhl { background: #000; color: #fff; border: 1px solid #fff; }
     .sport-ncaab { background: #FF8200; color: #fff; }
     .sport-ncaaf { background: #6A0032; color: #fff; }
+    .sport-mlb { background: #002D72; color: #fff; }
+
+    /* Game Info Row */
+    .game-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .game-info span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Public Consensus Bar */
+    .public-consensus {
+        padding: 10px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+    .consensus-bar {
+        display: flex;
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 6px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .consensus-bar .away-pct {
+        background: var(--accent-color);
+        transition: width 0.3s ease;
+    }
+    .consensus-bar .home-pct {
+        background: var(--accent-gold);
+        transition: width 0.3s ease;
+    }
 
     /* Timestamp */
     .timestamp {
@@ -643,15 +684,15 @@
         <!-- Stats Bar -->
         <div class="stats-bar">
             <div class="stat-card">
-                <div class="stat-value">111</div>
+                <div class="stat-value">215</div>
                 <div class="stat-label">Total Picks</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">54</div>
+                <div class="stat-value">46</div>
                 <div class="stat-label">Games</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">3</div>
+                <div class="stat-value">4</div>
                 <div class="stat-label">Sports</div>
             </div>
             <div class="stat-card">
@@ -668,6 +709,7 @@
             <button class="filter-btn" onclick="filterSport('NHL')">NHL</button>
             <button class="filter-btn" onclick="filterSport('College Basketball')">NCAAB</button>
             <button class="filter-btn" onclick="filterSport('College Football')">NCAAF</button>
+            <button class="filter-btn" onclick="filterSport('MLB')">MLB</button>
         </div>
 
         <!-- Game Cards -->
@@ -675,190 +717,108 @@
                 <div class="game-card" data-sport="NBA">
                     <div class="game-header">
                         <span class="sport-tag sport-nba">NBA</span>
-                        <span class="game-matchup">Denver @ Oklahoma City</span>
-                        <span class="game-top-consensus">13x TOP</span>
+                        <span class="game-matchup">Denver Nuggets @ Oklahoma City Thunder</span>
+                        <span class="game-top-consensus">10x TOP</span>
                     </div>
+                    <div class="game-info">9:30 PM ET | O/U 233.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-high">13x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Denver +8.5</span>
+                                <span class="consensus-badge consensus-high">72%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">DEN +8</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">9x</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">233.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-high">10x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">DEN +8.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-total-over">Total (Over)</span>
                                 <span class="pick-value">Over 232.5</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-under">Total (Under)</span>
                                 <span class="pick-value">Under 231.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">2x</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 231.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="NBA">
                     <div class="game-header">
                         <span class="sport-tag sport-nba">NBA</span>
-                        <span class="game-matchup">New York @ Milwaukee</span>
-                        <span class="game-top-consensus">10x TOP</span>
+                        <span class="game-matchup">New York Knicks @ Milwaukee Bucks</span>
+                        <span class="game-top-consensus">7x TOP</span>
                     </div>
+                    <div class="game-info">8:00 PM ET | O/U 220.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-high">10x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Milwaukee +8.5</span>
+                                <span class="consensus-badge consensus-high">65%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">MIL +8.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">220.0</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-medium">7x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">MIL +8.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-total-over">Total (Over)</span>
                                 <span class="pick-value">Over 221.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">New York -7.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 221.5</span>
+                                <span class="pick-value">MIL +7.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="NBA">
                     <div class="game-header">
                         <span class="sport-tag sport-nba">NBA</span>
-                        <span class="game-matchup">Memphis @ Dallas</span>
-                        <span class="game-top-consensus">9x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">9x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 237.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Dallas -5.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Memphis +5.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 238.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Arkansas @ Florida</span>
-                        <span class="game-top-consensus">8x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">8x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 168.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Florida -9.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Kansas @ Arizona</span>
-                        <span class="game-top-consensus">8x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">8x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 146.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Arizona -8.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="NHL">
-                    <div class="game-header">
-                        <span class="sport-tag sport-nhl">NHL</span>
-                        <span class="game-matchup">Winnipeg @ Anaheim</span>
-                        <span class="game-top-consensus">7x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">7x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 6.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Anaheim ML (-131)</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Winnipeg ML (+110)</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Southern Miss @ South Alabama</span>
-                        <span class="game-top-consensus">7x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">7x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Southern Miss -5.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 142.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="NBA">
-                    <div class="game-header">
-                        <span class="sport-tag sport-nba">NBA</span>
-                        <span class="game-matchup">Cleveland @ Detroit</span>
+                        <span class="game-matchup">Cleveland Cavaliers @ Detroit Pistons</span>
                         <span class="game-top-consensus">6x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 227.5</div>
                     <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">55%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">DET -6</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">227.5</span>
+                            </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-medium">6x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Cleveland +6.5</span>
+                                <span class="pick-value">CLE +6.5</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
+                                <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Detroit -7.5</span>
+                                <span class="pick-value">DET -6.5</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 226.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-under">Total (Under)</span>
                                 <span class="pick-value">Under 225.5</span>
                             </div>
@@ -867,110 +827,135 @@
                 <div class="game-card" data-sport="NBA">
                     <div class="game-header">
                         <span class="sport-tag sport-nba">NBA</span>
-                        <span class="game-matchup">Brooklyn @ Boston</span>
-                        <span class="game-top-consensus">6x TOP</span>
+                        <span class="game-matchup">Memphis Grizzlies @ Dallas Mavericks</span>
+                        <span class="game-top-consensus">4x TOP</span>
                     </div>
+                    <div class="game-info">8:30 PM ET | O/U 239.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">6x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 209.5</span>
+                                <span class="consensus-badge consensus-medium">54%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">DAL -5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">239.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Boston -17.5</span>
+                                <span class="pick-value">MEM +5.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">4x</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 237.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">4x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">DAL -5.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 239.5</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="NBA">
+                    <div class="game-header">
+                        <span class="sport-tag sport-nba">NBA</span>
+                        <span class="game-matchup">Brooklyn Nets @ Boston Celtics</span>
+                        <span class="game-top-consensus">3x TOP</span>
+                    </div>
+                    <div class="game-info">7:30 PM ET | O/U 207.5</div>
+                    <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">55%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">BK +18</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">207.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 208.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">BOS -17.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Brooklyn +17.5</span>
+                                <span class="pick-value">BK +17.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="NHL">
                     <div class="game-header">
                         <span class="sport-tag sport-nhl">NHL</span>
-                        <span class="game-matchup">Vegas @ Washington</span>
+                        <span class="game-matchup">Winnipeg Jets @ Anaheim Ducks</span>
                         <span class="game-top-consensus">6x TOP</span>
                     </div>
+                    <div class="game-info">10:00 PM ET | O/U 6.0</div>
                     <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">56%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">ANA -125</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">6.0</span>
+                            </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-medium">6x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 5.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Vegas ML (-105)</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Washington ML (-107)</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Coastal Carolina @ James Madison</span>
-                        <span class="game-top-consensus">6x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">6x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 139.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">James Madison -5.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="NHL">
-                    <div class="game-header">
-                        <span class="sport-tag sport-nhl">NHL</span>
-                        <span class="game-matchup">Minnesota @ Utah</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Minnesota ML (+117)</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
                                 <span class="pick-type-badge pick-total-over">Total (Over)</span>
                                 <span class="pick-value">Over 6.0</span>
                             </div>
                             <div class="pick-row">
+                                <span class="consensus-badge consensus-low">4x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">WIN +110</span>
+                            </div>
+                            <div class="pick-row">
                                 <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 5.5</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">WIN +113</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Utah ML (-132)</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">ANA -124</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="NHL">
                     <div class="game-header">
                         <span class="sport-tag sport-nhl">NHL</span>
-                        <span class="game-matchup">Buffalo @ Florida</span>
+                        <span class="game-matchup">Buffalo Sabres @ Florida Panthers</span>
                         <span class="game-top-consensus">5x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 6.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Buffalo ML (+104)</span>
+                                <span class="consensus-badge consensus-high">62%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">FLA -111</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">6.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-medium">5x</span>
@@ -979,8 +964,13 @@
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Florida ML (-118)</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">BUF +104</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">BUF +100</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
@@ -989,392 +979,238 @@
                             </div>
                     </div>
                 </div>
-                <div class="game-card" data-sport="College Basketball">
+                <div class="game-card" data-sport="NHL">
                     <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">UNC Greensboro @ Chattanooga</span>
+                        <span class="sport-tag sport-nhl">NHL</span>
+                        <span class="game-matchup">Minnesota Wild @ Utah Hockey Club</span>
                         <span class="game-top-consensus">5x TOP</span>
                     </div>
+                    <div class="game-info">9:00 PM ET | O/U 6.5</div>
                     <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">54%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">MIN +120</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">6.5</span>
+                            </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-medium">5x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UNC Greensboro +4.5</span>
+                                <span class="pick-value">MIN +117</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 156.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">ND State @ St. Thomas (MN)</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">St. Thomas (MN) -3.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 155.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 156.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Dartmouth @ Penn</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Penn -7.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 153.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Vanderbilt @ Ole Miss</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Ole Miss +12.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 149.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Georgia Southern @ Marshall</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Marshall -7.5</span>
+                                <span class="pick-value">MIN +120</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 167.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Yale @ Cornell</span>
-                        <span class="game-top-consensus">5x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-medium">5x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Yale -3.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 166.5</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 6.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="NHL">
                     <div class="game-header">
                         <span class="sport-tag sport-nhl">NHL</span>
-                        <span class="game-matchup">Los Angeles @ Columbus</span>
+                        <span class="game-matchup">Vegas Golden Knights @ Washington Capitals</span>
                         <span class="game-top-consensus">4x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 6.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">57%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">VEG +104</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">6.0</span>
+                            </div>
+                            <div class="pick-row">
                                 <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-moneyline">Moneyline</span>
-                                <span class="pick-value">Columbus ML (+104)</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 6.0</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 6</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Denver @ Oral Roberts</span>
-                        <span class="game-top-consensus">4x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">ORU +4.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Alcorn St. @ Texas Southern</span>
-                        <span class="game-top-consensus">4x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">ALCN +7.5</span>
+                                <span class="pick-value">VEG -105</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 147.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Louisiana @ Arizona State</span>
-                        <span class="game-top-consensus">4x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Arizona State -13.5</span>
+                                <span class="pick-value">WAS -116</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 146.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Manhattan @ St. Peter's</span>
-                        <span class="game-top-consensus">4x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
+                                <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">St. Peter's -7.5</span>
+                                <span class="pick-value">VEG +105</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 147</span>
+                                <span class="pick-value">Under 5.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Akron @ Kent State</span>
-                        <span class="game-top-consensus">4x TOP</span>
+                        <span class="game-matchup">Quinnipiac Bobcats @ Niagara Purple</span>
+                        <span class="game-top-consensus">5x TOP</span>
                     </div>
+                    <div class="game-info">6:30 PM ET | O/U 136.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
+                                <span class="consensus-badge consensus-medium">53%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">NIAG +8</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">136.0</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">5x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Akron -4.5</span>
+                                <span class="pick-value">NIAG +8.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Appalachian State @ Texas State</span>
-                        <span class="game-top-consensus">4x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Texas State -1</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">4x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 136</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Morehead St. @ Little Rock</span>
+                        <span class="game-matchup">Miami Redhawks @ Western Broncos</span>
                         <span class="game-top-consensus">3x TOP</span>
                     </div>
+                    <div class="game-info">6:00 PM ET | O/U 162.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 140.5</span>
+                                <span class="consensus-badge consensus-medium">51%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">WMU +12</span>
                             </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">UC Riverside @ UC Santa Barbara</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 143.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">162.0</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">3x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UCRV +10.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UCSB -10.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Hawaii @ UC Davis</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 149.5</span>
+                                <span class="pick-value">WMU +12.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 149.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UC Davis +2.5</span>
+                                <span class="pick-value">Under 164.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Tennessee St. @ SE Missouri St.</span>
+                        <span class="game-matchup">Dayton Flyers @ Gw Revolutionaries</span>
                         <span class="game-top-consensus">3x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 152.0</div>
                     <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">55%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">DAY +4</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">152.0</span>
+                            </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">3x</span>
                                 <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">TNST +3.5</span>
+                                <span class="pick-value">GW -3.5</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="College Basketball">
+                    <div class="game-header">
+                        <span class="sport-tag sport-ncaab">NCAAB</span>
+                        <span class="game-matchup">Coastal Chanticleers @ James Dukes</span>
+                        <span class="game-top-consensus">3x TOP</span>
+                    </div>
+                    <div class="game-info">8:00 PM ET | O/U 141.0</div>
+                    <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-medium">59%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">JMU -6</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">141.0</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">3x</span>
+                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
+                                <span class="pick-value">Over 139.5</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="College Basketball">
+                    <div class="game-header">
+                        <span class="sport-tag sport-ncaab">NCAAB</span>
+                        <span class="game-matchup">Yale Bulldogs @ Cornell Big</span>
+                        <span class="game-top-consensus">2x TOP</span>
+                    </div>
+                    <div class="game-info">6:00 PM ET | O/U 166.0</div>
+                    <div class="game-picks">
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-high">67%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">YALE -4</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">166.0</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">2x</span>
+                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
+                                <span class="pick-value">COR +4.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 154.5</span>
+                                <span class="pick-value">Under 165.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">ACU @ Utah Tech</span>
-                        <span class="game-top-consensus">3x TOP</span>
+                        <span class="game-matchup">Rider Broncs @ Iona Gaels</span>
+                        <span class="game-top-consensus">2x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 142.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">ACU +3.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Northern CO @ Eastern WA</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">EWU +1.5</span>
+                                <span class="consensus-badge consensus-high">60%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">IONA -12.5</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UNCO +1.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Old Dominion @ Georgia State</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Georgia State +1.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 147.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Rider @ Iona</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Iona -12.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">142.0</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
@@ -1386,339 +1222,554 @@
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Michigan @ Illinois</span>
-                        <span class="game-top-consensus">3x TOP</span>
+                        <span class="game-matchup">Georgia Eagles @ Marshall Thundering</span>
+                        <span class="game-top-consensus">2x TOP</span>
                     </div>
+                    <div class="game-info">9:00 PM ET | O/U 168.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Michigan -2</span>
+                                <span class="consensus-badge consensus-high">68%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">MRSH -7</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 157.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Merrimack @ Canisius</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Canisius +9.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">UL Monroe @ Troy</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">UL Monroe +19</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 156.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Mount St. Mary's @ Sacred Heart</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Sacred Heart -2.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 149.5</span>
-                            </div>
-                    </div>
-                </div>
-                <div class="game-card" data-sport="College Basketball">
-                    <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Harvard @ Princeton</span>
-                        <span class="game-top-consensus">3x TOP</span>
-                    </div>
-                    <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Harvard -5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">168.5</span>
                             </div>
                             <div class="pick-row">
                                 <span class="consensus-badge consensus-low">2x</span>
                                 <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 130.5</span>
+                                <span class="pick-value">Over 166.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Texas Tech @ Iowa State</span>
-                        <span class="game-top-consensus">3x TOP</span>
+                        <span class="game-matchup">Ul Warhawks @ Troy Trojans</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 155.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Iowa State -7.5</span>
+                                <span class="consensus-badge consensus-medium">58%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">ULM +19</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">155.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Brown @ Columbia</span>
-                        <span class="game-top-consensus">3x TOP</span>
+                        <span class="game-matchup">Dartmouth Big @ Pennsylvania Quakers</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 153.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 140.5</span>
+                                <span class="consensus-badge consensus-high">71%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">PENN -7</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">153.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Siena @ Fairfield</span>
-                        <span class="game-top-consensus">3x TOP</span>
+                        <span class="game-matchup">Brown Bears @ Columbia Lions</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 140.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">3x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 145.5</span>
+                                <span class="consensus-badge consensus-medium">54%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">CLMB -5.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">140.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Winthrop @ Charleston So</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Manhattan Jaspers @ Saint Peacocks</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 146.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 163.5</span>
+                                <span class="consensus-badge consensus-high">64%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">SPC -7.5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">146.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Tennessee Tech @ Tenn-Martin</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Merrimack Warriors @ Canisius Golden</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 131.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 134.5</span>
+                                <span class="consensus-badge consensus-medium">56%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">CAN +10</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">TNTC +8.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">131.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Florida A&M @ Southern</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Siena Saints @ Fairfield Stags</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 144.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">FAMU +9.5</span>
+                                <span class="consensus-badge consensus-medium">52%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">SIE -1</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">144.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Eastern Illinois @ Lindenwood</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Mount Mountaineers @ Sacred Pioneers</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 149.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">EIU +8.5</span>
+                                <span class="consensus-badge consensus-medium">57%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">SHU -3</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 144.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">149.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Portland St. @ Montana St.</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Akron Zips @ Kent Golden</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">8:00 PM ET | O/U 165.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">PRST +2.5</span>
+                                <span class="consensus-badge consensus-high">63%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">AKR -4</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 139.5</span>
-                            </div>
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">MTST -2.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">165.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Stetson @ Jacksonville</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Appalachian Mountaineers @ Texas Bobcats</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">8:00 PM ET | O/U 134.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Stetson +6.5</span>
+                                <span class="consensus-badge consensus-high">64%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">TXST -1</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">134.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">FDU @ Le Moyne</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Michigan Wolverines @ Illinois Fighting</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">8:00 PM ET | O/U 158.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">FDU +4.5</span>
+                                <span class="consensus-badge consensus-medium">59%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">MICH -2</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">158.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Virginia @ Duke</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Southern Golden @ South Jaguars</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">8:30 PM ET | O/U 142.0</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Virginia +9.5</span>
+                                <span class="consensus-badge consensus-high">73%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">USA -5</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">142.0</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Villanova @ St. John's</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Ul Ragin' @ Arkansas Red</span>
+                        <span class="game-top-consensus">1x TOP</span>
                     </div>
+                    <div class="game-info">8:30 PM ET | O/U 146.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">St. John's -5.5</span>
+                                <span class="consensus-badge consensus-high">64%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">ARST -14</span>
+                            </div>
+                            <div class="pick-row">
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">146.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Dayton @ George Washington</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Harvard Crimson @ Princeton Tigers</span>
+                        <span class="game-top-consensus"></span>
                     </div>
+                    <div class="game-info">7:00 PM ET | O/U 130.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Dayton +4.5</span>
+                                <span class="consensus-badge consensus-medium">56%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">HARV -4.5</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-over">Total (Over)</span>
-                                <span class="pick-value">Over 153.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">130.5</span>
                             </div>
                     </div>
                 </div>
                 <div class="game-card" data-sport="College Basketball">
                     <div class="game-header">
                         <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Quinnipiac @ Niagara</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="game-matchup">Old Monarchs @ Georgia Panthers</span>
+                        <span class="game-top-consensus"></span>
                     </div>
+                    <div class="game-info">7:30 PM ET | O/U 149.5</div>
                     <div class="game-picks">
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-spread">Spread (ATS)</span>
-                                <span class="pick-value">Niagara +8</span>
+                                <span class="consensus-badge consensus-high">61%</span>
+                                <span class="pick-type-badge pick-spread">Public Pick</span>
+                                <span class="pick-value">GAST +2</span>
                             </div>
                             <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 135.5</span>
+                                <span class="consensus-badge consensus-low">O/U</span>
+                                <span class="pick-type-badge pick-total-over">Total</span>
+                                <span class="pick-value">149.5</span>
                             </div>
                     </div>
                 </div>
-                <div class="game-card" data-sport="College Basketball">
+                <div class="game-card" data-sport="MLB">
                     <div class="game-header">
-                        <span class="sport-tag sport-ncaab">NCAAB</span>
-                        <span class="game-matchup">Miami (OH) @ Western Michigan</span>
-                        <span class="game-top-consensus">2x TOP</span>
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Toronto Blue Jays @ Tampa Bay Rays</span>
+                        <span class="game-top-consensus"></span>
                     </div>
+                    <div class="game-info">1:05 PM ET | O/U 9.5</div>
                     <div class="game-picks">
-                            <div class="pick-row">
-                                <span class="consensus-badge consensus-low">2x</span>
-                                <span class="pick-type-badge pick-total-under">Total (Under)</span>
-                                <span class="pick-value">Under 160.5</span>
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
                             </div>
                     </div>
                 </div>
-            </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">New York Yankees @ Minnesota Twins</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET | O/U 10.5</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Baltimore Orioles @ Pittsburgh Pirates</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Philadelphia Phillies @ Detroit Tigers</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Boston Red Sox @ Atlanta Braves</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET | O/U 10.0</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Miami Marlins @ Philadelphia Phillies</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">New York Mets @ St. Louis Cardinals</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">1:05 PM ET | O/U 8.5</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Los Angeles Dodgers @ San Francisco Giants</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Los Angeles Angels @ Cincinnati Reds</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Oakland Athletics @ Kansas City Royals</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Texas Rangers @ Chicago White Sox</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Cleveland Guardians @ Chicago Cubs</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Chicago White Sox @ Milwaukee Brewers</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:10 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">San Diego Padres @ Colorado Rockies</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">3:10 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Houston Astros @ Washington Nationals</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">6:05 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="game-card" data-sport="MLB">
+                    <div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Arizona Diamondbacks @ Seattle Mariners</span>
+                        <span class="game-top-consensus"></span>
+                    </div>
+                    <div class="game-info">8:10 PM ET</div>
+                    <div class="game-picks">
+                            <div class="pick-row" style="opacity:0.5;">
+                                <span class="consensus-badge consensus-low">--</span>
+                                <span class="pick-type-badge pick-spread">Awaiting</span>
+                                <span class="pick-value">No expert picks yet</span>
+                            </div>
+                    </div>
+                </div>
+        </div>
 
         <!-- Timestamp -->
         <div class="timestamp">
             <strong>Data Source:</strong> Covers.com Contest Leaderboards (Top 200 by UNITS)<br>
-            <strong>Last Updated:</strong> February 27, 2026 at 06:12 AM ET<br>
+            <strong>Last Updated:</strong> February 27, 2026 at 07:00 AM ET<br>
             <strong>Methodology:</strong> Picks grouped by game, sections sorted by highest consensus
         </div>
 
