@@ -612,7 +612,9 @@ class CoversConsensusScraper:
             # Warn about unresolved abbreviations so we can add them
             # Skip warning for names that are already valid (e.g., Duke, Yale, Troy)
             known_full_names = {'Duke', 'Yale', 'Penn', 'Troy', 'Rice', 'Navy', 'Army',
-                                'Utah', 'Iona', 'Ohio', 'Elon', 'Maine'}
+                                'Utah', 'Iona', 'Ohio', 'Elon', 'Maine', 'ACU', 'FDU',
+                                'SMU', 'UCF', 'BYU', 'LSU', 'TCU', 'USC', 'VCU', 'VMI',
+                                'UNLV', 'UTEP', 'UTSA', 'NJIT', 'UAB', 'ORU'}
             if away == parts[0] and parts[0] not in known_full_names:
                 print(f"    [WARN] Unknown team abbreviation: '{parts[0]}' (sport: {sport_code})")
             if home == parts[1] and parts[1] not in known_full_names:
