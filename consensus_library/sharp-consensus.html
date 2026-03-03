@@ -357,7 +357,7 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">22</div>
+                <div class="stat-number" id="topConsensus">26</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
@@ -414,39 +414,81 @@
     <script>
         const consensusData = [
         {
-                "count": 22,
+                "count": 26,
                 "sport": "NHL",
                 "matchup": "Tampa Bay @ Minnesota",
                 "pickType": "Moneyline",
-                "pick": "Minnesota ML (+111)"
+                "pick": "Minnesota ML (+122)"
         },
         {
-                "count": 21,
+                "count": 23,
                 "sport": "NHL",
                 "matchup": "Vegas @ Buffalo",
                 "pickType": "Moneyline",
                 "pick": "Buffalo ML (-137)"
         },
         {
-                "count": 20,
+                "count": 22,
                 "sport": "NHL",
-                "matchup": "Montreal @ San Jose",
+                "matchup": "Colorado @ Anaheim",
                 "pickType": "Moneyline",
-                "pick": "San Jose ML (+112)"
+                "pick": "Anaheim ML (+124)"
         },
         {
-                "count": 19,
+                "count": 21,
                 "sport": "NHL",
                 "matchup": "Ottawa @ Edmonton",
                 "pickType": "Total (Over)",
                 "pick": "Over 6.5"
         },
         {
-                "count": 17,
+                "count": 21,
+                "sport": "NHL",
+                "matchup": "Montreal @ San Jose",
+                "pickType": "Moneyline",
+                "pick": "San Jose ML (+112)"
+        },
+        {
+                "count": 18,
                 "sport": "NHL",
                 "matchup": "Vegas @ Buffalo",
                 "pickType": "Total (Over)",
                 "pick": "Over 6.0"
+        },
+        {
+                "count": 18,
+                "sport": "NHL",
+                "matchup": "Ottawa @ Edmonton",
+                "pickType": "Moneyline",
+                "pick": "Ottawa ML (+107)"
+        },
+        {
+                "count": 18,
+                "sport": "NHL",
+                "matchup": "Colorado @ Anaheim",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 18,
+                "sport": "NHL",
+                "matchup": "Chicago @ Winnipeg",
+                "pickType": "Moneyline",
+                "pick": "Winnipeg ML (-154)"
+        },
+        {
+                "count": 17,
+                "sport": "NHL",
+                "matchup": "Pittsburgh @ Boston",
+                "pickType": "Moneyline",
+                "pick": "Pittsburgh ML (+104)"
+        },
+        {
+                "count": 17,
+                "sport": "NHL",
+                "matchup": "Pittsburgh @ Boston",
+                "pickType": "Moneyline",
+                "pick": "Boston ML (-117)"
         },
         {
                 "count": 17,
@@ -465,58 +507,65 @@
         {
                 "count": 16,
                 "sport": "NHL",
-                "matchup": "Ottawa @ Edmonton",
+                "matchup": "Nashville @ Columbus",
                 "pickType": "Moneyline",
-                "pick": "Ottawa ML (+112)"
+                "pick": "Nashville ML (+122)"
         },
         {
                 "count": 16,
                 "sport": "NHL",
-                "matchup": "Chicago @ Winnipeg",
+                "matchup": "Utah @ Washington",
                 "pickType": "Moneyline",
-                "pick": "Winnipeg ML (-154)"
+                "pick": "Utah ML (+107)"
         },
         {
                 "count": 16,
-                "sport": "NHL",
-                "matchup": "Colorado @ Anaheim",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.5"
-        },
-        {
-                "count": 16,
-                "sport": "NHL",
-                "matchup": "Colorado @ Anaheim",
-                "pickType": "Moneyline",
-                "pick": "Anaheim ML (+124)"
-        },
-        {
-                "count": 15,
-                "sport": "NHL",
-                "matchup": "Pittsburgh @ Boston",
-                "pickType": "Moneyline",
-                "pick": "Pittsburgh ML (+104)"
-        },
-        {
-                "count": 15,
-                "sport": "NHL",
-                "matchup": "Ottawa @ Edmonton",
-                "pickType": "Moneyline",
-                "pick": "Edmonton ML (-125)"
-        },
-        {
-                "count": 14,
                 "sport": "NHL",
                 "matchup": "Chicago @ Winnipeg",
                 "pickType": "Moneyline",
                 "pick": "Chicago ML (+139)"
         },
         {
+                "count": 16,
+                "sport": "NHL",
+                "matchup": "Ottawa @ Edmonton",
+                "pickType": "Moneyline",
+                "pick": "Edmonton ML (-119)"
+        },
+        {
+                "count": 15,
+                "sport": "NHL",
+                "matchup": "Florida @ New Jersey",
+                "pickType": "Moneyline",
+                "pick": "Florida ML (-106)"
+        },
+        {
+                "count": 15,
+                "sport": "NHL",
+                "matchup": "Dallas @ Calgary",
+                "pickType": "Moneyline",
+                "pick": "Dallas ML (-126)"
+        },
+        {
                 "count": 14,
                 "sport": "NHL",
-                "matchup": "Pittsburgh @ Boston",
+                "matchup": "Vegas @ Buffalo",
                 "pickType": "Moneyline",
-                "pick": "Boston ML (-117)"
+                "pick": "Vegas ML (+123)"
+        },
+        {
+                "count": 14,
+                "sport": "NHL",
+                "matchup": "Florida @ New Jersey",
+                "pickType": "Moneyline",
+                "pick": "New Jersey ML (-103)"
+        },
+        {
+                "count": 14,
+                "sport": "NHL",
+                "matchup": "Nashville @ Columbus",
+                "pickType": "Moneyline",
+                "pick": "CLB ML (-131)"
         },
         {
                 "count": 13,
@@ -528,65 +577,30 @@
         {
                 "count": 13,
                 "sport": "NHL",
-                "matchup": "Nashville @ Columbus",
-                "pickType": "Moneyline",
-                "pick": "Nashville ML (+122)"
-        },
-        {
-                "count": 13,
-                "sport": "NHL",
                 "matchup": "Dallas @ Calgary",
                 "pickType": "Moneyline",
-                "pick": "Dallas ML (-126)"
+                "pick": "Calgary ML (+116)"
         },
         {
                 "count": 12,
-                "sport": "NHL",
-                "matchup": "Florida @ New Jersey",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.0"
-        },
-        {
-                "count": 12,
-                "sport": "NHL",
-                "matchup": "Utah @ Washington",
-                "pickType": "Moneyline",
-                "pick": "Utah ML (+107)"
-        },
-        {
-                "count": 12,
-                "sport": "NHL",
-                "matchup": "Florida @ New Jersey",
-                "pickType": "Moneyline",
-                "pick": "Florida ML (-106)"
-        },
-        {
-                "count": 12,
-                "sport": "NHL",
-                "matchup": "Nashville @ Columbus",
-                "pickType": "Moneyline",
-                "pick": "CLB ML (-131)"
-        },
-        {
-                "count": 12,
-                "sport": "NHL",
-                "matchup": "Florida @ New Jersey",
-                "pickType": "Moneyline",
-                "pick": "New Jersey ML (-103)"
-        },
-        {
-                "count": 11,
-                "sport": "NBA",
-                "matchup": "Detroit @ Cleveland",
-                "pickType": "Spread (ATS)",
-                "pick": "Detroit -1.5"
-        },
-        {
-                "count": 11,
                 "sport": "NHL",
                 "matchup": "Nashville @ Columbus",
                 "pickType": "Total (Over)",
                 "pick": "Over 6.5"
+        },
+        {
+                "count": 12,
+                "sport": "NHL",
+                "matchup": "Montreal @ San Jose",
+                "pickType": "Moneyline",
+                "pick": "Montreal ML (-127)"
+        },
+        {
+                "count": 11,
+                "sport": "NHL",
+                "matchup": "Florida @ New Jersey",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.0"
         },
         {
                 "count": 11,
@@ -598,9 +612,16 @@
         {
                 "count": 11,
                 "sport": "NHL",
-                "matchup": "Vegas @ Buffalo",
-                "pickType": "Moneyline",
-                "pick": "Vegas ML (+123)"
+                "matchup": "Dallas @ Calgary",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "New York @ Toronto",
+                "pickType": "Total (Under)",
+                "pick": "Under 223.5"
         },
         {
                 "count": 10,
@@ -608,6 +629,20 @@
                 "matchup": "New Orleans @ L.A. Lakers",
                 "pickType": "Spread (ATS)",
                 "pick": "New Orleans +8.5"
+        },
+        {
+                "count": 10,
+                "sport": "NBA",
+                "matchup": "Detroit @ Cleveland",
+                "pickType": "Spread (ATS)",
+                "pick": "Detroit -1.5"
+        },
+        {
+                "count": 10,
+                "sport": "NHL",
+                "matchup": "Utah @ Washington",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.0"
         },
         {
                 "count": 10,
@@ -619,44 +654,51 @@
         {
                 "count": 10,
                 "sport": "NHL",
-                "matchup": "Dallas @ Calgary",
-                "pickType": "Moneyline",
-                "pick": "Calgary ML (+118)"
-        },
-        {
-                "count": 9,
-                "sport": "NBA",
-                "matchup": "New York @ Toronto",
-                "pickType": "Total (Under)",
-                "pick": "Under 223.5"
-        },
-        {
-                "count": 9,
-                "sport": "NHL",
-                "matchup": "Utah @ Washington",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.0"
-        },
-        {
-                "count": 9,
-                "sport": "NHL",
                 "matchup": "Tampa Bay @ Minnesota",
                 "pickType": "Total (Over)",
                 "pick": "Over 6.0"
         },
         {
-                "count": 9,
+                "count": 10,
                 "sport": "NHL",
-                "matchup": "Dallas @ Calgary",
-                "pickType": "Total (Over)",
-                "pick": "Over 5.5"
+                "matchup": "Florida @ New Jersey",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.0"
+        },
+        {
+                "count": 10,
+                "sport": "NHL",
+                "matchup": "Chicago @ Winnipeg",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
+        },
+        {
+                "count": 9,
+                "sport": "NBA",
+                "matchup": "San Antonio @ Philadelphia",
+                "pickType": "Spread (ATS)",
+                "pick": "Philadelphia +7.5"
+        },
+        {
+                "count": 9,
+                "sport": "NBA",
+                "matchup": "Washington @ Orlando",
+                "pickType": "Spread (ATS)",
+                "pick": "Washington +15.5"
+        },
+        {
+                "count": 9,
+                "sport": "NBA",
+                "matchup": "New York @ Toronto",
+                "pickType": "Spread (ATS)",
+                "pick": "Toronto +2.5"
         },
         {
                 "count": 9,
                 "sport": "NHL",
-                "matchup": "Montreal @ San Jose",
-                "pickType": "Moneyline",
-                "pick": "Montreal ML (-127)"
+                "matchup": "Pittsburgh @ Boston",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
         },
         {
                 "count": 8,
@@ -668,37 +710,30 @@
         {
                 "count": 8,
                 "sport": "NBA",
-                "matchup": "Washington @ Orlando",
-                "pickType": "Spread (ATS)",
-                "pick": "Washington +15.5"
-        },
-        {
-                "count": 8,
-                "sport": "NBA",
-                "matchup": "New York @ Toronto",
-                "pickType": "Spread (ATS)",
-                "pick": "Toronto +2.5"
-        },
-        {
-                "count": 8,
-                "sport": "NBA",
                 "matchup": "Oklahoma City @ Chicago",
                 "pickType": "Spread (ATS)",
                 "pick": "Oklahoma City -10.5"
         },
         {
                 "count": 8,
-                "sport": "NBA",
-                "matchup": "Phoenix @ Sacramento",
+                "sport": "NHL",
+                "matchup": "Tampa Bay @ Minnesota",
+                "pickType": "Moneyline",
+                "pick": "Tampa Bay ML (-125)"
+        },
+        {
+                "count": 8,
+                "sport": "College Basketball",
+                "matchup": "Nebraska @ UCLA",
                 "pickType": "Spread (ATS)",
-                "pick": "Phoenix -10.5"
+                "pick": "UCLA +1.5"
         },
         {
                 "count": 7,
                 "sport": "NBA",
                 "matchup": "Brooklyn @ Miami",
                 "pickType": "Spread (ATS)",
-                "pick": "Miami -13"
+                "pick": "Miami -12.5"
         },
         {
                 "count": 7,
@@ -710,51 +745,79 @@
         {
                 "count": 7,
                 "sport": "NBA",
-                "matchup": "San Antonio @ Philadelphia",
+                "matchup": "Memphis @ Minnesota",
+                "pickType": "Total (Under)",
+                "pick": "Under 237.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Oklahoma City @ Chicago",
                 "pickType": "Spread (ATS)",
-                "pick": "Philadelphia +7.5"
+                "pick": "Chicago +10.5"
         },
         {
                 "count": 7,
                 "sport": "NBA",
                 "matchup": "San Antonio @ Philadelphia",
                 "pickType": "Total (Over)",
-                "pick": "Over 232.5"
+                "pick": "Over 234"
         },
         {
                 "count": 7,
-                "sport": "NHL",
-                "matchup": "Tampa Bay @ Minnesota",
-                "pickType": "Moneyline",
-                "pick": "Tampa Bay ML (-125)"
-        },
-        {
-                "count": 7,
-                "sport": "NHL",
-                "matchup": "Florida @ New Jersey",
+                "sport": "NBA",
+                "matchup": "Phoenix @ Sacramento",
                 "pickType": "Total (Under)",
-                "pick": "Under 6.0"
+                "pick": "Under 223.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "New Orleans @ L.A. Lakers",
+                "pickType": "Spread (ATS)",
+                "pick": "L.A. Lakers -8.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Washington @ Orlando",
+                "pickType": "Spread (ATS)",
+                "pick": "Orlando -15.5"
+        },
+        {
+                "count": 7,
+                "sport": "NBA",
+                "matchup": "Phoenix @ Sacramento",
+                "pickType": "Spread (ATS)",
+                "pick": "Phoenix -10.5"
         },
         {
                 "count": 7,
                 "sport": "NHL",
-                "matchup": "Chicago @ Winnipeg",
+                "matchup": "Dallas @ Calgary",
                 "pickType": "Total (Under)",
                 "pick": "Under 5.5"
         },
         {
-                "count": 6,
-                "sport": "NBA",
-                "matchup": "Memphis @ Minnesota",
-                "pickType": "Total (Under)",
-                "pick": "Under 237.5"
+                "count": 7,
+                "sport": "College Basketball",
+                "matchup": "Vanderbilt @ Mississippi",
+                "pickType": "Spread (ATS)",
+                "pick": "Mississippi +10.5"
         },
         {
                 "count": 6,
                 "sport": "NBA",
-                "matchup": "Oklahoma City @ Chicago",
+                "matchup": "Dallas @ Charlotte",
                 "pickType": "Spread (ATS)",
-                "pick": "Chicago +10.5"
+                "pick": "Charlotte -12.5"
+        },
+        {
+                "count": 6,
+                "sport": "NBA",
+                "matchup": "Detroit @ Cleveland",
+                "pickType": "Total (Under)",
+                "pick": "Under 228.5"
         },
         {
                 "count": 6,
@@ -762,6 +825,13 @@
                 "matchup": "Oklahoma City @ Chicago",
                 "pickType": "Total (Under)",
                 "pick": "Under 227.5"
+        },
+        {
+                "count": 6,
+                "sport": "NBA",
+                "matchup": "Washington @ Orlando",
+                "pickType": "Total (Over)",
+                "pick": "Over 227.5"
         },
         {
                 "count": 6,
@@ -773,9 +843,9 @@
         {
                 "count": 6,
                 "sport": "NBA",
-                "matchup": "Phoenix @ Sacramento",
+                "matchup": "San Antonio @ Philadelphia",
                 "pickType": "Total (Under)",
-                "pick": "Under 223.5"
+                "pick": "Under 232.5"
         },
         {
                 "count": 6,
@@ -787,44 +857,65 @@
         {
                 "count": 6,
                 "sport": "NBA",
-                "matchup": "New Orleans @ L.A. Lakers",
-                "pickType": "Spread (ATS)",
-                "pick": "L.A. Lakers -8.5"
+                "matchup": "Washington @ Orlando",
+                "pickType": "Total (Under)",
+                "pick": "Under 227.5"
         },
         {
                 "count": 6,
                 "sport": "NBA",
-                "matchup": "Washington @ Orlando",
+                "matchup": "Brooklyn @ Miami",
                 "pickType": "Spread (ATS)",
-                "pick": "Orlando -15.5"
+                "pick": "Brooklyn +13.5"
+        },
+        {
+                "count": 6,
+                "sport": "NBA",
+                "matchup": "New Orleans @ L.A. Lakers",
+                "pickType": "Total (Under)",
+                "pick": "Under 242.5"
+        },
+        {
+                "count": 6,
+                "sport": "NBA",
+                "matchup": "Dallas @ Charlotte",
+                "pickType": "Total (Under)",
+                "pick": "Under 231.5"
         },
         {
                 "count": 6,
                 "sport": "NHL",
-                "matchup": "Pittsburgh @ Boston",
+                "matchup": "Utah @ Washington",
                 "pickType": "Total (Under)",
-                "pick": "Under 6.5"
+                "pick": "Under 6.0"
+        },
+        {
+                "count": 6,
+                "sport": "NHL",
+                "matchup": "Tampa Bay @ Minnesota",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.0"
         },
         {
                 "count": 6,
                 "sport": "NHL",
                 "matchup": "Colorado @ Anaheim",
                 "pickType": "Moneyline",
-                "pick": "Colorado ML (-147)"
+                "pick": "Colorado ML (-135)"
         },
         {
                 "count": 6,
                 "sport": "College Basketball",
-                "matchup": "Nebraska @ UCLA",
+                "matchup": "George Mason @ VCU",
                 "pickType": "Spread (ATS)",
-                "pick": "UCLA +1.5"
+                "pick": "GMU +11.5"
         },
         {
                 "count": 6,
                 "sport": "College Basketball",
-                "matchup": "Vanderbilt @ Mississippi",
-                "pickType": "Spread (ATS)",
-                "pick": "Mississippi +10.5"
+                "matchup": "UL Monroe @ Old Dominion",
+                "pickType": "Total (Under)",
+                "pick": "Under 159.5"
         },
         {
                 "count": 6,
@@ -843,23 +934,9 @@
         {
                 "count": 6,
                 "sport": "College Basketball",
-                "matchup": "Gtwn @ St. John's",
-                "pickType": "Spread (ATS)",
-                "pick": "St. John's -16.5"
-        },
-        {
-                "count": 6,
-                "sport": "College Basketball",
                 "matchup": "Ohio @ Massachusetts",
                 "pickType": "Spread (ATS)",
-                "pick": "UMass -2.5"
-        },
-        {
-                "count": 5,
-                "sport": "NBA",
-                "matchup": "Detroit @ Cleveland",
-                "pickType": "Total (Under)",
-                "pick": "Under 228.5"
+                "pick": "UMass -2"
         },
         {
                 "count": 5,
@@ -871,51 +948,100 @@
         {
                 "count": 5,
                 "sport": "NBA",
-                "matchup": "San Antonio @ Philadelphia",
-                "pickType": "Total (Under)",
-                "pick": "Under 232.5"
+                "matchup": "New York @ Toronto",
+                "pickType": "Total (Over)",
+                "pick": "Over 223.5"
         },
         {
                 "count": 5,
                 "sport": "NBA",
-                "matchup": "Brooklyn @ Miami",
+                "matchup": "Phoenix @ Sacramento",
                 "pickType": "Spread (ATS)",
-                "pick": "Brooklyn +13.5"
+                "pick": "Sacramento +10.5"
         },
         {
                 "count": 5,
                 "sport": "NBA",
-                "matchup": "New Orleans @ L.A. Lakers",
-                "pickType": "Total (Under)",
-                "pick": "Under 235.5"
+                "matchup": "Detroit @ Cleveland",
+                "pickType": "Spread (ATS)",
+                "pick": "Cleveland +1.5"
         },
         {
                 "count": 5,
                 "sport": "NBA",
-                "matchup": "Dallas @ Charlotte",
-                "pickType": "Total (Under)",
-                "pick": "Under 231.5"
+                "matchup": "Memphis @ Minnesota",
+                "pickType": "Spread (ATS)",
+                "pick": "Minnesota -13.5"
         },
         {
                 "count": 5,
                 "sport": "NHL",
-                "matchup": "Utah @ Washington",
+                "matchup": "Vegas @ Buffalo",
                 "pickType": "Total (Under)",
                 "pick": "Under 6.0"
         },
         {
                 "count": 5,
                 "sport": "NHL",
-                "matchup": "Tampa Bay @ Minnesota",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.0"
+                "matchup": "Nas @ Columbus",
+                "pickType": "Moneyline",
+                "pick": "Columbus ML (-133)"
         },
         {
                 "count": 5,
                 "sport": "College Basketball",
-                "matchup": "UL Monroe @ Old Dominion",
-                "pickType": "Total (Under)",
-                "pick": "Under 159.5"
+                "matchup": "Alabama @ Georgia",
+                "pickType": "Total (Over)",
+                "pick": "Over 178.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Kansas @ Arizona State",
+                "pickType": "Spread (ATS)",
+                "pick": "KU -5.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Nevada @ Wyoming",
+                "pickType": "Total (Over)",
+                "pick": "Over 143.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Tennessee @ South Carolina",
+                "pickType": "Total (Over)",
+                "pick": "Over 144.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Alabama @ Georgia",
+                "pickType": "Spread (ATS)",
+                "pick": "Alabama -1.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Texas Christian @ Texas Tech",
+                "pickType": "Spread (ATS)",
+                "pick": "TCU +10.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Nebraska @ UCLA",
+                "pickType": "Spread (ATS)",
+                "pick": "Nebraska +1.5"
+        },
+        {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Tennessee @ South Carolina",
+                "pickType": "Spread (ATS)",
+                "pick": "Tennessee -8.5"
         },
         {
                 "count": 5,
@@ -923,13 +1049,6 @@
                 "matchup": "Clemson @ North Carolina",
                 "pickType": "Spread (ATS)",
                 "pick": "North Carolina -3.5"
-        },
-        {
-                "count": 5,
-                "sport": "College Basketball",
-                "matchup": "Monm @ New England",
-                "pickType": "Spread (ATS)",
-                "pick": "Monm -3.5"
         },
         {
                 "count": 5,
@@ -946,23 +1065,16 @@
                 "pick": "Ole Miss +6.5"
         },
         {
+                "count": 5,
+                "sport": "College Basketball",
+                "matchup": "Alabama @ Uga",
+                "pickType": "Total (Over)",
+                "pick": "Over 178.5"
+        },
+        {
                 "count": 4,
                 "sport": "NBA",
                 "matchup": "Detroit @ Cleveland",
-                "pickType": "Total (Over)",
-                "pick": "Over 227.5"
-        },
-        {
-                "count": 4,
-                "sport": "NBA",
-                "matchup": "Dallas @ Charlotte",
-                "pickType": "Spread (ATS)",
-                "pick": "Charlotte -12.5"
-        },
-        {
-                "count": 4,
-                "sport": "NBA",
-                "matchup": "Washington @ Orlando",
                 "pickType": "Total (Over)",
                 "pick": "Over 227.5"
         },
@@ -976,44 +1088,23 @@
         {
                 "count": 4,
                 "sport": "NBA",
-                "matchup": "Washington @ Orlando",
-                "pickType": "Total (Under)",
-                "pick": "Under 227.5"
-        },
-        {
-                "count": 4,
-                "sport": "NBA",
-                "matchup": "Phoenix @ Sacramento",
-                "pickType": "Spread (ATS)",
-                "pick": "Sacramento +10.5"
-        },
-        {
-                "count": 4,
-                "sport": "NBA",
-                "matchup": "Detroit @ Cleveland",
-                "pickType": "Spread (ATS)",
-                "pick": "Cleveland +1.5"
+                "matchup": "Brooklyn @ Miami",
+                "pickType": "Total (Over)",
+                "pick": "Over 226.5"
         },
         {
                 "count": 4,
                 "sport": "NHL",
-                "matchup": "Dallas @ Calgary",
+                "matchup": "Ottawa @ Edmonton",
                 "pickType": "Total (Under)",
-                "pick": "Under 5.5"
+                "pick": "Under 6.5"
         },
         {
                 "count": 4,
                 "sport": "NHL",
-                "matchup": "Vegas @ Buffalo",
+                "matchup": "Montreal @ San Jose",
                 "pickType": "Total (Under)",
-                "pick": "Under 6.0"
-        },
-        {
-                "count": 4,
-                "sport": "NHL",
-                "matchup": "Nas @ Columbus",
-                "pickType": "Moneyline",
-                "pick": "Columbus ML (-135)"
+                "pick": "Under 6.5"
         },
         {
                 "count": 4,
@@ -1021,97 +1112,6 @@
                 "matchup": "Los Angeles @ Columbus",
                 "pickType": "Moneyline",
                 "pick": "Columbus ML (+113)"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Missouri @ Oklahoma",
-                "pickType": "Spread (ATS)",
-                "pick": "MIZZ +3.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Tennessee @ South Carolina",
-                "pickType": "Total (Over)",
-                "pick": "Over 144.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Nebraska @ UCLA",
-                "pickType": "Total (Over)",
-                "pick": "Over 141.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Ohio @ Massachusetts",
-                "pickType": "Total (Under)",
-                "pick": "Under 156.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Akron @ Central Michigan",
-                "pickType": "Spread (ATS)",
-                "pick": "Akron -11"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Oklahoma State @ UCF",
-                "pickType": "Spread (ATS)",
-                "pick": "UCF -9.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Alby @ Uvm",
-                "pickType": "Spread (ATS)",
-                "pick": "Uvm -7.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "NC A&T @ Campbell",
-                "pickType": "Spread (ATS)",
-                "pick": "Campbell -7.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Georgia State @ Louisiana",
-                "pickType": "Spread (ATS)",
-                "pick": "Louisiana +1"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Kent State @ Northern Illinois",
-                "pickType": "Spread (ATS)",
-                "pick": "Kent State -9.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Alabama @ Uga",
-                "pickType": "Total (Over)",
-                "pick": "Over 178.5"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Vanderbilt @ Ole Miss",
-                "pickType": "Total (Over)",
-                "pick": "Over 150"
-        },
-        {
-                "count": 4,
-                "sport": "College Basketball",
-                "matchup": "Grambling @ Aamu",
-                "pickType": "Total (Under)",
-                "pick": "Under 139.5"
         }
 ];
 
