@@ -42,6 +42,116 @@ DATE_DISPLAY = TODAY.strftime("%B %d, %Y")
 DATE_FULL = TODAY.strftime("%A, %B %d, %Y")
 
 
+# ESPN sport mapping for schedule lookups
+ESPN_SPORT_MAP = {
+    'NHL': ('hockey', 'nhl'),
+    'NBA': ('basketball', 'nba'),
+    'NFL': ('football', 'nfl'),
+    'College Basketball': ('basketball', 'mens-college-basketball'),
+    'College Football': ('football', 'college-football'),
+}
+
+
+def fetch_espn_schedule():
+    """Fetch today's games from ESPN scoreboard API for all active sports.
+    Returns dict: {sport_name: [(away_display, home_display), ...]}"""
+    schedule = {}
+    today_str = TODAY.strftime("%Y%m%d")
+
+    for sport_name, (league, sport_path) in ESPN_SPORT_MAP.items():
+        url = f"https://site.api.espn.com/apis/site/v2/sports/{league}/{sport_path}/scoreboard?dates={today_str}"
+        try:
+            resp = requests.get(url, timeout=15)
+            resp.raise_for_status()
+            data = resp.json()
+            games = []
+            for event in data.get('events', []):
+                competitors = event.get('competitions', [{}])[0].get('competitors', [])
+                if len(competitors) == 2:
+                    away = home = None
+                    for c in competitors:
+                        name = c.get('team', {}).get('displayName', '')
+                        if c.get('homeAway') == 'away':
+                            away = name
+                        else:
+                            home = name
+                    if away and home:
+                        games.append((away, home))
+            schedule[sport_name] = games
+            if games:
+                print(f"    ESPN {sport_name}: {len(games)} games today")
+        except Exception as e:
+            print(f"    ESPN {sport_name}: error fetching schedule ({e})")
+            # If ESPN fails for a sport, don't filter that sport at all
+            schedule[sport_name] = None
+
+    return schedule
+
+
+# Common abbreviation expansions for team name matching
+_TEAM_EXPANSIONS = {
+    'ny': 'new york', 'l.a.': 'los angeles', 'la': 'los angeles',
+}
+
+
+def _normalize_for_match(name):
+    """Normalize a team name for fuzzy matching.
+    Strips periods, replaces hyphens with spaces, strips qualifiers like (FL)/(OH)."""
+    n = name.lower().strip()
+    n = n.replace('.', '')     # L.A. -> LA, St. -> St
+    n = n.replace('-', ' ')    # Loyola-Chicago -> Loyola Chicago, Miami-Florida -> Miami Florida
+    n = re.sub(r'\s*\(.*?\)', '', n)  # Miami (FL) -> Miami
+    n = re.sub(r'\s+', ' ', n).strip()
+    return n
+
+
+def _team_matches(covers_name, espn_name):
+    """Check if a Covers team name matches an ESPN team name.
+    Handles: periods (L.A. vs LA), hyphens (Loyola-Chicago vs Loyola Chicago),
+    qualifiers (Miami-Florida vs Miami Hurricanes), abbreviations (NY vs New York)."""
+    c = _normalize_for_match(covers_name)
+    e = _normalize_for_match(espn_name)
+
+    # Direct substring match after normalization
+    if c in e or e in c:
+        return True
+
+    # Try expanding common abbreviations in the Covers name
+    for abbr, full in _TEAM_EXPANSIONS.items():
+        if c.startswith(abbr + ' ') or c == abbr:
+            expanded = full + c[len(abbr):]
+            if expanded in e or e in expanded:
+                return True
+
+    # Try first word match (covers "Miami Florida" vs "Miami Hurricanes")
+    c_first = c.split()[0] if c.split() else c
+    e_first = e.split()[0] if e.split() else e
+    if len(c_first) >= 4 and (c_first == e_first or c_first in e or e_first in c):
+        return True
+
+    return False
+
+
+def is_game_on_today(matchup, espn_games):
+    """Check if a Covers matchup (e.g. 'St. Louis @ Seattle') is on today's ESPN schedule.
+    espn_games is a list of (away_display, home_display) tuples from ESPN.
+    Returns True if the matchup is found, or if espn_games is None (ESPN failed)."""
+    if espn_games is None:
+        return True  # Don't filter if ESPN data unavailable
+
+    covers_parts = matchup.split(' @ ')
+    if len(covers_parts) != 2:
+        return True  # Can't parse, keep it
+    covers_away = covers_parts[0].strip()
+    covers_home = covers_parts[1].strip()
+
+    for espn_away, espn_home in espn_games:
+        if _team_matches(covers_away, espn_away) and _team_matches(covers_home, espn_home):
+            return True
+
+    return False
+
+
 class CoversConsensusScraper:
     """Scrape Covers.com King of Covers contests"""
 
@@ -1241,6 +1351,27 @@ def main():
     if not picks:
         print("\n[ERROR] No picks found - skipping update")
         return 1
+
+    # 1b. Filter picks to today's games only (ESPN cross-reference)
+    print("\n[1b] Filtering to today's games only (ESPN schedule)...")
+    espn_schedule = fetch_espn_schedule()
+    original_count = len(picks)
+    original_games = len(group_picks_by_game(picks))
+    filtered_picks = []
+    filtered_out = set()
+    for pick in picks:
+        sport = pick['sport']
+        matchup = pick['matchup']
+        espn_games = espn_schedule.get(sport)
+        if is_game_on_today(matchup, espn_games):
+            filtered_picks.append(pick)
+        else:
+            if (sport, matchup) not in filtered_out:
+                filtered_out.add((sport, matchup))
+                print(f"    FILTERED: {sport} - {matchup} (not on today's ESPN schedule)")
+    picks = filtered_picks
+    new_games = len(group_picks_by_game(picks))
+    print(f"    Filtered {original_count - len(picks)} picks ({original_games - new_games} games) not on today's schedule")
 
     # 2. Update covers-consensus.html (game cards layout)
     print("\n[2] Updating covers-consensus.html (game cards)...")
