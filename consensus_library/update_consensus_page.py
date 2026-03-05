@@ -13,7 +13,7 @@ from datetime import datetime
 
 # Configuration
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SCRAPER_PATH = r"C:\Users\Nima\Desktop\Scripts\covers_contest_scraper.py"
+SCRAPER_PATH = r"C:\Users\Nima\run_covers_scraper.py"
 REPO_PATH = r"C:\Users\Nima\sportsbettingprime"
 
 def run_command(cmd, cwd=None):
