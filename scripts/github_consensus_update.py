@@ -741,8 +741,8 @@ class CoversConsensusScraper:
 
         return raw
 
-    def get_leaderboard(self, sport_code, pages=4):
-        """Fetch top contestants from leaderboard - 4 pages = ~200 contestants"""
+    def get_leaderboard(self, sport_code, pages=1):
+        """Fetch top contestants from leaderboard - 1 page = top 50 contestants"""
         print(f"\n  Fetching {self.sports.get(sport_code, sport_code)} leaderboard...")
         contestants = []
 
@@ -802,7 +802,7 @@ class CoversConsensusScraper:
                 unique.append(c)
 
         print(f"    Found {len(unique)} unique contestants (from {len(contestants)} total)")
-        return unique[:100]  # Return top 100 (sharper picks)
+        return unique[:50]  # Top 50 ranked contestants only
 
     def get_contestant_picks(self, contestant, sport):
         """Get pending picks for a contestant"""
@@ -914,10 +914,10 @@ class CoversConsensusScraper:
             print(f"\n[{sport_name}]")
 
             # 1. Scrape King of Covers contestants (expert picks)
-            contestants = self.get_leaderboard(sport_code, pages=4)  # 4 pages = ~200 contestants
+            contestants = self.get_leaderboard(sport_code, pages=1)  # Top 50 ranked contestants
 
             picks_found = 0
-            for i, contestant in enumerate(contestants[:200], 1):  # Process top 200
+            for i, contestant in enumerate(contestants[:50], 1):  # Process top 50
                 picks = self.get_contestant_picks(contestant, sport_name)
 
                 if picks:
