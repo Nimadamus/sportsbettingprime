@@ -700,6 +700,14 @@ class CoversConsensusScraper:
             'Sela': 'SE Louisiana', 'Mcn': 'McNeese', 'Nic': 'Nicholls',
             'Abil': 'Abilene Christian', 'Tar': 'Tarleton State',
             'Utrgv': 'UT Rio Grande Valley', 'Siu': 'Southern Illinois',
+            # Added March 6, 2026 - from WARN output
+            'Hp': 'High Point', 'Pre': 'Presbyterian', 'Rad': 'Radford',
+            'Sdsu': 'San Diego State', 'Mizz': 'Missouri',
+            'Neom': 'Nebraska Omaha', 'Fgcu': 'Florida Gulf Coast',
+            'Lip': 'Lipscomb', 'Wsu': 'Wichita State',
+            'Hall': 'Seton Hall', 'Bell': 'Bellarmine',
+            'Cark': 'Central Arkansas', 'Und': 'North Dakota',
+            'Bgsu': 'Bowling Green', 'Wvu': 'West Virginia',
         }
 
         # Sport-specific overrides for abbreviation collisions
