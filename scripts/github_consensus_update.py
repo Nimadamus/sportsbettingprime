@@ -1238,10 +1238,18 @@ def update_sharp_consensus(picks):
         html
     )
 
-    # Update date displays
+    # Update date displays (matches any year, not just 2025)
     html = re.sub(
-        r'(December|January|February|March|April|May|June|July|August|September|October|November) \d{2}, 2025',
+        r'(December|January|February|March|April|May|June|July|August|September|October|November) \d{2}, 20\d{2}',
         DATE_DISPLAY,
+        html
+    )
+
+    # Update the "Data from" timestamp
+    time_now = TODAY.strftime('%I:%M %p EST')
+    html = re.sub(
+        r'<span id="updateTime">[^<]+</span>',
+        f'<span id="updateTime">{DATE_DISPLAY} - {time_now}</span>',
         html
     )
 
