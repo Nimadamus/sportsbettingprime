@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Handicapping Hub PREVIEW - March 06, 2026 | BetLegend</title>
+    <title>Handicapping Hub PREVIEW - March 06, 2026 | Sports Betting Prime</title>
     <meta name="description" content="PREVIEW VERSION - Enhanced with advanced stats and situational data">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -19,183 +19,101 @@
         }
 
 
-        /* ==================== NAVIGATION ==================== */
-        .nav-container {
+        /* ==================== NAVIGATION (SBP) ==================== */
+        .sbp-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             background: rgba(10, 10, 30, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 2px solid #00f5ff;
-            padding: 0 30px;
-            box-shadow: 0 4px 30px rgba(0, 245, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.15);
         }
-        .nav-inner {
-            max-width: 1600px;
+        .sbp-nav {
+            max-width: 1320px;
             margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 56px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding: 15px 20px 15px 200px;
+            justify-content: space-between;
         }
-        .logo {
-            position: fixed;
-            top: 15px;
-            left: 20px;
-            z-index: 1001;
+        .sbp-logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            text-decoration: none;
-            color: #00f5ff;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
-        }
-        .logo span { color: #ff6b35; text-shadow: 0 0 20px rgba(255, 107, 53, 0.5); }
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: nowrap;
-        }
-        .nav-link {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 800;
             color: #e0e0e0;
+            letter-spacing: 1px;
             text-decoration: none;
-            padding: 12px 18px;
+        }
+        .sbp-logo span { color: #00f5ff; }
+        .sbp-nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+        }
+        .sbp-nav-links a {
+            color: #94a3b8;
+            padding: 0.5rem 0.65rem;
+            font-weight: 600;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .nav-link:hover {
-            color: #ffd700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        .dropdown {
+            letter-spacing: 0.3px;
             position: relative;
-            display: inline-flex;
-            align-items: center;
+            transition: color 0.2s;
+            white-space: nowrap;
+            text-decoration: none;
         }
-        .dropdown .dropbtn {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #e0e0e0;
+        .sbp-nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0.65rem; right: 0.65rem;
+            height: 2px;
+            background: #00f5ff;
+            transform: scaleX(0);
+            transition: transform 0.2s;
+        }
+        .sbp-nav-links a:hover,
+        .sbp-nav-links a.active { color: #e0e0e0; }
+        .sbp-nav-links a:hover::after,
+        .sbp-nav-links a.active::after { transform: scaleX(1); }
+        .live-dot {
+            display: inline-block;
+            width: 6px; height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            margin-left: 3px;
+            vertical-align: middle;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .mobile-menu-btn {
+            display: none;
             background: none;
             border: none;
-            padding: 12px 18px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            padding: 0.5rem;
+            z-index: 1001;
         }
-        .dropdown:hover .dropbtn,
-        .dropdown.active .dropbtn {
-            color: #ffd700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            min-width: 220px;
-            background: rgba(10, 10, 30, 0.98);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 245, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 10px;
-            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3);
-            z-index: 99999;
-        }
-        .dropdown-content a {
+        .mobile-menu-btn span {
             display: block;
-            padding: 12px 16px;
-            color: #00f5ff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            border-left: 3px solid transparent;
-            transition: all 0.2s ease;
+            width: 24px; height: 2px;
+            background: #e0e0e0;
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
         }
-        .dropdown-content a:hover {
-            background: rgba(0, 245, 255, 0.1);
-            padding-left: 22px;
-            border-left-color: #00f5ff;
-            color: #fff;
-        }
-        .sports-records-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            min-width: 420px;
-            background: rgba(10, 10, 30, 0.98);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 245, 255, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 10px;
-            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3);
-            z-index: 99999;
-        }
-        .dropdown.active .dropdown-content,
-        .dropdown.active .sports-records-dropdown {
-            display: block;
-        }
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        .column h4 {
-            color: #0a0a1a;
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-        }
-        .column a {
-            display: block;
-            color: #fff;
-            padding: 10px 15px;
-            margin: 4px 0;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 6px;
-            background: rgba(0, 245, 255, 0.05);
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            transition: all 0.25s ease;
-        }
-        .column a:hover {
-            color: #fff;
-            background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(0, 245, 255, 0.1));
-            border-color: #00f5ff;
-        }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
         .header {
             background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4a 50%, #0a0a2a 100%);
             color: white;
-            padding: 90px 20px 35px;
+            padding: 76px 20px 35px;
             text-align: center;
             border-bottom: 3px solid #00f5ff;
             position: relative;
@@ -658,183 +576,58 @@
         footer strong { color: #00f5ff; }
 
         @media (max-width: 768px) {
-            .nav-menu {
-                gap: 5px;
-                flex-wrap: nowrap;
+            .mobile-menu-btn { display: block; }
+            .sbp-nav-links {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(10, 10, 30, 0.98);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
                 justify-content: center;
+                align-items: center;
+                gap: 0.25rem;
+                z-index: 999;
+                padding: 70px 1.5rem 1.5rem;
             }
-            .nav-link, .dropdown .dropbtn {
-                font-size: 0.7rem;
-                padding: 8px 10px;
-                letter-spacing: 1px;
+            .sbp-nav-links.open { display: flex; }
+            .sbp-nav-links a {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+                width: 100%;
+                text-align: center;
             }
-            .dropdown-content,
-            .sports-records-dropdown {
-                position: fixed !important;
-                left: 5% !important;
-                right: 5% !important;
-                top: 120px !important;
-                width: 90% !important;
-                min-width: unset !important;
-                max-width: none !important;
-                max-height: 65vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                z-index: 999999 !important;
-            }
-            .sports-records-dropdown {
-                padding: 15px;
-            }
-            .two-columns {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-            }
-            .column h4 {
-                font-size: 10px;
-                padding: 6px 8px;
-                margin-bottom: 10px;
-            }
-            .column a {
-                font-size: 12px;
-                padding: 10px 12px;
-                margin: 3px 0;
-            }
+            .sbp-nav-links a::after { display: none; }
             .stats-grid { grid-template-columns: 1fr; }
             .stats-grid .section:first-child { border-right: none; border-bottom: 1px solid rgba(0, 245, 255, 0.1); }
             .header h1 { font-size: 2rem; }
             .h2h-summary { flex-direction: column; align-items: center; }
         }
-
-        @media (max-width: 480px) {
-            .nav-inner {
-                flex-direction: column;
-                padding: 60px 15px 15px 15px;
-            }
-            .nav-menu {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .logo {
-                font-size: 1.5rem;
-            }
-            .nav-link, .dropdown .dropbtn {
-                font-size: 0.6rem;
-                padding: 6px 8px;
-            }
-            .two-columns {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-        }
     </style>
 </head>
 <body>
-    <nav class="nav-container">
-        <div class="nav-inner">
-            <a href="index.html" class="logo">BET<span>LEGEND</span></a>
-
-            <div class="nav-menu">
-                <a href="blog.html" class="nav-link">Picks & Analysis</a>
-
-                <div class="dropdown">
-                    <button class="dropbtn">Game Previews & Records</button>
-                    <div class="sports-records-dropdown">
-                        <div class="two-columns">
-                            <div class="column">
-                                <h4>Game Previews</h4>
-                                <a href="nfl.html">NFL</a>
-                                <a href="mlb.html">MLB</a>
-                                <a href="ncaaf.html">NCAAF</a>
-                                <a href="nba.html">NBA</a>
-                                <a href="ncaab.html">NCAAB</a>
-                                <a href="nhl.html">NHL</a>
-                                <a href="soccer.html">Soccer</a>
-                            </div>
-                            <div class="column">
-                                <h4>Records</h4>
-                                <a href="records.html">DETAILED BREAKDOWN</a>
-                                <a href="mlb-records.html">MLB</a>
-                                <a href="nfl-records.html">NFL</a>
-                                <a href="ncaaf-records.html">NCAAF</a>
-                                <a href="ncaab-records.html">NCAAB</a>
-                                <a href="nhl-records.html">NHL</a>
-                                <a href="nba-records.html">NBA</a>
-                                <a href="soccer-records.html">Soccer</a>
-                                <a href="crosssport-parlays-records.html">Cross-Sport Bets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropbtn">Resources</button>
-                    <div class="dropdown-content">
-                        <a href="proofofpicks.html">Proof of Picks</a>
-                        <a href="live-odds.html">Live Odds</a>
-                        <a href="howitworks.html">How It Works</a>
-                        <a href="bankroll.html">Bankroll Management</a>
-                        <a href="kelly-criterion.html">Kelly Criterion</a>
-                        <a href="betting-calculators.html">Betting Calculators</a>
-                        <a href="screenshots.html">Screenshots</a>
-                        <a href="bestonlinesportsbook.html">Best Sportsbook</a>
-                        <a href="betting-glossary.html">Betting Glossary</a>
-                        <a href="betting-101.html">Betting 101</a>
-                        <a href="how-to-bet-mlb-totals.html">How to Bet MLB Totals</a>
-                        <a href="contact.html">Contact Us</a>
-                    </div>
-                </div>
-
-                <a href="news.html" class="nav-link">News</a>
-
-                <a href="injury-report.html" class="nav-link">Injury Report</a>
-
-                <div class="dropdown">
-                    <button class="dropbtn">Game of the Day</button>
-                    <div class="dropdown-content">
-                        <a href="lakers-at-cavaliers-prediction-picks-january-28-2026.html">Game of the Day</a>
-                        <a href="moneyline-parlay-of-the-day.html">ML Parlay of the Day</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Dropdown JavaScript -->
-    <script>
-    (function() {
-        var dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(function(dropdown) {
-            var btn = dropdown.querySelector('.dropbtn');
-            if (!btn) return;
-
-            function toggle(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdowns.forEach(function(d) {
-                    if (d !== dropdown) d.classList.remove('active');
-                });
-                dropdown.classList.toggle('active');
-            }
-
-            btn.addEventListener('touchend', toggle, {passive: false});
-            btn.addEventListener('click', toggle);
-        });
-
-        document.addEventListener('touchend', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                dropdowns.forEach(function(d) { d.classList.remove('active'); });
-            }
-        });
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                dropdowns.forEach(function(d) { d.classList.remove('active'); });
-            }
-        });
-    })();
-    </script>
+    <header class="sbp-header">
+        <nav class="sbp-nav">
+            <a href="index.html" class="sbp-logo">SPORTS BETTING <span>PRIME</span></a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.sbp-nav-links').classList.toggle('open'); this.classList.toggle('active');" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="sbp-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="nba-court-vision.html">NBA</a></li>
+                <li><a href="nhl-ice-oracles.html">NHL</a></li>
+                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
+                <li><a href="college-basketball.html">NCAAB</a></li>
+                <li><a href="college-football.html">NCAAF</a></li>
+                <li><a href="mlb-prime-directives.html">MLB</a></li>
+                <li><a href="covers-consensus.html">Consensus<span class="live-dot"></span></a></li>
+                <li><a href="handicapping-hub.html" class="active">Hub<span class="live-dot"></span></a></li>
+                <li><a href="the-data-stream.html">Blog</a></li>
+                <li><a href="betting-guide.html">Guides</a></li>
+                <li><a href="archive-calendar.html">Archive</a></li>
+            </ul>
+        </nav>
+    </header>
     <header class="header">
         <h1>Handicapping <span>Hub</span></h1>
         <p class="subtitle">March 06, 2026 | Real-Time Odds, Stats & Betting Trends</p>
