@@ -556,14 +556,14 @@ class CoversConsensusScraper:
         teams = {
             # NHL
             'Ana': 'Anaheim', 'Ari': 'Arizona', 'Bos': 'Boston', 'Buf': 'Buffalo',
-            'Cgy': 'Calgary', 'Cal': 'Calgary', 'Car': 'Carolina', 'Chi': 'Chicago',
+            'Cgy': 'Calgary', 'Cal': 'California', 'Car': 'Carolina', 'Chi': 'Chicago',
             'Col': 'Colorado', 'Clb': 'Columbus', 'Dal': 'Dallas', 'Det': 'Detroit',
             'Edm': 'Edmonton', 'Fla': 'Florida', 'La': 'Los Angeles', 'Min': 'Minnesota',
             'Mon': 'Montreal', 'Mtl': 'Montreal', 'Nsh': 'Nashville', 'Nj': 'New Jersey',
             'Nyi': 'NY Islanders', 'Nyr': 'NY Rangers', 'Ott': 'Ottawa', 'Phi': 'Philadelphia',
             'Pit': 'Pittsburgh', 'Sj': 'San Jose', 'Sea': 'Seattle', 'Stl': 'St. Louis',
             'Tb': 'Tampa Bay', 'Tor': 'Toronto', 'Utah': 'Utah', 'Van': 'Vancouver',
-            'Veg': 'Vegas', 'Vgk': 'Vegas', 'Win': 'Winnipeg', 'Was': 'Washington', 'Wpg': 'Winnipeg',
+            'Veg': 'Vegas', 'Vgk': 'Vegas', 'Win': 'Winthrop', 'Was': 'Washington', 'Wpg': 'Winnipeg',
             # NBA
             'Atl': 'Atlanta', 'Bkn': 'Brooklyn', 'Bk': 'Brooklyn', 'Cha': 'Charlotte',
             'Cle': 'Cleveland', 'Den': 'Denver', 'Gsw': 'Golden State', 'Gs': 'Golden State',
@@ -708,6 +708,45 @@ class CoversConsensusScraper:
             'Hall': 'Seton Hall', 'Bell': 'Bellarmine',
             'Cark': 'Central Arkansas', 'Und': 'North Dakota',
             'Bgsu': 'Bowling Green', 'Wvu': 'West Virginia',
+            # Added March 7, 2026 - NHL missing
+            'Nas': 'Nashville',
+            # Added March 7, 2026 - NCAAB missing abbreviations from WARN output
+            'Idho': 'Idaho', 'Nau': 'Northern Arizona', 'Tows': 'Towson',
+            'Las': 'La Salle', 'Joes': "Saint Joseph's",
+            'Wis': 'Wisconsin', 'Pur': 'Purdue', 'Nw': 'Northwestern',
+            'Minn': 'Minnesota', 'Alby': 'Albany',
+            'Csb': 'Cal State Bakersfield', 'Cp': 'Cal Poly',
+            'Wm': 'William & Mary', 'Gt': 'Georgia Tech',
+            'Lbsu': 'Long Beach State', 'Wcu': 'Western Carolina',
+            'Mer': 'Mercer', 'Bsu': 'Boise State', 'Csu': 'Colorado State',
+            'Fau': 'Florida Atlantic', 'Wich': 'Wichita State',
+            'Colo': 'Colorado', 'Unh': 'New Hampshire',
+            'Umbc': 'UMBC', 'Etsu': 'East Tennessee State',
+            'Csf': 'Cal State Fullerton', 'Csn': 'Cal State Northridge',
+            'Vt': 'Virginia Tech', 'Lt': 'Louisiana Tech',
+            'Del': 'Delaware', 'Uvm': 'Vermont',
+            'Stone': 'Stonehill', 'Mehst': 'Morgan State',
+            'Ore': 'Oregon', 'Uri': 'Rhode Island',
+            'For': 'Fordham', 'Osu': 'Ohio State', 'Fur': 'Furman',
+            'Me': 'Maine', 'Uga': 'Georgia', 'Ndsu': 'North Dakota State',
+            'Mrst': 'Marist', 'But': 'Butler', 'Dep': 'DePaul',
+            'Kenn': 'Kennesaw State', 'Nmsu': 'New Mexico State',
+            'Prov': 'Providence', 'Gtwn': 'Georgetown',
+            'Usc': 'USC', 'Asu': 'Arizona State',
+            'Ac': 'Abilene Christian', 'Liu': 'LIU',
+            'Afa': 'Air Force', 'Slu': 'Saint Louis',
+            'Gmu': 'George Mason', 'Duq': 'Duquesne',
+            'Pitt': 'Pittsburgh', 'Syr': 'Syracuse',
+            'Ksu': 'Kansas State', 'Cbu': 'Cal Baptist',
+            'Suu': 'Southern Utah', 'Unm': 'New Mexico',
+            'Usu': 'Utah State', 'Uvu': 'Utah Valley',
+            'Utech': 'Utah Tech', 'Fsu': 'Florida State',
+            'Wku': 'Western Kentucky', 'Fiu': 'Florida International',
+            'Ucd': 'UC Davis', 'Uci': 'UC Irvine',
+            'Shsu': 'Sam Houston', 'Ucsd': 'UC San Diego',
+            'Ucsb': 'UC Santa Barbara', 'Jvst': 'Jacksonville State',
+            'Gc': 'Grand Canyon', 'Mtu': 'Middle Tennessee',
+            'Mosu': 'Morehead State',
         }
 
         # Sport-specific overrides for abbreviation collisions
@@ -715,7 +754,7 @@ class CoversConsensusScraper:
         sport_overrides = {
             'nhl': {'Van': 'Vancouver', 'Win': 'Winnipeg', 'Veg': 'Vegas',
                     'Cal': 'Calgary', 'Col': 'Colorado', 'Min': 'Minnesota',
-                    'Fla': 'Florida', 'Car': 'Carolina'},
+                    'Fla': 'Florida', 'Car': 'Carolina', 'Nas': 'Nashville'},
             'nba': {'Min': 'Minnesota', 'Cha': 'Charlotte', 'Ind': 'Indiana',
                     'Orl': 'Orlando', 'Mil': 'Milwaukee', 'Sac': 'Sacramento'},
         }
@@ -812,21 +851,21 @@ class CoversConsensusScraper:
             soup = BeautifulSoup(response.text, 'html.parser')
 
             picks = []
-            pending_table = soup.find('table', class_='cmg_contests_pendingpicks')
+            pending_tables = soup.find_all('table', class_='cmg_contests_pendingpicks')
 
-            if not pending_table:
+            if not pending_tables:
                 return []
 
-            for row in pending_table.find_all('tr'):
+            for pending_table in pending_tables:
+              for row in pending_table.find_all('tr'):
                 cells = row.find_all('td')
                 if len(cells) < 4:
                     continue
 
-                # Skip finished games
-                if len(cells) > 1:
-                    score = cells[1].text.strip()
-                    if score and any(c.isdigit() for c in score):
-                        continue
+                # Skip fully graded picks (check last column for "Pending")
+                last_cell = cells[-1].get_text(strip=True).lower()
+                if 'pending' not in last_cell:
+                    continue
 
                 # Extract teams and normalize names to match public consensus format
                 teams_text = cells[0].text.strip().split('\n')
