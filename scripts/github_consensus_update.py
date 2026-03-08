@@ -93,6 +93,20 @@ _TEAM_EXPANSIONS = {
     'ny': 'new york', 'l.a.': 'los angeles', 'la': 'los angeles',
 }
 
+# Aliases for team name matching (Covers name -> ESPN name or vice versa)
+_TEAM_ALIASES = {
+    'uconn': 'connecticut',
+    'connecticut': 'uconn',
+    'ole miss': 'mississippi',
+    'pitt': 'pittsburgh',
+    'umass': 'massachusetts',
+}
+
+# Suffixes that change team identity (not just mascot names)
+# "Virginia Tech" is a DIFFERENT team than "Virginia"
+# "Georgia Tech" is a DIFFERENT team than "Georgia"
+_IDENTITY_SUFFIXES = {'tech', 'state', 'a&m'}
+
 
 def _normalize_for_match(name):
     """Normalize a team name for fuzzy matching.
@@ -113,8 +127,26 @@ def _team_matches(covers_name, espn_name):
     e = _normalize_for_match(espn_name)
 
     # Direct substring match after normalization
-    if c in e or e in c:
+    # Guard against "virginia" matching "virginia tech" - check identity suffixes
+    if c == e:
         return True
+    if len(c) > 1 and len(e) > 1:
+        # Check if shorter is contained in longer
+        shorter, longer = (c, e) if len(c) <= len(e) else (e, c)
+        if shorter in longer:
+            # Get the remaining text after the match
+            idx = longer.index(shorter)
+            remainder = longer[idx + len(shorter):].strip()
+            # If remainder starts with an identity-changing suffix, NOT a match
+            # e.g., "virginia" in "virginia tech hokies" -> remainder="tech hokies" -> "tech" is identity suffix -> NO MATCH
+            if remainder:
+                first_remaining_word = remainder.split()[0]
+                if first_remaining_word in _IDENTITY_SUFFIXES:
+                    pass  # Not a match, fall through
+                else:
+                    return True
+            else:
+                return True  # Exact match or shorter is the entire longer string
 
     # Try expanding common abbreviations in the Covers name
     for abbr, full in _TEAM_EXPANSIONS.items():
@@ -123,11 +155,25 @@ def _team_matches(covers_name, espn_name):
             if expanded in e or e in expanded:
                 return True
 
-    # Try first word match (covers "Miami Florida" vs "Miami Hurricanes")
-    c_first = c.split()[0] if c.split() else c
-    e_first = e.split()[0] if e.split() else e
-    if len(c_first) >= 4 and (c_first == e_first or c_first in e or e_first in c):
+    # Try alias matching (e.g. "uconn" <-> "connecticut")
+    c_alias = _TEAM_ALIASES.get(c)
+    if c_alias and (c_alias in e or e in c_alias):
         return True
+    e_alias = _TEAM_ALIASES.get(e.split()[0] if e.split() else e)
+    if e_alias and (e_alias in c or c in e_alias):
+        return True
+
+    # Single-word covers name: match if it equals ESPN's first word
+    # BUT only for single-word names to prevent "Michigan State" matching "Michigan Wolverines"
+    # AND check that ESPN's second word isn't an identity suffix (tech, state, a&m)
+    c_words = c.split()
+    e_words = e.split()
+    if len(c_words) == 1 and len(c_words[0]) >= 4:
+        if c_words[0] == e_words[0]:
+            # Check if ESPN's second word changes the team identity
+            if len(e_words) >= 2 and e_words[1] in _IDENTITY_SUFFIXES:
+                return False  # "Virginia" should NOT match "Virginia Tech"
+            return True
 
     return False
 
@@ -610,6 +656,26 @@ class CoversConsensusScraper:
         'S-Il': 'Siu',    # Southern Illinois
     }
 
+    # Multi-word team names that the [A-Z][a-z]+ regex would split incorrectly
+    # These get collapsed to a single token BEFORE the regex split
+    MULTIWORD_COLLAPSE = {
+        'GreenBay': 'Grnby',      # Green Bay -> single token
+        'SanDiego': 'Sdgo',       # San Diego State
+        'SanJose': 'Sjsu',        # San Jose State
+        'SanFrancisco': 'Sfpa',   # San Francisco
+        'SanAntonio': 'Sa',       # San Antonio
+        'NewYork': 'Ny',          # New York
+        'NewOrleans': 'No',       # New Orleans
+        'NewMexico': 'Nmex',      # New Mexico
+        'LongBeach': 'Lbsu',      # Long Beach State
+        'OklahomaCity': 'Okc',    # Oklahoma City
+        'LosAngeles': 'La',       # Los Angeles
+        'TampaBay': 'Tb',         # Tampa Bay
+        'LasVegas': 'Lv',         # Las Vegas
+        'GeorgeMason': 'Gmu',     # George Mason
+        'GeorgeWashington': 'Gw', # George Washington
+    }
+
     def parse_matchup(self, raw, sport_code):
         """Parse matchup from compressed format like 'NHLDetBos' to 'Detroit @ Boston'"""
         raw = re.sub(r'^(NHL|NBA|NFL|NCAAB|NCAAF)', '', raw, flags=re.IGNORECASE)
@@ -617,6 +683,10 @@ class CoversConsensusScraper:
         # Handle hyphenated abbreviations before regex split
         for hyph, replacement in self.HYPHENATED_ABBREVS.items():
             raw = raw.replace(hyph, replacement)
+
+        # Collapse multi-word team names into single tokens before regex split
+        for multi, single in self.MULTIWORD_COLLAPSE.items():
+            raw = raw.replace(multi, single)
 
         teams = {
             # NHL
@@ -797,6 +867,14 @@ class CoversConsensusScraper:
             'Mrst': 'Marist', 'But': 'Butler', 'Dep': 'DePaul',
             'Kenn': 'Kennesaw State', 'Nmsu': 'New Mexico State',
             'Prov': 'Providence', 'Gtwn': 'Georgetown',
+            # Added March 8, 2026 - NCAAB missing abbreviations from WARN output
+            'Bu': 'Boston University', 'Cofc': 'College of Charleston',
+            'Nku': 'Northern Kentucky', 'Usf': 'South Florida',
+            'Hbu': 'Houston Christian', 'Uno': 'New Orleans',
+            'Tem': 'Temple', 'Tlsa': 'Tulsa', 'Md': 'Maryland',
+            'Ecu': 'East Carolina', 'Psu': 'Penn State',
+            'Mtst': 'Montana State', 'Leh': 'Lehigh',
+            'Monm': 'Monmouth',
             'Usc': 'USC', 'Asu': 'Arizona State',
             'Ac': 'Abilene Christian', 'Liu': 'LIU',
             'Afa': 'Air Force', 'Slu': 'Saint Louis',
@@ -812,6 +890,8 @@ class CoversConsensusScraper:
             'Ucsb': 'UC Santa Barbara', 'Jvst': 'Jacksonville State',
             'Gc': 'Grand Canyon', 'Mtu': 'Middle Tennessee',
             'Mosu': 'Morehead State',
+            # Collapsed multi-word tokens (from MULTIWORD_COLLAPSE pre-processing)
+            'Grnby': 'Green Bay', 'Sdgo': 'San Diego', 'Lv': 'Las Vegas',
         }
 
         # Sport-specific overrides for abbreviation collisions
@@ -836,7 +916,7 @@ class CoversConsensusScraper:
             known_full_names = {'Duke', 'Yale', 'Penn', 'Troy', 'Rice', 'Navy', 'Army',
                                 'Utah', 'Iona', 'Ohio', 'Elon', 'Maine', 'ACU', 'FDU',
                                 'SMU', 'UCF', 'BYU', 'LSU', 'TCU', 'USC', 'VCU', 'VMI',
-                                'UNLV', 'UTEP', 'UTSA', 'NJIT', 'UAB', 'ORU'}
+                                'UNLV', 'UTEP', 'UTSA', 'NJIT', 'UAB', 'ORU', 'Iowa'}
             if away == parts[0] and parts[0] not in known_full_names:
                 print(f"    [WARN] Unknown team abbreviation: '{parts[0]}' (sport: {sport_code})")
             if home == parts[1] and parts[1] not in known_full_names:
