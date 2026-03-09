@@ -100,21 +100,45 @@ _TEAM_ALIASES = {
     'ole miss': 'mississippi',
     'pitt': 'pittsburgh',
     'umass': 'massachusetts',
+    'detroit mercy': 'detroit',
+    'ut rio grande valley': 'texas rio grande valley',
+    'monmouth': 'monmouth',
+    'miss valley st': 'mississippi valley state',
+    'mississippi valley state': 'mississippi valley',
+    'northern ky': 'northern kentucky',
+    'northern co': 'northern colorado',
+    'eastern wa': 'eastern washington',
+    'weber st': 'weber state',
+    'wright st': 'wright state',
+    'alcorn st': 'alcorn state',
+    "st john's": "st. john's",
+    "saint mary's": "saint marys",
+    'etsu': 'east tennessee state',
+    'east tennessee state': 'etsu',
+    'grambling': 'grambling state',
+    'grambling state': 'grambling',
+    'miss valley state': 'mississippi valley state',
+    'mississippi valley state': 'miss valley state',
 }
 
 # Suffixes that change team identity (not just mascot names)
 # "Virginia Tech" is a DIFFERENT team than "Virginia"
 # "Georgia Tech" is a DIFFERENT team than "Georgia"
-_IDENTITY_SUFFIXES = {'tech', 'state', 'a&m'}
+_IDENTITY_SUFFIXES = {'tech', 'state', 'a&m', 'southern', 'western', 'eastern', 'northern', 'central'}
 
 
 def _normalize_for_match(name):
     """Normalize a team name for fuzzy matching.
-    Strips periods, replaces hyphens with spaces, strips qualifiers like (FL)/(OH)."""
+    Strips periods, replaces hyphens with spaces, strips qualifiers like (FL)/(OH).
+    Also normalizes 'St.' to 'state' and common state abbreviations."""
     n = name.lower().strip()
-    n = n.replace('.', '')     # L.A. -> LA, St. -> St
     n = n.replace('-', ' ')    # Loyola-Chicago -> Loyola Chicago, Miami-Florida -> Miami Florida
     n = re.sub(r'\s*\(.*?\)', '', n)  # Miami (FL) -> Miami
+    # Normalize "st." and "st" at end of word to "state" (but not "st." in "st. john's")
+    # Only do this if "st" is at the END of the name or followed by a space then non-period
+    if n.endswith(' st.') or n.endswith(' st'):
+        n = n.rsplit(' ', 1)[0] + ' state'
+    n = n.replace('.', '')     # L.A. -> LA, remaining periods
     n = re.sub(r'\s+', ' ', n).strip()
     return n
 
@@ -265,6 +289,7 @@ class CoversConsensusScraper:
         'CSU': 'Colorado State', 'NMSU': 'New Mexico State',
         'UNM': 'New Mexico', 'USU': 'Utah State', 'WYO': 'Wyoming',
         'NDSU': 'North Dakota State', 'SHSU': 'Sam Houston',
+        'HOF': 'Hofstra', 'HOFSTRA': 'Hofstra',
     }
 
     # Normalize alternate team names to ONE canonical form
@@ -324,6 +349,24 @@ class CoversConsensusScraper:
         'Elon University': 'Elon',
         'Mississippi': 'Ole Miss',
         'Central Florida': 'UCF',
+        # Common public-consensus abbreviated forms
+        'Monmouth-NJ': 'Monmouth',
+        'Texas R-G Valley': 'UT Rio Grande Valley',
+        'Detroit Mercy': 'Detroit Mercy',
+        'Alcorn St.': 'Alcorn State',
+        'Northern KY': 'Northern Kentucky',
+        'Northern CO': 'Northern Colorado',
+        'Weber St.': 'Weber State',
+        'Eastern WA': 'Eastern Washington',
+        'Miss Valley St': 'Mississippi Valley State',
+        'Miss Valley St.': 'Mississippi Valley State',
+        'Miss Valley State': 'Mississippi Valley State',
+        'Miss Valley St Delta': 'Mississippi Valley State',
+        'Grambling': 'Grambling State',
+        'ETSU': 'East Tennessee State',
+        'E. Tennessee St.': 'East Tennessee State',
+        'E. Tennessee State': 'East Tennessee State',
+        'East Tennessee St.': 'East Tennessee State',
     }
 
     def __init__(self):
@@ -456,9 +499,37 @@ class CoversConsensusScraper:
             return f"{away} @ {home}"
         return matchup
 
+    def _find_canonical_matchup(self, sport, matchup):
+        """Find an existing matchup that fuzzy-matches the given one.
+        This permanently handles name mismatches between expert picks
+        (short names like 'Calgary') and public consensus (full names
+        like 'Calgary Flames') without needing any dictionary updates."""
+        parts = matchup.split(' @ ')
+        if len(parts) != 2:
+            return matchup
+        away_new, home_new = parts[0].strip(), parts[1].strip()
+
+        # Collect all unique matchups already seen for this sport
+        seen_matchups = set()
+        for key in self.side_counter:
+            key_parts = key.split('|')
+            if len(key_parts) >= 2 and key_parts[0] == sport:
+                seen_matchups.add(key_parts[1])
+
+        for existing_matchup in seen_matchups:
+            existing_parts = existing_matchup.split(' @ ')
+            if len(existing_parts) != 2:
+                continue
+            away_ex, home_ex = existing_parts[0].strip(), existing_parts[1].strip()
+            if _team_matches(away_new, away_ex) and _team_matches(home_new, home_ex):
+                return existing_matchup
+
+        return matchup
+
     def _add_to_side_counter(self, sport, matchup, pick_type, pick_text, weight=1):
         """Add a pick to the side-based counter"""
         matchup = self._normalize_matchup(matchup)
+        matchup = self._find_canonical_matchup(sport, matchup)
         side_label, display_line = self._extract_side(pick_text, pick_type, matchup)
         side_key = f"{sport}|{matchup}|{side_label}"
         self.side_counter[side_key] += weight
@@ -477,9 +548,112 @@ class CoversConsensusScraper:
         'ncaaf': 20,
     }
 
+    # Known mascot words. Stripping these from img alt names like
+    # "Calgary Flames Picks" -> "Calgary" to match expert pick names.
+    # This list covers ALL major pro teams and common college mascots.
+    # Missing an entry is safe - _find_canonical_matchup does fuzzy dedup.
+    _MASCOTS_SINGLE = {
+        # NHL
+        'ducks', 'bruins', 'sabres', 'flames', 'hurricanes', 'blackhawks',
+        'avalanche', 'stars', 'oilers', 'panthers', 'kings', 'wild',
+        'canadiens', 'predators', 'devils', 'islanders', 'rangers',
+        'senators', 'flyers', 'penguins', 'sharks', 'kraken', 'blues',
+        'lightning', 'canucks', 'jets', 'capitals', 'mammoth',
+        # NBA
+        'hawks', 'celtics', 'nets', 'hornets', 'bulls', 'cavaliers',
+        'mavericks', 'nuggets', 'pistons', 'warriors', 'rockets', 'pacers',
+        'clippers', 'lakers', 'grizzlies', 'heat', 'bucks', 'timberwolves',
+        'pelicans', 'knicks', 'thunder', 'magic', '76ers', 'suns', 'kings',
+        'spurs', 'raptors', 'jazz', 'wizards',
+        # NFL
+        'cardinals', 'falcons', 'ravens', 'bills', 'bengals', 'browns',
+        'cowboys', 'broncos', 'lions', 'packers', 'texans', 'colts',
+        'jaguars', 'chiefs', 'chargers', 'rams', 'dolphins', 'vikings',
+        'patriots', 'saints', 'giants', 'eagles', 'steelers', '49ers',
+        'seahawks', 'buccaneers', 'titans', 'commanders',
+        # MLB
+        'diamondbacks', 'braves', 'orioles', 'cubs', 'reds', 'guardians',
+        'rockies', 'tigers', 'astros', 'royals', 'angels', 'dodgers',
+        'marlins', 'brewers', 'twins', 'mets', 'yankees', 'athletics',
+        'phillies', 'pirates', 'padres', 'mariners', 'rays', 'rangers',
+        'nationals', 'reds',
+        # Common college mascots (covers most Covers.com entries)
+        'wildcats', 'bulldogs', 'eagles', 'tigers', 'bears', 'cougars',
+        'huskies', 'spartans', 'wolverines', 'gators', 'sooners',
+        'longhorns', 'aggies', 'seminoles', 'volunteers', 'rebels',
+        'crimson', 'hoosiers', 'jayhawks', 'mountaineers', 'wolfpack',
+        'demon', 'deacons', 'owls', 'friars', 'redbirds', 'salukis',
+        'colonials', 'vaqueros', 'camels', 'gaels', 'broncos', 'raiders',
+        'norse', 'titans', 'hawks', 'trojans', 'paladins', 'hornets',
+        'braves', 'beavers', 'dons', 'toreros', 'musketeers', 'bluejays',
+        'billikens', 'bonnies', 'explorers', 'peacocks', 'bobcats',
+        'terriers', 'catamounts', 'retrievers', 'spiders', 'monarchs',
+        'dukes', 'phoenix', 'anteaters', 'matadors', 'roadrunners',
+    }
+    _MASCOTS_MULTI = {
+        'blue jackets', 'red wings', 'trail blazers', 'maple leafs',
+        'golden knights', 'red sox', 'white sox', 'blue jays',
+        'blue devils', 'yellow jackets', 'tar heels', 'nittany lions',
+        'golden eagles', 'golden bears', 'golden flashes', 'mean green',
+        'scarlet knights', 'red raiders', 'fighting irish', 'fighting illini',
+        'fighting camels', 'red foxes', 'blue raiders', 'blue hens',
+        'black bears', 'golden gophers', 'golden hurricane', 'running rebels',
+        'delta devils', 'purple aces', 'beach riders',
+    }
+
+    def _strip_mascot(self, full_name):
+        """Strip mascot/nickname from a team's full name extracted from img alt.
+        'Calgary Flames' -> 'Calgary', 'Weber St. Wildcats' -> 'Weber St.'
+        Leaves name unchanged if stripping would make it too short."""
+        words = full_name.split()
+        if len(words) <= 1:
+            return full_name
+
+        # Check multi-word mascots first (last 2 words)
+        if len(words) >= 3:
+            last_two = ' '.join(words[-2:]).lower()
+            if last_two in self._MASCOTS_MULTI:
+                return ' '.join(words[:-2])
+
+        # Check single-word mascot (last word)
+        if words[-1].lower() in self._MASCOTS_SINGLE:
+            result = ' '.join(words[:-1])
+            # Don't strip if result is too short (e.g., "NY" from "NY Rangers")
+            if len(result) >= 3:
+                return result
+
+        return full_name
+
+    def _extract_teams_from_cell(self, cell, sport_code):
+        """Extract full team names from a matchup cell using img alt attributes.
+        The Covers.com HTML has <img alt='Weber St. Wildcats Picks'> which contains
+        the FULL team name. This is permanent - no abbreviation dictionary needed.
+        Falls back to parse_matchup() if img alts aren't found."""
+        imgs = cell.find_all('img', class_='covers-CoversConsensus-mainLogo')
+        team_names = []
+        for img in imgs:
+            alt = img.get('alt', '')
+            if alt:
+                # Strip " Picks" suffix: "Weber St. Wildcats Picks" -> "Weber St. Wildcats"
+                name = re.sub(r'\s+Picks$', '', alt).strip()
+                # Strip mascot: "Weber St. Wildcats" -> "Weber St."
+                name = self._strip_mascot(name)
+                team_names.append(name)
+
+        if len(team_names) >= 2:
+            away = self._normalize_profile_team(team_names[0])
+            home = self._normalize_profile_team(team_names[1])
+            matchup = f"{away} @ {home}"
+            return self._normalize_matchup(matchup)
+
+        # Fallback: parse from compressed text
+        matchup_raw = cell.get_text(strip=True)
+        return self.parse_matchup(matchup_raw, sport_code)
+
     def scrape_public_consensus(self, sport_code):
-        """Scrape public consensus data from Covers.com topconsensus pages
-        This provides ADDITIONAL data beyond King of Covers contestants"""
+        """Scrape public consensus data from Covers.com topconsensus pages.
+        Uses img alt attributes for team names (permanent fix - no dictionary needed).
+        This provides ADDITIONAL data beyond King of Covers contestants."""
         sport_name = self.sports.get(sport_code, sport_code)
         print(f"\n  Fetching {sport_name} public consensus...")
 
@@ -497,12 +671,11 @@ class CoversConsensusScraper:
                 for row in table.find_all('tr')[1:]:
                     cells = row.find_all('td')
                     if len(cells) >= 5:
-                        matchup_raw = cells[0].get_text(strip=True)
+                        # Extract team names from img alt attributes (PERMANENT FIX)
+                        matchup = self._extract_teams_from_cell(cells[0], sport_code)
+
                         consensus_raw = cells[2].get_text(strip=True)
                         sides_raw = cells[3].get_text(strip=True)
-
-                        # Parse matchup (e.g., "NHLDetBos" -> "Detroit @ Boston")
-                        matchup = self.parse_matchup(matchup_raw, sport_code)
 
                         # Parse consensus percentages (e.g., "45%55%" -> [45, 55])
                         pcts = re.findall(r'(\d+)%', consensus_raw)
@@ -566,11 +739,16 @@ class CoversConsensusScraper:
                 for row in table.find_all('tr')[1:]:
                     cells = row.find_all('td')
                     if len(cells) >= 5:
-                        matchup_raw = cells[0].get_text(strip=True)
-                        consensus_raw = cells[2].get_text(strip=True)
-                        total_line = cells[3].get_text(strip=True)
+                        # Extract team names from img alt attributes (PERMANENT FIX)
+                        matchup = self._extract_teams_from_cell(cells[0], sport_code)
 
-                        matchup = self.parse_matchup(matchup_raw, sport_code)
+                        # Read the total line (e.g., "5.5", "223")
+                        total_line_raw = cells[1].get_text(strip=True) if len(cells) > 1 else ''
+                        total_line_match = re.search(r'(\d+\.?\d*)', total_line_raw)
+                        total_line = total_line_match.group(1) if total_line_match else ''
+
+                        # Read consensus percentages from this row
+                        consensus_raw = cells[2].get_text(strip=True) if len(cells) > 2 else ''
 
                         # Parse "73 % Over27 % Under" format
                         over_match = re.search(r'(\d+)\s*%\s*Over', consensus_raw)
@@ -627,10 +805,29 @@ class CoversConsensusScraper:
         'S. Carolina': 'South Carolina', 'N. Texas': 'North Texas',
         'W. Virginia': 'West Virginia',
         'G. Washington': 'George Washington', 'G. Mason': 'George Mason',
+        # Common abbreviated forms from Covers pending picks pages
+        'N. Kentucky': 'Northern Kentucky', 'Northern KY': 'Northern Kentucky',
+        'N. Colorado': 'Northern Colorado', 'Northern CO': 'Northern Colorado',
+        'E. Washington': 'Eastern Washington', 'Eastern WA': 'Eastern Washington',
+        'Weber St.': 'Weber State', 'Wright St.': 'Wright State',
+        'Alcorn St.': 'Alcorn State', 'Detroit Mercy': 'Detroit Mercy',
+        'Monmouth-NJ': 'Monmouth',
+        'TX R-G Valley': 'UT Rio Grande Valley',
+        'Texas R-G Valley': 'UT Rio Grande Valley',
+        'Miss Valley St.': 'Mississippi Valley State',
+        'Grambling St.': 'Grambling',
+        'Alabama St.': 'Alabama State',
+        'Morehead St.': 'Morehead State',
+        'Norfolk St.': 'Norfolk State',
+        'Coppin St.': 'Coppin State',
+        'Morgan St.': 'Morgan State',
+        'NC A&T': 'NC A&T',
+        'Sam Houston St.': 'Sam Houston',
     }
 
     def _normalize_profile_team(self, name):
-        """Normalize a team name from a Covers.com contestant profile"""
+        """Normalize a team name from a Covers.com contestant profile.
+        Handles abbreviated forms like 'Northern KY', 'Wright St.', etc."""
         # Direct mapping
         normalized = self.PROFILE_TEAM_NORMALIZE.get(name)
         if normalized:
@@ -641,6 +838,37 @@ class CoversConsensusScraper:
             normalized = self.PROFILE_TEAM_NORMALIZE.get(no_dot + '.')
             if normalized:
                 return normalized
+
+        # Handle common abbreviated state/region suffixes
+        # "Northern KY" -> "Northern Kentucky", "Wright St." -> "Wright State", etc.
+        _STATE_ABBREVS = {
+            'KY': 'Kentucky', 'OH': 'Ohio', 'FL': 'Florida',
+            'IL': 'Illinois', 'IN': 'Indiana', 'WA': 'Washington',
+            'CO': 'Colorado', 'PA': 'Pennsylvania', 'VA': 'Virginia',
+            'NC': 'North Carolina', 'SC': 'South Carolina',
+            'MO': 'Missouri', 'TX': 'Texas', 'TN': 'Tennessee',
+            'AL': 'Alabama', 'GA': 'Georgia', 'LA': 'Louisiana',
+            'MI': 'Michigan', 'MN': 'Minnesota', 'WI': 'Wisconsin',
+            'NJ': 'New Jersey', 'CT': 'Connecticut', 'MD': 'Maryland',
+            'MS': 'Mississippi', 'AR': 'Arkansas', 'AZ': 'Arizona',
+            'NM': 'New Mexico', 'MT': 'Montana', 'ND': 'North Dakota',
+            'SD': 'South Dakota', 'NE': 'Nebraska', 'IA': 'Iowa',
+            'OK': 'Oklahoma', 'OR': 'Oregon', 'UT': 'Utah',
+            'NV': 'Nevada', 'ID': 'Idaho', 'WY': 'Wyoming',
+            'HI': 'Hawaii', 'ME': 'Maine', 'NH': 'New Hampshire',
+            'VT': 'Vermont', 'RI': 'Rhode Island', 'DE': 'Delaware',
+            'KS': 'Kansas', 'WV': 'West Virginia',
+        }
+        parts = name.rsplit(' ', 1)
+        if len(parts) == 2:
+            prefix, suffix = parts
+            # "Northern KY" -> "Northern Kentucky"
+            if suffix in _STATE_ABBREVS:
+                return f"{prefix} {_STATE_ABBREVS[suffix]}"
+            # "Wright St." -> "Wright State"
+            if suffix == 'St.' or suffix == 'St':
+                return f"{prefix} State"
+
         return name
 
     # Known hyphenated abbreviations from Covers.com
@@ -889,7 +1117,17 @@ class CoversConsensusScraper:
             'Shsu': 'Sam Houston', 'Ucsd': 'UC San Diego',
             'Ucsb': 'UC Santa Barbara', 'Jvst': 'Jacksonville State',
             'Gc': 'Grand Canyon', 'Mtu': 'Middle Tennessee',
-            'Mosu': 'Morehead State',
+            'Mosu': 'Morehead State', 'Hof': 'Hofstra',
+            # Added March 9, 2026 - missing abbreviations from WARN output
+            'Web': 'Weber State', 'Ewu': 'Eastern Washington',
+            'Unco': 'Northern Colorado', 'Alcn': 'Alcorn State',
+            'Scu': 'Santa Clara', 'Smc': "Saint Mary's",
+            'Mvsu': 'Mississippi Valley State',
+            'Utrgv': 'UT Rio Grande Valley',
+            'Noco': 'Northern Colorado', 'Ncol': 'Northern Colorado',
+            'Eku': 'Eastern Kentucky', 'Wiu': 'Western Illinois',
+            'Siu': 'Southern Illinois', 'Niu': 'Northern Illinois',
+            'Txrv': 'UT Rio Grande Valley',
             # Collapsed multi-word tokens (from MULTIWORD_COLLAPSE pre-processing)
             'Grnby': 'Green Bay', 'Sdgo': 'San Diego', 'Lv': 'Las Vegas',
         }
@@ -925,12 +1163,17 @@ class CoversConsensusScraper:
 
         return raw
 
-    def get_leaderboard(self, sport_code, pages=1):
-        """Fetch top contestants from leaderboard - 1 page = top 50 contestants"""
-        print(f"\n  Fetching {self.sports.get(sport_code, sport_code)} leaderboard...")
-        contestants = []
+    def get_leaderboard_with_picks(self, sport_code, sport_name, max_pages=10, target=50):
+        """Fetch leaderboard contestants who have TODAY's pending picks.
+        Walks up to max_pages of the leaderboard, checking each contestant
+        for today's picks. Stops once we find `target` contestants with picks.
+        This matches the proven approach from the v3.1 scraper."""
+        print(f"\n  Fetching {sport_name} leaderboard...")
+        entries_with_picks = []
+        seen_names = set()
+        total_checked = 0
 
-        for page in range(1, pages + 1):
+        for page in range(1, max_pages + 1):
             try:
                 url = f"https://contests.covers.com/consensus/pickleaders/{sport_code}?totalPicks=1&orderPickBy=Overall&orderBy=Units&pageNum={page}"
                 response = self.session.get(url, timeout=15)
@@ -939,9 +1182,13 @@ class CoversConsensusScraper:
 
                 table = soup.find('table')
                 if not table:
-                    continue
+                    break
 
-                for row in table.find_all('tr')[1:]:
+                rows = table.find_all('tr')[1:]
+                if not rows:
+                    break
+
+                for row in rows:
                     cells = row.find_all('td')
                     if len(cells) < 4:
                         continue
@@ -951,145 +1198,160 @@ class CoversConsensusScraper:
                         continue
 
                     name = link.text.strip()
+                    if name in seen_names:
+                        continue
+                    seen_names.add(name)
+
                     profile_url = link.get('href', '')
                     if not profile_url.startswith('http'):
                         profile_url = 'https://contests.covers.com' + profile_url
 
-                    units = cells[2].text.strip()
-                    record = cells[3].text.strip()
-
-                    try:
-                        units_value = float(units.replace('+', '').replace(',', ''))
-                    except:
-                        units_value = 0.0
-
-                    contestants.append({
+                    contestant = {
                         'name': name,
                         'profile_url': profile_url,
-                        'units': units,
-                        'units_value': units_value,
-                        'record': record,
-                        'sport': self.sports.get(sport_code, sport_code)
-                    })
+                        'sport': sport_name,
+                    }
 
-                time.sleep(0.5)
+                    # Check if this contestant has today's picks
+                    picks = self.get_contestant_picks(contestant, sport_name, sport_code)
+                    total_checked += 1
+                    time.sleep(0.1)
+
+                    if picks:
+                        entries_with_picks.append((contestant, picks))
+                        if len(entries_with_picks) >= target:
+                            print(f"    Found {target} contestants with picks (checked {total_checked})")
+                            return entries_with_picks
+
+                time.sleep(0.2)
 
             except Exception as e:
-                print(f"    Error fetching page {page}: {e}")
+                print(f"    Error fetching leaderboard page {page}: {e}")
 
-        # Sort by units and dedupe
-        seen = set()
-        unique = []
-        for c in sorted(contestants, key=lambda x: -x['units_value']):
-            if c['profile_url'] not in seen:
-                seen.add(c['profile_url'])
-                unique.append(c)
+        print(f"    Found {len(entries_with_picks)} contestants with picks (checked {total_checked})")
+        return entries_with_picks
 
-        print(f"    Found {len(unique)} unique contestants (from {len(contestants)} total)")
-        return unique[:50]  # Top 50 ranked contestants only
+    def get_contestant_picks(self, contestant, sport, sport_code):
+        """Get pending picks for a contestant.
+        Uses sport-specific pending picks URL and filters to today's date only.
+        This prevents cross-sport contamination and stale picks from other days."""
+        username = contestant['name']
 
-    def get_contestant_picks(self, contestant, sport):
-        """Get pending picks for a contestant"""
+        # Use sport-specific pending picks URL (NOT the general profile page)
+        # The general profile shows ALL sports' picks which causes cross-contamination
+        picks_url = f"https://contests.covers.com/kingofcovers/contestant/pendingpicks/{username}/{sport_code}"
+
+        soup = None
         try:
-            response = self.session.get(contestant['profile_url'], timeout=15)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
+            response = self.session.get(picks_url, timeout=15)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
+        except Exception:
+            pass
 
-            picks = []
-            pending_tables = soup.find_all('table', class_='cmg_contests_pendingpicks')
-
-            if not pending_tables:
+        # Fallback to general profile URL if sport-specific fails
+        if not soup:
+            try:
+                response = self.session.get(contestant['profile_url'], timeout=15)
+                response.raise_for_status()
+                soup = BeautifulSoup(response.text, 'html.parser')
+            except Exception:
                 return []
 
-            for pending_table in pending_tables:
-              for row in pending_table.find_all('tr'):
-                cells = row.find_all('td')
-                if len(cells) < 4:
+        # Filter by today's date heading - only extract picks under today's h3
+        # Date headings look like "Monday, March 9" - we match on "March 9"
+        today_month_day = f"{TODAY.strftime('%B')} {TODAY.day}"
+        picks = []
+        is_today = False
+
+        for element in soup.find_all(['h3', 'table']):
+            if element.name == 'h3':
+                heading_text = element.text.strip()
+                is_today = today_month_day in heading_text
+            elif (element.name == 'table' and
+                  'cmg_contests_pendingpicks' in (element.get('class') or [])):
+                if not is_today:
                     continue
 
-                # Skip fully graded picks (check last column for "Pending")
-                last_cell = cells[-1].get_text(strip=True).lower()
-                if 'pending' not in last_cell:
-                    continue
-
-                # Extract teams and normalize names to match public consensus format
-                teams_text = cells[0].text.strip().split('\n')
-                teams = [t.strip() for t in teams_text if t.strip()]
-                away = self._normalize_profile_team(teams[0]) if teams else ''
-                home = self._normalize_profile_team(teams[1]) if len(teams) > 1 else ''
-
-                # Extract picks - get ALL divs and deduplicate (KEY FIX!)
-                picks_cell = cells[3] if len(cells) > 3 else None
-                if not picks_cell:
-                    continue
-
-                # Get ALL pick divs and deduplicate
-                pick_divs = picks_cell.find_all('div')
-                pick_texts = []
-                seen_picks = set()
-
-                for div in pick_divs:
-                    pick_text = div.text.strip()
-                    if pick_text and pick_text not in seen_picks:
-                        pick_texts.append(pick_text)
-                        seen_picks.add(pick_text)
-
-                # If no divs found, try getting direct text
-                if not pick_texts:
-                    direct_text = picks_cell.get_text(strip=True)
-                    if direct_text and len(direct_text) >= 3:
-                        pick_texts.append(direct_text)
-
-                # Process EACH unique pick for this game
-                for pick_text in pick_texts:
-                    if not pick_text or len(pick_text) < 3:
+                # Extract picks from this table (today's picks only)
+                for row in element.find_all('tr'):
+                    cells = row.find_all('td')
+                    if len(cells) < 4:
                         continue
 
-                    pick_lower = pick_text.lower()
+                    # Extract teams and normalize names
+                    teams_text = cells[0].text.strip().split('\n')
+                    team_parts = [t.strip() for t in teams_text if t.strip()]
+                    away = self._normalize_profile_team(team_parts[0]) if team_parts else ''
+                    home = self._normalize_profile_team(team_parts[1]) if len(team_parts) > 1 else ''
 
-                    # Determine pick type
-                    if 'over' in pick_lower:
-                        pick_type = 'Total (Over)'
-                    elif 'under' in pick_lower:
-                        pick_type = 'Total (Under)'
-                    elif '+ml' in pick_lower or '-ml' in pick_lower or 'ml' in pick_lower:
-                        pick_type = 'Moneyline'
-                    else:
-                        # Check for moneyline odds (3-digit numbers like +104, -150)
-                        ml_pattern = re.search(r'[+-]\d{3,}', pick_text)
-                        spread_pattern = re.search(r'[+-]\d+\.5', pick_text)
+                    if not away or not home:
+                        continue
 
-                        if ml_pattern and not spread_pattern:
+                    # Extract picks - get ALL divs and deduplicate
+                    picks_cell = cells[3] if len(cells) > 3 else None
+                    if not picks_cell:
+                        continue
+
+                    pick_divs = picks_cell.find_all('div')
+                    pick_texts = []
+                    seen_picks = set()
+
+                    for div in pick_divs:
+                        pick_text = div.text.strip()
+                        if pick_text and pick_text not in seen_picks:
+                            pick_texts.append(pick_text)
+                            seen_picks.add(pick_text)
+
+                    if not pick_texts:
+                        direct_text = picks_cell.get_text(strip=True)
+                        if direct_text and len(direct_text) >= 3:
+                            pick_texts.append(direct_text)
+
+                    for pick_text in pick_texts:
+                        if not pick_text or len(pick_text) < 3:
+                            continue
+
+                        pick_lower = pick_text.lower()
+
+                        if 'over' in pick_lower:
+                            pick_type = 'Total (Over)'
+                        elif 'under' in pick_lower:
+                            pick_type = 'Total (Under)'
+                        elif '+ml' in pick_lower or '-ml' in pick_lower or 'ml' in pick_lower:
                             pick_type = 'Moneyline'
-                        elif spread_pattern:
-                            pick_type = 'Spread (ATS)'
-                        elif '+' in pick_text or '-' in pick_text:
-                            num_match = re.search(r'[+-](\d+)', pick_text)
-                            if num_match:
-                                num = int(num_match.group(1))
-                                if num >= 100:
-                                    pick_type = 'Moneyline'
+                        else:
+                            ml_pattern = re.search(r'[+-]\d{3,}', pick_text)
+                            spread_pattern = re.search(r'[+-]\d+\.5', pick_text)
+
+                            if ml_pattern and not spread_pattern:
+                                pick_type = 'Moneyline'
+                            elif spread_pattern:
+                                pick_type = 'Spread (ATS)'
+                            elif '+' in pick_text or '-' in pick_text:
+                                num_match = re.search(r'[+-](\d+)', pick_text)
+                                if num_match:
+                                    num = int(num_match.group(1))
+                                    pick_type = 'Moneyline' if num >= 100 else 'Spread (ATS)'
                                 else:
                                     pick_type = 'Spread (ATS)'
                             else:
-                                pick_type = 'Spread (ATS)'
-                        else:
-                            pick_type = 'Moneyline'
+                                pick_type = 'Moneyline'
 
-                    picks.append({
-                        'sport': sport,
-                        'matchup': f"{away} @ {home}",
-                        'pick_type': pick_type,
-                        'pick_text': pick_text
-                    })
+                        picks.append({
+                            'sport': sport,
+                            'matchup': f"{away} @ {home}",
+                            'pick_type': pick_type,
+                            'pick_text': pick_text
+                        })
 
-            return picks
-
-        except Exception as e:
-            return []
+        return picks
 
     def scrape_all(self):
-        """Scrape all sports - combines King of Covers contestants AND public consensus"""
+        """Scrape all sports - combines King of Covers contestants AND public consensus.
+        For expert picks: walks up to 10 leaderboard pages per sport to find 50
+        contestants who actually have today's picks (not just 50 random top-ranked ones).
+        This matches the proven v3.1 scraper approach that produces high consensus counts."""
         print("\n" + "=" * 60)
         print("SCRAPING COVERS.COM CONSENSUS DATA")
         print("=" * 60)
@@ -1097,26 +1359,21 @@ class CoversConsensusScraper:
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
 
-            # 1. Scrape King of Covers contestants (expert picks)
-            contestants = self.get_leaderboard(sport_code, pages=1)  # Top 50 ranked contestants
+            # 1. Scrape King of Covers contestants WITH today's picks
+            # Walks leaderboard pages until we find 50 who have picks
+            entries = self.get_leaderboard_with_picks(sport_code, sport_name, max_pages=4, target=50)
 
             picks_found = 0
-            for i, contestant in enumerate(contestants[:50], 1):  # Process top 50
-                picks = self.get_contestant_picks(contestant, sport_name)
+            for contestant, picks in entries:
+                picks_found += len(picks)
+                self.all_picks.extend(picks)
 
-                if picks:
-                    picks_found += len(picks)
-                    self.all_picks.extend(picks)
-
-                    for pick in picks:
-                        # Add to side-based counter (expert picks get weight 1 each)
-                        self._add_to_side_counter(
-                            pick['sport'], pick['matchup'],
-                            pick['pick_type'], pick['pick_text'],
-                            weight=1
-                        )
-
-                time.sleep(0.3)
+                for pick in picks:
+                    self._add_to_side_counter(
+                        pick['sport'], pick['matchup'],
+                        pick['pick_type'], pick['pick_text'],
+                        weight=1
+                    )
 
             print(f"    Expert picks found: {picks_found}")
 
@@ -1131,7 +1388,7 @@ class CoversConsensusScraper:
         aggregated = []
 
         for side_key, count in self.side_counter.most_common():
-            if count < 2:
+            if count < 1:
                 continue
 
             parts = side_key.split('|', 2)
@@ -1553,8 +1810,26 @@ def main():
         return 1
 
     # 1b. Filter picks to today's games only (ESPN cross-reference)
+    # Only filter a sport if ESPN returned a reasonable number of games.
+    # When ESPN returns very few games, it may be missing data, so we skip
+    # filtering that sport to avoid removing legitimate games.
     print("\n[1b] Filtering to today's games only (ESPN schedule)...")
     espn_schedule = fetch_espn_schedule()
+
+    # Minimum ESPN games required to trust filtering for each sport
+    _MIN_ESPN_GAMES_TO_FILTER = {
+        'NBA': 3, 'NHL': 3, 'College Basketball': 3,
+        'NFL': 1, 'College Football': 1,
+    }
+
+    # Disable filtering for sports where ESPN returned too few games
+    for sport_name, games_list in espn_schedule.items():
+        if games_list is not None:
+            min_required = _MIN_ESPN_GAMES_TO_FILTER.get(sport_name, 3)
+            if len(games_list) < min_required:
+                print(f"    ESPN {sport_name}: only {len(games_list)} games (< {min_required} threshold) - SKIPPING filter for this sport")
+                espn_schedule[sport_name] = None  # None = don't filter
+
     original_count = len(picks)
     original_games = len(group_picks_by_game(picks))
     filtered_picks = []
