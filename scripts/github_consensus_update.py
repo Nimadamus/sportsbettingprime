@@ -1525,6 +1525,109 @@ def generate_game_cards_html(games):
     return '\n'.join(cards_html)
 
 
+def _repair_page_structure(html):
+    """PERMANENT FIX: Validate and repair critical page structure.
+
+    Ensures the page ALWAYS has:
+    1. The filterSport() JavaScript function (with NCAAB/NCAAF mapping)
+    2. Proper </body></html> closing tags
+    3. No leftover merge conflict markers
+
+    This runs EVERY time the page is saved, so even if merge conflicts
+    or truncation corrupt the file, the next scraper run auto-heals it.
+    """
+    repairs = []
+
+    # 1. Strip any remaining merge conflict markers
+    if '<<<<<<< ' in html or '=======' in html or '>>>>>>> ' in html:
+        clean_lines = []
+        skip = False
+        for line in html.splitlines(True):
+            s = line.strip()
+            if s.startswith('<<<<<<< '):
+                skip = False
+                continue
+            elif s == '=======':
+                skip = True
+                continue
+            elif s.startswith('>>>>>>> '):
+                skip = False
+                continue
+            if not skip:
+                clean_lines.append(line)
+        html = ''.join(clean_lines)
+        repairs.append("stripped merge conflict markers")
+
+    # 2. Ensure filterSport() function exists
+    if 'function filterSport' not in html:
+        repairs.append("added missing filterSport() function")
+        # Find where to insert - after games-container closing div, before </body>
+        filter_script = '''
+<script>
+        // Sport filter function - AUTO-REPAIRED by scraper
+        function filterSport(sport) {
+            const cards = document.querySelectorAll('.game-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Map button labels to data-sport attribute values
+            const sportMap = {
+                'NCAAB': 'College Basketball',
+                'NCAAF': 'College Football'
+            };
+            const matchSport = sportMap[sport] || sport;
+
+            cards.forEach(card => {
+                if (sport === 'all') {
+                    card.style.display = '';
+                } else {
+                    const cardSport = card.getAttribute('data-sport');
+                    card.style.display = cardSport === matchSport ? '' : 'none';
+                }
+            });
+        }
+    </script>
+'''
+        # Insert before </body> if it exists, otherwise before </html>, otherwise append
+        if '</body>' in html:
+            html = html.replace('</body>', filter_script + '\n    </body>')
+        elif '</html>' in html:
+            html = html.replace('</html>', filter_script + '\n    </body>\n</html>')
+        else:
+            html += filter_script + '\n    </body>\n</html>'
+
+    # 3. Ensure filterSport has the NCAAB/NCAAF sport mapping
+    # Old versions compared data-sport directly without mapping
+    if 'function filterSport' in html and 'sportMap' not in html:
+        repairs.append("added NCAAB/NCAAF sport mapping to filterSport")
+        html = html.replace(
+            "const cardSport = card.getAttribute('data-sport');\n"
+            "                    card.style.display = cardSport === sport ? '' : 'none';",
+            "const cardSport = card.getAttribute('data-sport');\n"
+            "                    const sportMap = {'NCAAB': 'College Basketball', 'NCAAF': 'College Football'};\n"
+            "                    const matchSport = sportMap[sport] || sport;\n"
+            "                    card.style.display = cardSport === matchSport ? '' : 'none';"
+        )
+
+    # 4. Ensure </body></html> closing tags exist
+    if '</body>' not in html:
+        repairs.append("added missing </body> tag")
+        if '</html>' in html:
+            html = html.replace('</html>', '    </body>\n</html>')
+        else:
+            html += '\n    </body>\n</html>'
+    if '</html>' not in html:
+        repairs.append("added missing </html> tag")
+        html += '\n</html>'
+
+    if repairs:
+        print(f"  [REPAIR] Auto-healed page structure: {', '.join(repairs)}")
+
+    return html
+
+
 def update_covers_consensus(picks):
     """Update covers-consensus.html with game card layout"""
     main_file = os.path.join(REPO, "covers-consensus.html")
@@ -1535,6 +1638,28 @@ def update_covers_consensus(picks):
 
     with open(main_file, 'r', encoding='utf-8') as f:
         html = f.read()
+
+    # PERMANENT FIX: Strip any git merge conflict markers before processing
+    # These get introduced when GitHub Actions and local runs collide
+    if '<<<<<<< ' in html:
+        print("  [REPAIR] Found merge conflict markers - stripping them (keeping HEAD content)")
+        clean_lines = []
+        skip = False
+        for line in html.splitlines(True):
+            s = line.strip()
+            if s.startswith('<<<<<<< '):
+                skip = False  # keep HEAD (ours) content
+                continue
+            elif s == '=======':
+                skip = True  # skip theirs
+                continue
+            elif s.startswith('>>>>>>> '):
+                skip = False  # resume
+                continue
+            if not skip:
+                clean_lines.append(line)
+        html = ''.join(clean_lines)
+        print(f"  [REPAIR] Merge conflicts resolved")
 
     # Group picks by game
     games = group_picks_by_game(picks)
@@ -1637,6 +1762,11 @@ def update_covers_consensus(picks):
         html,
         flags=re.DOTALL
     )
+
+    # PERMANENT FIX: Validate and repair critical page structure before saving
+    # This ensures the page ALWAYS has working tab filters and proper HTML closure
+    # regardless of merge conflicts, truncation, or any other corruption
+    html = _repair_page_structure(html)
 
     # Save updated file
     with open(main_file, 'w', encoding='utf-8') as f:
