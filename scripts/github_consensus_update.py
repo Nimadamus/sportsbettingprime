@@ -743,9 +743,27 @@ class CoversConsensusScraper:
                         matchup = self._extract_teams_from_cell(cells[0], sport_code)
 
                         # Read the total line (e.g., "5.5", "223")
-                        total_line_raw = cells[1].get_text(strip=True) if len(cells) > 1 else ''
-                        total_line_match = re.search(r'(\d+\.?\d*)', total_line_raw)
-                        total_line = total_line_match.group(1) if total_line_match else ''
+                        # Try cells[1] first, but validate the number is reasonable
+                        total_line = ''
+                        for cell_idx in [1, 2, 3]:
+                            if cell_idx < len(cells):
+                                cell_text = cells[cell_idx].get_text(strip=True)
+                                total_match = re.search(r'^(\d+\.?\d*)$', cell_text.strip())
+                                if total_match:
+                                    val = float(total_match.group(1))
+                                    # Sanity check: totals should be reasonable per sport
+                                    # NHL: 3-9, NBA: 190-260, NCAAB: 110-180, NFL: 30-60
+                                    if val < 500:  # No sport has a total over 500
+                                        total_line = total_match.group(1)
+                                        break
+                        if not total_line:
+                            # Fallback: extract first reasonable number from cells[1]
+                            total_line_raw = cells[1].get_text(strip=True) if len(cells) > 1 else ''
+                            total_line_match = re.search(r'(\d+\.?\d*)', total_line_raw)
+                            if total_line_match:
+                                val = float(total_line_match.group(1))
+                                if val < 500:
+                                    total_line = total_line_match.group(1)
 
                         # Read consensus percentages from this row
                         consensus_raw = cells[2].get_text(strip=True) if len(cells) > 2 else ''

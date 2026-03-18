@@ -536,6 +536,12 @@ class PageGenerator:
         # Update title and date
         new_html = self._update_metadata(new_html, sport, games)
 
+        # Update Previous Days links to show recent archive dates
+        new_html = self._update_previous_days(new_html, sport, page_file)
+
+        # Update footer date
+        new_html = self._update_footer_date(new_html)
+
         # Save updated page
         with open(page_path, "w", encoding="utf-8") as f:
             f.write(new_html)
@@ -672,6 +678,61 @@ class PageGenerator:
             html
         )
 
+        return html
+
+    def _update_previous_days(self, html, sport, page_file):
+        """Update the Previous Days section with recent archive dates"""
+        sport_dir = os.path.join(ARCHIVE_DIR, sport)
+        if not os.path.exists(sport_dir):
+            return html
+
+        # Get recent archive dates (excluding today)
+        files = [f for f in os.listdir(sport_dir) if f.endswith('.html')]
+        dates = []
+        for f in files:
+            match = re.search(r'(\d{4})-(\d{2})-(\d{2})', f)
+            if match:
+                date_str = f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
+                if date_str != DATE_STR:  # Exclude today
+                    dates.append((date_str, f))
+        dates.sort(key=lambda x: x[0], reverse=True)
+        recent = dates[:8]  # Last 8 days
+
+        if not recent:
+            return html
+
+        # Build new links HTML
+        base_name = page_file.replace('.html', '')
+        link_style = 'display: block; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; text-align: center; font-size: 0.875rem; transition: all 0.2s;'
+        links = []
+        months = {'01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr', '05': 'May',
+                  '06': 'Jun', '07': 'Jul', '08': 'Aug', '09': 'Sep', '10': 'Oct',
+                  '11': 'Nov', '12': 'Dec'}
+        for date_str, filename in recent:
+            parts = date_str.split('-')
+            label = f"{months.get(parts[1], parts[1])} {int(parts[2])}"
+            links.append(f'                <a href="archive/{sport}/{filename}" style="{link_style}">{label}</a>')
+
+        new_links = '\n'.join(links)
+
+        # Replace existing Previous Days links using regex
+        pattern = r'(<h3[^>]*>Previous Days</h3>\s*<div[^>]*>)\s*(.*?)\s*(</div>)'
+        replacement = f'\\1\n{new_links}\n            \\3'
+        html = re.sub(pattern, replacement, html, flags=re.DOTALL)
+
+        return html
+
+    def _update_footer_date(self, html):
+        """Update footer date to today"""
+        days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        from datetime import datetime
+        today = datetime.now()
+        day_name = days[today.weekday()]
+        html = re.sub(
+            r'Updated\s+\w+,\s+\w+\s+\d+,\s+\d{4}',
+            f'Updated {day_name}, {DATE_DISPLAY}',
+            html
+        )
         return html
 
     def _create_archive(self, page_file, html, sport):
