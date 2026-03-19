@@ -811,130 +811,8 @@
             .consensus-buttons { flex-direction: column; }
             .consensus-buttons .btn-primary,
             .consensus-buttons .btn-secondary { width: 100%; text-align: center; justify-content: center; }
-            .contest-banner { padding: 2rem 1rem; }
-            .contest-banner-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
-            .contest-banner-text { align-items: center; }
-            .contest-banner-cta { width: 100%; justify-content: center; }
         }
 
-        /* ===== AI CONTEST BANNER ===== */
-        .contest-banner {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0a1628 0%, #0f2240 40%, #1a0a3a 100%);
-            border-top: 2px solid rgba(26,143,255,0.4);
-            border-bottom: 2px solid rgba(16,185,129,0.4);
-            padding: 2.5rem 1.5rem;
-        }
-
-        .contest-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 600px 300px at 20% 50%, rgba(26,143,255,0.12) 0%, transparent 70%),
-                radial-gradient(ellipse 600px 300px at 80% 50%, rgba(16,185,129,0.10) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .contest-banner-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contest-banner-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: rgba(16,185,129,0.15);
-            border: 1px solid rgba(16,185,129,0.4);
-            border-radius: 20px;
-            padding: 0.3rem 0.85rem;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #10b981;
-            margin-bottom: 0.6rem;
-        }
-
-        .contest-banner-badge .live-pulse {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-            box-shadow: 0 0 8px rgba(16,185,129,0.6);
-        }
-
-        .contest-banner-text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .contest-banner-text h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.3;
-            margin-bottom: 0.4rem;
-        }
-
-        .contest-banner-text h2 .highlight-blue { color: var(--accent-blue); }
-        .contest-banner-text h2 .highlight-green { color: var(--accent-green); }
-
-        .contest-banner-text p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.6;
-            max-width: 600px;
-        }
-
-        .contest-banner-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, #1a8fff 0%, #0ea5e9 100%);
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            white-space: nowrap;
-            box-shadow: 0 0 20px rgba(26,143,255,0.3), 0 0 60px rgba(26,143,255,0.1);
-            animation: ctaGlow 2.5s ease-in-out infinite;
-            text-decoration: none;
-        }
-
-        .contest-banner-cta:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 0 30px rgba(26,143,255,0.5), 0 0 80px rgba(26,143,255,0.2);
-        }
-
-        .contest-banner-cta .arrow {
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-        }
-        .contest-banner-cta:hover .arrow { transform: translateX(4px); }
-
-        @keyframes ctaGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(26,143,255,0.3), 0 0 60px rgba(26,143,255,0.1); }
-            50% { box-shadow: 0 0 30px rgba(26,143,255,0.5), 0 0 80px rgba(26,143,255,0.25); }
-        }
     </style>
 
     <!-- Google Analytics -->
@@ -983,20 +861,6 @@
                 <a href="covers-consensus.html" class="btn-primary">Today's Consensus Data &#8594;</a>
                 <a href="betting-guide.html" class="btn-secondary">Explore Betting Guides</a>
             </div>
-        </div>
-    </section>
-
-    <!-- ============ AI HANDICAPPING CONTEST BANNER ============ -->
-    <section class="contest-banner">
-        <div class="contest-banner-inner">
-            <div class="contest-banner-text">
-                <span class="contest-banner-badge"><span class="live-pulse"></span> Live Today</span>
-                <h2><span class="highlight-blue">AI Handicapping Contest:</span> Sharp Consensus Picks <span class="highlight-green">Updated Daily</span></h2>
-                <p>We track picks from the top Covers.com contest participants. When the sharpest minds agree on a side, you see it here first, filtered by sport, with real-time consensus strength.</p>
-            </div>
-            <a href="covers-consensus.html" class="contest-banner-cta">
-                View Today's Picks <span class="arrow">&#8594;</span>
-            </a>
         </div>
     </section>
 
