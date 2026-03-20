@@ -51,6 +51,11 @@ jobs:
           echo "Updating consensus data from Covers.com..."
           python scripts/github_consensus_update.py
 
+      - name: Regenerate Sitemap
+        run: |
+          echo "Regenerating sitemap.xml (reads each file, skips noindex pages)..."
+          python generate_sitemap.py
+
       - name: Check for changes
         id: git-check
         run: |

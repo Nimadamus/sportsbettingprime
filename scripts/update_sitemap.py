@@ -168,68 +168,15 @@ def generate_archive_calendar(pages):
 
 
 def generate_sitemap_xml(pages):
-    """Generate COMPREHENSIVE sitemap.xml for SEO - includes ALL HTML pages."""
-
-    urls = []
-    exclude_patterns = ['google6f74b54ecd988601', 'BACKUP', '.git']
-
-    # Scan ALL HTML files in the entire repo
-    for root, dirs, files in os.walk(REPO):
-        dirs[:] = [d for d in dirs if d != '.git']
-
-        for filename in files:
-            if filename.endswith('.html'):
-                # Skip excluded files
-                if any(pattern in filename for pattern in exclude_patterns):
-                    continue
-
-                filepath = os.path.join(root, filename)
-                rel_path = os.path.relpath(filepath, REPO).replace('\\', '/')
-
-                # Skip hidden/internal history files
-                if 'history/' in rel_path and '23-44' in rel_path:
-                    continue
-
-                urls.append(f"https://sportsbettingprime.com/{rel_path}")
-
-    # Sort for consistent ordering
-    urls.sort()
-
-    # Determine priority based on page type
-    def get_priority_and_freq(url):
-        if 'index.html' in url and url.count('/') == 3:
-            return '1.0', 'daily'
-        elif 'covers-consensus.html' in url or 'handicapping-hub.html' in url:
-            return '1.0', 'daily'
-        elif any(x in url for x in ['nba-court', 'nfl-gridiron', 'nhl-ice']):
-            return '0.9', 'daily'
-        elif 'college-' in url:
-            return '0.8', 'daily'
-        elif '/archive/' in url:
-            return '0.6', 'monthly'
-        elif 'consensus_library/' in url or 'sharp-consensus' in url:
-            return '0.7', 'weekly'
-        else:
-            return '0.5', 'weekly'
-
-    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-
-    for url in urls:
-        priority, freq = get_priority_and_freq(url)
-        xml_content += f'''  <url>
-    <loc>{url}</loc>
-    <lastmod>{TODAY.strftime("%Y-%m-%d")}</lastmod>
-    <changefreq>{freq}</changefreq>
-    <priority>{priority}</priority>
-  </url>
-'''
-
-    xml_content += '</urlset>\n'
-
-    with open(os.path.join(REPO, "sitemap.xml"), "w", encoding="utf-8") as f:
-        f.write(xml_content)
-    print(f"Updated sitemap.xml ({len(urls)} URLs) - COMPREHENSIVE")
+    """Generate sitemap.xml by calling the main generator (which checks for noindex)."""
+    import subprocess
+    import sys
+    generator = os.path.join(REPO, "generate_sitemap.py")
+    result = subprocess.run([sys.executable, generator], cwd=REPO)
+    if result.returncode != 0:
+        print("WARNING: Sitemap generation failed")
+    else:
+        print("Sitemap generated via main generate_sitemap.py (noindex-aware)")
 
 
 def generate_sitemap_html(pages):
