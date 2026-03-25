@@ -47,6 +47,7 @@ ESPN_SPORT_MAP = {
     'NHL': ('hockey', 'nhl'),
     'NBA': ('basketball', 'nba'),
     'NFL': ('football', 'nfl'),
+    'MLB': ('baseball', 'mlb'),
     'College Basketball': ('basketball', 'mens-college-basketball'),
     'College Football': ('football', 'college-football'),
 }
@@ -257,6 +258,14 @@ class CoversConsensusScraper:
         'NE': 'New England', 'NEP': 'New England',
         'NYG': 'NY Giants', 'NYJ': 'NY Jets', 'SF': 'San Francisco',
         'TEN': 'Tennessee',
+        # MLB
+        'AZ': 'Arizona', 'LAD': 'L.A. Dodgers', 'SD': 'San Diego',
+        'NYM': 'New York Mets', 'LAA': 'L.A. Angels', 'NYY': 'New York Yankees',
+        'CHC': 'Chicago Cubs', 'CHW': 'Chicago White Sox', 'CWS': 'Chicago White Sox',
+        'TEX': 'Texas', 'SEA': 'Seattle', 'TB': 'Tampa Bay', 'TBR': 'Tampa Bay',
+        'KC': 'Kansas City', 'COL': 'Colorado', 'MIL': 'Milwaukee',
+        'STL': 'St. Louis', 'CIN': 'Cincinnati', 'PIT': 'Pittsburgh',
+        'SF': 'San Francisco', 'SFG': 'San Francisco',
         # NCAAB/NCAAF - abbreviations used in expert pick text
         'VT': 'Virginia Tech', 'GT': 'Georgia Tech', 'OKST': 'Oklahoma State',
         'MIZZ': 'Missouri', 'KU': 'Kansas', 'KSU': 'Kansas State',
@@ -380,6 +389,7 @@ class CoversConsensusScraper:
             'nfl': 'NFL',
             'nba': 'NBA',
             'nhl': 'NHL',
+            'mlb': 'MLB',
             'ncaab': 'College Basketball',
             'ncaaf': 'College Football',
         }
@@ -1501,6 +1511,7 @@ def get_sport_class(sport):
         'NFL': 'sport-nfl',
         'NBA': 'sport-nba',
         'NHL': 'sport-nhl',
+        'MLB': 'sport-mlb',
         'College Basketball': 'sport-ncaab',
         'College Football': 'sport-ncaaf'
     }.get(sport, 'sport-nfl')
