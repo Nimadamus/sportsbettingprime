@@ -13,6 +13,7 @@ in the sitemap. Google saw the contradictions and deprioritized the entire site.
 
 import os
 import re
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -26,6 +27,9 @@ elif (Path(r'C:\Users\Nima\sportsbettingprime') / 'index.html').exists():
     REPO_PATH = Path(r'C:\Users\Nima\sportsbettingprime')
 else:
     REPO_PATH = Path.cwd()
+
+# Cache for git commit dates (populated once, used for all files)
+_git_dates_cache = None
 
 DOMAIN = "https://sportsbettingprime.com"
 
@@ -82,6 +86,44 @@ def is_noindex(filepath):
     except Exception:
         # If we can't read the file, skip it
         return True
+
+
+def get_git_dates():
+    """Build a dict of {relative_path: last_commit_date} using git log.
+
+    This is the FIX for the identical-lastmod problem. The old code used
+    os.path.getmtime() which returns the checkout/build time on GitHub Actions,
+    making every file show today's date. Git log gives the actual last meaningful
+    commit date for each file.
+    """
+    global _git_dates_cache
+    if _git_dates_cache is not None:
+        return _git_dates_cache
+
+    _git_dates_cache = {}
+    try:
+        result = subprocess.run(
+            ['git', 'log', '--format=%ai', '--name-only', '--diff-filter=ACMR'],
+            capture_output=True, text=True, cwd=str(REPO_PATH), timeout=60
+        )
+        if result.returncode == 0:
+            current_date = None
+            for line in result.stdout.split('\n'):
+                line = line.strip()
+                if not line:
+                    continue
+                # Date lines look like: 2026-03-30 17:05:26 -0700
+                if re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', line):
+                    current_date = line[:10]  # Just the YYYY-MM-DD part
+                elif current_date and line.endswith('.html'):
+                    # Only store the FIRST (most recent) date we see for each file
+                    normalized = line.replace('\\', '/')
+                    if normalized not in _git_dates_cache:
+                        _git_dates_cache[normalized] = current_date
+    except Exception as e:
+        print(f"  Warning: git log failed ({e}), falling back to file mtime")
+
+    return _git_dates_cache
 
 
 def has_real_content(filepath):
@@ -213,12 +255,16 @@ def generate_sitemap():
             else:
                 url = f"{DOMAIN}/{rel_path}"
 
-            # Get real file modification time
-            try:
-                mtime = os.path.getmtime(filepath)
-                lastmod = datetime.fromtimestamp(mtime).strftime('%Y-%m-%d')
-            except Exception:
-                lastmod = datetime.now().strftime('%Y-%m-%d')
+            # Get last meaningful commit date from git (not filesystem mtime)
+            git_dates = get_git_dates()
+            lastmod = git_dates.get(rel_path)
+            if not lastmod:
+                # Fallback: try file mtime, then today
+                try:
+                    mtime = os.path.getmtime(filepath)
+                    lastmod = datetime.fromtimestamp(mtime).strftime('%Y-%m-%d')
+                except Exception:
+                    lastmod = datetime.now().strftime('%Y-%m-%d')
 
             priority, changefreq = get_priority_and_freq(rel_path)
 
