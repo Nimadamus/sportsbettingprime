@@ -178,13 +178,15 @@
         <p>For point spread bets, CLV is most intuitively measured in points. If you bet Team A -3 and the line closes at Team A -4.5, you received 1.5 points of positive CLV. If you bet Team A -6 and the line closes at Team A -4.5, you received 1.5 points of negative CLV. The sign indicates whether you were on the favorable or unfavorable side of the closing price.</p>
 
         <div class="example-box">
-            <h4>Example: Spread CLV Calculation</h4>
-            <p>You bet the Buffalo Bills -3 (-110) on Tuesday. By kickoff on Sunday, the closing line is Bills -5 (-110). Your CLV is +2 points. The market ultimately assessed the Bills as a bigger favorite than the price you received, meaning you got a more favorable number. Conversely, if you had bet Bills -7 (-110) and the line closed at -5, your CLV would be -2 points, meaning you laid more points than the market's final assessment warranted.</p>
+            <h4>Example: Positive vs. Negative CLV</h4>
+            <p>If you bet a favorite before the market moves further in that direction, you captured a better number than late bettors did.</p>
+            <p>If you bet after the market already moved away from your side, you accepted a worse number than the eventual close.</p>
+            <p>That gap between your price and the final market price is the core of CLV.</p>
         </div>
 
         <h3>CLV for Moneylines</h3>
 
-        <p>For moneyline bets, CLV is measured by converting odds to implied probabilities and comparing them. If you bet a team at +150 (implied probability of 40%) and the closing moneyline is +130 (implied probability of 43.5%), you received a better price. The CLV in this case is approximately 3.5 percentage points of implied probability, meaning the market ultimately moved toward the team you bet, confirming that the price you received offered excess value.</p>
+        <p>For moneyline bets, CLV is measured by converting prices to implied probabilities and comparing them. If you took a plus-money price that shortened by game time, you captured positive CLV. If the closing market drifted against your number, you captured negative CLV.</p>
 
         <h3>CLV for Totals</h3>
 
@@ -206,38 +208,38 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>NFL Spread</td>
-                    <td>Team A -3 (-110)</td>
-                    <td>Team A -4.5 (-110)</td>
-                    <td>+1.5 points</td>
+                    <td>Spread</td>
+                    <td>Better early number</td>
+                    <td>Less favorable close</td>
+                    <td>Positive</td>
                     <td>Positive</td>
                 </tr>
                 <tr>
-                    <td>NBA Moneyline</td>
-                    <td>Team B +150</td>
-                    <td>Team B +130</td>
-                    <td>+3.5% implied prob</td>
+                    <td>Moneyline</td>
+                    <td>Stronger plus-money entry</td>
+                    <td>Shorter closing price</td>
+                    <td>Positive</td>
                     <td>Positive</td>
                 </tr>
                 <tr>
-                    <td>NHL Total</td>
-                    <td>Over 5.5 (-115)</td>
-                    <td>Over 6 (-110)</td>
-                    <td>+0.5 points</td>
+                    <td>Total</td>
+                    <td>Lower over / higher under entry</td>
+                    <td>More efficient close</td>
+                    <td>Positive</td>
                     <td>Positive</td>
                 </tr>
                 <tr>
-                    <td>NFL Spread</td>
-                    <td>Team C -7 (-110)</td>
-                    <td>Team C -5 (-110)</td>
-                    <td>-2 points</td>
+                    <td>Spread</td>
+                    <td>Worse late number</td>
+                    <td>Friendlier close</td>
+                    <td>Negative</td>
                     <td>Negative</td>
                 </tr>
                 <tr>
-                    <td>NBA Moneyline</td>
-                    <td>Team D -200</td>
-                    <td>Team D -170</td>
-                    <td>-3.1% implied prob</td>
+                    <td>Moneyline</td>
+                    <td>Heavier favorite price</td>
+                    <td>Lighter closing price</td>
+                    <td>Negative</td>
                     <td>Negative</td>
                 </tr>
             </tbody>

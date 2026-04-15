@@ -129,7 +129,7 @@
 
         <p>Value betting is deceptively simple to define. A value bet exists when the probability of an outcome is greater than the odds suggest. That's it. That's the whole concept. But simple doesn't mean easy, because extracting value from betting markets requires you to develop skills that most recreational bettors never bother with.</p>
 
-        <p>Here's an example that makes this concrete. Say you're looking at a moneyline where Team A is +150 to win. Those odds imply that Team A has about a 40% chance of winning. But after your research, you believe Team A actually has a 50% chance. That's a value bet. You're getting paid like it's a 40% shot when you think it's really a 50% shot. Over time, that discrepancy prints money.</p>
+        <p>Here is the simple version. If the market is pricing an outcome as less likely than your own research suggests, that can be a value bet. You are being paid at a better price than your estimate of true probability would justify.</p>
 
         <div class="stat-highlight">
             <span class="big-number">52.4%</span>
@@ -142,7 +142,7 @@
 
         <p>This is where it gets counterintuitive for a lot of people. You can pick winners at a 60% clip and still lose money. You can pick winners at a 45% clip and still make money. The difference is value.</p>
 
-        <p>Imagine you only bet massive favorites at -300 or worse. You might win 75% of your bets and feel like a genius. But at -300, you need to win 75% just to break even. All that winning and you're treading water at best. Meanwhile, some sharp bettor is grinding out 48% winners on plus-money underdogs and building their bankroll steadily because every bet had positive expected value.</p>
+        <p>Imagine betting only heavy favorites. You might stack up plenty of wins and still fail to build an edge if the prices are too expensive. Meanwhile, a bettor with a lower raw win rate can still do better over time if their prices are consistently more favorable.</p>
 
         <p>The scoreboard lies. Your betting record is a vanity metric. The only number that matters is whether you're betting when the math is in your favor.</p>
 
@@ -152,50 +152,40 @@
 
         <h3>The Basic Conversion Formulas</h3>
 
-        <p>For negative odds (favorites), the formula is: Implied Probability = |Odds| / (|Odds| + 100). So for -150 odds, that's 150 / (150 + 100) = 150 / 250 = 60%. The sportsbook is telling you this outcome should happen about 60% of the time.</p>
+        <p>For negative odds, the formula is: Implied Probability = |Odds| / (|Odds| + 100). The key idea is that heavier favorites require a higher break-even win rate.</p>
 
-        <p>For positive odds (underdogs), the formula is: Implied Probability = 100 / (Odds + 100). So for +200 odds, that's 100 / (200 + 100) = 100 / 300 = 33.3%. The book is pricing this outcome at roughly one-in-three.</p>
+        <p>For positive odds, the formula is: Implied Probability = 100 / (Odds + 100). The key idea is that the bigger the plus-money payout, the lower the break-even hit rate you need.</p>
 
         <table>
             <tr>
-                <th>Odds</th>
-                <th>Implied Probability</th>
+                <th>Price Type</th>
+                <th>Break-Even Range</th>
                 <th>What It Means</th>
             </tr>
             <tr>
-                <td>-200</td>
-                <td>66.7%</td>
-                <td>Should win 2 out of 3</td>
+                <td>Heavy favorite</td>
+                <td>High</td>
+                <td>You need a strong hit rate just to justify the price</td>
             </tr>
             <tr>
-                <td>-150</td>
-                <td>60.0%</td>
-                <td>Should win 3 out of 5</td>
+                <td>Moderate favorite</td>
+                <td>Moderately high</td>
+                <td>You are paying for a result the market expects often</td>
             </tr>
             <tr>
-                <td>-110</td>
-                <td>52.4%</td>
-                <td>Standard spread juice</td>
+                <td>Standard market price</td>
+                <td>Just over half</td>
+                <td>Typical two-sided market pricing</td>
             </tr>
             <tr>
-                <td>+100</td>
-                <td>50.0%</td>
-                <td>True coin flip</td>
+                <td>Even price</td>
+                <td>Half</td>
+                <td>A balanced market with no side priced as dominant</td>
             </tr>
             <tr>
-                <td>+150</td>
-                <td>40.0%</td>
-                <td>Should win 2 out of 5</td>
-            </tr>
-            <tr>
-                <td>+200</td>
-                <td>33.3%</td>
-                <td>Should win 1 out of 3</td>
-            </tr>
-            <tr>
-                <td>+300</td>
-                <td>25.0%</td>
-                <td>Should win 1 out of 4</td>
+                <td>Plus-money underdog</td>
+                <td>Below half</td>
+                <td>You need fewer wins, but the market sees the outcome as less likely</td>
             </tr>
         </table>
 
@@ -203,7 +193,7 @@
 
         <div class="example-box">
             <h4>The Vig in Action</h4>
-            <p>Consider a standard spread bet with both sides at -110. The implied probability for each side is 52.4%. But 52.4% + 52.4% = 104.8%, not 100%. That extra 4.8% is the vig. The book is essentially charging you a commission on every bet, which is why you need to be right more than half the time just to break even on spread bets.</p>
+            <p>Consider a standard two-sided market where both sides carry a similar price. If you convert both sides to implied probability and add them together, the total will come out above 100%. That extra percentage is the vig, which is effectively the market's built-in transaction cost.</p>
         </div>
 
         <h2 id="finding-value">How to Identify Value in a Line</h2>
