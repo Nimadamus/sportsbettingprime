@@ -240,6 +240,20 @@
             padding: 0 1.5rem;
         }
 
+        .hero-kicker {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 999px;
+            background: rgba(12,18,32,0.45);
+            color: var(--text);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -264,6 +278,24 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        .hero-notes {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .hero-note {
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(20,30,48,0.72);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .btn-primary {
@@ -855,11 +887,17 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Your Edge Starts Here.</h1>
-            <p>Daily analysis, sharp consensus data from professional handicappers, and 28 expert betting guides across every major sport. Free. Updated every day.</p>
+            <div class="hero-kicker">Daily betting research across six sports</div>
+            <h1>Sports Betting Research Built for Faster Decisions.</h1>
+            <p>Use Sports Betting Prime to move from broad market context into the exact pages you need: consensus tracking, daily sport hubs, and evergreen betting guides that explain why numbers matter.</p>
             <div class="hero-buttons">
-                <a href="covers-consensus.html" class="btn-primary">Today's Consensus Data &#8594;</a>
-                <a href="betting-guide.html" class="btn-secondary">Explore Betting Guides</a>
+                <a href="covers-consensus.html" class="btn-primary">Open Consensus Board &#8594;</a>
+                <a href="handicapping-hub.html" class="btn-secondary">Open Handicapping Hub</a>
+            </div>
+            <div class="hero-notes">
+                <span class="hero-note">Consensus board for daily market agreement</span>
+                <span class="hero-note">Sport hubs for matchup-level analysis</span>
+                <span class="hero-note">Guides for betting mechanics and process</span>
             </div>
         </div>
     </section>
@@ -881,7 +919,7 @@
     <div class="section">
         <div class="section-header">
             <h2>Daily Analysis by Sport</h2>
-            <p>Every game, every matchup. Updated daily with spreads, trends, and expert analysis.</p>
+            <p>These are the core ranking pages for the site. Use them to move from a sport-level overview into current matchups, odds context, and supporting articles.</p>
         </div>
         <div class="sports-grid">
             <a href="0407-skubal-world-series-rematch-thunder-historic-favorites-nhl-wild-card-chaos-april-7-2026.html" class="sport-card">
@@ -1333,7 +1371,7 @@
         <div class="section">
             <div class="section-header">
                 <h2>Sharp Consensus Data</h2>
-                <p>Real-time picks aggregated from professional handicappers. When the sharpest minds agree, you see it first.</p>
+                <p>The consensus board is the fastest way to see where expert agreement clusters today, then branch into guides and sport hubs to decide whether the number still offers value.</p>
             </div>
             <div class="consensus-grid">
                 <!-- Left: Image -->
@@ -1344,14 +1382,14 @@
 
                 <!-- Right: Text -->
                 <div class="consensus-text">
-                    <h3>How It Works</h3>
-                    <p>We track every pick from the top handicappers on Covers.com contests. When 70%+ of experts hammer the same side, that's actionable intelligence you won't find anywhere else.</p>
+                    <h3>How To Use This Board</h3>
+                    <p>Start with the highest-agreement games, compare that signal against your sport hub research, and then use the linked guides to pressure-test whether the market move is worth following.</p>
                     <ul class="consensus-features">
-                        <li>Covers.com consensus picks updated daily</li>
-                        <li>Sharp vs. public betting behavior analysis</li>
-                        <li>100+ days of archived consensus data</li>
-                        <li>NFL, NBA, NHL, NCAAB, and NCAAF coverage</li>
-                        <li>Filterable by sport, date, and consensus strength</li>
+                        <li>Daily Covers contest consensus grouped by game instead of raw pick feed</li>
+                        <li>Fast internal paths into sport hubs and market-mechanics guides</li>
+                        <li>Historical archives still available without dominating the site architecture</li>
+                        <li>NFL, NBA, NHL, NCAAB, NCAAF, and MLB coverage when live</li>
+                        <li>Filterable by sport and agreement strength for faster scanning</li>
                     </ul>
                     <div class="consensus-buttons">
                         <a href="covers-consensus.html" class="btn-primary">Today's Consensus</a>
