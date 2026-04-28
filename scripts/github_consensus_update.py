@@ -92,6 +92,7 @@ def fetch_espn_schedule():
 # Common abbreviation expansions for team name matching
 _TEAM_EXPANSIONS = {
     'ny': 'new york', 'l.a.': 'los angeles', 'la': 'los angeles',
+    'chi': 'chicago', 'chi.': 'chicago',
 }
 
 # Aliases for team name matching (Covers name -> ESPN name or vice versa)
@@ -614,23 +615,42 @@ class CoversConsensusScraper:
     def _strip_mascot(self, full_name):
         """Strip mascot/nickname from a team's full name extracted from img alt.
         'Calgary Flames' -> 'Calgary', 'Weber St. Wildcats' -> 'Weber St.'
-        Leaves name unchanged if stripping would make it too short."""
+        Leaves name unchanged if stripping would make it too short.
+
+        First de-duplicates the doubled-mascot pattern Covers.com MLB serves,
+        e.g. 'NY Yankees Yankees', 'Chi. Cubs Cubs', 'Chi. White Sox White Sox',
+        'Athletics Athletics'. When a duplicate is removed we return the result
+        as-is so the real mascot isn't also stripped (would leave 'Chi.' instead
+        of 'Chi. Cubs')."""
         words = full_name.split()
+
+        # De-duplicate doubled multi-word mascot at the end (e.g. "Chi. White Sox White Sox")
+        if len(words) >= 4:
+            last_two = ' '.join(words[-2:]).lower()
+            prev_two = ' '.join(words[-4:-2]).lower()
+            if last_two == prev_two and last_two in self._MASCOTS_MULTI:
+                return ' '.join(words[:-2])
+
+        # De-duplicate doubled single-word mascot at the end (e.g. "NY Yankees Yankees")
+        if len(words) >= 2 and words[-1].lower() == words[-2].lower() \
+                and words[-1].lower() in self._MASCOTS_SINGLE:
+            return ' '.join(words[:-1])
+
         if len(words) <= 1:
             return full_name
 
-        # Check multi-word mascots first (last 2 words)
+        # Single-pass mascot strip (multi first, then single)
         if len(words) >= 3:
             last_two = ' '.join(words[-2:]).lower()
             if last_two in self._MASCOTS_MULTI:
-                return ' '.join(words[:-2])
+                candidate = ' '.join(words[:-2])
+                if len(candidate) >= 3:
+                    return candidate
 
-        # Check single-word mascot (last word)
         if words[-1].lower() in self._MASCOTS_SINGLE:
-            result = ' '.join(words[:-1])
-            # Don't strip if result is too short (e.g., "NY" from "NY Rangers")
-            if len(result) >= 3:
-                return result
+            candidate = ' '.join(words[:-1])
+            if len(candidate) >= 3:
+                return candidate
 
         return full_name
 
