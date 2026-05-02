@@ -1574,6 +1574,36 @@ def generate_game_cards_html(games):
     return '\n'.join(cards_html)
 
 
+def generate_empty_sport_placeholder(sport, espn_games):
+    """Generate a placeholder card for a sport with scheduled games but no
+    Covers consensus picks yet. Shows real ESPN game count + matchups so the
+    sport tab is never empty when games exist. NEVER fabricates picks."""
+    if not espn_games:
+        return ''
+    abbrev = get_sport_abbrev(sport)
+    sport_class = get_sport_class(sport)
+    n = len(espn_games)
+    matchup_lines = ''.join(
+        f'<li>{away} @ {home}</li>' for away, home in espn_games[:n]
+    )
+    return f'''                <div class="game-card empty-consensus" data-sport="{sport}" data-empty="1">
+                    <div class="game-header">
+                        <span class="sport-tag {sport_class}">{abbrev}</span>
+                        <span class="game-matchup">{abbrev} consensus pending</span>
+                        <span class="game-top-consensus" style="background:#3a2a00;color:var(--accent-gold);">PENDING</span>
+                    </div>
+                    <div class="game-picks">
+                        <p style="margin:0 0 10px 0;color:var(--text-color);">
+                            Covers.com hasn&rsquo;t published {abbrev} consensus picks yet for today&rsquo;s {n}-game slate. Contestant pick submissions and public-money percentages typically populate within a few hours of first pitch/puck/tip-off &mdash; this page auto-refreshes on the next scheduled scraper run.
+                        </p>
+                        <details style="color:var(--text-muted);font-size:0.9rem;">
+                            <summary style="cursor:pointer;color:var(--accent-color);">View today&rsquo;s {n} scheduled {abbrev} matchups (ESPN)</summary>
+                            <ul style="margin:8px 0 0 18px;padding:0;">{matchup_lines}</ul>
+                        </details>
+                    </div>
+                </div>'''
+
+
 def _repair_page_structure(html):
     """PERMANENT FIX: Validate and repair critical page structure.
 
@@ -1677,8 +1707,13 @@ def _repair_page_structure(html):
     return html
 
 
-def update_covers_consensus(picks):
-    """Update covers-consensus.html with game card layout"""
+def update_covers_consensus(picks, espn_schedule=None):
+    """Update covers-consensus.html with game card layout.
+
+    espn_schedule (optional): dict {sport_name: [(away, home), ...] | None}
+    Used to append empty-state placeholder cards for any sport that has
+    scheduled games but no Covers consensus picks today, so the per-sport
+    tabs are never silently blank when games exist."""
     main_file = os.path.join(REPO, "covers-consensus.html")
 
     if not os.path.exists(main_file):
@@ -1715,6 +1750,23 @@ def update_covers_consensus(picks):
 
     # Generate game cards HTML
     cards_html = generate_game_cards_html(games)
+
+    # Append empty-state placeholder cards for sports that have ESPN games
+    # today but zero consensus picks scraped (Covers source not yet publishing
+    # for that sport). Keeps per-sport tabs from looking broken without
+    # fabricating any pick data.
+    sports_with_picks = set(p['sport'] for p in picks)
+    pending_placeholders = []
+    if espn_schedule:
+        for sport_name, espn_games in espn_schedule.items():
+            if not espn_games:
+                continue
+            if sport_name in sports_with_picks:
+                continue
+            placeholder = generate_empty_sport_placeholder(sport_name, espn_games)
+            if placeholder:
+                pending_placeholders.append((sport_name, len(espn_games)))
+                cards_html = (cards_html + '\n' + placeholder) if cards_html else placeholder
 
     # Calculate stats
     total_picks = sum(p['count'] for p in picks)
@@ -1812,6 +1864,57 @@ def update_covers_consensus(picks):
         flags=re.DOTALL
     )
 
+    # Build per-sport diagnostic summary and embed as HTML comment + JSON file
+    per_sport = defaultdict(lambda: {'picks': 0, 'games': set()})
+    for p in picks:
+        per_sport[p['sport']]['picks'] += 1
+        per_sport[p['sport']]['games'].add(p['matchup'])
+    diag = {
+        'scraped_at_utc': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'date_display': DATE_FULL,
+        'total_picks': len(picks),
+        'total_games': num_games,
+        'sports_with_picks': sorted(sports_with_picks),
+        'per_sport': {
+            sport: {
+                'pick_count': data['picks'],
+                'game_count': len(data['games']),
+                'matchups': sorted(data['games']),
+            }
+            for sport, data in per_sport.items()
+        },
+        'pending_sports': [
+            {'sport': s, 'espn_game_count': n} for s, n in pending_placeholders
+        ],
+        'espn_schedule_counts': {
+            sport: (len(g) if g is not None else None)
+            for sport, g in (espn_schedule or {}).items()
+        },
+    }
+    diag_comment = (
+        '<!-- consensus-scrape-diagnostics: '
+        + json.dumps({
+            'scraped_at_utc': diag['scraped_at_utc'],
+            'total_picks': diag['total_picks'],
+            'total_games': diag['total_games'],
+            'sports_with_picks': diag['sports_with_picks'],
+            'pending_sports': [p['sport'] for p in diag['pending_sports']],
+        })
+        + ' -->\n'
+    )
+    # Replace any prior diagnostic comment, otherwise insert just after <!DOCTYPE html>
+    html = re.sub(r'<!--\s*consensus-scrape-diagnostics:[^>]*-->\s*\n', '', html)
+    if html.startswith('<!DOCTYPE html>'):
+        html = '<!DOCTYPE html>\n' + diag_comment + html[len('<!DOCTYPE html>\n'):]
+    else:
+        html = diag_comment + html
+
+    try:
+        with open(os.path.join(REPO, 'consensus_scrape_log.json'), 'w', encoding='utf-8') as f:
+            json.dump(diag, f, indent=2)
+    except Exception as e:
+        print(f"  [WARN] Could not write consensus_scrape_log.json: {e}")
+
     # PERMANENT FIX: Validate and repair critical page structure before saving
     # This ensures the page ALWAYS has working tab filters and proper HTML closure
     # regardless of merge conflicts, truncation, or any other corruption
@@ -1822,6 +1925,12 @@ def update_covers_consensus(picks):
         f.write(html)
 
     print(f"  Updated covers-consensus.html with {len(games)} games, {len(picks)} picks")
+    if pending_placeholders:
+        for sport_name, n in pending_placeholders:
+            print(f"    [PENDING] {sport_name}: ESPN reports {n} games but Covers has 0 picks (placeholder rendered)")
+    print(f"    Per-sport totals:")
+    for sport, data in sorted(per_sport.items(), key=lambda kv: -kv[1]['picks']):
+        print(f"      {sport}: {data['picks']} picks across {len(data['games'])} games")
 
     # Create dated archive
     archive_file = os.path.join(REPO, f"covers-consensus-{DATE_STR}.html")
@@ -1994,6 +2103,11 @@ def main():
     # filtering that sport to avoid removing legitimate games.
     print("\n[1b] Filtering to today's games only (ESPN schedule)...")
     espn_schedule = fetch_espn_schedule()
+    # Snapshot the original schedule BEFORE the below filter mutates it, so
+    # downstream rendering can still see real ESPN game lists for sports that
+    # had too few games to trust for filtering.
+    espn_schedule_full = {k: (list(v) if v is not None else None)
+                          for k, v in espn_schedule.items()}
 
     # Minimum ESPN games required to trust filtering for each sport
     _MIN_ESPN_GAMES_TO_FILTER = {
@@ -2029,7 +2143,7 @@ def main():
 
     # 2. Update covers-consensus.html (game cards layout)
     print("\n[2] Updating covers-consensus.html (game cards)...")
-    update_covers_consensus(picks)
+    update_covers_consensus(picks, espn_schedule=espn_schedule_full)
 
     # 3. Update sharp-consensus.html (list layout)
     print("\n[3] Updating sharp-consensus.html...")
