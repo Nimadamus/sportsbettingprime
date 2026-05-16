@@ -14,6 +14,22 @@ C:\Users\Nima\Documents\GitHub\sportsbettingprime
 
 ## Daily Update Process
 
+### Publishing Completion Gate: No Orphan Pages
+A published page is not complete unless it is linked from the correct live site structure.
+
+Every future page, article, pick page, preview page, or blog post must be connected in the same task to the correct location, such as:
+- homepage/latest card
+- blog/news/picks archive
+- sport-specific index
+- calendar/date archive
+- hub page
+- sitemap if that site requires manual sitemap updates
+- pagination/card rotation system if applicable
+
+Before any future publishing task is marked complete, run an orphan-page check. If a newly created HTML page has no valid inbound internal link from a homepage, archive, index, calendar, hub, or sitemap structure, the task fails and cannot be called complete.
+
+Never create or publish standalone orphan pages. Page creation and internal linking are one task, not separate tasks.
+
 ### Step 1: Run the Covers Scraper
 ```bash
 python "C:\Users\Nima\Desktop\Scripts\covers_contest_scraper.py"
