@@ -25,6 +25,7 @@ import shutil
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 import time
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
@@ -1211,6 +1212,78 @@ class CoversConsensusScraper:
 
         return raw
 
+    def get_top_leaderboard_contestants_by_units(self, sport_code, sport_name, limit=50):
+        """Fetch exactly the top leaderboard contestants by units for a sport.
+        This is used for MLB, where the source pool must be the top 50 MLB
+        contestants by units first, then pending picks are pulled only from
+        that fixed pool.
+        """
+        print(f"\n  Fetching top {limit} {sport_name} contestants by units...")
+        contestants = []
+        seen_names = set()
+        page = 1
+
+        while len(contestants) < limit:
+            try:
+                url = f"https://contests.covers.com/consensus/pickleaders/{sport_code}?totalPicks=1&orderPickBy=Overall&orderBy=Units&pageNum={page}"
+                response = self.session.get(url, timeout=15)
+                response.raise_for_status()
+                soup = BeautifulSoup(response.text, 'html.parser')
+
+                table = soup.find('table')
+                if not table:
+                    break
+
+                rows = table.find_all('tr')[1:]
+                if not rows:
+                    break
+
+                for row in rows:
+                    cells = row.find_all('td')
+                    if len(cells) < 2:
+                        continue
+
+                    link = cells[1].find('a')
+                    if not link:
+                        continue
+
+                    name = link.text.strip()
+                    if not name or name in seen_names:
+                        continue
+                    seen_names.add(name)
+
+                    profile_url = link.get('href', '')
+                    if not profile_url.startswith('http'):
+                        profile_url = 'https://contests.covers.com' + profile_url
+
+                    units = ''
+                    for cell in reversed(cells):
+                        text = cell.get_text(strip=True)
+                        if re.search(r'[+-]?\d+(?:\.\d+)?', text):
+                            units = text
+                            break
+
+                    contestants.append({
+                        'name': name,
+                        'profile_url': profile_url,
+                        'sport': sport_name,
+                        'rank': len(contestants) + 1,
+                        'units': units,
+                    })
+
+                    if len(contestants) >= limit:
+                        break
+
+                page += 1
+                time.sleep(0.2)
+
+            except Exception as e:
+                print(f"    Error fetching leaderboard page {page}: {e}")
+                break
+
+        print(f"    Loaded {len(contestants)} top-{limit} contestants")
+        return contestants
+
     def get_leaderboard_with_picks(self, sport_code, sport_name, max_pages=10, target=50):
         """Fetch leaderboard contestants who have TODAY's pending picks.
         Walks up to max_pages of the leaderboard, checking each contestant
@@ -1279,7 +1352,7 @@ class CoversConsensusScraper:
         print(f"    Found {len(entries_with_picks)} contestants with picks (checked {total_checked})")
         return entries_with_picks
 
-    def get_contestant_picks(self, contestant, sport, sport_code):
+    def get_contestant_picks(self, contestant, sport, sport_code, allow_profile_fallback=True):
         """Get pending picks for a contestant.
         Uses sport-specific pending picks URL and filters to today's date only.
         This prevents cross-sport contamination and stale picks from other days."""
@@ -1287,7 +1360,7 @@ class CoversConsensusScraper:
 
         # Use sport-specific pending picks URL (NOT the general profile page)
         # The general profile shows ALL sports' picks which causes cross-contamination
-        picks_url = f"https://contests.covers.com/kingofcovers/contestant/pendingpicks/{username}/{sport_code}"
+        picks_url = f"https://contests.covers.com/kingofcovers/contestant/pendingpicks/{quote(username, safe='')}/{sport_code}"
 
         soup = None
         try:
@@ -1298,18 +1371,21 @@ class CoversConsensusScraper:
             pass
 
         # Fallback to general profile URL if sport-specific fails
-        if not soup:
+        if not soup and allow_profile_fallback:
             try:
                 response = self.session.get(contestant['profile_url'], timeout=15)
                 response.raise_for_status()
                 soup = BeautifulSoup(response.text, 'html.parser')
             except Exception:
                 return []
+        elif not soup:
+            return []
 
         # Filter by today's date heading - only extract picks under today's h3
         # Date headings look like "Monday, March 9" - we match on "March 9"
         today_month_day = f"{TODAY.strftime('%B')} {TODAY.day}"
         picks = []
+        seen_contestant_sides = set()
         is_today = False
 
         for element in soup.find_all(['h3', 'table']):
@@ -1386,14 +1462,56 @@ class CoversConsensusScraper:
                             else:
                                 pick_type = 'Moneyline'
 
+                        matchup = self._normalize_matchup(f"{away} @ {home}")
+                        side_label, _display_line = self._extract_side(pick_text, pick_type, matchup)
+                        pick_key = (sport, matchup, pick_type, side_label)
+                        if pick_key in seen_contestant_sides:
+                            continue
+                        seen_contestant_sides.add(pick_key)
+
                         picks.append({
                             'sport': sport,
-                            'matchup': f"{away} @ {home}",
+                            'matchup': matchup,
                             'pick_type': pick_type,
-                            'pick_text': pick_text
+                            'pick_text': pick_text,
+                            'contestant': username,
+                            'contestant_rank': contestant.get('rank'),
                         })
 
         return picks
+
+    def scrape_mlb_top50_pending_picks(self):
+        """Build MLB consensus only from the fixed top 50 by units."""
+        sport_code = 'mlb'
+        sport_name = self.sports[sport_code]
+        contestants = self.get_top_leaderboard_contestants_by_units(sport_code, sport_name, limit=50)
+
+        picks_found = 0
+        contestants_with_picks = 0
+        for contestant in contestants:
+            picks = self.get_contestant_picks(
+                contestant,
+                sport_name,
+                sport_code,
+                allow_profile_fallback=False,
+            )
+            time.sleep(0.1)
+            if not picks:
+                continue
+
+            contestants_with_picks += 1
+            picks_found += len(picks)
+            self.all_picks.extend(picks)
+
+            for pick in picks:
+                self._add_to_side_counter(
+                    pick['sport'], pick['matchup'],
+                    pick['pick_type'], pick['pick_text'],
+                    weight=1
+                )
+
+        print(f"    MLB top-50 pending contestants with picks: {contestants_with_picks}/{len(contestants)}")
+        print(f"    MLB top-50 pending picks found: {picks_found}")
 
     def scrape_all(self):
         """Scrape all sports - combines King of Covers contestants AND public consensus.
@@ -1406,6 +1524,10 @@ class CoversConsensusScraper:
 
         for sport_code, sport_name in self.sports.items():
             print(f"\n[{sport_name}]")
+
+            if sport_code == 'mlb':
+                self.scrape_mlb_top50_pending_picks()
+                continue
 
             # 1. Scrape King of Covers contestants WITH today's picks
             # Walks leaderboard pages until we find 50 who have picks
