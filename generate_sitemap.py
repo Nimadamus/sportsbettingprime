@@ -33,6 +33,16 @@ EXCLUDE_PATH_PREFIXES = (
     "consensus_library/archive",
 )
 
+META_ROBOTS_RE = re.compile(
+    r"""<meta\b(?=[^>]*\bname\s*=\s*['"]robots['"])(?=[^>]*\bcontent\s*=\s*['"]([^'"]+)['"])[^>]*>""",
+    re.I | re.S,
+)
+CANONICAL_RE = re.compile(
+    r"""<link\b(?=[^>]*\brel\s*=\s*['"]canonical['"])(?=[^>]*\bhref\s*=\s*['"]([^'"]+)['"])[^>]*>""",
+    re.I | re.S,
+)
+META_REFRESH_RE = re.compile(r"""<meta\b(?=[^>]*http-equiv\s*=\s*['"]refresh['"])[^>]*>""", re.I | re.S)
+
 
 HUB_PAGES = {
     "nba-court-vision.html",
@@ -65,6 +75,23 @@ def is_excluded(rel_path: str) -> bool:
     if any(rel.startswith(p) for p in EXCLUDE_PATH_PREFIXES):
         return True
     return False
+
+
+def canonical_url_for(rel_path: str) -> str:
+    return f"{BASE_URL}/{rel_path}" if rel_path != "index.html" else f"{BASE_URL}/"
+
+
+def is_indexable_self_canonical(filepath: str, rel_path: str) -> bool:
+    text = open(filepath, encoding="utf-8", errors="ignore").read()
+    robots = META_ROBOTS_RE.search(text)
+    if robots and "noindex" in robots.group(1).lower():
+        return False
+    if META_REFRESH_RE.search(text):
+        return False
+    canonical = CANONICAL_RE.search(text)
+    if canonical and canonical.group(1).rstrip("/") != canonical_url_for(rel_path).rstrip("/"):
+        return False
+    return True
 
 
 def get_priority(rel_path: str) -> str:
@@ -130,9 +157,11 @@ def collect_urls():
             rel_path = os.path.relpath(filepath, REPO_DIR).replace(os.sep, "/")
             if is_excluded(rel_path):
                 continue
+            if not is_indexable_self_canonical(filepath, rel_path):
+                continue
             mtime = os.path.getmtime(filepath)
             lastmod = datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
-            url = f"{BASE_URL}/{rel_path}" if rel_path != "index.html" else f"{BASE_URL}/"
+            url = canonical_url_for(rel_path)
             urls.append((url, lastmod, get_changefreq(rel_path), get_priority(rel_path), rel_path))
     return urls
 

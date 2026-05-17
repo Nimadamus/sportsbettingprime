@@ -30,6 +30,19 @@ Before any future publishing task is marked complete, run an orphan-page check. 
 
 Never create or publish standalone orphan pages. Page creation and internal linking are one task, not separate tasks.
 
+## Canonical and Sitemap Guardrail
+
+SportsBettingPrime uses `https://sportsbettingprime.com/` as the canonical host. Do not publish `https://www.sportsbettingprime.com/` canonicals, Open Graph URLs, or sitemap URLs unless DNS and redirects are explicitly changed first.
+
+Before any sitemap update is committed, run:
+
+```bash
+python generate_sitemap.py
+python scripts/verify_sitemap_indexability.py
+```
+
+The guard must pass with zero failures. It rejects sitemap URLs that are missing locally, blocked by robots.txt, noindexed, redirect stubs, or non-self-canonical. For post-deploy verification, run the same guard with `--live` to check HTTP 200 status, redirects, X-Robots-Tag, and deployed canonicals.
+
 ### Step 1: Run the Covers Scraper
 ```bash
 python "C:\Users\Nima\Desktop\Scripts\covers_contest_scraper.py"
