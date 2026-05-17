@@ -1731,8 +1731,9 @@ def _repair_page_structure(html):
 
     Ensures the page ALWAYS has:
     1. The filterSport() JavaScript function (with NCAAB/NCAAF mapping)
-    2. Proper </body></html> closing tags
-    3. No leftover merge conflict markers
+    2. The Consensus Archive calendar renderer
+    3. Proper </body></html> closing tags
+    4. No leftover merge conflict markers
 
     This runs EVERY time the page is saved, so even if merge conflicts
     or truncation corrupt the file, the next scraper run auto-heals it.
@@ -1812,7 +1813,13 @@ def _repair_page_structure(html):
             "                    card.style.display = cardSport === matchSport ? '' : 'none';"
         )
 
-    # 4. Ensure </body></html> closing tags exist
+    # 4. Ensure the archive calendar render function exists. The sidebar
+    # markup can survive rebuilds while the date-cell script is lost.
+    if 'id="calendar-days"' in html and 'function renderCalendar' not in html:
+        repairs.append("added missing archive calendar renderer")
+        html = _sync_archive_calendar_markup(html)
+
+    # 5. Ensure </body></html> closing tags exist
     if '</body>' not in html:
         repairs.append("added missing </body> tag")
         if '</html>' in html:
@@ -1827,6 +1834,114 @@ def _repair_page_structure(html):
         print(f"  [REPAIR] Auto-healed page structure: {', '.join(repairs)}")
 
     return html
+
+
+def _build_archive_calendar_data():
+    """Build ARCHIVE_DATA entries from dated Covers consensus pages."""
+    consensus_files = []
+    for filename in os.listdir(REPO):
+        match = re.match(r'covers-consensus-(\d{4}-\d{2}-\d{2})\.html', filename)
+        if match:
+            consensus_files.append((match.group(1), filename))
+    consensus_files.sort()
+
+    archive_entries = [
+        f'            {{ date: "{date_str}", page: "{filename}" }}'
+        for date_str, filename in consensus_files
+    ]
+    archive_data = "const ARCHIVE_DATA = [\n" + ",\n".join(archive_entries) + "\n        ];"
+    return consensus_files, archive_data
+
+
+def _build_archive_calendar_script(archive_data):
+    """Build the self-contained calendar script used by generated pages."""
+    return f'''<script>
+        (function initConsensusArchiveCalendar() {{
+            const dayContainer = document.getElementById('calendar-days');
+            const monthSelect = document.getElementById('month-select');
+            const yearDisplay = document.getElementById('cal-year');
+            if (!dayContainer || !monthSelect || !yearDisplay) return;
+
+            {archive_data}
+
+            const pad = value => String(value).padStart(2, '0');
+            const dateMap = new Map(ARCHIVE_DATA.map(item => [item.date, item.page]));
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const availableMonths = [...new Set(ARCHIVE_DATA.map(item => item.date.slice(0, 7)))].sort().reverse();
+            const pageDateMatch = window.location.pathname.match(/covers-consensus-(\\d{{4}}-\\d{{2}}-\\d{{2}})\\.html$/);
+            const currentMonth = pageDateMatch ? pageDateMatch[1].slice(0, 7) : availableMonths[0];
+
+            monthSelect.innerHTML = '';
+            availableMonths.forEach(yearMonth => {{
+                const [year, month] = yearMonth.split('-');
+                const option = document.createElement('option');
+                option.value = yearMonth;
+                option.textContent = `${{monthNames[Number(month) - 1]}} ${{year}}`;
+                monthSelect.appendChild(option);
+            }});
+
+            function renderCalendar(yearMonth) {{
+                const [year, month] = yearMonth.split('-').map(Number);
+                yearDisplay.textContent = year;
+                dayContainer.innerHTML = '';
+
+                const firstDay = new Date(year, month - 1, 1).getDay();
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const today = new Date();
+                const todayIso = `${{today.getFullYear()}}-${{pad(today.getMonth() + 1)}}-${{pad(today.getDate())}}`;
+
+                for (let i = 0; i < firstDay; i++) {{
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'cal-day empty';
+                    emptyCell.setAttribute('aria-hidden', 'true');
+                    dayContainer.appendChild(emptyCell);
+                }}
+
+                for (let day = 1; day <= daysInMonth; day++) {{
+                    const iso = `${{year}}-${{pad(month)}}-${{pad(day)}}`;
+                    const page = dateMap.get(iso);
+                    const cell = document.createElement(page ? 'a' : 'div');
+                    cell.className = 'cal-day';
+                    cell.textContent = day;
+
+                    if (iso === todayIso) cell.classList.add('today');
+                    if (page) {{
+                        cell.classList.add('has-content');
+                        cell.href = page;
+                        cell.title = `Covers Consensus - ${{iso}}`;
+                        cell.setAttribute('aria-label', `Open Covers Consensus archive for ${{iso}}`);
+                    }}
+
+                    dayContainer.appendChild(cell);
+                }}
+            }}
+
+            monthSelect.addEventListener('change', event => renderCalendar(event.target.value));
+            monthSelect.value = availableMonths.includes(currentMonth) ? currentMonth : availableMonths[0];
+            renderCalendar(monthSelect.value);
+        }})();
+    </script>'''
+
+
+def _sync_archive_calendar_markup(html):
+    """Insert or update the archive calendar script in a page."""
+    _, archive_data = _build_archive_calendar_data()
+    calendar_script = _build_archive_calendar_script(archive_data)
+    script_pattern = r'<script>\s*\(function initConsensusArchiveCalendar\(\) \{[\s\S]*?\}\)\(\);\s*</script>'
+
+    if re.search(script_pattern, html):
+        return re.sub(script_pattern, lambda _match: calendar_script, html, count=1)
+
+    if 'function filterSport' in html:
+        return html.replace('<script>\n        // Sport filter function', calendar_script + '\n<script>\n        // Sport filter function', 1)
+    if '</body>' in html:
+        return html.replace('</body>', calendar_script + '\n    </body>', 1)
+    if '</html>' in html:
+        return html.replace('</html>', calendar_script + '\n    </body>\n</html>', 1)
+    return html + '\n' + calendar_script + '\n    </body>\n</html>'
 
 
 def update_covers_consensus(picks, espn_schedule=None):
@@ -2154,38 +2269,22 @@ def update_index_html():
 
 
 def sync_archive_calendar():
-    """Sync ARCHIVE_DATA in covers-consensus.html with all dated files on disk.
+    """Sync archive calendar script in covers-consensus.html with all dated files on disk.
     This ensures the calendar sidebar always shows every available date."""
     main_file = os.path.join(REPO, "covers-consensus.html")
     if not os.path.exists(main_file):
         print("  [ERROR] covers-consensus.html not found")
         return
 
-    # Find all dated consensus files
-    consensus_files = []
-    for filename in os.listdir(REPO):
-        match = re.match(r'covers-consensus-(\d{4}-\d{2}-\d{2})\.html', filename)
-        if match:
-            consensus_files.append((match.group(1), filename))
-    consensus_files.sort()
-
+    consensus_files, _ = _build_archive_calendar_data()
     if not consensus_files:
         print("  No dated consensus files found")
         return
 
-    # Build new ARCHIVE_DATA entries
-    archive_entries = []
-    for date_str, filename in consensus_files:
-        archive_entries.append(f'            {{ date: "{date_str}", page: "{filename}" }}')
-    new_archive_data = "const ARCHIVE_DATA = [\n" + ",\n".join(archive_entries) + "\n        ];"
-
-    # Pattern to match existing ARCHIVE_DATA
-    pattern = r'const ARCHIVE_DATA = \[.*?\];'
-
     # Update main consensus page
     with open(main_file, 'r', encoding='utf-8', errors='ignore') as f:
         content = f.read()
-    updated = re.sub(pattern, new_archive_data, content, flags=re.DOTALL)
+    updated = _sync_archive_calendar_markup(content)
     if updated != content:
         with open(main_file, 'w', encoding='utf-8') as f:
             f.write(updated)
@@ -2195,7 +2294,7 @@ def sync_archive_calendar():
     if os.path.exists(today_archive):
         with open(today_archive, 'r', encoding='utf-8', errors='ignore') as f:
             arc_content = f.read()
-        arc_updated = re.sub(pattern, new_archive_data, arc_content, flags=re.DOTALL)
+        arc_updated = _sync_archive_calendar_markup(arc_content)
         if arc_updated != arc_content:
             with open(today_archive, 'w', encoding='utf-8') as f:
                 f.write(arc_updated)
