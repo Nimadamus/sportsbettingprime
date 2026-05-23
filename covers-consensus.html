@@ -588,26 +588,41 @@
         font-size: 12px;
         border-radius: 6px;
         color: var(--text-muted);
-        background: rgba(255,255,255,0.03);
+        background: transparent;
+        opacity: 0.35;
+        cursor: default;
+        text-decoration: none;
     }
-    .cal-day.empty { background: transparent; }
-    .cal-day.today {
-        border: 2px solid var(--accent-color);
-        color: var(--accent-color);
-        font-weight: 700;
-    }
+    .cal-day.empty { background: transparent; opacity: 0; }
+    /* Available archive date: clearly clickable */
     .cal-day.has-content {
-        background: linear-gradient(135deg, rgba(0,217,255,0.3), rgba(0,150,255,0.2));
-        color: #fff;
+        background: linear-gradient(135deg, rgba(0,217,255,0.18), rgba(0,150,255,0.12));
+        border: 1px solid rgba(0,217,255,0.35);
+        color: #cdeeff;
         cursor: pointer;
         font-weight: 600;
+        opacity: 1;
         transition: all 0.2s ease;
     }
     .cal-day.has-content:hover {
         background: linear-gradient(135deg, rgba(0,217,255,0.5), rgba(0,150,255,0.4));
-        transform: scale(1.1);
+        color: #fff;
+        transform: scale(1.08);
         box-shadow: 0 0 10px rgba(0,217,255,0.5);
     }
+    /* Today marker (ring only) */
+    .cal-day.today { border: 1px dashed var(--accent-gold); }
+    /* Currently viewed date: distinct, not a link */
+    .cal-day.selected {
+        background: linear-gradient(135deg, var(--accent-gold), #ffaa00) !important;
+        border: none !important;
+        color: #000 !important;
+        font-weight: 700;
+        opacity: 1;
+        cursor: default;
+        box-shadow: 0 0 12px rgba(255,215,0,0.6);
+    }
+    .cal-day.selected:hover { transform: none; }
     .view-all-link {
         text-align: center;
         margin-top: 15px;
@@ -1324,6 +1339,10 @@
             const availableMonths = [...new Set(archiveDates.map(item => item.date.slice(0, 7)))].sort().reverse();
             const pageDateMatch = window.location.pathname.match(/covers-consensus-(\d{4}-\d{2}-\d{2})\.html$/);
             const currentMonth = pageDateMatch ? pageDateMatch[1].slice(0, 7) : availableMonths[0];
+            // Date currently being viewed: archive page's date, else today if archived, else the latest available date
+            const latestIso = archiveDates.length ? archiveDates[archiveDates.length - 1].date : null;
+            const todayIsoGlobal = toIso(new Date());
+            const selectedIso = pageDateMatch ? pageDateMatch[1] : (dateMap.has(todayIsoGlobal) ? todayIsoGlobal : latestIso);
 
             availableMonths.forEach(yearMonth => {
                 const [year, month] = yearMonth.split('-');
@@ -1352,16 +1371,25 @@
                 for (let day = 1; day <= daysInMonth; day++) {
                     const iso = `${year}-${pad(month)}-${pad(day)}`;
                     const page = dateMap.get(iso);
-                    const cell = document.createElement(page ? 'a' : 'div');
+                    const isSelected = iso === selectedIso;
+                    // Selected date and no-data dates are non-links; other archive dates are links
+                    const cell = document.createElement(page && !isSelected ? 'a' : 'div');
                     cell.className = 'cal-day';
                     cell.textContent = day;
 
-                    if (iso === todayIso) cell.classList.add('today');
                     if (page) {
                         cell.classList.add('has-content');
-                        cell.href = page;
-                        cell.title = `Covers Consensus - ${iso}`;
-                        cell.setAttribute('aria-label', `Open Covers Consensus archive for ${iso}`);
+                        if (!isSelected) {
+                            cell.href = page;
+                            cell.title = `Covers Consensus - ${iso}`;
+                            cell.setAttribute('aria-label', `Open Covers Consensus archive for ${iso}`);
+                        }
+                    }
+                    if (iso === todayIso) cell.classList.add('today');
+                    if (isSelected) {
+                        cell.classList.add('selected');
+                        cell.setAttribute('aria-current', 'date');
+                        cell.title = `Viewing Covers Consensus - ${iso}`;
                     }
 
                     dayContainer.appendChild(cell);
