@@ -1813,11 +1813,15 @@ def _repair_page_structure(html):
             "                    card.style.display = cardSport === matchSport ? '' : 'none';"
         )
 
-    # 4. Ensure the archive calendar render function exists. The sidebar
-    # markup can survive rebuilds while the date-cell script is lost.
-    if 'id="calendar-days"' in html and 'function renderCalendar' not in html:
-        repairs.append("added missing archive calendar renderer")
+    # 4. Always refresh the archive calendar. The sidebar markup can survive
+    # rebuilds while the date-cell script goes stale: ARCHIVE_DATA and the
+    # active/selected day are regenerated from the dated files on disk every
+    # run so the highlighted day can never drift from the data shown.
+    if 'id="calendar-days"' in html:
+        before = html
         html = _sync_archive_calendar_markup(html)
+        if html != before:
+            repairs.append("synced archive calendar (ARCHIVE_DATA + active day)")
 
     # 5. Ensure </body></html> closing tags exist
     if '</body>' not in html:
@@ -1853,10 +1857,17 @@ def _build_archive_calendar_data():
     return consensus_files, archive_data
 
 
-def _build_archive_calendar_script(archive_data):
-    """Build the self-contained calendar script used by generated pages."""
-    return f'''<script>
-        (function initConsensusArchiveCalendar() {{
+def _build_archive_calendar_iife(archive_data):
+    """Build the self-contained calendar IIFE (no <script> wrapper).
+
+    The active/selected day is the date whose data the page is showing:
+      - Dated archive pages derive it from the filename.
+      - The undated main page derives it from <body data-consensus-date="...">,
+        falling back to the most recent archive date.
+    This guarantees the highlighted calendar day always matches the data on the
+    page, so the calendar state and the scraped consensus can never drift apart.
+    """
+    return f'''(function initConsensusArchiveCalendar() {{
             const dayContainer = document.getElementById('calendar-days');
             const monthSelect = document.getElementById('month-select');
             const yearDisplay = document.getElementById('cal-year');
@@ -1872,7 +1883,13 @@ def _build_archive_calendar_script(archive_data):
             ];
             const availableMonths = [...new Set(ARCHIVE_DATA.map(item => item.date.slice(0, 7)))].sort().reverse();
             const pageDateMatch = window.location.pathname.match(/covers-consensus-(\\d{{4}}-\\d{{2}}-\\d{{2}})\\.html$/);
-            const currentMonth = pageDateMatch ? pageDateMatch[1].slice(0, 7) : availableMonths[0];
+            const latestIso = ARCHIVE_DATA.length ? ARCHIVE_DATA[ARCHIVE_DATA.length - 1].date : null;
+            const bodyDate = document.body ? document.body.getAttribute('data-consensus-date') : null;
+            // The day this page's data belongs to. Archive => filename; main page =>
+            // data-consensus-date (must be a real archive date), else newest archive.
+            const selectedIso = pageDateMatch ? pageDateMatch[1]
+                : (bodyDate && dateMap.has(bodyDate) ? bodyDate : latestIso);
+            const currentMonth = selectedIso ? selectedIso.slice(0, 7) : availableMonths[0];
 
             monthSelect.innerHTML = '';
             availableMonths.forEach(yearMonth => {{
@@ -1903,16 +1920,26 @@ def _build_archive_calendar_script(archive_data):
                 for (let day = 1; day <= daysInMonth; day++) {{
                     const iso = `${{year}}-${{pad(month)}}-${{pad(day)}}`;
                     const page = dateMap.get(iso);
-                    const cell = document.createElement(page ? 'a' : 'div');
+                    const isSelected = iso === selectedIso;
+                    // The selected day is shown as static (it's the current page); every
+                    // other archived day is a link to that day's page.
+                    const cell = document.createElement(page && !isSelected ? 'a' : 'div');
                     cell.className = 'cal-day';
                     cell.textContent = day;
 
-                    if (iso === todayIso) cell.classList.add('today');
                     if (page) {{
                         cell.classList.add('has-content');
-                        cell.href = page;
-                        cell.title = `Covers Consensus - ${{iso}}`;
-                        cell.setAttribute('aria-label', `Open Covers Consensus archive for ${{iso}}`);
+                        if (!isSelected) {{
+                            cell.href = page;
+                            cell.title = `Covers Consensus - ${{iso}}`;
+                            cell.setAttribute('aria-label', `Open Covers Consensus archive for ${{iso}}`);
+                        }}
+                    }}
+                    if (iso === todayIso) cell.classList.add('today');
+                    if (isSelected) {{
+                        cell.classList.add('selected');
+                        cell.setAttribute('aria-current', 'date');
+                        cell.title = `Viewing Covers Consensus - ${{iso}}`;
                     }}
 
                     dayContainer.appendChild(cell);
@@ -1922,18 +1949,29 @@ def _build_archive_calendar_script(archive_data):
             monthSelect.addEventListener('change', event => renderCalendar(event.target.value));
             monthSelect.value = availableMonths.includes(currentMonth) ? currentMonth : availableMonths[0];
             renderCalendar(monthSelect.value);
-        }})();
-    </script>'''
+        }})();'''
+
+
+def _build_archive_calendar_script(archive_data):
+    """Build the self-contained calendar script (IIFE wrapped in <script>)."""
+    return '<script>\n        ' + _build_archive_calendar_iife(archive_data) + '\n    </script>'
 
 
 def _sync_archive_calendar_markup(html):
-    """Insert or update the archive calendar script in a page."""
-    _, archive_data = _build_archive_calendar_data()
-    calendar_script = _build_archive_calendar_script(archive_data)
-    script_pattern = r'<script>\s*\(function initConsensusArchiveCalendar\(\) \{[\s\S]*?\}\)\(\);\s*</script>'
+    """Insert or update the archive calendar script in a page.
 
-    if re.search(script_pattern, html):
-        return re.sub(script_pattern, lambda _match: calendar_script, html, count=1)
+    Always replaces the existing calendar IIFE in place so ARCHIVE_DATA and the
+    active-day logic are regenerated from the dated files on disk every run and
+    can never go stale. Matches the IIFE only (not the surrounding <script>), so
+    it works whether the calendar shares a <script> block with filterSport() or
+    lives in its own tag."""
+    _, archive_data = _build_archive_calendar_data()
+    iife = _build_archive_calendar_iife(archive_data)
+    calendar_script = _build_archive_calendar_script(archive_data)
+    iife_pattern = r'\(function initConsensusArchiveCalendar\(\) \{[\s\S]*?\}\)\(\);'
+
+    if re.search(iife_pattern, html):
+        return re.sub(iife_pattern, lambda _match: iife, html, count=1)
 
     if 'function filterSport' in html:
         return html.replace('<script>\n        // Sport filter function', calendar_script + '\n<script>\n        // Sport filter function', 1)
@@ -2151,6 +2189,11 @@ def update_covers_consensus(picks, espn_schedule=None):
             json.dump(diag, f, indent=2)
     except Exception as e:
         print(f"  [WARN] Could not write consensus_scrape_log.json: {e}")
+
+    # Stamp the data date on <body> so the undated main page highlights the
+    # correct active calendar day (archive pages derive it from their filename).
+    if re.search(r'<body[^>]*>', html):
+        html = re.sub(r'<body[^>]*>', f'<body data-consensus-date="{DATE_STR}">', html, count=1)
 
     # PERMANENT FIX: Validate and repair critical page structure before saving
     # This ensures the page ALWAYS has working tab filters and proper HTML closure

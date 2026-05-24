@@ -666,7 +666,7 @@
   gtag('config', 'G-QQH4JXHGN3');
 </script>
 </head>
-<body>
+<body data-consensus-date="2026-03-19">
     <!-- Navigation -->
     <nav class="nav-links">
         <a href="index.html">HOME</a>
@@ -1544,6 +1544,276 @@
             <span class="disabled">Next Day &rarr;</span>
         </div>
 
+<script>
+        (function initConsensusArchiveCalendar() {
+            const dayContainer = document.getElementById('calendar-days');
+            const monthSelect = document.getElementById('month-select');
+            const yearDisplay = document.getElementById('cal-year');
+            if (!dayContainer || !monthSelect || !yearDisplay) return;
+
+            const ARCHIVE_DATA = [
+            { date: "2025-11-20", page: "covers-consensus-2025-11-20.html" },
+            { date: "2025-11-21", page: "covers-consensus-2025-11-21.html" },
+            { date: "2025-11-22", page: "covers-consensus-2025-11-22.html" },
+            { date: "2025-11-23", page: "covers-consensus-2025-11-23.html" },
+            { date: "2025-11-24", page: "covers-consensus-2025-11-24.html" },
+            { date: "2025-11-25", page: "covers-consensus-2025-11-25.html" },
+            { date: "2025-11-26", page: "covers-consensus-2025-11-26.html" },
+            { date: "2025-11-27", page: "covers-consensus-2025-11-27.html" },
+            { date: "2025-11-28", page: "covers-consensus-2025-11-28.html" },
+            { date: "2025-11-29", page: "covers-consensus-2025-11-29.html" },
+            { date: "2025-12-01", page: "covers-consensus-2025-12-01.html" },
+            { date: "2025-12-02", page: "covers-consensus-2025-12-02.html" },
+            { date: "2025-12-03", page: "covers-consensus-2025-12-03.html" },
+            { date: "2025-12-04", page: "covers-consensus-2025-12-04.html" },
+            { date: "2025-12-05", page: "covers-consensus-2025-12-05.html" },
+            { date: "2025-12-06", page: "covers-consensus-2025-12-06.html" },
+            { date: "2025-12-07", page: "covers-consensus-2025-12-07.html" },
+            { date: "2025-12-08", page: "covers-consensus-2025-12-08.html" },
+            { date: "2025-12-09", page: "covers-consensus-2025-12-09.html" },
+            { date: "2025-12-10", page: "covers-consensus-2025-12-10.html" },
+            { date: "2025-12-11", page: "covers-consensus-2025-12-11.html" },
+            { date: "2025-12-12", page: "covers-consensus-2025-12-12.html" },
+            { date: "2025-12-13", page: "covers-consensus-2025-12-13.html" },
+            { date: "2025-12-14", page: "covers-consensus-2025-12-14.html" },
+            { date: "2025-12-15", page: "covers-consensus-2025-12-15.html" },
+            { date: "2025-12-16", page: "covers-consensus-2025-12-16.html" },
+            { date: "2025-12-17", page: "covers-consensus-2025-12-17.html" },
+            { date: "2025-12-18", page: "covers-consensus-2025-12-18.html" },
+            { date: "2025-12-19", page: "covers-consensus-2025-12-19.html" },
+            { date: "2025-12-20", page: "covers-consensus-2025-12-20.html" },
+            { date: "2025-12-21", page: "covers-consensus-2025-12-21.html" },
+            { date: "2025-12-22", page: "covers-consensus-2025-12-22.html" },
+            { date: "2025-12-23", page: "covers-consensus-2025-12-23.html" },
+            { date: "2025-12-24", page: "covers-consensus-2025-12-24.html" },
+            { date: "2025-12-25", page: "covers-consensus-2025-12-25.html" },
+            { date: "2025-12-26", page: "covers-consensus-2025-12-26.html" },
+            { date: "2025-12-27", page: "covers-consensus-2025-12-27.html" },
+            { date: "2025-12-28", page: "covers-consensus-2025-12-28.html" },
+            { date: "2025-12-29", page: "covers-consensus-2025-12-29.html" },
+            { date: "2025-12-30", page: "covers-consensus-2025-12-30.html" },
+            { date: "2025-12-31", page: "covers-consensus-2025-12-31.html" },
+            { date: "2026-01-01", page: "covers-consensus-2026-01-01.html" },
+            { date: "2026-01-02", page: "covers-consensus-2026-01-02.html" },
+            { date: "2026-01-03", page: "covers-consensus-2026-01-03.html" },
+            { date: "2026-01-04", page: "covers-consensus-2026-01-04.html" },
+            { date: "2026-01-05", page: "covers-consensus-2026-01-05.html" },
+            { date: "2026-01-06", page: "covers-consensus-2026-01-06.html" },
+            { date: "2026-01-07", page: "covers-consensus-2026-01-07.html" },
+            { date: "2026-01-08", page: "covers-consensus-2026-01-08.html" },
+            { date: "2026-01-09", page: "covers-consensus-2026-01-09.html" },
+            { date: "2026-01-10", page: "covers-consensus-2026-01-10.html" },
+            { date: "2026-01-11", page: "covers-consensus-2026-01-11.html" },
+            { date: "2026-01-12", page: "covers-consensus-2026-01-12.html" },
+            { date: "2026-01-13", page: "covers-consensus-2026-01-13.html" },
+            { date: "2026-01-14", page: "covers-consensus-2026-01-14.html" },
+            { date: "2026-01-15", page: "covers-consensus-2026-01-15.html" },
+            { date: "2026-01-16", page: "covers-consensus-2026-01-16.html" },
+            { date: "2026-01-17", page: "covers-consensus-2026-01-17.html" },
+            { date: "2026-01-18", page: "covers-consensus-2026-01-18.html" },
+            { date: "2026-01-19", page: "covers-consensus-2026-01-19.html" },
+            { date: "2026-01-20", page: "covers-consensus-2026-01-20.html" },
+            { date: "2026-01-21", page: "covers-consensus-2026-01-21.html" },
+            { date: "2026-01-22", page: "covers-consensus-2026-01-22.html" },
+            { date: "2026-01-23", page: "covers-consensus-2026-01-23.html" },
+            { date: "2026-01-24", page: "covers-consensus-2026-01-24.html" },
+            { date: "2026-01-25", page: "covers-consensus-2026-01-25.html" },
+            { date: "2026-01-26", page: "covers-consensus-2026-01-26.html" },
+            { date: "2026-01-27", page: "covers-consensus-2026-01-27.html" },
+            { date: "2026-01-28", page: "covers-consensus-2026-01-28.html" },
+            { date: "2026-01-29", page: "covers-consensus-2026-01-29.html" },
+            { date: "2026-01-30", page: "covers-consensus-2026-01-30.html" },
+            { date: "2026-01-31", page: "covers-consensus-2026-01-31.html" },
+            { date: "2026-02-01", page: "covers-consensus-2026-02-01.html" },
+            { date: "2026-02-02", page: "covers-consensus-2026-02-02.html" },
+            { date: "2026-02-03", page: "covers-consensus-2026-02-03.html" },
+            { date: "2026-02-04", page: "covers-consensus-2026-02-04.html" },
+            { date: "2026-02-05", page: "covers-consensus-2026-02-05.html" },
+            { date: "2026-02-06", page: "covers-consensus-2026-02-06.html" },
+            { date: "2026-02-07", page: "covers-consensus-2026-02-07.html" },
+            { date: "2026-02-08", page: "covers-consensus-2026-02-08.html" },
+            { date: "2026-02-09", page: "covers-consensus-2026-02-09.html" },
+            { date: "2026-02-10", page: "covers-consensus-2026-02-10.html" },
+            { date: "2026-02-11", page: "covers-consensus-2026-02-11.html" },
+            { date: "2026-02-12", page: "covers-consensus-2026-02-12.html" },
+            { date: "2026-02-13", page: "covers-consensus-2026-02-13.html" },
+            { date: "2026-02-14", page: "covers-consensus-2026-02-14.html" },
+            { date: "2026-02-15", page: "covers-consensus-2026-02-15.html" },
+            { date: "2026-02-16", page: "covers-consensus-2026-02-16.html" },
+            { date: "2026-02-17", page: "covers-consensus-2026-02-17.html" },
+            { date: "2026-02-18", page: "covers-consensus-2026-02-18.html" },
+            { date: "2026-02-19", page: "covers-consensus-2026-02-19.html" },
+            { date: "2026-02-20", page: "covers-consensus-2026-02-20.html" },
+            { date: "2026-02-21", page: "covers-consensus-2026-02-21.html" },
+            { date: "2026-02-22", page: "covers-consensus-2026-02-22.html" },
+            { date: "2026-02-23", page: "covers-consensus-2026-02-23.html" },
+            { date: "2026-02-24", page: "covers-consensus-2026-02-24.html" },
+            { date: "2026-02-25", page: "covers-consensus-2026-02-25.html" },
+            { date: "2026-02-26", page: "covers-consensus-2026-02-26.html" },
+            { date: "2026-02-27", page: "covers-consensus-2026-02-27.html" },
+            { date: "2026-02-28", page: "covers-consensus-2026-02-28.html" },
+            { date: "2026-03-01", page: "covers-consensus-2026-03-01.html" },
+            { date: "2026-03-02", page: "covers-consensus-2026-03-02.html" },
+            { date: "2026-03-03", page: "covers-consensus-2026-03-03.html" },
+            { date: "2026-03-04", page: "covers-consensus-2026-03-04.html" },
+            { date: "2026-03-05", page: "covers-consensus-2026-03-05.html" },
+            { date: "2026-03-06", page: "covers-consensus-2026-03-06.html" },
+            { date: "2026-03-07", page: "covers-consensus-2026-03-07.html" },
+            { date: "2026-03-08", page: "covers-consensus-2026-03-08.html" },
+            { date: "2026-03-09", page: "covers-consensus-2026-03-09.html" },
+            { date: "2026-03-10", page: "covers-consensus-2026-03-10.html" },
+            { date: "2026-03-11", page: "covers-consensus-2026-03-11.html" },
+            { date: "2026-03-12", page: "covers-consensus-2026-03-12.html" },
+            { date: "2026-03-13", page: "covers-consensus-2026-03-13.html" },
+            { date: "2026-03-14", page: "covers-consensus-2026-03-14.html" },
+            { date: "2026-03-15", page: "covers-consensus-2026-03-15.html" },
+            { date: "2026-03-16", page: "covers-consensus-2026-03-16.html" },
+            { date: "2026-03-17", page: "covers-consensus-2026-03-17.html" },
+            { date: "2026-03-18", page: "covers-consensus-2026-03-18.html" },
+            { date: "2026-03-19", page: "covers-consensus-2026-03-19.html" },
+            { date: "2026-03-20", page: "covers-consensus-2026-03-20.html" },
+            { date: "2026-03-21", page: "covers-consensus-2026-03-21.html" },
+            { date: "2026-03-22", page: "covers-consensus-2026-03-22.html" },
+            { date: "2026-03-23", page: "covers-consensus-2026-03-23.html" },
+            { date: "2026-03-24", page: "covers-consensus-2026-03-24.html" },
+            { date: "2026-03-25", page: "covers-consensus-2026-03-25.html" },
+            { date: "2026-03-26", page: "covers-consensus-2026-03-26.html" },
+            { date: "2026-03-27", page: "covers-consensus-2026-03-27.html" },
+            { date: "2026-03-28", page: "covers-consensus-2026-03-28.html" },
+            { date: "2026-03-29", page: "covers-consensus-2026-03-29.html" },
+            { date: "2026-03-30", page: "covers-consensus-2026-03-30.html" },
+            { date: "2026-03-31", page: "covers-consensus-2026-03-31.html" },
+            { date: "2026-04-01", page: "covers-consensus-2026-04-01.html" },
+            { date: "2026-04-02", page: "covers-consensus-2026-04-02.html" },
+            { date: "2026-04-03", page: "covers-consensus-2026-04-03.html" },
+            { date: "2026-04-04", page: "covers-consensus-2026-04-04.html" },
+            { date: "2026-04-05", page: "covers-consensus-2026-04-05.html" },
+            { date: "2026-04-06", page: "covers-consensus-2026-04-06.html" },
+            { date: "2026-04-07", page: "covers-consensus-2026-04-07.html" },
+            { date: "2026-04-08", page: "covers-consensus-2026-04-08.html" },
+            { date: "2026-04-09", page: "covers-consensus-2026-04-09.html" },
+            { date: "2026-04-10", page: "covers-consensus-2026-04-10.html" },
+            { date: "2026-04-11", page: "covers-consensus-2026-04-11.html" },
+            { date: "2026-04-12", page: "covers-consensus-2026-04-12.html" },
+            { date: "2026-04-13", page: "covers-consensus-2026-04-13.html" },
+            { date: "2026-04-14", page: "covers-consensus-2026-04-14.html" },
+            { date: "2026-04-15", page: "covers-consensus-2026-04-15.html" },
+            { date: "2026-04-16", page: "covers-consensus-2026-04-16.html" },
+            { date: "2026-04-17", page: "covers-consensus-2026-04-17.html" },
+            { date: "2026-04-18", page: "covers-consensus-2026-04-18.html" },
+            { date: "2026-04-19", page: "covers-consensus-2026-04-19.html" },
+            { date: "2026-04-20", page: "covers-consensus-2026-04-20.html" },
+            { date: "2026-04-21", page: "covers-consensus-2026-04-21.html" },
+            { date: "2026-04-22", page: "covers-consensus-2026-04-22.html" },
+            { date: "2026-04-23", page: "covers-consensus-2026-04-23.html" },
+            { date: "2026-04-24", page: "covers-consensus-2026-04-24.html" },
+            { date: "2026-04-25", page: "covers-consensus-2026-04-25.html" },
+            { date: "2026-04-26", page: "covers-consensus-2026-04-26.html" },
+            { date: "2026-04-27", page: "covers-consensus-2026-04-27.html" },
+            { date: "2026-04-28", page: "covers-consensus-2026-04-28.html" },
+            { date: "2026-04-29", page: "covers-consensus-2026-04-29.html" },
+            { date: "2026-04-30", page: "covers-consensus-2026-04-30.html" },
+            { date: "2026-05-01", page: "covers-consensus-2026-05-01.html" },
+            { date: "2026-05-02", page: "covers-consensus-2026-05-02.html" },
+            { date: "2026-05-03", page: "covers-consensus-2026-05-03.html" },
+            { date: "2026-05-04", page: "covers-consensus-2026-05-04.html" },
+            { date: "2026-05-05", page: "covers-consensus-2026-05-05.html" },
+            { date: "2026-05-06", page: "covers-consensus-2026-05-06.html" },
+            { date: "2026-05-07", page: "covers-consensus-2026-05-07.html" },
+            { date: "2026-05-08", page: "covers-consensus-2026-05-08.html" },
+            { date: "2026-05-09", page: "covers-consensus-2026-05-09.html" },
+            { date: "2026-05-10", page: "covers-consensus-2026-05-10.html" },
+            { date: "2026-05-11", page: "covers-consensus-2026-05-11.html" },
+            { date: "2026-05-12", page: "covers-consensus-2026-05-12.html" },
+            { date: "2026-05-13", page: "covers-consensus-2026-05-13.html" },
+            { date: "2026-05-14", page: "covers-consensus-2026-05-14.html" },
+            { date: "2026-05-15", page: "covers-consensus-2026-05-15.html" },
+            { date: "2026-05-16", page: "covers-consensus-2026-05-16.html" },
+            { date: "2026-05-17", page: "covers-consensus-2026-05-17.html" },
+            { date: "2026-05-18", page: "covers-consensus-2026-05-18.html" },
+            { date: "2026-05-19", page: "covers-consensus-2026-05-19.html" },
+            { date: "2026-05-20", page: "covers-consensus-2026-05-20.html" },
+            { date: "2026-05-21", page: "covers-consensus-2026-05-21.html" },
+            { date: "2026-05-22", page: "covers-consensus-2026-05-22.html" },
+            { date: "2026-05-23", page: "covers-consensus-2026-05-23.html" }
+        ];
+
+            const pad = value => String(value).padStart(2, '0');
+            const dateMap = new Map(ARCHIVE_DATA.map(item => [item.date, item.page]));
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const availableMonths = [...new Set(ARCHIVE_DATA.map(item => item.date.slice(0, 7)))].sort().reverse();
+            const pageDateMatch = window.location.pathname.match(/covers-consensus-(\d{4}-\d{2}-\d{2})\.html$/);
+            const latestIso = ARCHIVE_DATA.length ? ARCHIVE_DATA[ARCHIVE_DATA.length - 1].date : null;
+            const bodyDate = document.body ? document.body.getAttribute('data-consensus-date') : null;
+            // The day this page's data belongs to. Archive => filename; main page =>
+            // data-consensus-date (must be a real archive date), else newest archive.
+            const selectedIso = pageDateMatch ? pageDateMatch[1]
+                : (bodyDate && dateMap.has(bodyDate) ? bodyDate : latestIso);
+            const currentMonth = selectedIso ? selectedIso.slice(0, 7) : availableMonths[0];
+
+            monthSelect.innerHTML = '';
+            availableMonths.forEach(yearMonth => {
+                const [year, month] = yearMonth.split('-');
+                const option = document.createElement('option');
+                option.value = yearMonth;
+                option.textContent = `${monthNames[Number(month) - 1]} ${year}`;
+                monthSelect.appendChild(option);
+            });
+
+            function renderCalendar(yearMonth) {
+                const [year, month] = yearMonth.split('-').map(Number);
+                yearDisplay.textContent = year;
+                dayContainer.innerHTML = '';
+
+                const firstDay = new Date(year, month - 1, 1).getDay();
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const today = new Date();
+                const todayIso = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'cal-day empty';
+                    emptyCell.setAttribute('aria-hidden', 'true');
+                    dayContainer.appendChild(emptyCell);
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const iso = `${year}-${pad(month)}-${pad(day)}`;
+                    const page = dateMap.get(iso);
+                    const isSelected = iso === selectedIso;
+                    // The selected day is shown as static (it's the current page); every
+                    // other archived day is a link to that day's page.
+                    const cell = document.createElement(page && !isSelected ? 'a' : 'div');
+                    cell.className = 'cal-day';
+                    cell.textContent = day;
+
+                    if (page) {
+                        cell.classList.add('has-content');
+                        if (!isSelected) {
+                            cell.href = page;
+                            cell.title = `Covers Consensus - ${iso}`;
+                            cell.setAttribute('aria-label', `Open Covers Consensus archive for ${iso}`);
+                        }
+                    }
+                    if (iso === todayIso) cell.classList.add('today');
+                    if (isSelected) {
+                        cell.classList.add('selected');
+                        cell.setAttribute('aria-current', 'date');
+                        cell.title = `Viewing Covers Consensus - ${iso}`;
+                    }
+
+                    dayContainer.appendChild(cell);
+                }
+            }
+
+            monthSelect.addEventListener('change', event => renderCalendar(event.target.value));
+            monthSelect.value = availableMonths.includes(currentMonth) ? currentMonth : availableMonths[0];
+            renderCalendar(monthSelect.value);
+        })();
+    </script>
 <script>
         // Sport filter function
         function filterSport(sport) {

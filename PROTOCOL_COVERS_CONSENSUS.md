@@ -98,11 +98,29 @@ Located in the Stats Bar section:
 - Sports Covered
 - Highest Consensus
 
+## Calendar / Data Sync Rule (MANDATORY - prevents stale-date mismatch)
+
+The archive calendar's highlighted/active day MUST always match the consensus data shown on the page. Never hardcode a date range.
+
+How it is enforced (do not regress):
+- The calendar is driven by `const ARCHIVE_DATA = [...]`, auto-generated from the dated `covers-consensus-YYYY-MM-DD.html` files on disk by `_build_archive_calendar_data()`. Never replace it with a hardcoded `addRange('start','end')` block - that goes stale the moment a new archive is added.
+- The active day is `selectedIso`:
+  - Dated archive pages derive it from the filename (`pageDateMatch`).
+  - The undated main page `covers-consensus.html` derives it from `<body data-consensus-date="YYYY-MM-DD">` (stamped to the slate date by `update_covers_consensus`), falling back to the newest archive date.
+- `_repair_page_structure()` calls `_sync_archive_calendar_markup()` on EVERY save, which rewrites the calendar IIFE in place. So ARCHIVE_DATA + the active day are regenerated from disk every run and cannot drift.
+- `today` (outline) and `selected` (highlight) are different states: the current calendar day is outlined; the data's day is highlighted. The main page can correctly show "today" with no data yet (no archive) while highlighting the latest slate.
+
+If the calendar highlights a different day than the data shown:
+1. Confirm `<body data-consensus-date="...">` matches the slate date on the main page.
+2. Confirm ARCHIVE_DATA's last entry is the latest dated file (re-run the scraper or `_sync_archive_calendar_markup`).
+3. Never edit the calendar by hand to a fixed range; fix the generator instead.
+
 ## Common Mistakes to Avoid
 1. Using wrong file naming (`sportsbettingprime-covers-consensus-*` vs `covers-consensus-*`)
 2. Updating wrong repository (betlegendpicks vs sportsbettingprime)
 3. Only changing date without updating actual game data
 4. Broken pagination links pointing to non-existent files
+5. Hardcoding the calendar date range (`addRange`) instead of auto-deriving `ARCHIVE_DATA` from disk - this is exactly what caused the May 2026 stale-highlight bug (calendar stuck on May 11 while data was May 23).
 
 ## Existing Archive Files
 - covers-consensus-2025-11-20.html
