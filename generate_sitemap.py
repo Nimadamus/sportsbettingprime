@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 """
-generate_sitemap.py - Generate a complete sitemap.xml for sportsbettingprime.com.
+generate_sitemap.py - Generate a curated sitemap.xml for sportsbettingprime.com.
 
-Policy: every content page is indexable. The sitemap surfaces every HTML file
-across the repo (root, archive/, blog/, daily/, consensus_library/) so search
-engines can discover daily content, dated archives, and evergreen guides
-together.
+Policy (SEO indexing repair, June 3 2026): the sitemap carries ONLY unique,
+canonical, indexable pages - hubs, evergreen guides, dated feature articles,
+blog posts, and core site pages. Daily near-duplicate snapshots are crawlable
+via calendars/archives but stay OUT of the sitemap, because Google was refusing
+to index them ("Discovered - currently not indexed") and they diluted crawl
+budget for the pages that matter.
 
-Excluded only:
-  - 404.html (not a content page)
-  - google*.html (Search Console verification file)
-  - .git, __pycache__, node_modules, scripts, pending_content
-  - consensus_library/history (internal snapshots)
-  - consensus_library/archive (internal raw data)
+Excluded:
+  - 404.html, google*.html (verification), sitemap.html
+  - archive/ (daily snapshot copies of the sport hubs - canonical points to hub)
+  - consensus_library/ (raw consensus data + snapshots)
+  - handicapping-hub-archive/ and dated handicapping-hub backups
+  - covers-consensus-YYYY-MM-DD.html dailies (canonical points to
+    covers-consensus.html hub - near-duplicate template pages)
+  - any page that is noindex, meta-refresh, or not self-canonical
+  - .git, __pycache__, node_modules, scripts, pending_content, daily_reports, logs
 """
 
 import os
@@ -26,11 +31,22 @@ BASE_URL = "https://sportsbettingprime.com"
 EXCLUDE_FILE_NAMES = {"404.html"}
 EXCLUDE_FILE_PREFIXES = ("google",)  # Search Console verification
 
-EXCLUDE_TOPLEVEL_DIRS = {".git", "__pycache__", "node_modules", "scripts", "pending_content"}
+EXCLUDE_TOPLEVEL_DIRS = {
+    ".git", "__pycache__", "node_modules", "scripts", "pending_content",
+    # Daily near-duplicate snapshots: crawlable via calendars, NOT sitemap material
+    "archive", "consensus_library", "handicapping-hub-archive",
+    "daily_reports", "logs",
+}
 # Sub-paths (relative to repo root, forward slash) that should be excluded
 EXCLUDE_PATH_PREFIXES = (
     "consensus_library/history",
     "consensus_library/archive",
+)
+# Root-level daily duplicate/utility files that must never enter the sitemap
+EXCLUDE_FILE_RES = (
+    re.compile(r"^(sportsbettingprime-)?covers-consensus-\d{4}-\d{2}-\d{2}\.html$"),
+    re.compile(r"^handicapping-hub-\d{4}-\d{2}-\d{2}\.html$"),
+    re.compile(r"^handicapping-hub-calendar\.html$"),
 )
 
 META_ROBOTS_RE = re.compile(
@@ -58,7 +74,6 @@ HUB_PAGES = {
     "sportsbook.html",
     "performance-telemetry.html",
     "archive-calendar.html",
-    "handicapping-hub-calendar.html",
     "the-prime-protocol.html",
 }
 
@@ -73,6 +88,8 @@ def is_excluded(rel_path: str) -> bool:
     if any(name.startswith(p) for p in EXCLUDE_FILE_PREFIXES):
         return True
     if any(rel.startswith(p) for p in EXCLUDE_PATH_PREFIXES):
+        return True
+    if any(r.match(name) for r in EXCLUDE_FILE_RES):
         return True
     return False
 

@@ -721,10 +721,20 @@ class PageBuilder:
             print(f"  [ERROR] Could not find <main> in {page_file}")
             return False
 
-        # Update title
+        # Update title (dateless - dates in titles are forbidden; calendars and
+        # the page body carry the date instead)
+        dateless_titles = {
+            "nfl": "NFL Betting Analysis Today: Odds, Matchups and Game Breakdowns",
+            "nba": "NBA Betting Analysis Today: Odds, Matchups and Game Breakdowns",
+            "nhl": "NHL Betting Analysis Today: Odds, Matchups and Game Breakdowns",
+            "ncaab": "College Basketball Betting Analysis: Odds and Matchup Breakdowns",
+            "ncaaf": "College Football Betting Analysis: Odds and Matchup Breakdowns",
+            "mlb": "MLB Betting Analysis Today: Odds, Matchups and Game Breakdowns",
+        }
+        page_title = dateless_titles.get(sport, f"{title} Betting Analysis and Odds")
         new_html = re.sub(
             r"<title>[^<]+</title>",
-            f"<title>{sport.upper()} | {DATE_DISPLAY} | {len(games)} Games | Sports Betting Prime</title>",
+            f"<title>{page_title} | Sports Betting Prime</title>",
             new_html
         )
 
@@ -854,6 +864,9 @@ class PageBuilder:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive Calendar | Sports Betting Prime</title>
+    <meta name="description" content="Browse the Sports Betting Prime archive: daily NFL, NBA, NHL, college basketball, and college football betting analysis organized by date.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sportsbettingprime.com/archive-calendar.html" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
