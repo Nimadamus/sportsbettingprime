@@ -358,7 +358,7 @@
         <header>
             <h1>⭐ Sharp Consensus Board</h1>
             <div class="subtitle">Top 100 Consensus Picks | June 25, 2026</div>
-            <div class="update-time">Data from: <span id="updateTime">June 25, 2026 - 03:40 PM EST</span></div>
+            <div class="update-time">Data from: <span id="updateTime">June 25, 2026 - 05:01 PM EST</span></div>
         </header>
 
         <div class="stats-bar">
@@ -367,7 +367,7 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">11</div>
+                <div class="stat-number" id="topConsensus">13</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
@@ -424,18 +424,39 @@
     <script>
         const consensusData = [
         {
-                "count": 11,
+                "count": 13,
                 "sport": "MLB",
                 "matchup": "Kansas City @ Tampa Bay",
                 "pickType": "Moneyline",
                 "pick": "Kansas City ML (+119)"
         },
         {
-                "count": 10,
+                "count": 11,
                 "sport": "MLB",
                 "matchup": "Texas @ Toronto",
                 "pickType": "Moneyline",
                 "pick": "Texas ML (+129)"
+        },
+        {
+                "count": 10,
+                "sport": "MLB",
+                "matchup": "Arizona @ St. Louis",
+                "pickType": "Moneyline",
+                "pick": "St. Louis ML (-136)"
+        },
+        {
+                "count": 9,
+                "sport": "MLB",
+                "matchup": "Houston @ Detroit",
+                "pickType": "Moneyline",
+                "pick": "Detroit ML (-114)"
+        },
+        {
+                "count": 9,
+                "sport": "MLB",
+                "matchup": "NY Yankees @ Boston",
+                "pickType": "Moneyline",
+                "pick": "NY Yankees ML (-151)"
         },
         {
                 "count": 9,
@@ -447,35 +468,35 @@
         {
                 "count": 8,
                 "sport": "MLB",
-                "matchup": "Houston @ Detroit",
-                "pickType": "Moneyline",
-                "pick": "Detroit ML (-114)"
-        },
-        {
-                "count": 8,
-                "sport": "MLB",
-                "matchup": "NY Yankees @ Boston",
-                "pickType": "Moneyline",
-                "pick": "NY Yankees ML (-151)"
-        },
-        {
-                "count": 8,
-                "sport": "MLB",
-                "matchup": "Arizona @ St. Louis",
-                "pickType": "Moneyline",
-                "pick": "St. Louis ML (-136)"
-        },
-        {
-                "count": 7,
-                "sport": "MLB",
                 "matchup": "Athletics @ San Francisco",
                 "pickType": "Moneyline",
                 "pick": "San Francisco ML (-136)"
         },
         {
+                "count": 8,
+                "sport": "MLB",
+                "matchup": "Philadelphia @ Washington",
+                "pickType": "Moneyline",
+                "pick": "Philadelphia ML (-174)"
+        },
+        {
+                "count": 7,
+                "sport": "MLB",
+                "matchup": "Chi. Cubs @ NY Mets",
+                "pickType": "Moneyline",
+                "pick": "CHC ML (-108)"
+        },
+        {
                 "count": 7,
                 "sport": "MLB",
                 "matchup": "Athletics @ San Francisco",
+                "pickType": "Total (Over)",
+                "pick": "Over 8.5"
+        },
+        {
+                "count": 7,
+                "sport": "MLB",
+                "matchup": "Chi. Cubs @ NY Mets",
                 "pickType": "Total (Over)",
                 "pick": "Over 8.5"
         },
@@ -489,23 +510,9 @@
         {
                 "count": 6,
                 "sport": "MLB",
-                "matchup": "Philadelphia @ Washington",
+                "matchup": "Seattle @ Pittsburgh",
                 "pickType": "Moneyline",
-                "pick": "Philadelphia ML (-186)"
-        },
-        {
-                "count": 6,
-                "sport": "MLB",
-                "matchup": "Chi. Cubs @ NY Mets",
-                "pickType": "Moneyline",
-                "pick": "CHC ML (-108)"
-        },
-        {
-                "count": 6,
-                "sport": "MLB",
-                "matchup": "Chi. Cubs @ NY Mets",
-                "pickType": "Total (Over)",
-                "pick": "Over 8.5"
+                "pick": "Seattle ML (-156)"
         },
         {
                 "count": 6,
@@ -513,6 +520,20 @@
                 "matchup": "Arizona @ St. Louis",
                 "pickType": "Moneyline",
                 "pick": "Arizona ML (+113)"
+        },
+        {
+                "count": 6,
+                "sport": "MLB",
+                "matchup": "Seattle @ Pittsburgh",
+                "pickType": "Total (Over)",
+                "pick": "Over 8.5"
+        },
+        {
+                "count": 6,
+                "sport": "MLB",
+                "matchup": "Arizona @ St. Louis",
+                "pickType": "Total (Over)",
+                "pick": "Over 9.0"
         },
         {
                 "count": 6,
@@ -529,25 +550,18 @@
                 "pick": "Boston ML (+145)"
         },
         {
-                "count": 5,
-                "sport": "MLB",
-                "matchup": "Arizona @ St. Louis",
-                "pickType": "Total (Over)",
-                "pick": "Over 9.0"
-        },
-        {
-                "count": 5,
+                "count": 6,
                 "sport": "MLB",
                 "matchup": "Seattle @ Pittsburgh",
                 "pickType": "Total (Under)",
                 "pick": "Under 8.5"
         },
         {
-                "count": 4,
+                "count": 5,
                 "sport": "MLB",
-                "matchup": "Seattle @ Pittsburgh",
+                "matchup": "Kansas City @ Tampa Bay",
                 "pickType": "Moneyline",
-                "pick": "Seattle ML (-156)"
+                "pick": "Tampa Bay ML (-143)"
         },
         {
                 "count": 4,
@@ -559,16 +573,23 @@
         {
                 "count": 4,
                 "sport": "MLB",
-                "matchup": "Seattle @ Pittsburgh",
+                "matchup": "Houston @ Detroit",
                 "pickType": "Total (Over)",
-                "pick": "Over 8.5"
+                "pick": "Over 9.0"
         },
         {
                 "count": 4,
                 "sport": "MLB",
                 "matchup": "Kansas City @ Tampa Bay",
+                "pickType": "Total (Over)",
+                "pick": "Over 8.0"
+        },
+        {
+                "count": 4,
+                "sport": "MLB",
+                "matchup": "Texas @ Toronto",
                 "pickType": "Moneyline",
-                "pick": "Tampa Bay ML (-143)"
+                "pick": "Toronto ML (-156)"
         },
         {
                 "count": 3,
@@ -576,13 +597,6 @@
                 "matchup": "NY Yankees @ Boston",
                 "pickType": "Total (Over)",
                 "pick": "Over 7.0"
-        },
-        {
-                "count": 3,
-                "sport": "MLB",
-                "matchup": "Houston @ Detroit",
-                "pickType": "Total (Over)",
-                "pick": "Over 9.0"
         },
         {
                 "count": 3,
@@ -599,25 +613,11 @@
                 "pick": "Over 8.5"
         },
         {
-                "count": 3,
-                "sport": "MLB",
-                "matchup": "Texas @ Toronto",
-                "pickType": "Moneyline",
-                "pick": "Toronto ML (-157)"
-        },
-        {
                 "count": 2,
                 "sport": "MLB",
                 "matchup": "Texas @ Toronto",
                 "pickType": "Total (Under)",
                 "pick": "Under 8.0"
-        },
-        {
-                "count": 2,
-                "sport": "MLB",
-                "matchup": "Kansas City @ Tampa Bay",
-                "pickType": "Total (Over)",
-                "pick": "Over 8.5"
         },
         {
                 "count": 2,
