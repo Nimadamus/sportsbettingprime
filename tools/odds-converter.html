@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odds Converter | American, Decimal, Fractional and Implied Probability | Sports Betting Prime</title>
+<meta name="description" content="Convert American, decimal and fractional odds and implied probability in any direction. Runs in your browser, shows the conversion formulas.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/tools/odds-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Odds Converter | American, Decimal, Fractional and Implied Probability | Sports Betting Prime">
+<meta property="og:description" content="Convert American, decimal and fractional odds and implied probability in any direction. Runs in your browser, shows the conversion formulas.">
+<meta property="og:url" content="https://sportsbettingprime.com/tools/odds-converter.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Odds Converter | American, Decimal, Fractional and Implied Probability | Sports Betting Prime">
+<meta name="twitter:description" content="Convert American, decimal and fractional odds and implied probability in any direction. Runs in your browser, shows the conversion formulas.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html" aria-current="page">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Calculator</div>
+  <h1>Odds converter</h1>
+  <p class="lede">American, decimal, fractional and implied probability are four ways of writing the same price. Enter any one and the rest follow.</p>
+</div></div>
+
+<section class="sec"><div class="wrap">
+
+<div class="grid g2" style="align-items:start">
+  <div class="calc">
+    <h2 style="font-size:1.15rem;margin-bottom:4px">Enter any one format</h2>
+    <p class="muted" style="font-size:14px;margin-bottom:18px">Type in one box. The other three update as you type.</p>
+
+    <div class="field">
+      <label for="oc-am">American odds</label>
+      <input id="oc-am" type="text" inputmode="text" value="-110" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="oc-dec">Decimal odds</label>
+      <input id="oc-dec" type="text" inputmode="decimal" value="1.9091" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="oc-frac">Fractional odds</label>
+      <input id="oc-frac" type="text" value="10/11" autocomplete="off">
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label for="oc-prob">Implied probability (%)</label>
+      <input id="oc-prob" type="text" inputmode="decimal" value="52.38" autocomplete="off">
+    </div>
+    <p class="note note-warn" id="oc-warn" hidden></p>
+  </div>
+
+  <div>
+    <div class="calc-out" aria-live="polite" aria-atomic="true">
+      <dl>
+        <dt>American</dt><dd class="big" id="o-am">&mdash;</dd>
+        <dt>Decimal</dt><dd id="o-dec">&mdash;</dd>
+        <dt>Fractional</dt><dd id="o-frac">&mdash;</dd>
+        <dt>Implied probability</dt><dd id="o-prob">&mdash;</dd>
+        <dt>Hong Kong</dt><dd id="o-hk">&mdash;</dd>
+        <dt>Profit on 100 staked</dt><dd id="o-profit">&mdash;</dd>
+        <dt>Total return on 100</dt><dd id="o-ret">&mdash;</dd>
+      </dl>
+    </div>
+    <div class="formula">
+American &rarr; decimal:  A &ge; +100  &rarr;  D = 1 + A/100
+                         A &le; -100  &rarr;  D = 1 + 100/|A|
+Decimal &rarr; American:  D &ge; 2     &rarr;  A = (D - 1) x 100
+                         D &lt; 2     &rarr;  A = -100 / (D - 1)
+Fractional n/d        &rarr;  D = 1 + n/d
+Implied probability   &rarr;  p = 1 / D
+Hong Kong             &rarr;  HK = D - 1
+Profit on stake S     &rarr;  S x (D - 1)
+    </div>
+  </div>
+</div>
+
+<div class="prose" style="margin-top:44px">
+  <h2>What the number means</h2>
+  <p>All four formats describe the same thing: how much you get back if the bet
+  wins. Decimal states the total return per unit staked, American states the
+  profit on 100 (positive) or the stake needed to win 100 (negative),
+  fractional states profit against stake, and implied probability restates the
+  price as a percentage.</p>
+  <p>The conversion is exact and reversible. Small rounding differences appear
+  because American odds are usually quoted in whole numbers while decimal is
+  quoted to two or four places, so <code>-110</code> and <code>1.91</code> are
+  not quite the same price. That gap is real money over a large number of bets,
+  which is why the decimal column here is shown to four places.</p>
+
+  <h3>Where it misleads</h3>
+  <p>Implied probability from a single quoted price is not the market's estimate
+  of the outcome. It includes the operator's margin, so the implied
+  probabilities of both sides of a two-way market add up to more than 100%. Two
+  sides at <code>-110</code> imply 52.38% each, which totals 104.76%. Stripping
+  that margin out is a separate step, and the
+  <a href="/tools/vig-calculator.html">vig calculator</a> does it.</p>
+  <p>American odds strictly between <code>-100</code> and <code>+100</code> do
+  not exist. <code>+100</code> and <code>-100</code> are the same price
+  (decimal 2.00, even money). If you type something inside that range this page
+  tells you instead of quietly showing a wrong answer.</p>
+</div>
+
+</div></section>
+
+<section class="sec sec-tint"><div class="wrap">
+  <div class="shead"><h2>Read next</h2><p>Guides on this site that use the same maths.</p></div>
+  <div class="linklist"><a href="/bookmaker-margin-and-vig-explained.html"><strong>Bookmaker Margin and Vig Explained</strong><span>How the overround is built into a two-way price.</span></a><a href="/why-odds-differ-between-sportsbooks.html"><strong>Why Odds Differ Between Sportsbooks</strong><span>Where price divergence comes from and what to do about it.</span></a><a href="/value-betting-explained.html"><strong>Value Betting Explained</strong><span>Price versus probability, and why decisions beat results.</span></a></div>
+</div></section>
+</main>
+
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Converting the price is easy. Beating it is not.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Any calculator can restate a price in four formats. The question that decides money is whether the person telling you to take it has a record you can inspect. Trust My Record timestamps picks before the game and grades them automatically, so the full history is visible, not just the wins.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+<script>
+
+var DASH = '—';
+function num(el){ if(!el) return NaN; var v = el.value; if(v===null||String(v).trim()==='') return NaN; var n = Number(v); return isFinite(n) ? n : NaN; }
+function amValid(a){ return isFinite(a) && (a >= 100 || a <= -100); }
+/* American -> decimal. |A| must be >= 100; anything strictly inside
+   (-100, +100) is not a real American price. */
+function amToDec(a){ if(!amValid(a)) return NaN; return a >= 100 ? 1 + a/100 : 1 + 100/(-a); }
+/* decimal -> American. Decimal must be > 1. */
+function decToAm(d){ if(!isFinite(d) || d <= 1) return NaN; return d >= 2 ? (d-1)*100 : -100/(d-1); }
+function decToProb(d){ return (isFinite(d) && d > 1) ? 1/d : NaN; }
+function probToDec(p){ return (isFinite(p) && p > 0 && p < 1) ? 1/p : NaN; }
+function probToAm(p){ return decToAm(probToDec(p)); }
+function fmtAm(a){
+  if(!isFinite(a)) return DASH;
+  var r = Math.round(a*10)/10;
+  var s = (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1);
+  return (r > 0 ? '+' : '') + s;
+}
+function fmtDec(d, p){ return isFinite(d) ? d.toFixed(p==null?4:p) : DASH; }
+/* snap floating-point crumbs to exact zero so nothing renders as "-0.00%" */
+function z(x){ return (isFinite(x) && Math.abs(x) < 1e-12) ? 0 : x; }
+function sign(x){ return (isFinite(x) && z(x) >= 0) ? '+' : ''; }
+function fmtPct(x, p){ x = z(x); return isFinite(x) ? (x*100).toFixed(p==null?2:p) + '%' : DASH; }
+function fmtNum(x, p){ x = z(x); return isFinite(x) ? x.toFixed(p==null?2:p) : DASH; }
+/* Smallest-denominator rational approximation of (decimal - 1). */
+function decToFrac(d){
+  if(!isFinite(d) || d <= 1) return DASH;
+  var x = d - 1, bn = 1, bd = 1, be = Infinity;
+  for(var den = 1; den <= 400; den++){
+    var n = Math.round(x*den);
+    if(n < 1) continue;
+    var e = Math.abs(x - n/den);
+    if(e < be - 1e-12){ be = e; bn = n; bd = den; if(e < 1e-10) break; }
+  }
+  return bn + '/' + bd;
+}
+function parseFrac(s){
+  if(s===null) return NaN;
+  s = String(s).trim();
+  if(s === '') return NaN;
+  var m = s.match(/^(\d+(?:\.\d+)?)\s*[\/\-:]\s*(\d+(?:\.\d+)?)$/);
+  if(m){ var a = Number(m[1]), b = Number(m[2]); return (b > 0 && a > 0) ? a/b : NaN; }
+  var n = Number(s);
+  return (isFinite(n) && n > 0) ? n : NaN;
+}
+function set(id, txt){ var e = document.getElementById(id); if(e) e.textContent = txt; }
+function warn(id, msg){
+  var e = document.getElementById(id);
+  if(!e) return;
+  if(msg){ e.textContent = msg; e.hidden = false; } else { e.textContent = ''; e.hidden = true; }
+}
+function bind(ids, fn){
+  ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if(e){ e.addEventListener('input', fn); e.addEventListener('change', fn); }
+  });
+}
+
+
+var lastEdited = 'oc-am';
+var ids = ['oc-am','oc-dec','oc-frac','oc-prob'];
+function ocRender(d){
+  if(!isFinite(d) || d <= 1){
+    ['o-am','o-dec','o-frac','o-prob','o-hk','o-profit','o-ret'].forEach(function(i){ set(i, DASH); });
+    return;
+  }
+  set('o-am', fmtAm(decToAm(d)));
+  set('o-dec', fmtDec(d, 4));
+  set('o-frac', decToFrac(d));
+  set('o-prob', fmtPct(decToProb(d), 2));
+  set('o-hk', fmtDec(d - 1, 4));
+  set('o-profit', fmtNum(100*(d-1), 2));
+  set('o-ret', fmtNum(100*d, 2));
+}
+function ocFill(d, src){
+  if(src !== 'oc-am')   document.getElementById('oc-am').value   = isFinite(d) ? fmtAm(decToAm(d)) : '';
+  if(src !== 'oc-dec')  document.getElementById('oc-dec').value  = isFinite(d) ? fmtDec(d, 4) : '';
+  if(src !== 'oc-frac') document.getElementById('oc-frac').value = isFinite(d) ? decToFrac(d) : '';
+  if(src !== 'oc-prob') document.getElementById('oc-prob').value = isFinite(d) ? (decToProb(d)*100).toFixed(2) : '';
+}
+function ocCalc(){
+  var src = lastEdited, d = NaN, msg = '';
+  var raw = (document.getElementById(src).value || '').trim();
+  if(raw === ''){
+    warn('oc-warn', ''); ocFill(NaN, src); ocRender(NaN); return;
+  }
+  if(src === 'oc-am'){
+    var a = Number(raw.replace(/^\+/, ''));
+    if(!isFinite(a)) msg = 'Enter a number, for example -110 or +145.';
+    else if(!amValid(a)) msg = 'American odds cannot fall between -100 and +100. Even money is +100 or -100.';
+    else d = amToDec(a);
+  } else if(src === 'oc-dec'){
+    var dv = Number(raw);
+    if(!isFinite(dv)) msg = 'Enter a number, for example 1.91.';
+    else if(dv <= 1) msg = 'Decimal odds must be greater than 1.00. A decimal of 1.00 returns only the stake.';
+    else d = dv;
+  } else if(src === 'oc-frac'){
+    var f = parseFrac(raw);
+    if(!isFinite(f) || f <= 0) msg = 'Enter fractional odds as n/d, for example 10/11 or 5/2.';
+    else d = 1 + f;
+  } else {
+    var p = Number(raw)/100;
+    if(!isFinite(p)) msg = 'Enter a percentage, for example 52.38.';
+    else if(p <= 0 || p >= 100/100) msg = 'Probability must be greater than 0% and less than 100%.';
+    else d = probToDec(p);
+  }
+  warn('oc-warn', msg);
+  if(msg){ ocRender(NaN); return; }
+  ocFill(d, src);
+  ocRender(d);
+}
+ids.forEach(function(id){
+  var e = document.getElementById(id);
+  e.addEventListener('focus', function(){ lastEdited = id; });
+  e.addEventListener('input', function(){ lastEdited = id; ocCalc(); });
+});
+ocCalc();
+
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
+</body>
+</html>

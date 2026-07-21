@@ -1,208 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Betting Analysis Today: Odds, Matchups and Game Breakdowns | Sports Betting Prime</title>
-    <meta name="description" content="Sports Betting Prime is rebuilding its NBA section. Automatically generated matchup statistics have been removed because they were not sourced from a data provider.">
-    <link rel="canonical" href="https://sportsbettingprime.com/nba-court-vision.html" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="NBA Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta property="og:description" content="This section is being rebuilt. Unsourced automatically generated statistics have been removed.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sportsbettingprime.com/nba-court-vision.html">
-    <meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NBA Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta name="twitter:description" content="This section is being rebuilt. Unsourced automatically generated statistics have been removed.">
-    <meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --border: #334155;
-            --accent: #3b82f6;
-            --accent2: #8b5cf6;
-            --green: #22c55e;
-            --red: #ef4444;
-            --gold: #f59e0b;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
-        .logo .prime { color: var(--gold); }
-        .nav-links { display: flex; list-style: none; gap: 0.5rem; flex-wrap: wrap; }
-        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
-        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .page-header { text-align: center; margin-bottom: 3rem; }
-        .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
-        .christmas-badge { display: inline-block; background: linear-gradient(135deg, #dc2626, #16a34a); color: white; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
-        .week-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
-        .intro-panel { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
-        .intro-panel p { color: var(--muted); margin-bottom: 1rem; }
-        .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
-        .intro-link { display: block; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); text-decoration: none; font-weight: 600; }
-        .intro-link span { display: block; margin-top: 0.35rem; color: var(--muted); font-size: 0.875rem; font-weight: 500; }
-        .games-grid { display: grid; gap: 1.5rem; }
-        .game-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-        .game-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
-        .game-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)); }
-        .team { display: flex; align-items: center; gap: 1rem; }
-        .team img { width: 48px; height: 48px; object-fit: contain; }
-        .team-info .name { font-weight: 700; font-size: 1.1rem; }
-        .team-info .record { color: var(--muted); font-size: 0.875rem; }
-        .team.away { justify-content: flex-start; }
-        .team.home { justify-content: flex-end; text-align: right; }
-        .vs { font-weight: 800; color: var(--accent); font-size: 0.875rem; padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; }
-        .game-meta { padding: 0.75rem 1.5rem; background: rgba(0, 0, 0, 0.2); font-size: 0.875rem; color: var(--muted); text-align: center; }
-        .game-odds { display: flex; gap: 2rem; padding: 1rem 1.5rem; background: rgba(0, 0, 0, 0.2); flex-wrap: wrap; border-top: 1px solid var(--border); }
-        .odd-item { display: flex; flex-direction: column; }
-        .odd-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
-        .odd-value { font-weight: 700; color: var(--gold); }
-        .game-analysis { padding: 1.5rem; }
-        .game-analysis h3 { color: var(--gold); margin-bottom: 1rem; font-size: 1.1rem; }
-        .game-analysis p { margin-bottom: 1rem; color: var(--text); line-height: 1.7; }
-        .key-factors { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-        .factor { background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 8px; }
-        .factor .title { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.25rem; }
-        .factor .desc { font-size: 0.875rem; color: var(--text); }
-        footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .game-header { grid-template-columns: 1fr; gap: 1rem; text-align: center; } .team { justify-content: center !important; } .team.home { text-align: center; } }
-    </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QQH4JXHGN3');
-</script>
-<!-- breadcrumb-list-injected -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://sportsbettingprime.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "NBA",
-      "item": "https://sportsbettingprime.com/nba-court-vision.html"
-    }
-  ]
-}
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA Betting Guide: Pace, Rest and Injury Pricing | Sports Betting Prime</title>
+<meta name="description" content="Basketball prices move on availability more than any other sport. Who is playing is worth more than any trend you can name.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/nba-court-vision.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="NBA Betting Guide: Pace, Rest and Injury Pricing | Sports Betting Prime">
+<meta property="og:description" content="Basketball prices move on availability more than any other sport. Who is playing is worth more than any trend you can name.">
+<meta property="og:url" content="https://sportsbettingprime.com/nba-court-vision.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NBA Betting Guide: Pace, Rest and Injury Pricing | Sports Betting Prime">
+<meta name="twitter:description" content="Basketball prices move on availability more than any other sport. Who is playing is worth more than any trend you can name.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                <li><a href="nba-court-vision.html" class="active">NBA</a></li>
-                <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                <li><a href="mlb-prime-directives.html">MLB</a></li>
-                <li><a href="college-basketball.html">NCAAB</a></li>
-                <li><a href="college-football.html">NCAAF</a></li>
-                <li><a href="the-data-stream.html">Blog</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </nav>
-    </header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
 
-    <main>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/sports.html" aria-current="page">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">NBA</div>
+  <h1>NBA Betting Guide: Pace, Rest and Injury Pricing</h1>
+  <p class="lede">Basketball prices move on availability more than any other sport. Who is playing is worth more than any trend you can name.</p>
+</div></div>
 
-        <div class="page-header" id="sbp-rebuild-notice">
-            <h1>NBA Court Vision</h1>
-            <p style="color: var(--muted); max-width: 46rem; margin: 0.75rem auto 0;">
-                This page is being rebuilt. Its previous daily matchup breakdowns have been removed.
-            </p>
-        </div>
+<section class="sec"><div class="wrap">
+  <div class="note"><strong>No live data on this page.</strong> Sports Betting Prime does not publish live odds, projected statistics, consensus percentages or game predictions. Every figure below is either a definition, a worked example computed from the numbers shown, or carries a named source and the date it was current as of.</div>
+  <div class="shead" style="margin-top:30px"><h2>What actually moves this market</h2></div>
+  <div class="card" style="margin-bottom:14px"><h3>Injury news is the whole market</h3><p style="color:var(--ink-2)">An NBA total and spread can move several points on one inactive. Late-breaking rest decisions are the single largest source of price movement in the sport.</p></div><div class="card" style="margin-bottom:14px"><h3>Pace sets the total, efficiency sets the spread</h3><p style="color:var(--ink-2)">Possessions per game determines how many scoring opportunities exist; points per possession determines who wins them. They are separate inputs and confusing them produces bad totals reads.</p></div><div class="card" style="margin-bottom:14px"><h3>Back-to-backs are priced, but unevenly</h3><p style="color:var(--ink-2)">The schedule spot is in the number. The specific combination - second night, on the road, against a rested opponent, with a thin bench - is where the pricing gets rougher.</p></div><div class="card" style="margin-bottom:14px"><h3>Blowouts break player props</h3><p style="color:var(--ink-2)">A prop on a starter is partly a bet on the game staying competitive. Garbage time is a real risk to an over.</p></div><div class="card" style="margin-bottom:14px"><h3>Home advantage has shrunk</h3><p style="color:var(--ink-2)">The historical home edge in the NBA is meaningfully smaller than it was a decade ago. Old rules of thumb are stale.</p></div>
+</div></section>
 
-        <div style="max-width: 46rem; margin: 0 auto 2.5rem; background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 12px; padding: 1.75rem 2rem;">
-            <h2 style="font-size: 1.15rem; margin-bottom: 0.9rem;">Why this page is empty</h2>
-            <p style="color: var(--muted); margin-bottom: 0.9rem;">
-                Until 21 July 2026 this page published automatically generated NBA game
-                breakdowns. An internal audit found that the statistics in those breakdowns
-                &mdash; against-the-spread records, points-per-game figures, home records,
-                defensive rankings, line-movement notes and &ldquo;sharp action&rdquo; claims
-                &mdash; were not sourced from any data provider. They were produced by a random
-                number generator. The schedules shown were also real fixtures from a future
-                month presented as that day&rsquo;s slate.
-            </p>
-            <p style="color: var(--muted); margin-bottom: 0.9rem;">
-                We have removed all of it rather than leave it up while we rebuild. The
-                generator that produced it has been switched off. Nothing on this page has been
-                replaced with an estimate, a projection or a placeholder.
-            </p>
-            <p style="color: var(--muted); margin-bottom: 0;">
-                Sports Betting Prime does not sell picks and does not publish projected
-                statistics. What returns here will be sourced NBA betting fundamentals with
-                the source named on the page.
-            </p>
-        </div>
+<section class="sec"><div class="wrap">
+  <div class="shead"><div class="eyebrow">Go deeper</div><h2>Guides that apply here</h2></div>
+  <div class="linklist"><a href="/nba-back-to-back-guide.html"><strong>NBA Back-to-Backs</strong><span>How fatigue shows up in the box score, and how much of it is already in the price.</span></a><a href="/rest-days-advantage.html"><strong>Rest Days Advantage</strong><span>Schedule spots in NBA and NHL, and the difference between a real edge and a well-known one.</span></a><a href="/home-advantage-by-sport.html"><strong>Home Advantage by Sport</strong><span>How home edge compares across NFL, NBA, NHL and MLB, and why it has been shrinking.</span></a></div>
+  <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn btn-ghost" href="/tools.html">Betting calculators &rarr;</a>
+    <a class="btn btn-ghost" href="/glossary.html">Glossary &rarr;</a>
+    <a class="btn btn-ghost" href="/sports.html">All sports &rarr;</a>
+  </div>
+</div></section>
 
-        <div style="max-width: 46rem; margin: 0 auto 2.5rem;">
-            <h2 style="font-size: 1.15rem; margin-bottom: 1rem;">In the meantime</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
-                <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Find verified handicappers &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">Records timestamped before the game and graded automatically, on Trust My Record.</span></a>
-                <a href="betting-guide.html" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Betting guides &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">How lines are made, how they move, and how to price a bet.</span></a>
-                <a href="responsible-gambling.html" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Responsible gambling &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">Limits, self-exclusion, and the national helpline.</span></a>
-            </div>
-        </div>
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">NBA picks, with the receipts.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Trust My Record tracks handicappers with timestamped, automatically graded records &mdash; and its free Leaderboards is open to everyone.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
 
-    </main>
+</main><footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
 
-    <!-- Featured Analysis Section -->
-    <section style="max-width: 1200px; margin: 0 auto 2rem; padding: 0 2rem;">
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-            <h3 style="color: var(--gold); font-size: 1.25rem; margin-bottom: 1rem; text-align: center;">Featured NBA Analysis</h3>
-            <a href="0606-saturday-betting-board-nba-finals-game-3-stanley-cup-game-3-mlb-aces.html" style="display: block; padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s; margin-bottom: 0.75rem;">
-                <strong style="color: var(--accent);">Saturday's Loaded Board: NBA Finals Game 3, A Stanley Cup Final Knotted At One, And A Pair Of MLB Aces</strong>
-                <span style="display: block; margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted, #94a3b8);">June 6, 2026 - The Knicks lead the Finals 2-0 heading home for Game 3, the Cup Final is tied 1-1 with Game 3 in Vegas tonight, and two aces headline the MLB slate. Reading the full Saturday board.</span>
-            </a>
-            <a href="0604-nba-finals-game-2-knicks-underdogs-after-game-1-win-line-value.html" style="display: block; padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s; margin-bottom: 0.75rem;">
-                <strong style="color: var(--accent);">The Knicks Stole Game 1 And The Market Still Does Not Believe Them: Reading The Game 2 Line</strong>
-                <span style="display: block; margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted, #94a3b8);">June 4, 2026 - New York won Game 1 by ten on the road behind a 12-game postseason winning streak, and the books still posted San Antonio minus 5.5 for Game 2. What the line disrespect means and where the value sits.</span>
-            </a>
-            <a href="0603-nba-finals-game-1-knicks-spurs-total-pace-tempo-betting-trends.html" style="display: block; padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s; margin-bottom: 0.75rem;">
-                <strong style="color: var(--accent);">The Real Question In Knicks-Spurs Game 1 Is Tempo: Reading The Total</strong>
-                <span style="display: block; margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted, #94a3b8);">June 3, 2026 - Forget the moneyline. The total is the sharpest read on Game 1, where two teams that disagree about pace meet in San Antonio. A betting-trends look at the over-under, a Wembanyama-anchored defense, and who controls tempo.</span>
-            </a>
-            <a href="0601-nba-finals-knicks-betting-splits-public-money-spurs-may-2026.html" style="display: block; padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s; margin-bottom: 0.75rem;">
-                <strong style="color: var(--accent);">Knicks Are Drawing Nearly Half The NBA Finals Money: What The Betting Splits Actually Mean</strong>
-                <span style="display: block; margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted, #94a3b8);">June 1, 2026 - At one New York sportsbook the Knicks have drawn nearly half of all money on the NBA Finals winner, almost as much as the rest of the field combined. A betting-splits read on what lopsided public money means for the Knicks-Spurs series price.</span>
-            </a>
-            <a href="0524-nba-western-conference-finals-thunder-spurs-wembanyama-game-4-may-24-2026.html" style="display: block; padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s;">
-                <strong style="color: var(--accent);">NBA Western Conference Finals 2026: Thunder Lead Spurs 2-1, Wembanyama and the Game 4 Picture</strong>
-                <span style="display: block; margin-top: 0.4rem; font-size: 0.9rem; color: var(--text-muted, #94a3b8);">May 24, 2026 - Oklahoma City grabbed a 2-1 lead with a 123-108 Game 3, Victor Wembanyama posted a team-high 26 and called for more team-first play, and the series shifts back to San Antonio for a pivotal Game 4.</span>
-            </a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Sports Betting Prime | NBA research, pace notes, and matchup analysis</p>
-        <p style="margin-top: 0.5rem;"><a href="covers-consensus.html" style="color: var(--accent);">View Full Consensus</a> | <a href="handicapping-hub.html" style="color: var(--accent);">Handicapping Hub</a> | <a href="responsible-gambling.html" style="color: var(--accent);">Responsible Gambling</a></p>
-    </footer>
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
 </body>
 </html>
-

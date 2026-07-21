@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parlay Calculator | Fair Price, Payout and Compounded Hold | Sports Betting Prime</title>
+<meta name="description" content="Price a 2 to 12 leg parlay, compare what the book pays against the devigged fair price, and see how the margin compounds with each leg added.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/tools/parlay-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Parlay Calculator | Fair Price, Payout and Compounded Hold | Sports Betting Prime">
+<meta property="og:description" content="Price a 2 to 12 leg parlay, compare what the book pays against the devigged fair price, and see how the margin compounds with each leg added.">
+<meta property="og:url" content="https://sportsbettingprime.com/tools/parlay-calculator.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Parlay Calculator | Fair Price, Payout and Compounded Hold | Sports Betting Prime">
+<meta name="twitter:description" content="Price a 2 to 12 leg parlay, compare what the book pays against the devigged fair price, and see how the margin compounds with each leg added.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html" aria-current="page">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Calculator</div>
+  <h1>Parlay calculator</h1>
+  <p class="lede">A parlay multiplies prices, which also multiplies margins. This page shows both the payout and what the combination costs you.</p>
+</div></div>
+
+<section class="sec"><div class="wrap">
+
+<div class="grid g2" style="align-items:start">
+  <div class="calc">
+    <h2 style="font-size:1.15rem;margin-bottom:18px">Build the parlay</h2>
+    <div class="row">
+      <div class="field">
+        <label for="pl-n">Number of legs</label>
+        <input id="pl-n" type="number" min="2" max="12" step="1" value="3" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="pl-stake">Stake (units)</label>
+        <input id="pl-stake" type="number" min="0" step="0.5" value="1" autocomplete="off">
+      </div>
+    </div>
+    <div class="field">
+      <label for="pl-hold">Assumed hold in each leg's market (%)</label>
+      <input id="pl-hold" type="number" min="0" max="50" step="0.05" value="4.55" autocomplete="off">
+    </div>
+    <p class="note" style="margin-top:0">This is an assumption you set, not a
+    figure we publish. 4.55% is the hold on a market with both sides at
+    <code>-110</code>. Run the <a href="/tools/vig-calculator.html">vig
+    calculator</a> on the actual market to replace it with the real number.</p>
+    <div class="field pl-leg" id="pl-row-0"><label for="pl-0">Leg 1 price (American)</label><input id="pl-0" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-1"><label for="pl-1">Leg 2 price (American)</label><input id="pl-1" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-2"><label for="pl-2">Leg 3 price (American)</label><input id="pl-2" type="text" value="+150" autocomplete="off"></div><div class="field pl-leg" id="pl-row-3" hidden><label for="pl-3">Leg 4 price (American)</label><input id="pl-3" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-4" hidden><label for="pl-4">Leg 5 price (American)</label><input id="pl-4" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-5" hidden><label for="pl-5">Leg 6 price (American)</label><input id="pl-5" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-6" hidden><label for="pl-6">Leg 7 price (American)</label><input id="pl-6" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-7" hidden><label for="pl-7">Leg 8 price (American)</label><input id="pl-7" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-8" hidden><label for="pl-8">Leg 9 price (American)</label><input id="pl-8" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-9" hidden><label for="pl-9">Leg 10 price (American)</label><input id="pl-9" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-10" hidden><label for="pl-10">Leg 11 price (American)</label><input id="pl-10" type="text" value="-110" autocomplete="off"></div><div class="field pl-leg" id="pl-row-11" hidden><label for="pl-11">Leg 12 price (American)</label><input id="pl-11" type="text" value="-110" autocomplete="off"></div>
+    <p class="note note-warn" id="pl-warn" hidden></p>
+  </div>
+
+  <div>
+    <div class="calc-out" aria-live="polite" aria-atomic="true">
+      <dl>
+        <dt>Book pays</dt><dd class="big" id="p-book">&mdash;</dd>
+        <dt>Book decimal</dt><dd id="p-bdec">&mdash;</dd>
+        <dt>Implied probability</dt><dd id="p-bprob">&mdash;</dd>
+        <dt>Fair price (legs devigged)</dt><dd id="p-fair">&mdash;</dd>
+        <dt>Fair probability</dt><dd id="p-fprob">&mdash;</dd>
+        <dt>Hold on the parlay</dt><dd id="p-hold">&mdash;</dd>
+        <dt>EV per unit staked</dt><dd id="p-ev">&mdash;</dd>
+        <dt>Returns on your stake</dt><dd id="p-ret">&mdash;</dd>
+        <dt>Same hold, one bet</dt><dd id="p-single">&mdash;</dd>
+      </dl>
+    </div>
+    <div class="formula">
+Per leg           D_i = decimal price,  p_i = 1 / D_i
+Devigged leg      q_i = p_i x (1 - h)      h = assumed market hold
+
+Book parlay       D_book = D_1 x D_2 x ... x D_n
+                  P_book = 1 / D_book
+Fair parlay       P_fair = q_1 x q_2 x ... x q_n
+                  D_fair = 1 / P_fair
+
+Parlay hold       H_par  = 1 - P_fair x D_book
+EV per unit       P_fair x D_book - 1     (= -H_par)
+
+With equal legs   H_par = 1 - (1 - h)^n
+    </div>
+  </div>
+</div>
+
+<div class="prose" style="margin-top:44px">
+  <h2>What the number means</h2>
+  <p>A standard parlay pays the product of the individual decimal prices. That
+  sounds fair, and the multiplication itself is fair. The problem is that each
+  leg's price already contains a margin, and multiplying prices multiplies the
+  margins with them. Two legs carrying 4.55% hold each produce a parlay carrying
+  about 8.9%; six legs produce about 24%.</p>
+  <p>That is the whole mechanism, and it is why the same bettor can lose faster
+  on parlays than on singles without ever making a worse selection. The formula
+  <code>1 - (1 - h)^n</code> is on the page above so you can see the compounding
+  directly: change the leg count and watch it move.</p>
+  <p>The fair price shown here is what the parlay would pay if each leg's margin
+  were stripped out first. The gap between that and what the book pays is the
+  cost of combining.</p>
+
+  <h3>Where it misleads</h3>
+  <p>This assumes the legs are independent. Correlated legs break the maths
+  completely. A team's moneyline and the game going over, or a quarterback's
+  passing yards and his team covering, move together, and the true joint
+  probability is not the product of the two. Books know which correlations
+  exist, which is why some combinations are blocked and others are priced
+  separately as same-game parlays with their own pricing model. Do not use this
+  page for those.</p>
+  <p>The hold input is an assumption you supply. If the real markets hold more
+  than you typed, the parlay is worse than shown, and if you enter zero the page
+  will tell you the parlay is fair, because you told it the legs were fair.
+  Garbage in is not detectable by arithmetic.</p>
+  <p>None of this makes parlays unusable. It makes the cost visible so it can be
+  weighed against whatever you are getting for it.</p>
+</div>
+
+</div></section>
+
+<section class="sec sec-tint"><div class="wrap">
+  <div class="shead"><h2>Read next</h2><p>Guides on this site that use the same maths.</p></div>
+  <div class="linklist"><a href="/parlay-betting-guide.html"><strong>Parlay Betting Guide</strong><span>When combining bets makes sense and when it compounds the margin.</span></a><a href="/bookmaker-margin-and-vig-explained.html"><strong>Bookmaker Margin and Vig Explained</strong><span>How the overround is built into a two-way price.</span></a><a href="/teaser-betting-strategy.html"><strong>Teaser Betting Strategy</strong><span>Moving the number and what you pay for the privilege.</span></a></div>
+</div></section>
+</main>
+
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Parlays are priced against you by construction.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">The compounding above is arithmetic, not opinion. If you are going to play them anyway, at least know the number. Trust My Record lets you see how handicappers have actually done, across every bet type, on a record you can scroll rather than a screenshot.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+<script>
+
+var DASH = '—';
+function num(el){ if(!el) return NaN; var v = el.value; if(v===null||String(v).trim()==='') return NaN; var n = Number(v); return isFinite(n) ? n : NaN; }
+function amValid(a){ return isFinite(a) && (a >= 100 || a <= -100); }
+/* American -> decimal. |A| must be >= 100; anything strictly inside
+   (-100, +100) is not a real American price. */
+function amToDec(a){ if(!amValid(a)) return NaN; return a >= 100 ? 1 + a/100 : 1 + 100/(-a); }
+/* decimal -> American. Decimal must be > 1. */
+function decToAm(d){ if(!isFinite(d) || d <= 1) return NaN; return d >= 2 ? (d-1)*100 : -100/(d-1); }
+function decToProb(d){ return (isFinite(d) && d > 1) ? 1/d : NaN; }
+function probToDec(p){ return (isFinite(p) && p > 0 && p < 1) ? 1/p : NaN; }
+function probToAm(p){ return decToAm(probToDec(p)); }
+function fmtAm(a){
+  if(!isFinite(a)) return DASH;
+  var r = Math.round(a*10)/10;
+  var s = (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1);
+  return (r > 0 ? '+' : '') + s;
+}
+function fmtDec(d, p){ return isFinite(d) ? d.toFixed(p==null?4:p) : DASH; }
+/* snap floating-point crumbs to exact zero so nothing renders as "-0.00%" */
+function z(x){ return (isFinite(x) && Math.abs(x) < 1e-12) ? 0 : x; }
+function sign(x){ return (isFinite(x) && z(x) >= 0) ? '+' : ''; }
+function fmtPct(x, p){ x = z(x); return isFinite(x) ? (x*100).toFixed(p==null?2:p) + '%' : DASH; }
+function fmtNum(x, p){ x = z(x); return isFinite(x) ? x.toFixed(p==null?2:p) : DASH; }
+/* Smallest-denominator rational approximation of (decimal - 1). */
+function decToFrac(d){
+  if(!isFinite(d) || d <= 1) return DASH;
+  var x = d - 1, bn = 1, bd = 1, be = Infinity;
+  for(var den = 1; den <= 400; den++){
+    var n = Math.round(x*den);
+    if(n < 1) continue;
+    var e = Math.abs(x - n/den);
+    if(e < be - 1e-12){ be = e; bn = n; bd = den; if(e < 1e-10) break; }
+  }
+  return bn + '/' + bd;
+}
+function parseFrac(s){
+  if(s===null) return NaN;
+  s = String(s).trim();
+  if(s === '') return NaN;
+  var m = s.match(/^(\d+(?:\.\d+)?)\s*[\/\-:]\s*(\d+(?:\.\d+)?)$/);
+  if(m){ var a = Number(m[1]), b = Number(m[2]); return (b > 0 && a > 0) ? a/b : NaN; }
+  var n = Number(s);
+  return (isFinite(n) && n > 0) ? n : NaN;
+}
+function set(id, txt){ var e = document.getElementById(id); if(e) e.textContent = txt; }
+function warn(id, msg){
+  var e = document.getElementById(id);
+  if(!e) return;
+  if(msg){ e.textContent = msg; e.hidden = false; } else { e.textContent = ''; e.hidden = true; }
+}
+function bind(ids, fn){
+  ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if(e){ e.addEventListener('input', fn); e.addEventListener('change', fn); }
+  });
+}
+
+
+function plCalc(){
+  var n = Math.floor(num(document.getElementById('pl-n')));
+  if(!isFinite(n)) n = 0;
+  n = Math.max(0, Math.min(12, n));
+  for(var i = 0; i < 12; i++){
+    document.getElementById('pl-row-' + i).hidden = (i >= n);
+  }
+  var msg = '';
+  if(!(n >= 2)) msg = 'A parlay needs at least 2 legs (maximum 12).';
+
+  var stake = num(document.getElementById('pl-stake'));
+  var h = num(document.getElementById('pl-hold'))/100;
+  if(!msg && (!isFinite(stake) || stake <= 0)) msg = 'Stake must be greater than zero.';
+  if(!msg && (!isFinite(h) || h < 0 || h >= 1)) msg = 'Assumed hold must be at least 0% and below 100%.';
+
+  var Dbook = 1, Pfair = 1;
+  if(!msg){
+    for(var j = 0; j < n; j++){
+      var raw = (document.getElementById('pl-' + j).value || '').trim();
+      if(raw === ''){ msg = 'Leg ' + (j+1) + ' is empty.'; break; }
+      var a = Number(raw.replace(/^\+/, ''));
+      if(!isFinite(a)){ msg = 'Leg ' + (j+1) + ' must be a number, for example -110.'; break; }
+      if(!amValid(a)){ msg = 'Leg ' + (j+1) + ': American odds cannot fall between -100 and +100.'; break; }
+      var d = amToDec(a);
+      Dbook *= d;
+      Pfair *= decToProb(d)*(1 - h);
+    }
+  }
+  warn('pl-warn', msg);
+  var outs = ['p-book','p-bdec','p-bprob','p-fair','p-fprob','p-hold','p-ev','p-ret','p-single'];
+  if(msg || !isFinite(Dbook) || !isFinite(Pfair) || Pfair <= 0){
+    outs.forEach(function(i){ set(i, DASH); });
+    return;
+  }
+  var Dfair = 1/Pfair;
+  var Hpar = 1 - Pfair*Dbook;
+  set('p-book', fmtAm(decToAm(Dbook)));
+  set('p-bdec', fmtDec(Dbook, 4));
+  set('p-bprob', fmtPct(1/Dbook, 3));
+  set('p-fair', fmtAm(decToAm(Dfair)) + '  (' + fmtDec(Dfair, 4) + ')');
+  set('p-fprob', fmtPct(Pfair, 3));
+  set('p-hold', fmtPct(Hpar, 2) + '  vs ' + fmtPct(h, 2) + ' on one leg');
+  set('p-ev', sign(-Hpar) + fmtPct(-Hpar, 2) + ' of stake');
+  set('p-ret', fmtNum(stake*Dbook, 2) + ' u total ( ' + fmtNum(stake*(Dbook-1), 2) + ' u profit )');
+  set('p-single', 'a single bet at this hold costs ' + fmtPct(h, 2));
+}
+bind(['pl-n','pl-stake','pl-hold'], plCalc);
+for(var _i = 0; _i < 12; _i++) bind(['pl-' + _i], plCalc);
+plCalc();
+
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
+</body>
+</html>

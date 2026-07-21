@@ -1,14 +1,23 @@
 name: Daily Sharp Consensus Update
 
 on:
-  schedule:
-    # Runs at 3:00 PM UTC (10:00 AM EST) - staggered to avoid collision with daily-sports-update
-    # daily-sports-update runs at 13:00, 17:00, 23:00 UTC
-    # This runs at 15:00 UTC (between the first two) for midday consensus refresh
-    - cron: '0 15 * * *'
-    # Evening consensus refresh at 21:00 UTC (4 PM EST) - 2 hours before the 23:00 sports update
-    - cron: '0 21 * * *'
-  workflow_dispatch:  # Allows manual trigger
+  # SCHEDULE REMOVED 2026-07-21, pending a decision on whether consensus returns.
+  #
+  # The scraper itself (scripts/github_consensus_update.py) is sound - it queries
+  # Covers.com for real picks, contains no random number generation, and fails
+  # loudly rather than inventing data when a feed is unreachable. It is kept.
+  #
+  # What is not sound is how the result was presented. _consensus_weight() at
+  # line 407 buckets a scraped PUBLIC-MONEY PERCENTAGE into an integer and then
+  # sums it into the same counter as real handicapper picks, so a card reading
+  # "8x" could mean "public money was over 75%" rather than "8 handicappers
+  # picked this". That is a fake consensus count and it must be fixed before
+  # anything under this heading is published again.
+  #
+  # Existing covers-consensus-*.html URLs remain live and are not being deleted.
+  #   - cron: '0 15 * * *'
+  #   - cron: '0 21 * * *'
+  workflow_dispatch:  # Manual only
 
 concurrency:
   group: consensus-update

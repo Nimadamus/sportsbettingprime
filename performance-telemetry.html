@@ -1,331 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Results - SPORTS BETTING PRIME</title>
-  <meta name="description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-  <link rel="canonical" href="https://sportsbettingprime.com/performance-telemetry.html" />
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Performance Telemetry | Sports Betting Prime">
-  <meta property="og:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sportsbettingprime.com/performance-telemetry.html">
-  <meta property="og:site_name" content="Sports Betting Prime">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Performance Telemetry | Sports Betting Prime">
-  <meta name="twitter:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
-            --color-win: #00ff7f; --color-loss: #ff4d4d; --glass-bg: rgba(10, 8, 25, 0.5);
-            --glass-border: rgba(0, 255, 255, 0.2); --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
-        
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
-        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
-
-        header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px); border-bottom: 1px solid var(--glass-border); }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { flex: 1; }
-        .nav-center { flex: 2; display: flex; justify-content: center; }
-        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
-        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
-        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
-        @keyframes pulse-button { 50% { transform: scale(1.05); } }
-
-        .content-wrapper { position: relative; z-index: 10; }
-        .section-container { padding: 40px 5%; text-align: center; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 50px; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px; border: 1px solid var(--glass-border); }
-        .metrics-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 60px; }
-        .metric-box { text-align: center; }
-        .metric-label { font-family: var(--font-primary); font-size: 1.2rem; color: var(--neon-cyan); margin-bottom: 10px; text-transform: uppercase; }
-        .metric-value { font-family: var(--font-primary); font-size: 2.8rem; line-height: 1; font-weight: 900; }
-        .metric-value.win { color: var(--color-win); text-shadow: 0 0 15px var(--color-win); }
-        .metric-value.loss { color: var(--color-loss); text-shadow: 0 0 15px var(--color-loss); }
-        .metric-value.neutral { color: var(--text-color); }
-        .results-log { text-align: left; margin-bottom: 40px; }
-        .results-log h2 { font-family: var(--font-primary); font-size: 2.5rem; margin-bottom: 15px; text-align: center; }
-        .results-log .log-date { text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: rgba(234, 248, 255, 0.8); }
-        .results-log table { width: 100%; border-collapse: collapse; }
-        .results-log th, .results-log td { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); text-align: left; }
-        .results-log th { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 1.1rem; }
-        .results-log td.no-results { font-style: italic; color: rgba(234, 248, 255, 0.6); padding: 40px 0; text-align: center; }
-        .result-win { color: var(--color-win); font-weight: 700; }
-        .result-loss { color: var(--color-loss); font-weight: 700; }
-        .result-pending { color: var(--neon-gold); font-weight: 700; }
-        .sport-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; margin-right: 8px; }
-        .badge-nhl { background: rgba(0, 119, 200, 0.3); border: 1px solid #0077c8; color: #4db8ff; }
-        .badge-mlb { background: rgba(0, 90, 156, 0.3); border: 1px solid #005a9c; color: #4db8ff; }
-        footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
-        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
-        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem;}
-    </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QQH4JXHGN3');
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance telemetry | Sports Betting Prime</title>
+<meta name="description" content="We do not publish a performance record, and here is why that matters.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/performance-telemetry.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Performance telemetry | Sports Betting Prime">
+<meta property="og:description" content="We do not publish a performance record, and here is why that matters.">
+<meta property="og:url" content="https://sportsbettingprime.com/performance-telemetry.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Performance telemetry | Sports Betting Prime">
+<meta name="twitter:description" content="We do not publish a performance record, and here is why that matters.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
 </head>
 <body>
-    <div class="background-container"></div>
-    <div class="content-wrapper">
-        <header>
-            <nav>
-                <div class="nav-left">
-                    <div class="logo">
-                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-                    </div>
-                </div>
-                <div class="nav-center">
-                    <ul class="nav-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="covers-consensus.html">Consensus</a></li>
-                        <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                        <li><a href="nba-court-vision.html">NBA</a></li>
-                        <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                        <li><a href="college-basketball.html">NCAAB</a></li>
-                        <li><a href="college-football.html">NCAAF</a></li>
-                        <li><a href="the-data-stream.html">Blog</a></li>
-                        <li><a href="performance-telemetry.html" class="active">Results</a></li>
-                    </ul>
-                </div>
-                <div class="nav-right">
-                    <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-primary">GET YOUR BONUS</a>
-                </div>
-            </nav>
-        </header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
 
-        <main>
-            <section class="section-container">
-                <h1 class="section-title">PERFORMANCE TELEMETRY</h1>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Sports Betting Prime</div>
+  <h1>Performance telemetry</h1>
+  <p class="lede">We do not publish a performance record, and here is why that matters.</p>
+</div></div>
+<section class="sec"><div class="wrap prose"><p>Sports Betting Prime does not track or publish a betting record. We are a research site: we explain how markets work and we build tools. We do not sell picks, so there is no record of ours for you to check.</p><p>That is a deliberate boundary rather than an omission. A site that publishes analysis and also grades its own results has an obvious incentive problem, and self-reported records are the least reliable artefact in this industry.</p><p>For records that are tracked independently &mdash; timestamped before the game and graded automatically against the outcome &mdash; use <a href="https://trustmyrecord.com/handicappers/" rel="noopener">Trust My Record</a>. Note that it is operated by the same people as this site; see our <a href="/affiliate-disclosure.html">affiliate disclosure</a>.</p></div></section>
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Looking for tracked results?</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Trust My Record grades every pick automatically and its leaderboards are public. Free to browse, no account needed.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
 
-                <div class="metrics-container glass-panel">
-                    <div class="metric-box">
-                        <div class="metric-label">System Status</div>
-                        <div class="metric-value win" style="font-size: 2.2rem;">ACTIVE</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="metric-label">2025-26 Record</div>
-                        <div class="metric-value neutral" style="font-size: 1.4rem;">See daily reports for pick results</div>
-                    </div>
-                </div>
-
-                <div class="results-log glass-panel">
-                    <h2>January 3, 2026 Results</h2>
-                    <p class="log-date">NFL, NBA & NHL Weekend Slate</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 15%;">Sport</th>
-                                <th style="width: 30%;">Matchup</th>
-                                <th style="width: 25%;">Pick</th>
-                                <th style="width: 15%;">Result</th>
-                                <th style="width: 15%;">Units</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(34, 197, 94, 0.3); border: 1px solid #22c55e; color: #4ade80;">NFL</span></td>
-                                <td>Seahawks @ 49ers</td>
-                                <td>49ers -3.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+3.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(34, 197, 94, 0.3); border: 1px solid #22c55e; color: #4ade80;">NFL</span></td>
-                                <td>Chargers @ Broncos</td>
-                                <td>Broncos -4.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(34, 197, 94, 0.3); border: 1px solid #22c55e; color: #4ade80;">NFL</span></td>
-                                <td>Lions @ Bears</td>
-                                <td>Bears -6 -105</td>
-                                <td class="result-loss">LOSS</td>
-                                <td style="color: var(--color-loss);">-3.15</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; color: #60a5fa;">NBA</span></td>
-                                <td>Blazers @ Spurs</td>
-                                <td>Spurs -10.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; color: #60a5fa;">NBA</span></td>
-                                <td>Rockets @ Mavs</td>
-                                <td>Rockets -5.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge badge-nhl">NHL</span></td>
-                                <td>Avalanche @ Hurricanes</td>
-                                <td>Avalanche ML -145</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge badge-nhl">NHL</span></td>
-                                <td>Wild @ Kings</td>
-                                <td>Under 5.5 -115</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+1.5</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge badge-nhl">NHL</span></td>
-                                <td>Lightning @ Sharks</td>
-                                <td>Sharks ML +130</td>
-                                <td class="result-loss">LOSS</td>
-                                <td style="color: var(--color-loss);">-1.5</td>
-                           </tr>
-                           <tr style="border-top: 2px solid var(--neon-cyan);">
-                                <td colspan="4" style="text-align: right; font-weight: 700; color: var(--neon-cyan);">Daily Net Units:</td>
-                                <td style="font-weight: 700; color: var(--color-win);">+7.85</td>
-                           </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="results-log glass-panel" style="margin-top: 30px;">
-                    <h2>January 2, 2026 Results</h2>
-                    <p class="log-date">NBA & NHL Slate</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 15%;">Sport</th>
-                                <th style="width: 30%;">Matchup</th>
-                                <th style="width: 25%;">Pick</th>
-                                <th style="width: 15%;">Result</th>
-                                <th style="width: 15%;">Units</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; color: #60a5fa;">NBA</span></td>
-                                <td>Knicks @ Heat</td>
-                                <td>Knicks -4 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; color: #60a5fa;">NBA</span></td>
-                                <td>Thunder @ Warriors</td>
-                                <td>Thunder -7 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge badge-nhl">NHL</span></td>
-                                <td>Capitals @ Rangers</td>
-                                <td>Capitals ML +125</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.50</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge badge-nhl">NHL</span></td>
-                                <td>Oilers @ Flames</td>
-                                <td>Oilers ML -135</td>
-                                <td class="result-loss">LOSS</td>
-                                <td style="color: var(--color-loss);">-2.70</td>
-                           </tr>
-                           <tr style="border-top: 2px solid var(--neon-cyan);">
-                                <td colspan="4" style="text-align: right; font-weight: 700; color: var(--neon-cyan);">Daily Net Units:</td>
-                                <td style="font-weight: 700; color: var(--color-win);">+3.80</td>
-                           </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="results-log glass-panel" style="margin-top: 30px;">
-                    <h2>January 1, 2026 Results</h2>
-                    <p class="log-date">New Year's Day CFP Quarterfinals</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 15%;">Sport</th>
-                                <th style="width: 30%;">Matchup</th>
-                                <th style="width: 25%;">Pick</th>
-                                <th style="width: 15%;">Result</th>
-                                <th style="width: 15%;">Units</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(249, 115, 22, 0.3); border: 1px solid #f97316; color: #fb923c;">CFB</span></td>
-                                <td>Texas vs Arizona State</td>
-                                <td>Texas -14 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+3.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(249, 115, 22, 0.3); border: 1px solid #f97316; color: #fb923c;">CFB</span></td>
-                                <td>Oregon vs Penn State</td>
-                                <td>Over 54.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+2.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(249, 115, 22, 0.3); border: 1px solid #f97316; color: #fb923c;">CFB</span></td>
-                                <td>Notre Dame vs Georgia</td>
-                                <td>Notre Dame +3 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+3.0</td>
-                           </tr>
-                           <tr>
-                                <td><span class="sport-badge" style="background: rgba(249, 115, 22, 0.3); border: 1px solid #f97316; color: #fb923c;">CFB</span></td>
-                                <td>Ohio State vs Tennessee</td>
-                                <td>Ohio State -7.5 -110</td>
-                                <td class="result-win">WIN</td>
-                                <td style="color: var(--color-win);">+3.0</td>
-                           </tr>
-                           <tr style="border-top: 2px solid var(--neon-cyan);">
-                                <td colspan="4" style="text-align: right; font-weight: 700; color: var(--neon-cyan);">Daily Net Units:</td>
-                                <td style="font-weight: 700; color: var(--color-win);">+11.00</td>
-                           </tr>
-                        </tbody>
-                    </table>
-                    <p style="text-align: center; margin-top: 20px; color: rgba(234, 248, 255, 0.7); font-size: 0.95rem;">
-                        Perfect 4-0 on CFP Quarterfinals. The picks performed exceptionally on the biggest games of the season.
-                    </p>
-                </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2026 SPORTS BETTING PRIME. All rights reserved. Unit sizing based on a flat betting system. Past performance is not an indicator of future results.</p>
-            <p class="footer-links">
-                <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="performance-telemetry.html">Results</a> | <a href="the-prime-protocol.html">About</a> | <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener">Responsible Gaming</a>
-            </p>
-        </footer>
+</main><footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
     </div>
-    <script>
-        const dateElement = document.getElementById('yesterdays-date');
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        dateElement.textContent = `Telemetry Report for ${yesterday.toLocaleDateString('en-US', options)}`;
-    </script>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
 </body>
 </html>
-

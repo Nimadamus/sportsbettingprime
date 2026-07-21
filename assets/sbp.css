@@ -1,0 +1,287 @@
+/* ============================================================================
+   Sports Betting Prime - design system
+   Rebuilt 2026-07-21.
+
+   Deliberately unlike Trust My Record. TMR owns dark navy + cyan + gold; this is
+   warm paper, deep ink, a brass accent and a serif display face - an editorial
+   research publication rather than a sportsbook skin. TMR is presented as the
+   authority for verified records, with its own visual territory left intact.
+   ========================================================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink:      #12151a;
+  --ink-2:    #2c333d;
+  --paper:    #f7f5f0;
+  --paper-2:  #efece4;
+  --line:     #ddd8cc;
+  --brass:    #a8752c;
+  --brass-2:  #c69249;
+  --forest:   #1f4238;
+  --muted:    #6b7280;
+  --ok:       #2f6f4f;
+  --warn:     #9a3412;
+  --maxw:     1180px;
+  --radius:   12px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.serif { font-family: Fraunces, Georgia, "Times New Roman", serif; font-weight: 600; letter-spacing: -.015em; }
+.mono  { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.narrow { max-width: 760px; }
+.center { text-align: center; }
+.muted { color: var(--muted); }
+
+/* --- skip link (accessibility) ------------------------------------------ */
+.skip { position: absolute; left: -9999px; top: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; z-index: 999; }
+.skip:focus { left: 8px; top: 8px; }
+
+/* --- top strip ----------------------------------------------------------- */
+.topstrip { background: var(--ink); color: #cfc8b8; font-size: 12.5px; letter-spacing: .02em; }
+.topstrip .wrap { display: flex; justify-content: space-between; align-items: center; min-height: 34px; gap: 16px; padding-top: 6px; padding-bottom: 6px; }
+.topstrip a { color: var(--brass-2); text-decoration: none; font-weight: 600; }
+
+/* --- header -------------------------------------------------------------- */
+header.site {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(247,245,240,.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; min-height: 70px; gap: 20px; }
+.logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+.logo .mark { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 23px; letter-spacing: -.03em; white-space: nowrap; }
+.logo .mark em { font-style: normal; color: var(--brass); }
+.logo .tag { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.navlinks { display: flex; gap: 2px; list-style: none; align-items: center; }
+.navlinks a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--ink-2); padding: 8px 12px; border-radius: 6px; display: block; }
+.navlinks a:hover, .navlinks a[aria-current="page"] { background: var(--paper-2); color: var(--ink); }
+
+.menu-btn { display: none; background: none; border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; font-size: 16px; cursor: pointer; color: var(--ink); }
+.mobile-nav { display: none; border-top: 1px solid var(--line); background: var(--paper); }
+.mobile-nav.open { display: block; }
+.mobile-nav ul { list-style: none; padding: 10px 24px 18px; }
+.mobile-nav a { display: block; padding: 12px 4px; text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--line); }
+.mobile-nav a:last-child { border-bottom: 0; }
+
+/* --- buttons ------------------------------------------------------------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 600; border-radius: 8px; padding: 11px 20px; font-size: 14.5px; transition: background .15s, border-color .15s, transform .15s; border: 1px solid transparent; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--forest); }
+.btn-brass { background: var(--brass); color: #fff; }
+.btn-brass:hover { background: #8e6122; }
+.btn-ghost { border-color: var(--line); background: transparent; color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); background: var(--paper-2); }
+.btn-block { width: 100%; }
+/* The header CTA must never wrap - at 1440px it wrapped to two lines and pushed
+   the header out of alignment. */
+.header-cta { white-space: nowrap; padding: 11px 16px; font-size: 14px; }
+@media (max-width: 1120px) { .navlinks a { padding: 8px 9px; font-size: 14px; } }
+
+/* --- sections ------------------------------------------------------------ */
+section.band-sep { border-bottom: 1px solid var(--line); }
+.sec { padding: 68px 0; border-bottom: 1px solid var(--line); }
+.sec-tint { background: var(--paper-2); }
+.eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 16px; }
+.eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--brass); flex: 0 0 26px; }
+.shead { max-width: 46em; margin-bottom: 32px; }
+.shead h2 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: clamp(1.7rem, 3vw, 2.3rem); letter-spacing: -.022em; line-height: 1.15; margin-bottom: 12px; }
+.shead p { color: var(--muted); font-size: 16px; }
+
+h1.display { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: clamp(2.3rem, 5vw, 3.7rem); line-height: 1.07; letter-spacing: -.028em; margin-bottom: 20px; }
+h1.display .u { background: linear-gradient(transparent 66%, rgba(168,117,44,.28) 66%); }
+.page-head { padding: 60px 0 44px; border-bottom: 1px solid var(--line); background:
+  radial-gradient(900px 380px at 88% -10%, rgba(168,117,44,.11), transparent 62%),
+  radial-gradient(700px 340px at 2% 0%, rgba(31,66,56,.08), transparent 60%); }
+.page-head h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: clamp(2rem, 4vw, 2.9rem); line-height: 1.1; letter-spacing: -.025em; margin-bottom: 14px; }
+.page-head p.lede { font-size: 18px; color: var(--ink-2); max-width: 42em; }
+
+/* --- grids --------------------------------------------------------------- */
+.grid { display: grid; gap: 18px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+
+/* --- cards --------------------------------------------------------------- */
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; text-decoration: none; display: block; transition: border-color .16s, transform .16s, box-shadow .16s; }
+a.card:hover { border-color: var(--brass); transform: translateY(-2px); box-shadow: 0 12px 30px -18px rgba(18,21,26,.4); }
+.card .kicker { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; color: var(--brass); margin-bottom: 10px; }
+.card h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 18.5px; letter-spacing: -.015em; margin-bottom: 8px; line-height: 1.25; }
+.card p { font-size: 14.5px; color: var(--muted); }
+.card .go { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+
+.tool { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; text-decoration: none; display: flex; gap: 14px; align-items: flex-start; transition: border-color .16s; }
+a.tool:hover { border-color: var(--forest); }
+.tool .ic { flex: 0 0 40px; height: 40px; border-radius: 9px; background: var(--forest); color: #fff; display: grid; place-items: center; font-size: 17px; font-weight: 600; }
+.tool h3 { font-size: 15.5px; font-weight: 600; margin-bottom: 3px; }
+.tool p { font-size: 13.5px; color: var(--muted); }
+
+.pill { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--forest); background: rgba(31,66,56,.09); padding: 4px 9px; border-radius: 5px; }
+.pill-brass { color: var(--brass); background: rgba(168,117,44,.1); }
+
+/* --- dark band ----------------------------------------------------------- */
+.band { background: var(--ink); color: var(--paper); padding: 68px 0; }
+.band .eyebrow { color: var(--brass-2); }
+.band .shead h2 { color: #fff; }
+.band .shead p { color: #a8a294; }
+.band-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.tmr-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tmr-list a { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border: 1px solid #2b3138; border-radius: 10px; text-decoration: none; color: #e6e1d6; font-size: 14.5px; font-weight: 500; background: #191d23; transition: border-color .15s, background .15s; }
+.tmr-list a:hover { border-color: var(--brass); background: #20252c; }
+.tmr-list a .ar { margin-left: auto; color: var(--brass-2); }
+.bigcta { display: inline-flex; align-items: center; gap: 10px; background: var(--brass); color: #fff; text-decoration: none; font-weight: 700; font-size: 16px; padding: 16px 28px; border-radius: 10px; }
+.bigcta:hover { background: #8e6122; }
+
+/* --- sport row ----------------------------------------------------------- */
+.sports { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.sport { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 18px 12px; text-align: center; text-decoration: none; font-weight: 600; font-size: 14px; transition: border-color .15s, color .15s; }
+.sport:hover { border-color: var(--brass); color: var(--brass); }
+.sport small { display: block; font-weight: 500; font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+/* --- article list -------------------------------------------------------- */
+.article { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; text-decoration: none; display: block; transition: border-color .16s; }
+a.article:hover { border-color: var(--brass); }
+.article .meta { font-size: 12px; color: var(--muted); display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.article .meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
+.article h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 19px; letter-spacing: -.015em; margin-bottom: 8px; line-height: 1.25; }
+.article p { font-size: 14.5px; color: var(--muted); }
+
+/* --- prose --------------------------------------------------------------- */
+.prose { max-width: 42em; }
+.prose h2 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.55rem; letter-spacing: -.02em; margin: 40px 0 14px; }
+.prose h3 { font-size: 1.12rem; font-weight: 700; margin: 28px 0 10px; }
+.prose p { margin-bottom: 16px; color: var(--ink-2); }
+.prose ul, .prose ol { margin: 0 0 18px 22px; color: var(--ink-2); }
+.prose li { margin-bottom: 8px; }
+.prose a { color: var(--brass); font-weight: 500; }
+/* Wide tables scroll inside their own box; the page body must never scroll
+   horizontally. Legacy guide tables are up to 445px of unbreakable content. */
+.prose table { width: 100%; border-collapse: collapse; margin: 0; font-size: 14.5px; }
+.prose .table-scroll { overflow-x: auto; margin: 18px 0 24px; -webkit-overflow-scrolling: touch; }
+.prose .table-scroll table { min-width: 34em; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+.prose th { background: var(--paper-2); font-weight: 600; }
+.prose code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .92em; background: var(--paper-2); padding: 2px 6px; border-radius: 4px; }
+
+/* --- notes / disclosures ------------------------------------------------- */
+.note { background: var(--paper-2); border: 1px solid var(--line); border-left: 3px solid var(--brass); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: var(--ink-2); margin: 20px 0; }
+.note strong { color: var(--ink); }
+.note-warn { border-left-color: var(--warn); }
+
+/* --- sportsbook block ---------------------------------------------------- */
+.book { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: grid; grid-template-columns: 200px 1fr auto; gap: 28px; align-items: center; }
+.book .logo-box { background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; min-height: 88px; display: grid; place-items: center; font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+.book ul { list-style: none; display: grid; gap: 7px; font-size: 14.5px; color: var(--ink-2); }
+.book ul li::before { content: "\2713"; color: var(--ok); font-weight: 700; margin-right: 9px; }
+
+/* --- calculators --------------------------------------------------------- */
+.calc { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+.calc label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+.calc input, .calc select { width: 100%; font: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
+.calc input:focus, .calc select:focus { outline: 2px solid var(--brass); outline-offset: 1px; border-color: var(--brass); }
+.calc .field { margin-bottom: 16px; }
+.calc .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.calc-out { background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-top: 6px; }
+.calc-out dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 20px; font-size: 15px; }
+.calc-out dt { color: var(--muted); }
+.calc-out dd { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 500; color: var(--ink); }
+.calc-out .big { font-size: 26px; font-family: Fraunces, Georgia, serif; font-weight: 600; }
+/* white-space: pre, not pre-line: the formula blocks use column alignment made
+   of runs of spaces, which pre-line collapses. Without either, the whole block
+   rendered as one run-on paragraph. It scrolls inside its own box on mobile. */
+.formula { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.65; color: var(--muted); background: var(--paper-2); border: 1px dashed var(--line); border-radius: 8px; padding: 14px 16px; margin-top: 14px; overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
+.formula strong, .formula b { color: var(--ink); font-weight: 600; }
+
+/* --- legacy guide components --------------------------------------------
+   The ~30 evergreen guides are the one genuinely good asset carried over from
+   the old site. Their bodies use this fixed set of component classes, so they
+   are restyled here rather than rewritten, and their URLs are unchanged. */
+.prose .lead { font-size: 1.15rem; color: var(--ink); margin-bottom: 22px; }
+.prose .toc { background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; padding: 20px 24px; margin: 0 0 28px; }
+.prose .toc ul { margin: 8px 0 0 18px; }
+.prose .toc li { margin-bottom: 6px; }
+.prose .example-box,
+.prose .info-box,
+.prose .key-concept,
+.prose .tip-box,
+.prose .warning-box,
+.prose .scenario-card,
+.prose .verdict { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin: 22px 0; background: #fff; }
+.prose .example-box { border-left: 3px solid var(--forest); background: rgba(31,66,56,.04); }
+.prose .key-concept { border-left: 3px solid var(--brass); background: rgba(168,117,44,.06); }
+.prose .info-box    { border-left: 3px solid var(--ink-2); background: var(--paper-2); }
+.prose .tip-box     { border-left: 3px solid var(--ok); background: rgba(47,111,79,.05); }
+.prose .warning-box { border-left: 3px solid var(--warn); background: rgba(154,52,18,.05); }
+.prose .verdict     { border-left: 3px solid var(--brass); background: var(--paper-2); font-weight: 500; }
+.prose .example-box h4, .prose .info-box h4, .prose .key-concept h4,
+.prose .tip-box h4, .prose .warning-box h4, .prose .verdict h4,
+.prose .scenario-card h4 { margin: 0 0 8px; font-size: 15px; font-weight: 700; }
+.prose .example-box p:last-child, .prose .info-box p:last-child,
+.prose .key-concept p:last-child, .prose .tip-box p:last-child,
+.prose .warning-box p:last-child, .prose .verdict p:last-child { margin-bottom: 0; }
+.prose .stat-highlight { display: inline-block; background: var(--paper-2); border: 1px solid var(--line); border-left: 3px solid var(--brass); border-radius: 10px; padding: 16px 20px; margin: 18px 14px 18px 0; }
+.prose .big-number { display: block; font-family: Fraunces, Georgia, serif; font-size: 2rem; font-weight: 600; line-height: 1.1; color: var(--ink); }
+.prose .stat-label { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; max-width: 22em; }
+.prose .internal-links, .prose .cta-section { background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; margin: 28px 0; }
+.prose .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--brass); color: #fff !important; text-decoration: none; font-weight: 600; padding: 11px 20px; border-radius: 8px; margin-top: 8px; }
+.prose .hub-link, .prose .spoke-card { display: block; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; text-decoration: none; }
+.prose .hub-link:hover, .prose .spoke-card:hover { border-color: var(--brass); }
+.prose .win { color: var(--ok); font-weight: 600; }
+.prose .loss { color: var(--warn); font-weight: 600; }
+
+/* Unsourced-figure caveat used on legacy guides. */
+.srcnote { font-size: 12.5px; color: var(--muted); border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 8px; }
+
+/* --- footer -------------------------------------------------------------- */
+footer.site { background: var(--ink); color: #a8a294; padding: 54px 0 30px; font-size: 14px; }
+.fgrid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 34px; }
+footer.site h4 { color: #fff; font-size: 12px; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 14px; }
+footer.site ul { list-style: none; display: grid; gap: 9px; }
+footer.site a { color: #a8a294; text-decoration: none; }
+footer.site a:hover { color: var(--brass-2); }
+.fbot { border-top: 1px solid #262b32; padding-top: 20px; font-size: 12.5px; color: #7d776b; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+
+/* --- tables of links ----------------------------------------------------- */
+.linklist { display: grid; gap: 10px; }
+.linklist a { display: flex; gap: 14px; align-items: baseline; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; transition: border-color .15s; }
+.linklist a:hover { border-color: var(--brass); }
+.linklist a strong { font-weight: 600; font-size: 15px; }
+.linklist a span { color: var(--muted); font-size: 13.5px; }
+
+/* --- responsive ---------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .band-grid { grid-template-columns: 1fr; gap: 30px; }
+  .g4 { grid-template-columns: repeat(2, 1fr); }
+  .sports { grid-template-columns: repeat(4, 1fr); }
+  .book { grid-template-columns: 1fr; gap: 18px; }
+  .fgrid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 720px) {
+  .navlinks { display: none; }
+  .menu-btn { display: block; }
+  /* 23px + nowrap pushed the menu button past a 375px viewport (scrollWidth 391). */
+  .logo .mark { font-size: 19.5px; }
+  .logo .tag { display: none; }
+  .wrap { padding: 0 18px; }
+  .g2, .g3, .tmr-list, .calc .row { grid-template-columns: 1fr; }
+  .g4 { grid-template-columns: repeat(2, 1fr); }
+  .sports { grid-template-columns: repeat(2, 1fr); }
+  .sec, .band { padding: 48px 0; }
+  .page-head { padding: 40px 0 32px; }
+  .fgrid { grid-template-columns: 1fr; }
+  .header-cta { display: none; }
+}

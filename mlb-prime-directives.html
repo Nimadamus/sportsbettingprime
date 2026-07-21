@@ -1,750 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLB Prime Directives | Sports Betting Prime</title>
-  <meta name="description" content="MLB betting analysis updated daily with run lines, totals, and expert breakdowns. Free picks, advanced stats, and game previews from Sports Betting Prime.">
-  <link rel="canonical" href="https://sportsbettingprime.com/mlb-prime-directives.html" />
-  <meta name="robots" content="index, follow"/>
-  <meta property="og:title" content="Mlb Prime Directives | Sports Betting Prime">
-  <meta property="og:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sportsbettingprime.com/mlb-prime-directives.html">
-  <meta property="og:site_name" content="Sports Betting Prime">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mlb Prime Directives | Sports Betting Prime">
-  <meta name="twitter:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Futuristic color palette */
-            --primary: #00f0ff;
-            --primary-dark: #00b8cc;
-            --accent: #ff00ff;
-            --gold: #ffd700;
-            --bg-dark: #0a0e1a;
-            --bg-darker: #050810;
-            --card-bg: rgba(15, 20, 40, 0.85);
-            --text: #e8f4f8;
-            --text-dim: #8fa8b8;
-            --border: rgba(0, 240, 255, 0.15);
-            --glow-cyan: rgba(0, 240, 255, 0.4);
-            --glow-magenta: rgba(255, 0, 255, 0.3);
-        }
-
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--bg-darker);
-            color: var(--text);
-            line-height: 1.7;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Animated background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
-                linear-gradient(180deg, #0a0e1a 0%, #050810 100%);
-            z-index: -1;
-        }
-
-        /* Animated grid overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Header */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(10, 14, 26, 0.95);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 2px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.1),
-                        0 0 50px rgba(255, 0, 255, 0.05);
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.25rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px var(--glow-cyan),
-                         0 0 40px var(--glow-cyan);
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            text-shadow: 0 0 30px var(--glow-cyan),
-                         0 0 60px var(--glow-cyan),
-                         0 0 90px rgba(255, 0, 255, 0.5);
-        }
-
-        .logo .prime {
-            color: var(--gold);
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            padding: 0.625rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 8px;
-            padding: 1px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-            background: rgba(0, 240, 255, 0.05);
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-        }
-
-        .nav-links a:hover::before {
-            opacity: 1;
-        }
-
-        .nav-links a.active {
-            color: var(--bg-dark);
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-color: var(--primary);
-            font-weight: 700;
-            box-shadow: 0 0 25px var(--glow-cyan),
-                        0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-        }
-
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            padding: 4rem 2rem 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .slogan {
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--primary);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px var(--glow-cyan);
-            animation: glow-pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .page-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            text-shadow: 0 0 80px var(--glow-cyan);
-        }
-
-        .page-header .subtitle {
-            color: var(--text-dim);
-            font-size: 1.125rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Matchup Cards */
-        .matchup, .game-container, .game-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin: 2.5rem auto;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6),
-                        0 0 0 1px rgba(0, 240, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 1100px;
-            position: relative;
-        }
-
-        .matchup::before, .game-container::before, .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                var(--primary) 20%,
-                var(--accent) 50%,
-                var(--primary) 80%,
-                transparent 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .matchup:hover, .game-container:hover, .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-                        0 0 40px rgba(0, 240, 255, 0.2),
-                        0 0 0 1px var(--primary);
-        }
-
-        .matchup:hover::before, .game-container:hover::before, .game-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Matchup Header */
-        .m-header, .game-header {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 1.5rem;
-            align-items: center;
-            padding: 2rem;
-            background: linear-gradient(135deg,
-                rgba(0, 240, 255, 0.08) 0%,
-                rgba(255, 0, 255, 0.05) 100%);
-            position: relative;
-        }
-
-        .m-header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .m-team {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            min-width: 0;
-        }
-
-        .m-team img {
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.3));
-            transition: all 0.3s ease;
-        }
-
-        .m-team:hover img {
-            filter: drop-shadow(0 8px 20px rgba(0, 240, 255, 0.5));
-            transform: scale(1.05);
-        }
-
-        .m-team .name {
-            font-weight: 700;
-            font-size: 1.125rem;
-            color: var(--text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .m-team:last-child {
-            justify-content: flex-end;
-        }
-
-        .vs {
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.875rem;
-            font-weight: 800;
-            color: var(--primary);
-            border: 1px solid var(--border);
-            text-shadow: 0 0 10px var(--glow-cyan);
-        }
-
-        /* Matchup Meta & Body */
-        .m-meta, .game-time, .game-meta {
-            padding: 0.75rem 2rem;
-            color: var(--text-dim);
-            font-size: 0.9375rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .m-odds {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .m-odds b, .m-odds strong {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        .m-body, .game-content {
-            padding: 2rem;
-        }
-
-        .m-body p, .game-content p {
-            margin-bottom: 1.25rem;
-            color: var(--text);
-            line-height: 1.75;
-        }
-
-        .m-body p:last-child, .game-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .m-body strong, .game-content strong, .m-body b, .game-content b {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* Section Titles */
-        .section-title, .cfb-header, .picks-header, .page-subtitle {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 3rem 0 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--border);
-            text-shadow: 0 0 30px var(--glow-cyan);
-        }
-
-        /* Picks and Special Sections */
-        .expert-picks, .pick, .pick-box, .cfb-analysis {
-            background: linear-gradient(135deg,
-                rgba(0, 240, 255, 0.1),
-                rgba(255, 0, 255, 0.08));
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 2px solid rgba(0, 240, 255, 0.3);
-            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
-        }
-
-        .pick-header, .pick .kicker {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .pick .value {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--gold);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .unit-indicator, .unit-tag {
-            background: linear-gradient(135deg, var(--gold), #ffa500);
-            color: var(--bg-dark);
-            padding: 0.375rem 0.875rem;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin: 0 0.5rem;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Trend Indicators */
-        .trend-indicator {
-            display: inline-block;
-            padding: 0.25rem 0.625rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-
-        .trend-indicator.hot, .hot {
-            background: #39ff14;
-            color: #000;
-        }
-
-        .trend-indicator.cold, .cold {
-            background: #ff4444;
-            color: #fff;
-        }
-
-        .trend-indicator.elite, .elite {
-            color: #39ff14;
-            font-weight: 700;
-        }
-
-        .trend-indicator.good, .good {
-            color: #4a90e2;
-            font-weight: 700;
-        }
-
-        .trend-indicator.poor, .poor {
-            color: #ff8c00;
-            font-weight: 700;
-        }
-
-        .trend-indicator.terrible, .terrible {
-            color: #ff4444;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        footer {
-            max-width: 1400px;
-            margin: 4rem auto 0;
-            padding: 3rem 2rem;
-            border-top: 2px solid var(--border);
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.875rem;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .m-header, .game-header {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .m-team {
-                justify-content: center;
-            }
-
-            .m-team:last-child {
-                justify-content: center;
-            }
-        }
-    </style>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-QQH4JXHGN3');
-    </script>
-<!-- breadcrumb-list-injected -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://sportsbettingprime.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "MLB",
-      "item": "https://sportsbettingprime.com/mlb-prime-directives.html"
-    }
-  ]
-}
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLB Betting Guide: Totals, Pitching and Park Factors | Sports Betting Prime</title>
+<meta name="description" content="Baseball is a totals and pitching market first. Here is how the price is built, which numbers move it, and where the recurring mistakes are.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/mlb-prime-directives.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="MLB Betting Guide: Totals, Pitching and Park Factors | Sports Betting Prime">
+<meta property="og:description" content="Baseball is a totals and pitching market first. Here is how the price is built, which numbers move it, and where the recurring mistakes are.">
+<meta property="og:url" content="https://sportsbettingprime.com/mlb-prime-directives.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MLB Betting Guide: Totals, Pitching and Park Factors | Sports Betting Prime">
+<meta name="twitter:description" content="Baseball is a totals and pitching market first. Here is how the price is built, which numbers move it, and where the recurring mistakes are.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-                        <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                <li><a href="nba-court-vision.html">NBA</a></li>
-                <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                <li><a href="mlb-prime-directives.html" class="active">MLB</a></li>
-                <li><a href="college-basketball.html">NCAAB</a></li>
-                <li><a href="college-football.html">NCAAF</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </nav>
-    </header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
 
-    <main>
-        <div class="page-header">
-            <div class="slogan">DIAMOND ALGORITHMS PROCESSING…</div>
-            <h1>MLB Prime Directives</h1>
-            <p class="subtitle">MLB research hub for pitching context, park factors, bullpen usage, and market education</p>
-        </div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/sports.html" aria-current="page">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">MLB</div>
+  <h1>MLB Betting Guide: Totals, Pitching and Park Factors</h1>
+  <p class="lede">Baseball is a totals and pitching market first. Here is how the price is built, which numbers move it, and where the recurring mistakes are.</p>
+</div></div>
 
-        <section class="section-container">
-            <h2 class="section-title">MLB Research Workflow</h2>
-            <p style="color: var(--text-muted); max-width: 900px; margin: 0 auto 1.5rem; text-align: center;">Use this page as an MLB starting point, not a shortcut. Start with pitcher availability, bullpen workload, park context, lineup quality, and whether current consensus agrees with the matchup story.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
-                <a href="covers-consensus.html" style="display: block; padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); text-decoration: none; background: rgba(255,255,255,0.04);">Consensus Board<span style="display:block; color: var(--text-muted); margin-top: 0.35rem;">Compare MLB reads against broader handicapper agreement.</span></a>
-                <a href="handicapping-hub.html" style="display: block; padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); text-decoration: none; background: rgba(255,255,255,0.04);">Handicapping Hub<span style="display:block; color: var(--text-muted); margin-top: 0.35rem;">Move from baseball into the sitewide research hub.</span></a>
-                <a href="how-sports-betting-markets-work.html" style="display: block; padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); text-decoration: none; background: rgba(255,255,255,0.04);">Market Mechanics<span style="display:block; color: var(--text-muted); margin-top: 0.35rem;">Understand line movement before reacting to one baseball number.</span></a>
-                <a href="editorial-policy.html" style="display: block; padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); text-decoration: none; background: rgba(255,255,255,0.04);">Editorial Standards<span style="display:block; color: var(--text-muted); margin-top: 0.35rem;">See how stale slates and time-sensitive claims are handled.</span></a>
-            </div>
-        </section>
+<section class="sec"><div class="wrap">
+  <div class="note"><strong>No live data on this page.</strong> Sports Betting Prime does not publish live odds, projected statistics, consensus percentages or game predictions. Every figure below is either a definition, a worked example computed from the numbers shown, or carries a named source and the date it was current as of.</div>
+  <div class="shead" style="margin-top:30px"><h2>What actually moves this market</h2></div>
+  <div class="card" style="margin-bottom:14px"><h3>The starter is most of the number</h3><p style="color:var(--ink-2)">A baseball line is anchored on the two probable starters. When a probable changes, the total and the moneyline both move before anything else has happened. Confirm the probable before you price anything.</p></div><div class="card" style="margin-bottom:14px"><h3>Bullpen state is the second input</h3><p style="color:var(--ink-2)">Innings thrown over the previous three days determine who is unavailable. A rested pen and a burned pen are worth a meaningful amount on a team total, and the information is public.</p></div><div class="card" style="margin-bottom:14px"><h3>Park factors are real but already priced</h3><p style="color:var(--ink-2)">Coors Field is the extreme case, and it is the one every model already accounts for. The exploitable version of park factor is the marginal one - roof state, wind direction, temperature - not the headline.</p></div><div class="card" style="margin-bottom:14px"><h3>First five innings removes the bullpen</h3><p style="color:var(--ink-2)">An F5 bet isolates the starters. If your read is entirely about the starting pitching matchup, F5 is the more honest expression of it than the full-game total.</p></div><div class="card" style="margin-bottom:14px"><h3>Team totals isolate one lineup</h3><p style="color:var(--ink-2)">If your view is "this offence is going to struggle" rather than "this team will lose", a team total says exactly that and avoids paying for the other side of the game.</p></div>
+</div></section>
 
-        
-<div class="background-container"></div>
-<div class="content-wrapper">
+<section class="sec"><div class="wrap">
+  <div class="shead"><div class="eyebrow">Go deeper</div><h2>Guides that apply here</h2></div>
+  <div class="linklist"><a href="/weather-betting-guide.html"><strong>Weather Betting Guide</strong><span>Wind, cold and rain in NFL, MLB and soccer - which effects survive contact with the data.</span></a><a href="/correlated-betting-markets.html"><strong>Correlated Betting Markets</strong><span>How spreads, totals, moneylines and props are mathematically tied together.</span></a><a href="/value-betting-explained.html"><strong>Value Betting Explained</strong><span>How price and probability interact, and why decision quality matters more than the result.</span></a></div>
+  <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn btn-ghost" href="/tools.html">Betting calculators &rarr;</a>
+    <a class="btn btn-ghost" href="/glossary.html">Glossary &rarr;</a>
+    <a class="btn btn-ghost" href="/sports.html">All sports &rarr;</a>
+  </div>
+</div></section>
 
-<section class="section-container">
-<h2 class="section-subtitle">Latest MLB Analysis</h2>
-<div class="game-analysis-block">
-<div class="analysis-content">
-<p><strong><a href="0720-sharp-mlb-monday-brewers-misiorowski-moneyline-peralta-return-rays-jays-under-nrfi-rockies-coors-dog-red-sox-rangers-team-total-unders-july-20-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: Misiorowski Meets The Man He Replaced, And Six Of Eight Reads Point Under (July 20, 2026)</a></strong> - Monday is an eight-read, 14.5-unit board built around the best pitching mismatch of the night. A Milwaukee Brewers moneyline at minus 190 anchors the card at 3 units, backing Jacob Misiorowski at 10-4 with a 1.62 ERA, a 0.76 WHIP, 167 strikeouts, and a .148 opponent average against former Brewer Freddy Peralta, now 5-8 with a 4.66 ERA for a 42-58 Mets club, in Peralta's first start back at American Family Field. A Diamondbacks moneyline at minus 154 carries 2.5 units against Jeffrey Springs and his 6.08 ERA with 26 home runs allowed. A Rays-Blue Jays game total under 7.5 at minus 115 and an NRFI at minus 134 pair Nick Martinez, 8-2 with a 2.65 ERA and a 1.00 first-inning ERA, with Dylan Cease, a 2.56 ERA and a .190 average against, at Rogers Centre. A Rockies moneyline at plus 107 takes Coors Field against six-start rookie Andrew Alvarez and his 22 walks in 49 innings, a Twins-Guardians under 7.5 at minus 110 rides Joe Ryan and a 1.05 WHIP against the quietest offense in the American League, and Red Sox and Rangers team total unders at 4.5, minus 130 and minus 140, cap two offenses scoring barely over four runs a game. A arms-over-bats read across the July 20 board.</p>
-<p><strong><a href="0719-sharp-mlb-sunday-nationals-moneyline-foster-griffin-cardinals-team-total-under-giants-mariners-under-ray-gilbert-july-19-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Sunday: The Market Saw A 15-1 Final And Did Not Blink, Three July 19 Reads Where The Price Is The Tell (July 19, 2026)</a></strong> - Sunday is a market-read board with three plays for six units. A Washington Nationals moneyline at minus 143 is the 2-unit centerpiece, backing Foster Griffin at 10-2 with a 2.77 ERA, a 1.02 WHIP, and a 109-to-26 strikeout-to-walk line against Jacob Lopez and a 6.83 ERA at Sutter Health Park, one day after a 15-1 Athletics blowout that barely moved the price on a club that has lost eight of its last nine. A Cardinals team total under 4.5 at minus 138 caps a St. Louis offense averaging 4.51 runs per game against Eduardo Rodriguez, 8-3 with a 2.29 ERA across 114 innings at Chase Field. And a Giants-Mariners under 7.5 at minus 120 anchors the card at 2.5 units, pairing Logan Gilbert and his 0.99 WHIP with ex-Mariner Robbie Ray and a .217 average against at T-Mobile Park, a day after the same two offenses produced seven total runs. A price-versus-perception read across the July 19 board.</p>
-<p><strong><a href="0718-sharp-mlb-saturday-cardinals-diamondbacks-under-brewers-angels-team-total-unders-giants-run-line-july-18-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Saturday: Arms Cap The July 18 Board And The Giants Buy Cover In Seattle (July 18, 2026)</a></strong> - Saturday is a pitching-first board with four reads for seven and a half units. A Cardinals-Diamondbacks game total under 9 at minus 120 pairs Brandon Pfaadt at a 4.70 ERA and Dustin May at a 4.55 ERA at Chase Field, two mid-rotation arms on a total set high enough to leave cushion. A Brewers team total under 4.5 at minus 140 fades Milwaukee against Max Meyer, 9-1 with a 2.58 ERA, one of the sharpest run-prevention profiles on the slate. An Angels team total under 3.5 at minus 145 is the two-unit anchor, capping a strikeout-prone Los Angeles lineup against Tarik Skubal and a 3.02 ERA in Anaheim. And a Giants run line plus 1.5 at minus 180 carries the largest stake at three units, buying cover behind Logan Webb and a 3.86 ERA in a run-suppressing T-Mobile Park against Bryan Woo and a 4.23 ERA. A line-value read across the July 18 board.</p>
-<p><strong><a href="0717-second-half-opener-dodgers-yankees-under-9-guardians-moneyline-gavin-williams-sasaki-cole-july-17-2026.html" style="color: var(--primary); text-decoration: underline;">Second-Half Opener: The Dodgers-Yankees Under 9 That Has To Survive Roki Sasaki (July 17, 2026)</a></strong> - The first board back from the All-Star break carries two reads and 2.5 units. A Dodgers-Yankees game total under 9 at plus 100 at Yankee Stadium backs the two stingiest run-prevention units in tonight's featured pair, a Los Angeles club allowing 3.68 runs per game on the way to 61-36 and a plus 149 differential, and a New York club allowing 3.86 at 54-42. Gerrit Cole anchors it with a 4.04 ERA, a 1.20 WHIP, and 47 strikeouts against just 11 walks across 49 innings, a 4.27 strikeout-to-walk ratio that keeps free runners off the bases against the best offense in baseball. The honest counterpoint is loud: Roki Sasaki brings a 5.33 ERA, a 1.36 WHIP, and 19 home runs allowed in 81 innings into the short porch, a 2.11 home run per nine rate, and the internal model projects roughly 9.27 combined runs, above the number, on offensive rollups that have been stale since Sunday because no games were played July 13 through 16. The tipping input is a Dodgers lineup carrying a three-game losing streak into four days without a live at-bat. A Cleveland Guardians moneyline at minus 122 rides Gavin Williams, 10-4 with a 3.81 ERA, 134 strikeouts, a 10.64 K/9, a .222 opponent average, and 113.1 innings across 19 starts, against Jared Jones and his 35 innings across eight starts, a 78-inning workload gap on the first night back. The counterpoint there is Pittsburgh's offense at 5.32 runs per game against Cleveland's 3.97, and a Guardians club whose 51-46 record runs ahead of a minus 2 run differential. A line-value read across the July 17 board.</p>
-<p><strong><a href="0712-first-half-finale-wheeler-skubal-under-nrfi-white-sox-cardinals-giants-blue-jays-moneylines-mariners-run-line-athletics-under-july-12-2026.html" style="color: var(--primary); text-decoration: underline;">First-Half Finale: Wheeler And Skubal Duel Caps A Nine-Read July 12 Board Before The Break (July 12, 2026)</a></strong> - The last board of the first half puts six of its seventeen units on one mound. Zack Wheeler, 9-1 with a 2.28 ERA, a 0.91 WHIP, and a .190 opponent average, meets Tarik Skubal and an 84-to-10 strikeout-to-walk line at Comerica Park, carrying a Phillies-Tigers game total under 7 at minus 120, a first five innings under 3.5 at minus 115, and an NRFI at minus 155. A White Sox moneyline at minus 145 and an Athletics team total under 4.5 at minus 135 attack an Athletics club that has lost nine of ten with a minus 98 run differential against Chicago's 30-17 home mark. A Cardinals moneyline at minus 129 banks Dustin May and 89 innings of real length against an Atlanta bullpen game opened by Danny Young and his 3.1 season innings. A Giants moneyline at minus 135 fades Michael Lorenzen, 3-9 with a 6.46 ERA, a 1.78 WHIP, and a .327 opponent average, with Colorado 17-33 on the road. A Blue Jays moneyline at minus 125 rides Kevin Gausman and a 108-to-29 strikeout-to-walk line over German Marquez and a 5.02 ERA against a Padres offense scoring 3.94 runs per game, and a Mariners plus 1.5 run line at minus 170 buys cover behind Emerson Hancock and a 1.01 WHIP against the best home record in baseball at Tropicana Field. A line-value read across the July 12 board.</p>
-<p><strong><a href="0711-sharp-saturday-yamamoto-diamondbacks-team-total-under-schlittler-yankees-moneyline-sanchez-tigers-under-phillies-blue-jays-padres-under-nrfi-july-11-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp Saturday: Eight July 11 Reads Where The Arms Cap The Board (July 11, 2026)</a></strong> - Saturday's sixteen-game board leans down, and eight reads carry 15.5 units. The anchor caps Detroit with a Tigers team total under 3.5 at minus 140 behind Cristopher Sanchez, 10-4 with a 2.62 ERA and 137 strikeouts, while a Phillies moneyline at minus 134 rides the same edge against a genuinely good Casey Mize at Comerica Park. A Yankees moneyline at minus 191 banks Cam Schlittler, 9-5 with a 2.01 ERA and a 0.93 WHIP, against PJ Poulin and a 22-to-20 strikeout-to-walk ratio at Nationals Park. A Diamondbacks team total under 3.5 at minus 140 rides Yoshinobu Yamamoto, a 0.88 WHIP, and a .190 opponent average at Dodger Stadium. A Blue Jays-Padres game total under 8 at minus 115 and an NRFI at minus 125 lean on Trey Yesavage and a .181 opponent average against two bottom-third offenses at Petco Park. A Mariners-Rays game total under 7 at minus 105 pairs Logan Gilbert and a 0.95 WHIP with Griffin Jax under the roof at Tropicana Field, and a Rangers team total under 4.5 at minus 147 fades a 4.15 runs-per-game Texas offense against Peter Lambert and a .205 opponent average. A line-value read across the July 11 board.</p>
-<p><strong><a href="0710-sharp-friday-braves-chris-sale-moneyline-cardinals-twins-fade-grayson-rodriguez-giants-robbie-ray-rockies-ohtani-dodgers-july-10-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp Friday: Braves Bank Sale, Twins Fade Rodriguez, And Giants Ride Ray On July 10 (July 10, 2026)</a></strong> - Friday hands us a fifteen-game slate and three reads for six units. A Braves moneyline at minus 164 banks Chris Sale and a 2.27 ERA against Kyle Leahy and a 3.86 ERA at Busch Stadium, the most defensible favorite on the board with Atlanta at 54-38. A Twins moneyline at minus 130 fades Grayson Rodriguez and an 8.06 ERA at Target Field, the cleanest arm-fade of the day, with a Cardinals team total under and a Rockies team total under offered as the lower-variance angles. And a Giants play at minus 156 rides Robbie Ray and a 3.45 ERA over a Colorado club starting Tanner Gordon and a 6.95 ERA at Oracle Park. The Shohei Ohtani versus Eduardo Rodriguez marquee at Dodger Stadium stays on the watch list until Ohtani is confirmed active at first pitch. A line-value read across the July 10 board.</p>
-<p><strong><a href="0709-sharp-thursday-tigers-moneyline-valdez-marlins-team-total-under-bryce-miller-france-morocco-world-cup-quarterfinal-july-9-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp Thursday: Tigers Bank Valdez, Marlins Get Faded, And France Handles Morocco On July 9 (July 9, 2026)</a></strong> - Thursday narrows to three reads for six units across two sports. A Tigers moneyline at minus 125 banks Framber Valdez and a 4.29 ERA against Jack Perkins and a 6.75 ERA at Comerica Park, one of the widest pitching mismatches on the schedule. A Marlins team total under 3.5 at minus 120 fades a streaky Miami lineup against Bryce Miller and a 1.71 ERA with the roof closed at loanDepot park, the largest baseball play of the day. And a France moneyline over ninety minutes anchors the card at two and a half units as the tournament's most complete side meets a well-drilled Morocco in a World Cup quarterfinal. A line-value read across the July 9 board.</p>
-<p><strong><a href="0708-sharp-mlb-wednesday-harrison-cease-mcclanahan-team-total-unders-brewers-yankees-rays-twins-giants-blue-jays-rangers-angels-nationals-july-8-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Wednesday: Arms Cap The Board And Washington's Bats Break Through On July 8 (July 8, 2026)</a></strong> - Wednesday is a pitching-first board with seven plays for fourteen units. A Blue Jays-Giants game total under 7 at minus 115 anchors the card at three units behind Dylan Cease and a 2.79 ERA against Logan Webb at a run-suppressing Oracle Park. A Yankees-Rays game total under 7 at minus 110 rides Shane McClanahan and a 3.05 ERA against Gerrit Cole. A Twins team total under 4.5 at minus 145 fades a streaky Minnesota lineup against Slade Cecconi. A Nationals team total over 4.5 at minus 135 is the lone contrarian read, backing a productive Washington offense against Spencer Arrighetti at a number set too low. A Brewers moneyline at minus 141 banks Kyle Harrison and an 8-1 record with a 2.82 ERA on the road against Michael McGreevy. A Blue Jays team total under 3.5 at minus 120 takes a second bite at the same Oracle Park script, and an Angels-Rangers game total under 7.5 at minus 105 pairs Walbert Urena at a 3.03 ERA with MacKenzie Gore in Arlington. A line-value read across the July 8 board.</p>
-<p><strong><a href="0707-sharp-mlb-tuesday-skubal-skenes-degrom-team-total-unders-athletics-braves-angels-dodgers-white-sox-giants-july-7-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Tuesday: Aces And Team-Total Unders Own The July 7 Board (July 7, 2026)</a></strong> - Tuesday is a starting-pitching board, and twelve plays lean on the arms for fifteen units. An Athletics team total under 3.5 at minus 145 fades a 41-49 Oakland lineup against Tarik Skubal and a 3.15 ERA, the biggest play on the card. An Angels team total under 3.5 at minus 150 fades Los Angeles against Jacob deGrom at a 3.48 ERA, and the same Arlington duel supports a game total under 7 at minus 105 and a first-inning no-run play at minus 134 built on Soriano's 3.00 first-inning ERA. A Braves team total under 3.5 at minus 118 caps Atlanta against Paul Skenes and a 3.62 ERA. A Yankees-Rays game total under 8 at minus 118 pairs Will Warren at 7-3 with Ian Seymour at 5-1. A Phillies-Reds game total under 9 at minus 114 leans on Zack Wheeler in a hitter's park. A Dodgers run line at minus 135 and a Rockies team total under 2.5 at minus 115 attack a Colorado mismatch in Los Angeles. A White Sox moneyline at plus 105 buys a live home dog against Boston, and a Giants moneyline at minus 102 plus a Blue Jays team total under 3.5 at plus 110 close the night behind a run-suppressing Oracle Park. A line-value read across the July 7 board.</p>
-<p><strong><a href="0706-sharp-mlb-monday-schlittler-sanchez-command-arms-dodgers-phillies-moneyline-july-6-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: Command Arms Own The July 6 Board (July 6, 2026)</a></strong> - The July 6 board is built on command, not the win column. A Phillies moneyline at minus 181 banks Cristopher Sanchez and a 2.00 ERA against a 35-53 Royals club and Noah Cameron. A Brewers-Cardinals game total under 8 at minus 114 leans on Shane Drohan's 1.23 WHIP against Dustin May's 1.27 WHIP. A Yankees-Rays game total under 7.5 at minus 116 rides Cam Schlittler's 0.96 WHIP, the tightest number on the board. A Blue Jays-Giants game total under 7.5 at minus 114 leans on Landen Roupp and a run-suppressing Oracle Park. A Diamondbacks-Padres game total under 8.5 at minus 109 trusts two bullpens behind shaky lines from Brandon Pfaadt and Walker Buehler. And a Dodgers moneyline at minus 210 exploits Kyle Freeland's 7.25 ERA against the best record in baseball at Dodger Stadium. A line-value read across the July 6 board.</p>
-<p><strong><a href="0705-sharp-mlb-sunday-rockies-team-total-under-coors-brewers-guardians-red-sox-moneylines-rays-astros-blue-jays-mariners-unders-july-5-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Sunday: Seven July 5 Reads Where The Record Lies And The Arm Tells The Truth (July 5, 2026)</a></strong> - The July 5 board is built on the gap between record and skill. A Guardians moneyline at minus 131 and a White Sox-Guardians game total under 8 back Tanner Bibee, whose 2-9 record hides a 3.69 ERA, a 1.11 WHIP, and a .225 opponent average, against Chicago swingman Chris Murphy. A Rays-Astros game total under 9 rides Peter Lambert at a 3.51 ERA and a .209 opponent average against spot starter Mason Englert. A Rockies team total under 6.5 at minus 140 fades a 36-54 Colorado lineup even at Coors Field, where the number charges the full altitude tax against Tyler Mahle. A Brewers moneyline at minus 116 buys the National League's best record at 54-33 near a coin-flip price against Eduardo Rodriguez and his contact-dependent 2.21 ERA. The 3-unit anchor sends a Blue Jays-Mariners game total under 7.5 behind Trey Yesavage and a .185 opponent average against Emerson Hancock and a 1.05 WHIP at T-Mobile Park. And a Red Sox moneyline at minus 153 banks Ranger Suarez and a 2.94 ERA against Ryan Johnson and a 7.40 ERA in Anaheim. A line-value read across the July 5 board.</p>
-<p><strong><a href="0704-sharp-mlb-saturday-fourth-of-july-braves-sale-dodgers-yamamoto-rays-astros-aces-under-mets-padres-white-sox-team-total-unders-july-4-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Saturday: A Fourth Of July Board Built On Run Prevention (July 4, 2026)</a></strong> - The July 4 board is a run-prevention board. A Rays-Astros game total under 7 rides Drew Rasmussen at a 2.45 ERA against Hunter Brown at a 1.78 ERA, the two best arms on the card meeting in the lowest-scoring matchup of the day. A White Sox-Guardians game total under 7.5 and a White Sox team total under 3.5 fade a quiet Chicago offense against Parker Messick at a 2.85 ERA in a pitcher's park, and a Blue Jays-Mariners game total under 7.5 leans on a run-suppressing T-Mobile Park. A Braves moneyline at minus 161 banks Chris Sale and a 2.10 ERA against Sean Manaea while a Mets team total under 3.5 fades the same lineup, and a Dodgers run line rides Yoshinobu Yamamoto and a 2.67 ERA while a Padres team total under 3.5 attacks the same edge. A Marlins moneyline at minus 130 banks Sandy Alcantara against Aaron Civale, and a Rockies team total under 5.5 fades Colorado against Robbie Ray at Coors even as the game total sits in the double digits. A line-value read across the July 4 board.</p>
-<p><strong><a href="0703-sharp-mlb-friday-padres-dodgers-under-nrfi-rays-moneyline-astros-team-total-under-blue-jays-mariners-under-marlins-over-july-3-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Friday: A Padres-Dodgers Under And NRFI Anchor A July 3 Board Where The Total Sets The Price (July 3, 2026)</a></strong> - A Padres-Dodgers game total under 8 at minus 113 and a no-run-first-inning at minus 114 ride Shohei Ohtani at 8-2 and Michael King at Dodger Stadium, where two efficient arms in a pitcher's park keep the runs in ones and twos. The Rays lay a road moneyline at minus 110 behind Nick Martinez and a 2.66 ERA that travels into any park, and an Astros team total under 4.5 at minus 140 fades the same Houston lineup against that command. A Blue Jays-Mariners game total under 7 at minus 105 leans on Dylan Cease at a 3.02 ERA and a run-suppressing T-Mobile Park, capping both offenses. The lone over of the day sends a Marlins moneyline at plus 118 and a game total over 10.5 at minus 115 into Sutter Health Park in Sacramento against Jack Perkins and a 6.00 ERA, where Tyler Phillips at a 3.02 ERA gives Miami the better arm at a plus-money price. A line-value read across the July 3 board.</p>
-<p><strong><a href="0702-sharp-mlb-thursday-dodgers-mariners-run-lines-guardians-moneyline-padres-white-sox-team-total-unders-tigers-rangers-nrfi-july-2-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Thursday: Dodgers And Mariners Run Lines Anchor A July 2 Board Where The Pitching Edge Sets The Price (July 2, 2026)</a></strong> - The Los Angeles Dodgers at 56-31 own the best record in the National League and lay a run line at minus 133 against a 43-42 San Diego club, banking lineup and bullpen depth over Roki Sasaki and a 4.88 ERA, while a Padres team total under 3.5 at minus 105 rides the same edge by fading a light San Diego bat against Randy Vasquez. Bryce Miller takes a 1.97 ERA into T-Mobile Park for a Mariners run line at minus 147 against a 36-51 Angels lineup and Walbert Urena. A Guardians moneyline at minus 110 and a White Sox team total under 4.5 at minus 130 lean on home field and Davis Martin at a 3.00 ERA in run-suppressing Progressive Field, in a game the market cannot separate between two 45-win clubs. A Tigers-Rangers no-run-first-inning at minus 137 pairs Framber Valdez, part of a Detroit rotation that posted a league-best 3.47 ERA in June, with Nathan Eovaldi and a 3.95 ERA, two control veterans built to open quiet. A line-value read across the July 2 board.</p>
-<p><strong><a href="0701-sharp-mlb-wednesday-skenes-wheeler-ace-duel-phillies-under-marlins-meyer-coors-rays-royals-july-1-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Wednesday: Skenes And Wheeler Duel Two Sub-2.10 ERAs On A July 1 Board Where Pitching Sets The Price (July 1, 2026)</a></strong> - Paul Skenes at a 1.98 ERA and Zack Wheeler at 8-1 and a 2.03 ERA headline the cleanest low-total duel on the board at Citizens Bank Park, with two sub-2.10 ERAs opposing each other. Max Meyer takes a 9-0 record and a 2.60 ERA into Coors Field against Kyle Freeland and a 7.98 ERA, where the Marlins side survives the altitude but the total does not. The Rays at 49-33 lay a road price at Kansas City behind Shane McClanahan, with a caveat on his managed June workload after a 5.79 ERA in the month. A Cardinals-Braves matchup leans under behind Michael McGreevy's command and Reynaldo Lopez at a 2.18 ERA over his recent run, and a Reds value read rides Andrew Abbott at a 2.64 ERA over his last eleven starts against a rookie fill-in even with Milwaukee holding the best record in the National League at 52-31. A line-value read across the July 1 board.</p>
-<p><strong><a href="0630-sharp-mlb-tuesday-skubal-schlittler-under-dodgers-moneyline-phillies-runline-brewers-june-30-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Tuesday: Skubal And Schlittler Headline An Under-Driven June 30 Board Where The Pitching Sets The Price (June 30, 2026)</a></strong> - A Tigers-Yankees game total under 7 at minus 105 and a Tigers team total under 3.5 bank two of the stingiest arms in the league, Tarik Skubal at a 3.32 ERA and a 0.99 WHIP against Cam Schlittler at a 1.62 ERA, a 0.92 WHIP, and 118 strikeouts. A Dodgers moneyline at minus 175 lays an earned price behind Justin Wrobleski, who is 9-2 with a 2.71 ERA, with the best record in baseball at 55-30 against Jeffrey Springs and a 5.52 ERA. A Phillies run line at minus 1.5 and a Pirates team total under 3.5 ride Cristopher Sanchez, who is 9-3 with a 2.13 ERA and 127 strikeouts, against rookie Bubba Chandler. A Brewers moneyline at minus 173 trusts the best record in the National League at 51-31 over a soft starter line, and an Angels team total under 3.5 leans on Bryan Woo and a 1.04 WHIP in run-suppressing T-Mobile Park. A line-value read across the June 30 board.</p>
-<p><strong><a href="0629-sharp-mlb-monday-guardians-moneyline-rangers-under-red-sox-over-mariners-runline-june-29-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: A Guardians Moneyline And A Rangers Team Total Under Lead A June 29 Board Built On Pitching Mismatches (June 29, 2026)</a></strong> - A Guardians moneyline as the home favorite and a Rangers team total under 3.5 bank Parker Messick, who is 7-4 with a 2.67 ERA, a .207 opponent average, and 101 strikeouts, against a Texas opener game fronted by reliever Tyler Alexander in a pitcher-friendly Progressive Field. A Red Sox team total over 4.5 at minus 115 fades Miles Mikolas and a 5.24 ERA at Fenway, with Ranger Suarez and a 2.83 ERA keeping Boston in front. A Mariners run line at minus 1.5 and minus 102 lays the better arm in George Kirby and a 3.94 ERA against Ryan Johnson and an 8.84 ERA, an Astros moneyline at minus 140 trusts Peter Lambert and a 3.30 ERA at home over the Twins, and a Cubs moneyline at minus 157 rounds it out behind Shota Imanaga and a 4.40 ERA at Wrigley. A line-value read across the June 29 board.</p>
-<p><strong><a href="0628-sharp-mlb-sunday-brewers-moneyline-braves-giants-under-athletics-team-total-june-28-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Sunday: A Brewers Moneyline And A Braves-Giants Under Lead A June 28 Board Built On Team Totals (June 28, 2026)</a></strong> - A Brewers moneyline at minus 155 backs the best record in the National League at 50-30 with a healthy Brandon Woodruff at home against the Cubs. A Braves-Giants game total under 7.5 at minus 120 leans on Robbie Ray, who is 5-6 with a 4.07 ERA and beat Atlanta on Wednesday with a season-high eight strikeouts, working in run-suppressing Oracle Park. A Yankees-Red Sox under 8 at minus 115 rides a red-hot Carlos Rodon, who has won three straight starts and has not allowed more than three runs since returning from the injured list in early May. A Diamondbacks team total under 3.5 at minus 140 fades a quiet Arizona bat against Tampa Bay run prevention, and Athletics and Twins team total overs at minus 130 and minus 125 attack two struggling arms in soft matchups. A line-value read across the seven-spot June 28 board.</p>
-<p><strong><a href="0627-sharp-mlb-saturday-brewers-giants-moneylines-cubs-padres-braves-team-total-unders-mariners-guardians-under-june-27-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Saturday: Brewers And Giants Moneylines Lead A June 27 Board Built On Team Total Unders (June 27, 2026)</a></strong> - Kyle Harrison and an 8-1 record with a 2.50 ERA and a 10.9 K/9 front a Brewers moneyline at minus 152 and a Cubs team total under 3.5 at minus 115 off the same start against David Peterson and a 6.09 ERA. A Logan Webb start at Oracle Park anchors a Giants moneyline at minus 125 that the 33-48 record disguises against a 49-31 Atlanta club, with a Braves team total under 3.5 at minus 115 fading a road bat in a pitcher's park. A Padres team total under 3.5 at minus 145 fades a light San Diego bat against Yoshinobu Yamamoto without paying the two-to-one Dodgers tax, and a Mariners-Guardians game total under 7.5 at minus 120 leans on a frontline Logan Gilbert and a 3.29 ERA in a pitcher-friendly Progressive Field. A line-value read across the six-spot June 27 board.</p>
-<p><strong><a href="0626-sharp-mlb-friday-brewers-misiorowski-run-line-dodgers-rays-yankees-moneylines-padres-cubs-team-total-unders-twins-over-june-26-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Friday: A Misiorowski Brewers Run Line, Three Moneylines, And A Stack Of Team Totals Anchor The June 26 Board (June 26, 2026)</a></strong> - Jacob Misiorowski and an 8-3 record with a 1.45 ERA and a 0.75 WHIP front a Brewers run line at minus 185 and a Cubs team total under 2.5 off the same start against Colin Rea and a 4.99 ERA. A 52-29 Dodgers moneyline at minus 137 leans on the deepest lineup in the league against Walker Buehler, with a Padres team total under 3.5 fading a light San Diego bat against Roki Sasaki. A Nick Martinez Rays moneyline at minus 133 banks a four-run ERA edge over Zac Gallen and a 6.10 ERA, a Yankees moneyline at minus 110 sits near pickem behind Will Warren against a 33-46 Boston and Payton Tolle, a Mariners-Guardians game total under 7.5 fades two quiet bats, an Athletics-Angels over 8.5 leans on two walk-prone arms, and a Twins team total over 4.5 fades a contact-only Tomoyuki Sugano and his 46 strikeouts in 79 innings. A read across the nine-spot June 26 board.</p>
-<p><strong><a href="0625-sharp-mlb-thursday-giants-yankees-blue-jays-astros-phillies-moneylines-red-sox-nationals-team-total-unders-astros-tigers-under-june-25-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Thursday: Five Moneylines, Two Team Total Unders, And A Game Total Under Anchor The June 25 Board (June 25, 2026)</a></strong> - A Landen Roupp Giants home moneyline at minus 124 built on a 4.15 ERA against Jeffrey Springs and a 5.55 ERA despite a 33-46 record, a Cam Schlittler Yankees lay at minus 144 and a Red Sox team total under 3.5 behind the AL ERA leader at 1.71 against a 32-45 Boston bat and Connelly Early, a Blue Jays moneyline at minus 149 in an even matchup with Kevin Gausman at 4.04 against MacKenzie Gore at 4.07 where home field tips it, and a Cristopher Sanchez Phillies moneyline at minus 158 and a Nationals team total under 3.5 behind a 9-3, 1.80 ERA ace against Cade Cavalli headline the board. The Astros side splits into a plus 100 pickem and an Astros-Tigers game total under 9 behind Troy Melton and a 2.56 ERA against a thin 34-46 Detroit lineup. A read across the eight-spot June 25 board.</p>
-<p><strong><a href="0624-sharp-mlb-wednesday-guardians-rays-blue-jays-red-sox-moneylines-phillies-braves-overs-orioles-twins-team-total-unders-june-24-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Wednesday: Four Moneylines, Two Overs, And Two Team Total Unders Anchor The June 24 Board (June 24, 2026)</a></strong> - A road Guardians moneyline behind Tanner Bibee and a 4.03 ERA against Erick Fedde and two even 41-37 clubs, a 43-33 Rays lay at minus 145 behind Griffin Jax and a 3.67 ERA against a 34-45 Royals bat and Noah Cameron, a Blue Jays moneyline behind Trey Yesavage and a 3.76 ERA against Mike Burrows and a 5.79 ERA, and a Ranger Suarez Red Sox moneyline at Coors built on a four-run ERA gap over Kyle Freeland and a 7.36 ERA headline the favorites. On the offense side, two struggling arms push a Phillies-Nationals over 9.5 with Aaron Nola and Miles Mikolas both north of a five ERA, and a Braves-Padres over 7.5 leans on lineup quality against JP Sears. Two team totals fade a bat against a quality arm, an Orioles under 4.5 against Jose Soriano and a 3.03 ERA and a Twins under 3.5 against Shohei Ohtani and a 1.47 ERA. A read across the eight-spot June 24 board.</p>
-<p><strong><a href="0623-sharp-mlb-tuesday-brewers-rays-mariners-dodgers-moneylines-astros-blue-jays-under-yankees-white-sox-team-totals-june-23-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Tuesday: Four Moneylines, A Bieber-Return Under, And Two Team Totals Anchor The June 23 Board (June 23, 2026)</a></strong> - A 50-29 Dodgers club lays minus 170 behind Justin Wrobleski and an 8-2, 2.72 ERA line against Kendry Rojas and the Twins, a 47-29 Brewers team sits at a near pick-em minus 104 in Cincinnati with Brandon Sproat and Nick Lodolo both carrying ERAs near six, a 43-32 Rays group lays minus 178 behind Shane McClanahan and a 5-0 home mark against a 33-46 Royals offense and Luinder Avila, and a Mariners side leans on George Kirby and a 4.10 ERA against Mitch Keller and the Pirates. On the situational side, a returning Shane Bieber pushes an Astros-Blue Jays under 9 with Peter Lambert and a 3.23 ERA on the other mound, a deep Yankees lineup leans a team total over 3.5 against Casey Mize, and a quiet White Sox bat leans a team total under 3.5 against Parker Messick and a 2.70 ERA. A read across the eight-spot June 23 board.</p>
-<p><strong><a href="0622-sharp-mlb-monday-brewers-yankees-rays-moneylines-braves-padres-astros-blue-jays-unders-june-22-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: Three Favorites And Four Unders Anchor The June 22 Board (June 22, 2026)</a></strong> - A returning Brandon Woodruff fronts a Brewers moneyline at minus 144 against a 37-39 Reds club and Brady Singer at a 5.32 ERA, Gerrit Cole and a 2.57 ERA lay road juice at minus 121 for a 46-30 Yankees team against a 33-44 Tigers club, and Drew Rasmussen and a 2.59 ERA anchor a Rays home moneyline at minus 179 over a slumping 32-46 Royals offense. On the run-prevention side, Michael King and Petco Park push a Braves-Padres under 7.5, Dylan Cease and a 2.71 ERA cap an Astros-Blue Jays under 7 at plus money, Gavin Williams holds a Guardians-White Sox under 8, and a cold Red Sox bat leans its team total under 6.5 even at Coors Field. A read across the seven-spot June 22 board.</p>
-<p><strong><a href="0621-sharp-mlb-sunday-phillies-wheeler-moneyline-angels-athletics-over-cardinals-royals-moneyline-june-21-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Sunday: A Zack Wheeler Phillies Moneyline Anchors The June 21 Board (June 21, 2026)</a></strong> - Zack Wheeler takes a 6-1 record and a 2.01 ERA into a Phillies home moneyline against a 34-42 Mets lineup and David Peterson at a 5.91 ERA, two hittable arms in Reid Detmers and Jack Perkins push an Angels-Athletics over 9.5 at Sutter Health Park in Sacramento, and a 40-34 Cardinals club lays a road moneyline behind Dustin May against a 32-45 Royals offense that has gone quiet. A read on the three-game June 21 board.</p>
-<p><strong><a href="0620-sharp-mlb-saturday-mets-rockies-orioles-team-total-unders-phillies-mariners-moneyline-june-20-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Saturday: Three Team-Total Unders Anchor A Board Built On Quiet Offenses Meeting Good Arms (June 20, 2026)</a></strong> - A 34-41 Mets lineup hitting .227 walks into Cristopher Sanchez and a 1.82 ERA on a team total under, a thin-air-dependent 29-47 Rockies offense draws Paul Skenes and 99 strikeouts in 82-2/3 innings on a second under, and a cold 35-42 Orioles bat meets Yoshinobu Yamamoto and a 0.84 WHIP at Dodger Stadium on a third. The Phillies moneyline is the straight-side read on the Sanchez edge, Emerson Hancock anchors a Mariners home moneyline in a pitcher's park, Spencer Arrighetti and a 2.57 ERA cap an Astros-Guardians under 8.5, and Kyle Harrison and Chris Sale, two sub-2.50 lefties, hold a Brewers-Braves first five under 3.5. A read across the seven-spot June 20 board.</p>
-<p><strong><a href="0619-sharp-mlb-friday-brewers-misiorowski-moneyline-yankees-schlittler-padres-team-total-under-degrom-dodgers-june-19-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Friday: Jacob Misiorowski And A 1.34 ERA Anchor A Brewers Moneyline, A Schlittler Yankees Run Line, And A Padres Team Total Under Against Jacob deGrom (June 19, 2026)</a></strong> - Jacob Misiorowski carries an 8-2 record, a 1.34 ERA, and a 0.74 WHIP into Atlanta to front a Brewers moneyline at minus 160, Cam Schlittler and a 1.82 ERA back a Yankees run line over a hittable Rhett Lowder and the Reds, a punchless 280-run San Diego lineup meets Jacob deGrom and a 0.99 WHIP on a Padres team total under 3.5, the Giants take a run line cushion against a Miami staff without a clear length starter, and the 48-27 Dodgers lay a run line on the best club on the board against a 5.91-ERA Trey Gibson. A read across the five-spot June 19 board.</p>
-<p><strong><a href="0618-sharp-mlb-thursday-giants-team-total-over-braves-mariners-yankees-moneyline-guardians-brewers-under-june-18-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Thursday: A Giants Team Total Over In Atlanta, Mariners And Yankees Home Moneylines, And Three Run-Prevention Totals On The June 18 Board (June 18, 2026)</a></strong> - A San Francisco Giants team total over 3.5 is the contrarian read against a contact-heavy Martin Perez and his sub-one-per-inning strikeout rate in Atlanta, Bryan Woo and a 1.04 WHIP front a Mariners home moneyline, a 45-27 Yankees club on a four-game heater lays minus 161 behind Ryan Weathers, Jose Soriano and Gage Jump cap an Angels-Athletics under 10, Parker Messick and Shane Drohan anchor a Guardians-Brewers under 7.5, a pair of hittable lefties push a Cardinals-Royals over, and the quietest offense on the board leans the Red Sox team total under. A read across the seven-spot June 18 board.</p>
-<p><strong><a href="0617-sharp-mlb-wednesday-rays-dodgers-under-ohtani-rays-team-total-yankees-moneyline-cubs-pirates-athletics-over-june-17-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Wednesday: Ohtani At 1.06 Anchors A Rays-Dodgers Under And A Rays Team Total On The June 17 Board (June 17, 2026)</a></strong> - Shohei Ohtani takes a 1.06 ERA into a Rays-Dodgers under 7 and a Rays team total Under 3.5, Gavin Williams at a 3.32 ERA caps a Guardians-Brewers under, Casey Mize at 2.27 anchors a Tigers-Astros under, the Red Sox team total leans under against a shaky Boston starter, Carlos Rodon fronts a Yankees moneyline at minus 171, and the Cubs lay a run on a Rockies rookie debut. A run-prevention read across the eight-spot June 17 board.</p>
-<p><strong><a href="0616-sharp-mlb-tuesday-cubs-moneyline-cabrera-red-sox-blue-jays-under-cease-tolle-june-16-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Tuesday: A Cubs Moneyline And A Fenway Under Lead The June 16 Board (June 16, 2026)</a></strong> - Edward Cabrera and a strikeout arm host a 27-46 Rockies club with the league's worst run differential at Wrigley Field, while Dylan Cease at better than a strikeout an inning and Payton Tolle at a 1.05 WHIP cap the total at Fenway Park. A read on the Cubs moneyline at minus 187 and the Red Sox versus Blue Jays under 7.5 at minus 115 across the June 16 board.</p>
-<p><strong><a href="0615-sharp-mlb-monday-cubs-moneyline-imanaga-phillies-wheeler-pitching-mismatches-june-15-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: Two Pitching Mismatches Anchor The Cubs And Phillies Moneylines (June 15, 2026)</a></strong> - Shota Imanaga and a 1.06 WHIP draw a 7.54-ERA Michael Lorenzen at Wrigley Field, and Zack Wheeler takes a 2.22 ERA and a 0.85 WHIP into a Marlins matchup behind a 6.00-ERA Ryan Gusto. A read on the Cubs moneyline at minus 210 and the Phillies moneyline at minus 184 across the June 15 board.</p>
-<p><strong><a href="0614-sharp-mlb-sunday-pitching-heavy-unders-marlins-pirates-skenes-mariners-moneyline-team-totals-june-14-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Sunday: A Pitching-Heavy Board Built For Unders, Four Team Totals, And A Mariners Road Moneyline (June 14, 2026)</a></strong> - Paul Skenes and Max Meyer front a Marlins-Pirates Under 7.5, Bryce Elder and Cristopher Sanchez anchor more game-total unders, the Brewers, Cubs, and Rockies team totals lean down behind quiet offenses, and Emerson Hancock takes a 2.74 ERA into Washington for a Mariners road moneyline at minus 129. A run-prevention read across the June 14 board.</p>
-<p><strong><a href="0613-sharp-mlb-saturday-dodgers-moneyline-white-sox-team-total-under-tigers-first-five-skubal-yankees-stanley-cup-game-6-june-13-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Saturday: Yamamoto Anchors A Correlated Dodgers Moneyline And White Sox Team-Total Under On The June 13 Board (June 13, 2026)</a></strong> - Yoshinobu Yamamoto takes a 2.68 ERA into Chicago, pulling the Dodgers moneyline at minus 210 and the White Sox team total Under 3.5 into one correlated same-game read, with Tarik Skubal fronting a Tigers First 5, Cam Schlittler behind a Yankees moneyline, a Rangers-Red Sox Under, and a Stanley Cup Final Game 6 Over.</p>
-<p><strong><a href="0612-sharp-mlb-friday-mariners-moneyline-bryce-miller-nationals-under-giants-braves-mets-june-12-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Friday: Bryce Miller And His 1.33 ERA Headline The June 12 Board, Mariners Moneyline And Nationals Under (June 12, 2026)</a></strong> - Bryce Miller takes a 1.33 ERA into Washington for the Mariners moneyline at minus 142 and the Nationals team total Under, with the Giants at home over the Cubs and a Strider-McLean Under in Queens.</p>
-<p><strong><a href="0611-sharp-mlb-thursday-braves-moneyline-perez-control-white-sox-june-11-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Thursday: The Braves Are A Road Favorite Worth Laying In Chicago, And Martin Perez Is The Reason (June 11, 2026)</a></strong> - A 45-23 Atlanta contender travels to Rate Field behind Martin Perez and a 1.06 WHIP against a 36-31 White Sox club and a 4.40-ERA Anthony Kay. A read on why the road favorite of a contender is the sharp moneyline at minus 112.</p>
-<p><strong><a href="0610-sharp-mlb-wednesday-padres-dodgers-astros-moneyline-yankees-guardians-red-sox-rays-unders-white-sox-team-total-june-10-2026.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Wednesday: Ohtani At 0.74, Michael King Over Brady Singer, Two Pitcher-Locked Unders, And A White Sox Team-Total Under (June 10, 2026)</a></strong> - Shohei Ohtani carries a 0.74 ERA and a 0.79 WHIP into Pittsburgh, Michael King draws a 5.89-ERA Brady Singer in San Diego, Peter Lambert sets up a plus-money Astros dog, and Chris Sale fronts a White Sox team-total under. A read on three moneylines, two game-total unders, and a team total.</p>
-<p><strong><a href="0609-sharp-mlb-tuesday-dodgers-team-total-under-skenes-yankees-cole-moneyline-phillies-blue-jays-red-sox-rays-unders.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Tuesday: A Dodgers Team-Total Under Against Skenes, A Yankees Moneyline As Cole Returns, And Two Pitcher-Locked Unders (June 9, 2026)</a></strong> - Paul Skenes draws the highest-scoring offense in the National League at a 2.83 ERA and a 0.90 WHIP, Gerrit Cole returns to the Yankees rotation at a 2.00 ERA, and four sub-3.10 ERA arms anchor the Phillies-Blue Jays and Red Sox-Rays totals. A read on a Dodgers team-total under, a Yankees moneyline, and two game-total unders.</p>
-<p><strong><a href="0608-sharp-mlb-monday-giants-brewers-moneyline-value-harrison-outs-athletics-team-total-under.html" style="color: var(--primary); text-decoration: underline;">Sharp MLB Monday: Giants and Brewers Moneyline Value, Harrison Outs, and an Athletics Team-Total Under (June 8, 2026)</a></strong> - Logan Webb hosts a Mikolas carrying a 6.39 ERA, the Brewers run a 1.57-ERA Kyle Harrison into Oakland, and the Athletics offense has cooled to 3.41 runs a game. A read on two moneyline value spots, the Harrison outs prop, and the A's team total under.</p>
-<p><strong><a href="0607-sharp-mlb-sunday-tigers-team-total-under-line-steam-detroit-houston-toronto-colorado.html" style="color: var(--primary); text-decoration: underline;">The Tigers Team-Total Steam Is The Sharp Story Of Sunday's MLB Board (June 7, 2026)</a></strong> - Detroit's team total got bet from 4.5 down to 3.5 Sunday morning. A run-rate and probable-pitcher breakdown of four team-total unders in Detroit, Houston, Toronto, and Colorado.</p>
-</div>
-</div>
-</section>
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">MLB picks, with the receipts.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Trust My Record tracks handicappers with timestamped, automatically graded records &mdash; and its free MLB Simulator is open to everyone.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
 
-<section class="section-container">
-<h2 class="section-title">MLB PRIME DIRECTIVES</h2>
-<h2 class="section-subtitle">November 1, 2025 - World Series Game 7 Analysis</h2>
-<div class="game-analysis-block">
-<div class="game-header">
-<h3><img alt="Dodgers" src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Dodgers @ Blue Jays - World Series Game 7<img alt="Blue Jays" src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3>
-<p>Pitching Matchup: RHP Shohei Ohtani (1-1, 2.87 ERA) vs RHP Max Scherzer (5-5, 5.19 ERA)</p>
-<p class="game-lines">First Pitch: 8:00 PM ET | Rogers Centre, Toronto | Series Tied 3-3</p>
-</div>
-<div class="analysis-content">
-<p><strong>The Ultimate Stage - Winner Take All:</strong> This is what the entire season builds toward—Game 7 of the World Series. The Los Angeles Dodgers travel to Rogers Centre in Toronto for a single-elimination battle against the Blue Jays, with the Commissioner's Trophy hanging in the balance. The Dodgers, defending champions seeking to become the first repeat winners since the 2000 Yankees, forced this decisive game with a gritty 3-1 victory in Game 6. Toronto, chasing their first championship since back-to-back titles in 1992-93, must navigate the pressure of closing at home after watching a 3-2 series lead evaporate. This is the first World Series Game 7 since 2019, and the baseball world will be watching.</p>
-<p><strong>Historical Game 7 Context &amp; Momentum:</strong> History provides a fascinating backdrop for tonight's matchup. Home teams in World Series Game 7s hold a 19-21 all-time record—visiting teams actually possess a slight edge, having won the last four consecutive Game 7s (Nationals in 2019, Astros in 2017, Cubs in 2016, Giants in 2014). However, recent data shows that teams forcing Game 7 by winning Game 6—exactly what the Dodgers accomplished—have won the decisive contest 62.5% of the time (35 of 56 instances in best-of-seven series). This momentum factor may outweigh traditional home-field advantage, particularly when considering Los Angeles just authored a statement victory on this same Toronto floor less than 48 hours ago.</p>
-<p><strong>The Pitching Matchup - Shohei Ohtani on Short Rest:</strong> Los Angeles will send Shohei Ohtani to the mound on three days' rest, a decision driven both by necessity and by MLB's unique designated hitter rule that allows Ohtani to remain in the lineup as the DH only if he starts as the pitcher. Ohtani posted a 2.87 ERA with 62 strikeouts across 47 regular season innings in his gradual return to two-way play, but his Game 4 performance on short rest revealed some concerning trends. Working approximately 17 hours after the marathon 18-inning Game 3, Ohtani allowed four earned runs in six innings with diminished velocity across all his pitches. Vladimir Guerrero Jr. crushed a hanging sweeper for a two-run blast—the first homer Ohtani surrendered in three postseason starts. Tonight, Ohtani will again be operating on limited rest, though with an extra day compared to Game 4. His ability to command his four-seam fastball and sweeper in the strike zone while avoiding elevated mistakes will determine how deep he can carry the Dodgers. Manager Dave Roberts will have his entire bullpen rested and ready, but Los Angeles needs length from Ohtani to preserve high-leverage arms for critical late-inning situations.</p>
-<p><strong>The Pitching Matchup - Max Scherzer's Second Game 7:</strong> On the other side, Max Scherzer becomes the only living pitcher to start two World Series Game 7s. His first came in 2019 when, boosted by a cortisone injection for neck discomfort, he battled through five innings for the Nationals, leaving trailing 2-0 before Washington rallied to win 6-2 in Houston. That championship experience in the ultimate pressure cooker gives Scherzer a psychological edge that can't be quantified. However, his 2025 regular season numbers tell a different story—5-5 record with a 5.19 ERA across 85 innings, allowing 82 strikeouts against troubling walk and hit rates. In this World Series, Scherzer has been inconsistent: he gave up three earned runs in 4.1 innings during Game 3's 18-inning epic, including a leadoff double and solo home run to Ohtani in the first three innings. Toronto will need a vintage Scherzer performance—attacking the strike zone with his slider and fastball combination while avoiding prolonged at-bats that allow the Dodgers' elite lineup to sit on secondary pitches.</p>
-<p><strong>Series Offensive Trends &amp; The Dodgers' Struggles:</strong> Los Angeles enters Game 7 hitting just .213 as a team through six games, with their vaunted offense repeatedly silenced by Toronto's pitching staff. Mookie Betts, Shohei Ohtani (as a hitter), and Freddie Freeman—three MVP-caliber talents—have been largely neutralized across extended stretches, unable to generate the sustained rally sequences that defined their championship regular season. The Blue Jays have outscored the Dodgers by 11 runs in this series (40-29) and by 36 runs across the entire postseason, showcasing a clear offensive edge. Yet the Dodgers' Game 6 victory demonstrated their ability to win tight, low-scoring contests through pitching excellence and clutch defense. If Los Angeles can manufacture 3-4 runs against Scherzer early, their elite bullpen—featuring Evan Phillips and a rejuvenated Blake Treinen—can shorten the game and protect a narrow lead.</p>
-<p><strong>Vladimir Guerrero Jr. &amp; Toronto's Postseason Dominance:</strong> Vladimir Guerrero Jr. has been the postseason's most dominant force, slashing .419 with seven home runs and carrying the Blue Jays' offense through every critical moment. He's batting .368 in the World Series with multi-hit performances in three of six games, including a crushing two-run homer off Ohtani in Game 4 that shifted momentum. Guerrero's ability to punish mistakes—particularly elevated fastballs and hanging breaking balls—makes every Ohtani at-bat a high-stakes confrontation. Surrounding Guerrero, Toronto's lineup features Davis Schneider (who partnered with Guerrero for historic back-to-back leadoff homers in Game 5), Bo Bichette (playing through a knee injury but contributing), and George Springer (returning from an oblique injury to go 2-for-4 in Game 6). The Blue Jays' offensive depth creates multiple pressure points for Ohtani and the Dodgers' bullpen, forcing difficult pitch-selection decisions with runners in scoring position.</p>
-<p><strong>Rogers Centre Environment &amp; Park Factors:</strong> The retractable roof at Rogers Centre will be closed for Game 7, creating a controlled, amplified environment where crowd noise reverberates and home-field advantage manifests tangibly. Interestingly, Rogers Centre's park factors have shifted dramatically following recent renovations—despite bringing fences in, the park now plays as pitcher-friendly for home runs (94 park factor) while remaining hitter-friendly for singles (111) and overall hits (109). This creates an environment where contact-oriented approaches thrive, and power must be earned through mistakes rather than park dimensions. Both Ohtani and Scherzer will benefit from the suppressed home-run environment, but the team that can string together quality at-bats, work deep counts, and capitalize on baserunners will gain a decisive edge. Toronto's familiarity with how the ball carries in the controlled air—particularly how breaking balls move—provides a subtle but meaningful advantage.</p>
-<p><strong>Bullpen Dynamics &amp; The 18-Inning Shadow:</strong> Game 3's marathon 18-inning classic continues to cast a shadow over both bullpens' usage patterns and availability. While both teams have had adequate recovery time, the cumulative workload across this six-game series creates leverage constraints. For the Dodgers, Tyler Glasnow—who was initially projected as a Game 7 starter—was deployed out of the bullpen to close Game 6, signaling Roberts' all-in approach. Los Angeles possesses the deeper, more dominant relief corps when healthy, with late-inning specialists capable of neutralizing Toronto's right-handed power. The Blue Jays counter with Jordan Romano and Erik Swanson in high-leverage situations, though their bullpen has been the more vulnerable unit across the series. Whichever manager navigates the middle innings (4th-6th) more effectively—knowing when to pull their starter and deploy matchup advantages—could determine the championship.</p>
-<p><strong>Injury Report &amp; Playing Through Pain:</strong> Both teams are navigating key injuries in this winner-take-all contest. For Toronto, George Springer (oblique) and Bo Bichette (knee sprain that cost him seven weeks) are playing through significant discomfort, though both appeared in Game 6's lineup and contributed. Springer's return provides a veteran presence at the top of the order, while Bichette's defensive versatility at second base (a new position for him this series) has been solid despite visible struggles post-game with ice packs. For Los Angeles, the primary concern is Ohtani's workload and recovery on short rest—his arm strength, velocity, and command will be monitored pitch-by-pitch. The Dodgers are otherwise healthy, with their full complement of position players and relievers available for the ultimate game.</p>
-<p><strong>Repeat Championship Quest &amp; Historical Rarity:</strong> The Dodgers' championship defense has already defied historical odds. No team has repeated as World Series champion since the 2000 Yankees—a 24-year drought that stands as the longest in modern baseball history. Half of the past 24 defending champions haven't even reached the playoffs the following season, illustrating how difficult sustained excellence has become in the modern game. Los Angeles opened 2025 with an 8-0 start, the best by a defending champion in decades, and navigated injuries, roster turnover, and playoff pressure to return to this stage. A victory tonight would cement this Dodgers core—led by Mookie Betts, Freddie Freeman, and Shohei Ohtani—as a legitimate dynasty in an era where sustained dominance has been nearly impossible to achieve. The weight of that historical opportunity could either inspire or burden, depending on how Los Angeles handles the early innings.</p>
-<p><strong>Toronto's 32-Year Championship Drought:</strong> For the Blue Jays, this represents the culmination of a three-decade journey back to baseball's ultimate stage. The franchise hasn't won a championship since Joe Carter's walk-off homer in 1993—a moment seared into Canadian baseball consciousness. This current core, anchored by Vladimir Guerrero Jr. and developed through patient organizational building, has delivered Toronto's first World Series appearance in 32 years. The pressure of clinching at home—in front of a Rogers Centre crowd that has waited an entire generation for this moment—creates both opportunity and risk. Toronto controlled this series at 3-2, with two chances to close at home, and watched the Dodgers escape with a Game 6 victory to force tonight's showdown. The Blue Jays must avoid the psychological weight of that blown opportunity and instead channel the energy of their home crowd into aggressive, confident baseball from the first pitch.</p>
-<p><strong>Key Matchups to Watch:</strong> Several individual confrontations will shape tonight's outcome. Ohtani vs. Guerrero Jr. represents the series' premier duel—the reigning two-way superstar against October's most dominant hitter. Guerrero has already taken Ohtani deep once and reached base twice in Game 3; his approach and adjustments will be critical. Freddie Freeman vs. Scherzer offers another fascinating chess match—Freeman has struggled in this series but possesses championship pedigree and the ability to deliver clutch hits in elimination games. The Dodgers' ability to work Scherzer's pitch count and force him out before the sixth inning would expose Toronto's bullpen to extended high-leverage situations, tilting late-game win probability toward Los Angeles. Conversely, if Scherzer navigates the Dodgers' order efficiently through five innings while keeping the game close, Toronto's offense can pressure a fatigued Ohtani and the Dodgers' bullpen in the middle frames.</p>
-<p><strong>First-Inning Execution &amp; Crowd Dynamics:</strong> The opening inning will set the tone for everything that follows. If Toronto scores early—particularly if Guerrero delivers a statement extra-base hit—the Rogers Centre crowd will reach decibel levels that rattle visiting teams and fuel home momentum. The Dodgers, conversely, must silence that crowd immediately with disciplined at-bats, patient approaches, and opportunistic baserunning. Scherzer's first-pitch strike rate and Ohtani's command in the strike zone during the first trip through Toronto's order will provide the clearest early indicators of how deep each starter can work. A scoreless first inning favors Los Angeles, as it allows Ohtani to settle into rhythm and gives the Dodgers' offense multiple looks at Scherzer's arsenal before making crucial adjustments.</p>
-<p><strong>The Prime Directive - Dodgers Moneyline (-136):</strong> After comprehensive analysis of every relevant factor—pitching matchups, offensive trends, park dynamics, historical precedent, bullpen depth, and psychological edges—the model identifies value on the Los Angeles Dodgers at -136. Here's why: (1) <em>Momentum &amp; Game 7 History:</em> Teams that force Game 7 by winning Game 6 possess a 62.5% win rate in decisive games, and the Dodgers just delivered a dominant road performance in this same building 48 hours ago. (2) <em>Bullpen Superiority:</em> Los Angeles holds a significant late-inning advantage with their relief corps, and the ability to shorten games through elite relievers favors the team with the lead after five innings. (3) <em>Scherzer's Decline &amp; Contact Concerns:</em> While Scherzer brings Game 7 experience, his 5.19 ERA this season reflects legitimate stuff degradation. The Dodgers' patient, high-contact lineup can exploit his reduced margin for error. (4) <em>Ohtani's Ceiling vs. Floor:</em> Even on short rest, Ohtani's arsenal features multiple swing-and-miss pitches, and a "diminished" Ohtani is still capable of five quality innings against this Blue Jays lineup. (5) <em>Championship DNA:</em> The Dodgers are the defending champions with extensive Game 7 experience across this core's playoff history. They understand the rhythm of close-and-late elimination baseball and won't be overwhelmed by the moment.</p>
-<p>The risks are real—Ohtani's short rest, Toronto's offensive firepower, home-field advantage, and Scherzer's pedigree all provide the Blue Jays with legitimate paths to victory. But the line at -136 undervalues the Dodgers' structural advantages in bullpen depth, recent momentum, and championship experience. In a coin-flip game where both teams possess clear win conditions, the Dodgers represent the sharper side at this number. Los Angeles has navigated hostile elimination environments before and emerged victorious; tonight, they'll do it again to become baseball's first repeat champions in 25 years.</p>
-<p><strong>Closing Thoughts - The Biggest Game of the Year:</strong> World Series Game 7 is the sport's ultimate proving ground—nine innings (or more) where legacies are forged and seasons are defined. Both the Dodgers and Blue Jays have earned this moment through six months of grueling competition, injury navigation, and playoff excellence. Tonight, one team will celebrate a championship while the other faces the crushing weight of coming one game short. The Rogers Centre will be deafening, the pressure will be suffocating, and the margin for error will be razor-thin. In these moments, experience, execution, and the ability to capitalize on opponent mistakes determine outcomes. The Dodgers possess all three in abundance. Lay the -136 with confidence and watch history unfold.</p>
-</div>
-<div class="directive-box">
-<div class="pick">Prime Directive: Dodgers ML (−136)</div>
-<div class="units">Units: 2.0</div>
-</div>
-</div>
-</section>
-<section class="section-container"><h2 class="section-subtitle">August 27, 2025 - Full Slate Analysis</h2><div class="picks-summary-block"><h3 class="summary-title">Today's Prime Directives</h3><ul class="summary-list"><li><span class="pick-text">Yankees/Nationals F5 Over 4.5</span><span class="line-info">−115</span><span class="unit-text">2 Units</span></li><li><span class="pick-text">Guardians Team Total Under 3.5</span><span class="line-info">−115</span><span class="unit-text">2 Units</span></li><li><span class="pick-text">Rays F5</span><span class="line-info">−135</span><span class="unit-text">1 Unit</span></li><li><span class="pick-text">Astros F5 −0.5</span><span class="line-info">−130</span><span class="unit-text">1 Unit</span></li><li><span class="pick-text">Braves F5</span><span class="line-info">−130</span><span class="unit-text">1 Unit</span></li><li><span class="pick-text">Mariners/Padres F5 Under 4.5</span><span class="line-info">−135</span><span class="unit-text">1 Unit</span></li><li><span class="pick-text">Phillies</span><span class="line-info">+129</span><span class="unit-text">1 Unit</span></li></ul></div><div class="picks-grid"><div class="game-analysis-block"><div class="game-header"><h3><img alt="Nationals" src="https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Nationals @ Yankees<img alt="Yankees" src="https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: C. Cavalli (R) vs M. Fried (L, 3.14)</p><p class="game-lines">Line: NYY −252 / WAS +226 | O/U 8.5</p></div><div class="analysis-content"><p>Big moneyline spread and park fit (short porch) mean early run creation can spike with command leaks.</p><p>F5 over aligns with run paths if first-pitch strikes falter and barrels pull to right.</p></div><div class="directive-box"><div class="pick">Prime Directives: F5 OVER 4.5 (−115)</div><div class="units">Units: 2.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Rays" src="https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Rays @ Guardians<img alt="Guardians" src="https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: D. Rasmussen (R, 2.63) vs S. Cecconi (R, 4.41)</p><p class="game-lines">Line: TB −141 / CLE +130 | O/U 7.0</p></div><div class="analysis-content"><p>Rasmussen’s strike-throwing lowers crooked inning odds for CLE; total reflects that.</p><p>CLE must manufacture with sequencing; TT under relies on low BBs and grounders.</p></div><div class="directive-box"><div class="pick">Prime Directives: Guardians Team Total UNDER 3.5 (−115)</div><div class="units">Units: 2.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Braves" src="https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Braves @ Marlins<img alt="Marlins" src="https://a.espncdn.com/i/teamlogos/mlb/500/mia.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: J. Wentz (L, 4.11) vs R. Gusto (R, 5.54)</p><p class="game-lines">Line: ATL −120 / MIA +111 | O/U 8.5</p></div><div class="analysis-content"><p>Atlanta’s path is early count leverage and lift on mistakes; isolating F5 avoids bullpen variance.</p><p>Miami counters with grounders and contact suppression; slim edge ATL in first half.</p></div><div class="directive-box"><div class="pick">Prime Directives: Braves F5 ML (−130)</div><div class="units">Units: 1.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Padres" src="https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Padres @ Mariners<img alt="Mariners" src="https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: Y. Darvish (R) vs B. Woo (R, 2.94)</p><p class="game-lines">Line: SEA −135 / SD +125 | O/U 7.5</p></div><div class="analysis-content"><p>Woo’s efficiency and Darvish’s shape-mixing can mute early damage in a fair-to-suppressive park.</p><p>Both starters ahead in counts points to unders in the first five.</p></div><div class="directive-box"><div class="pick">Prime Directives: F5 UNDER 4.5 (−135)</div><div class="units">Units: 1.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Red Sox" src="https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Red Sox @ Orioles<img alt="Orioles" src="https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: B. Bello (R, 3.05) vs D. Enns (L, 7.00)</p><p class="game-lines">Line: BOS −133 / BAL +123 | O/U 9.0</p></div><div class="analysis-content"><p>Camden curbs some RH pull homers; Boston’s quality rises if Bello commands the bottom.</p><p>Baltimore needs sequencing and timely lift; passing without price edge.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Twins" src="https://a.espncdn.com/i/teamlogos/mlb/500/min.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Twins @ Blue Jays<img alt="Blue Jays" src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: S. Woods Richardson (R, 4.14) vs E. Lauer (L, 3.26)</p><p class="game-lines">Line: TOR −178 / MIN +163 | O/U 9.5</p></div><div class="analysis-content"><p>Roofed environment can add carry; TOR’s plan is lift on misses.</p><p>MIN needs plate discipline to avoid chase; price keeps us off.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Phillies" src="https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Phillies @ Mets<img alt="Mets" src="https://a.espncdn.com/i/teamlogos/mlb/500/nym.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: T. Walker (R) vs N. McLean (R, 1.50)</p><p class="game-lines">Line: NYM −149 / PHI +137 | O/U 8.5</p></div><div class="analysis-content"><p>If Walker’s splitter is on time and PHI extends ABs, live dog case holds.</p><p>NYM can still control with zone wins; plus-money angle for a unit.</p></div><div class="directive-box"><div class="pick">Prime Directives: Phillies ML (+129)</div><div class="units">Units: 1.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Royals" src="https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Royals @ White Sox<img alt="White Sox" src="https://a.espncdn.com/i/teamlogos/mlb/500/chw.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: R. Bergert (R) vs A. Civale (R, 5.04)</p><p class="game-lines">Line: KC −127 / CHW +117 | O/U 8.5</p></div><div class="analysis-content"><p>Pulled air plays here; both sides must live low to avoid HR risk.</p><p>KC can manufacture with speed; pass at current tags.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Diamondbacks" src="https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Diamondbacks @ Brewers<img alt="Brewers" src="https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: R. Nelson (R, 3.39) vs Q. Priester (R, 3.03)</p><p class="game-lines">Line: MIL −134 / AZ +123 | O/U 8.5</p></div><div class="analysis-content"><p>Park adds some carry; both starters competitive enough for tight pricing.</p><p>Outcome swings on in-zone execution; pass.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Pirates" src="https://a.espncdn.com/i/teamlogos/mlb/500/pit.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Pirates @ Cardinals<img alt="Cardinals" src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: C. Mlodzinski (R, 5.23) vs S. Gray (R)</p><p class="game-lines">Line: STL −161 / PIT +148 | O/U 7.5</p></div><div class="analysis-content"><p>If Gray wins strike one, STL plays from ahead and into leverage relief.</p><p>Totals lean lower unless early walks stack; pass.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Angels" src="https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Angels @ Rangers<img alt="Rangers" src="https://a.espncdn.com/i/teamlogos/mlb/500/tex.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: J. Kochanowicz (R, 6.22) vs J. Latz (L, 3.21)</p><p class="game-lines">Line: TEX −150 / LAA +138 | O/U 9.0</p></div><div class="analysis-content"><p>Globe Life rewards loft to LCF when heaters leak up; TEX lineup depth pressures counts.</p><p>LAA needs early damage before leverage pen; pass.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Rockies" src="https://a.espncdn.com/i/teamlogos/mlb/500/col.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Rockies @ Astros<img alt="Astros" src="https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: C. Dollander (R) vs F. Valdez (L, 3.32)</p><p class="game-lines">Line: HOU −285 / COL +253 | O/U 8.0</p></div><div class="analysis-content"><p>Valdez’s GB profile at home trims big innings; Houston’s first-half edge rates well.</p><p>Rookie on the road amplifies early risk; laying -0.5 F5 aligns.</p></div><div class="directive-box"><div class="pick">Prime Directives: Astros F5 −0.5 (−130)</div><div class="units">Units: 1.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Reds" src="https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Reds @ Dodgers<img alt="Dodgers" src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: N. Lodolo (L, 3.07) vs S. Ohtani (R, 4.67)</p><p class="game-lines">Line: LAD −183 / CIN +167 | O/U 8.5</p></div><div class="analysis-content"><p>Dodger Stadium dampens oppo carry; Lodolo’s angle can neutralize LHB if ahead.</p><p>If Ohtani’s fastball command is there, LAD controls; pass.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Cubs" src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Cubs @ Giants<img alt="Giants" src="https://a.espncdn.com/i/teamlogos/mlb/500/sf.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: C. Rea (R, 4.34) vs C. Whisenhunt (L, 5.00)</p><p class="game-lines">Line: CHC −122 / SF +113 | O/U 8.5</p></div><div class="analysis-content"><p>Oracle mutes loft to the gaps; line-drive contact plays best.</p><p>Pass unless rookie is in consistent plus counts.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div><div class="game-analysis-block"><div class="game-header"><h3><img alt="Tigers" src="https://a.espncdn.com/i/teamlogos/mlb/500/det.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Tigers @ Athletics<img alt="Athletics" src="https://a.espncdn.com/i/teamlogos/mlb/500/oak.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3><p>Probables: C. Mize (R) vs L. Morales (R, 1.38)</p><p class="game-lines">Line: DET −119 / OAK +110 | O/U 10.5</p></div><div class="analysis-content"><p>Foul territory steals borderline hits, moderating run creation variance.</p><p>Totals hinge more on command than raw power; pass.</p></div><div class="directive-box"><div class="pick no-bet">Prime Directives: Pass / No Bet</div><div class="units no-bet">Units: 0.0</div></div></div></div></section>
-<section class="section-container">
-<h2 class="section-title">MLB PRIME DIRECTIVES</h2>
-<h2 class="section-subtitle">October 31, 2025 - World Series Game 6 Analysis</h2>
-<div class="game-analysis-block">
-<div class="game-header">
-<h3><img alt="Dodgers" src="https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" style="height:26px; vertical-align: middle; margin-right: 8px;"/>Dodgers @ Blue Jays - World Series Game 6<img alt="Blue Jays" src="https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" style="height:26px; vertical-align: middle; margin-left: 8px;"/></h3>
-<p>Pitching Matchup: RHP Yoshinobu Yamamoto (12-8, 2.49 ERA) vs RHP Kevin Gausman (10-11, 3.59 ERA)</p>
-<p class="game-lines">First Pitch: 8:00 PM ET | Rogers Centre, Toronto | Series: Blue Jays lead 3-2</p>
-</div>
-<div class="analysis-content">
-<p><strong>Historic Context:</strong> The Blue Jays stand one win away from their first World Series championship since 1993—a 32-year drought that has defined a generation of Toronto baseball. Game 6 at Rogers Centre represents the opportunity to clinch at home in front of a crowd that will provide seismic energy. The Dodgers face elimination after dropping Game 5 by a 6-1 margin, with their offense completely stifled by rookie Trey Yesavage's 12-strikeout masterpiece.</p>
-<p><strong>Game 5 Historic Moments:</strong> Davis Schneider and Vladimir Guerrero Jr. made history by hitting back-to-back home runs to lead off Game 5—the first time that sequence has ever occurred in World Series history. Trey Yesavage joined Sandy Koufax as the only pitchers to record 10+ strikeouts in the first five innings of a World Series game, becoming the first rookie in postseason history with multiple outings of 10 strikeouts or more. These moments underscore Toronto's momentum and confidence entering Game 6.</p>
-<p><strong>Pitching Matchup Analysis - Yoshinobu Yamamoto:</strong> Yamamoto enters Game 6 with otherworldly postseason numbers: 3-1 record, 1.57 ERA across 28.2 innings, allowing just 5 earned runs on 17 hits with only 4 walks against 26 strikeouts. In Game 2, he threw a four-hit complete game—the first World Series complete game since 2015. Yamamoto has now pitched the first consecutive postseason complete games since Curt Schilling's legendary three-game run in 2001. His command, pitch mix, and ability to elevate in high-leverage situations make him the Dodgers' best hope to extend the series.</p>
-<p><strong>Pitching Matchup Analysis - Kevin Gausman:</strong> Gausman brings solid postseason credentials: 2-2 record with a 2.55 ERA across 24.2 innings, allowing 7 earned runs on 14 hits with 9 walks and 18 strikeouts. In Game 2, he held the Dodgers scoreless through 6.2 innings before allowing solo home runs to Will Smith and Max Muncy in the seventh. Gausman's splitter generates swings and misses, and his ability to attack the strike zone with multiple pitches keeps hitters off-balance. At Rogers Centre with the roof closed, his arsenal plays up with consistent release points and deception.</p>
-<p><strong>Dodgers' Offensive Struggles:</strong> The Los Angeles offense has been ice-cold throughout this series, failing to generate consistent production from their star-studded lineup. Mookie Betts, Shohei Ohtani, and Freddie Freeman—three MVP-caliber talents—have been collectively neutralized by Toronto's pitching staff. The Dodgers rank near the bottom in team batting average and run production through five games, and their inability to manufacture runs with two outs has been particularly damaging. Facing elimination, they must find a way to break through against Gausman early to avoid playing from behind in a hostile environment.</p>
-<p><strong>Blue Jays' Offensive Firepower:</strong> Toronto's offense has been the story of this series, led by Vladimir Guerrero Jr.'s postseason dominance. Guerrero has been unstoppable in October, delivering timely hits, clutch home runs, and consistent production in every phase. Davis Schneider's emergence as a leadoff catalyst provides additional pressure on opposing pitchers, and the Blue Jays' ability to work deep counts and capitalize on mistakes has overwhelmed Dodgers pitching. With Gausman on the mound and the home crowd providing energy, Toronto's lineup enters Game 6 with supreme confidence.</p>
-<p><strong>Rogers Centre Environment:</strong> The retractable roof at Rogers Centre will be closed for Game 6, creating a controlled environment where sound reverberates and amplifies crowd noise. Toronto fans have waited 32 years for this moment, and the atmosphere will be electric from the first pitch. The Blue Jays are comfortable in this building—they understand how the ball carries off the bat, how pitches move through the controlled air, and how to feed off the energy of their home crowd. The Dodgers must find a way to quiet the crowd early with offensive production, or they'll be fighting an uphill battle for nine innings.</p>
-<p><strong>Bullpen Considerations:</strong> Both managers will have their full bullpens available, and neither will hesitate to pull their starter if the game situation demands it. The Dodgers need length from Yamamoto to preserve their high-leverage relievers for potential Game 7, while the Blue Jays can be more aggressive with early hooks if Gausman shows any signs of vulnerability. Evan Phillips and Blake Treinen are available for Los Angeles, while Toronto can lean on Jordan Romano and Erik Swanson in critical moments. The team that manages its bullpen more effectively in tight situations could swing the outcome.</p>
-<p><strong>Momentum and Pressure Dynamics:</strong> All momentum resides with Toronto after their dominant Game 5 victory and historic offensive performance. The Blue Jays are playing loose, confident baseball with the knowledge that one more win delivers a championship. The Dodgers, conversely, face the psychological weight of elimination—they must win tonight to force Game 7, and the margin for error is nonexistent. Championship-caliber teams often respond to elimination pressure with their best performance, but the Dodgers' offense has shown no signs of breaking through. The Blue Jays control their destiny at home.</p>
-<p><strong>Statistical Trends and Historical Context:</strong> Teams leading 3-2 in the World Series while hosting Game 6 have historically closed out the series at a high rate, particularly when their offense has been the superior unit throughout. Toronto's pitching has been dominant, their offense has been explosive, and their home-field advantage is massive. The Dodgers must overcome all three factors simultaneously to extend the series. Yamamoto gives them a puncher's chance with his elite stuff, but the Blue Jays have already seen him once and made adjustments.</p>
-<p><strong>Key Factors to Watch:</strong> First-inning execution will be critical—if Toronto jumps ahead early with the Rogers Centre crowd roaring, the Dodgers will be in immediate survival mode. The Blue Jays' ability to work Yamamoto's pitch count and force him out of the game early would expose the Dodgers' bullpen to extended high-leverage innings. Los Angeles must find a way to silence the crowd through early offensive production and keep this game competitive through the middle innings. Gausman's command of his splitter against the Dodgers' left-handed hitters will be a critical matchup to monitor throughout.</p>
-<p><strong>Closing Analysis:</strong> This is the biggest game in Blue Jays franchise history since 1993. The emotional weight, the home-field advantage, the offensive firepower, and the pitching dominance all point toward Toronto's ability to close this series at home. The Dodgers have Yamamoto on the mound, which keeps them in any game, but their offense has been anemic and shows no signs of breaking through. The crowd will be deafening, the stakes are ultimate, and the Blue Jays have every advantage. This is Toronto's moment to end 32 years of waiting.</p>
-</div>
-</div>
-</section>
-<section class="section-container">
-<h2 class="section-subtitle">2026 MLB Season - Spring Training</h2>
-<div class="game-analysis-block">
-<div class="analysis-content">
-<p>Spring Training is underway across Arizona and Florida. The 2026 MLB regular season begins Thursday, March 26. Daily game analysis with pitcher matchups, betting lines, and Prime Directives will return on Opening Day.</p>
-<p style="margin-top: 16px;"><strong>Key Offseason Moves to Watch:</strong></p>
-<ul style="margin: 12px 0; padding-left: 20px; color: var(--text-secondary);">
-<li>Alex Bregman signs with the Cubs</li>
-<li>Kyle Tucker traded to the Dodgers</li>
-<li>Pete Alonso signs with the Orioles</li>
-<li>Dylan Cease traded to the Blue Jays</li>
-</ul>
-<p>Check back March 26 for full Opening Day coverage with run lines, totals, pitcher analysis, and official plays. In the meantime, sharpen your edge with our <a href="https://mlbprops.com/" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: underline;">MLB player props</a> analysis and the <a href="https://mlbprops.com/props-betting-guide.html" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: underline;">complete MLB props betting guide</a>.</p>
-</div>
-</div>
-</section>
-
-<!-- 2025 Season Archive Below -->
-<section class="section-container" style="opacity: 0.7;">
-<h2 class="section-subtitle">2025 Season Archive</h2>
-<div class="game-analysis-block">
-<div class="analysis-content">
-<p>The 2025 MLB season concluded with the Los Angeles Dodgers defeating the Toronto Blue Jays in a thrilling 7-game World Series. Below is our World Series coverage. For daily game analysis archives, see the full archive calendar.</p>
-<p style="margin-top: 12px; text-align: center;"><a href="sitemap.html" style="color: var(--primary); text-decoration: underline;">View Focused Sitemap</a></p>
-</div>
-</div>
-</section>
-
-    <!-- Pagination -->
-    <div style="text-align: center; margin: 40px 0; padding: 20px;">
-        <a href="mlb-prime-directives-page2.html" style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s;">
-            View More MLB Analysis →
-        </a>
+</main><footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
     </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
 
-</div>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Sports Betting Prime | Professional Sports Analysis & Insights</p>
-    </footer>
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
 </body>
 </html>
-

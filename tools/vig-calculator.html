@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vig Calculator | Hold, Overround and No-Vig Fair Lines | Sports Betting Prime</title>
+<meta name="description" content="Enter a two-way or three-way market and get the total hold, the overround and the no-vig fair line for every side in American odds and probability.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/tools/vig-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Vig Calculator | Hold, Overround and No-Vig Fair Lines | Sports Betting Prime">
+<meta property="og:description" content="Enter a two-way or three-way market and get the total hold, the overround and the no-vig fair line for every side in American odds and probability.">
+<meta property="og:url" content="https://sportsbettingprime.com/tools/vig-calculator.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vig Calculator | Hold, Overround and No-Vig Fair Lines | Sports Betting Prime">
+<meta name="twitter:description" content="Enter a two-way or three-way market and get the total hold, the overround and the no-vig fair line for every side in American odds and probability.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html" aria-current="page">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Calculator</div>
+  <h1>Vig, hold and the no-vig fair line</h1>
+  <p class="lede">Add up the implied probabilities of every side of a market. Whatever it exceeds 100% by is the margin. This page measures it and removes it.</p>
+</div></div>
+
+<section class="sec"><div class="wrap">
+
+<div class="grid g2" style="align-items:start">
+  <div class="calc">
+    <h2 style="font-size:1.15rem;margin-bottom:18px">Enter every price in the market</h2>
+    <div class="field">
+      <label for="vg-mode">Market type</label>
+      <select id="vg-mode">
+        <option value="2" selected>Two-way (side A / side B)</option>
+        <option value="3">Three-way (home / draw / away)</option>
+      </select>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="vg-a">Price A (American)</label>
+        <input id="vg-a" type="text" value="-110" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="vg-b">Price B (American)</label>
+        <input id="vg-b" type="text" value="-110" autocomplete="off">
+      </div>
+    </div>
+    <div class="field" id="vg-cwrap" hidden>
+      <label for="vg-c">Price C / draw (American)</label>
+      <input id="vg-c" type="text" value="+240" autocomplete="off">
+    </div>
+    <p class="note note-warn" id="vg-warn" hidden></p>
+  </div>
+
+  <div>
+    <div class="calc-out" aria-live="polite" aria-atomic="true">
+      <dl>
+        <dt>Hold</dt><dd class="big" id="v-hold">&mdash;</dd>
+        <dt>Overround</dt><dd id="v-over">&mdash;</dd>
+        <dt>Raw probability total</dt><dd id="v-sum">&mdash;</dd>
+        <dt>A: raw &rarr; fair</dt><dd id="v-pa">&mdash;</dd>
+        <dt>A: fair price</dt><dd id="v-fa">&mdash;</dd>
+        <dt>B: raw &rarr; fair</dt><dd id="v-pb">&mdash;</dd>
+        <dt>B: fair price</dt><dd id="v-fb">&mdash;</dd>
+        <dt id="v-lc" hidden>C: raw &rarr; fair</dt><dd id="v-pc" hidden>&mdash;</dd>
+        <dt id="v-lc2" hidden>C: fair price</dt><dd id="v-fc" hidden>&mdash;</dd>
+      </dl>
+    </div>
+    <div class="formula">
+Raw implied probability   p_i = 1 / D_i
+Probability total         S   = p_1 + p_2 (+ p_3)
+Overround                 S - 1
+Hold (margin per unit of
+balanced handle)          H   = (S - 1) / S
+
+No-vig fair probability   q_i = p_i / S        (proportional method)
+Fair decimal price        D_i = 1 / q_i
+Fair American             q &ge; 0.5 &rarr; -100 x q/(1-q)
+                          q &lt; 0.5 &rarr; +100 x (1-q)/q
+    </div>
+  </div>
+</div>
+
+<div class="prose" style="margin-top:44px">
+  <h2>What the number means</h2>
+  <p>Convert every price in a market to a probability and add them up. A market
+  with no margin would total exactly 1.00. Real markets total more, and the
+  excess is the operator's margin. Two sides at <code>-110</code> total 1.0476,
+  an overround of 4.76%; expressed as a share of the money taken on perfectly
+  balanced action it is 4.55%, which is the hold.</p>
+  <p>Overround and hold are different denominators for the same margin, and
+  quoting one when you meant the other is the most common arithmetic mistake in
+  betting writing. Overround divides by the fair book; hold divides by the total
+  staked. Hold is always the smaller number.</p>
+  <p>The no-vig line is what the price would be if the margin were removed
+  proportionally. It is the cleanest available read on what the market thinks,
+  and it is the number worth comparing your own estimate against, not the
+  posted price.</p>
+
+  <h3>Where it misleads</h3>
+  <p>Proportional devigging assumes the margin is spread evenly across the
+  outcomes. It usually is not. Longshots typically carry more of the margin than
+  favourites, so on a lopsided market this method flatters the longshot's fair
+  price. Alternative methods exist (multiplicative, additive, power, Shin) and
+  they disagree most exactly where it matters most, on heavy favourites and
+  three-way markets with a big price on the draw. Treat the fair line as an
+  estimate with a method attached, not a fact.</p>
+  <p>Devigging one book also tells you about one book. Hold varies by operator,
+  by sport, by market and by how close it is to kick-off, which is why the same
+  game can be priced meaningfully differently in two places at the same moment.</p>
+</div>
+
+</div></section>
+
+<section class="sec sec-tint"><div class="wrap">
+  <div class="shead"><h2>Read next</h2><p>Guides on this site that use the same maths.</p></div>
+  <div class="linklist"><a href="/bookmaker-margin-and-vig-explained.html"><strong>Bookmaker Margin and Vig Explained</strong><span>How the overround is built into a two-way price.</span></a><a href="/why-odds-differ-between-sportsbooks.html"><strong>Why Odds Differ Between Sportsbooks</strong><span>Where price divergence comes from and what to do about it.</span></a><a href="/how-sportsbooks-set-opening-lines.html"><strong>How Sportsbooks Set Opening Lines</strong><span>Odds formation before the market has its say.</span></a></div>
+</div></section>
+</main>
+
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Removing the vig gives you a fair line. It does not give you an edge.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">The no-vig price is the market's view with the margin taken out. Beating it consistently is a much taller order, and the only honest evidence is a graded record. Trust My Record keeps one for every handicapper on it.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+<script>
+
+var DASH = '—';
+function num(el){ if(!el) return NaN; var v = el.value; if(v===null||String(v).trim()==='') return NaN; var n = Number(v); return isFinite(n) ? n : NaN; }
+function amValid(a){ return isFinite(a) && (a >= 100 || a <= -100); }
+/* American -> decimal. |A| must be >= 100; anything strictly inside
+   (-100, +100) is not a real American price. */
+function amToDec(a){ if(!amValid(a)) return NaN; return a >= 100 ? 1 + a/100 : 1 + 100/(-a); }
+/* decimal -> American. Decimal must be > 1. */
+function decToAm(d){ if(!isFinite(d) || d <= 1) return NaN; return d >= 2 ? (d-1)*100 : -100/(d-1); }
+function decToProb(d){ return (isFinite(d) && d > 1) ? 1/d : NaN; }
+function probToDec(p){ return (isFinite(p) && p > 0 && p < 1) ? 1/p : NaN; }
+function probToAm(p){ return decToAm(probToDec(p)); }
+function fmtAm(a){
+  if(!isFinite(a)) return DASH;
+  var r = Math.round(a*10)/10;
+  var s = (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1);
+  return (r > 0 ? '+' : '') + s;
+}
+function fmtDec(d, p){ return isFinite(d) ? d.toFixed(p==null?4:p) : DASH; }
+/* snap floating-point crumbs to exact zero so nothing renders as "-0.00%" */
+function z(x){ return (isFinite(x) && Math.abs(x) < 1e-12) ? 0 : x; }
+function sign(x){ return (isFinite(x) && z(x) >= 0) ? '+' : ''; }
+function fmtPct(x, p){ x = z(x); return isFinite(x) ? (x*100).toFixed(p==null?2:p) + '%' : DASH; }
+function fmtNum(x, p){ x = z(x); return isFinite(x) ? x.toFixed(p==null?2:p) : DASH; }
+/* Smallest-denominator rational approximation of (decimal - 1). */
+function decToFrac(d){
+  if(!isFinite(d) || d <= 1) return DASH;
+  var x = d - 1, bn = 1, bd = 1, be = Infinity;
+  for(var den = 1; den <= 400; den++){
+    var n = Math.round(x*den);
+    if(n < 1) continue;
+    var e = Math.abs(x - n/den);
+    if(e < be - 1e-12){ be = e; bn = n; bd = den; if(e < 1e-10) break; }
+  }
+  return bn + '/' + bd;
+}
+function parseFrac(s){
+  if(s===null) return NaN;
+  s = String(s).trim();
+  if(s === '') return NaN;
+  var m = s.match(/^(\d+(?:\.\d+)?)\s*[\/\-:]\s*(\d+(?:\.\d+)?)$/);
+  if(m){ var a = Number(m[1]), b = Number(m[2]); return (b > 0 && a > 0) ? a/b : NaN; }
+  var n = Number(s);
+  return (isFinite(n) && n > 0) ? n : NaN;
+}
+function set(id, txt){ var e = document.getElementById(id); if(e) e.textContent = txt; }
+function warn(id, msg){
+  var e = document.getElementById(id);
+  if(!e) return;
+  if(msg){ e.textContent = msg; e.hidden = false; } else { e.textContent = ''; e.hidden = true; }
+}
+function bind(ids, fn){
+  ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if(e){ e.addEventListener('input', fn); e.addEventListener('change', fn); }
+  });
+}
+
+
+function vgRead(id){
+  var raw = (document.getElementById(id).value || '').trim();
+  if(raw === '') return {ok:false, msg:'Every price in the market is needed.'};
+  var a = Number(raw.replace(/^\+/, ''));
+  if(!isFinite(a)) return {ok:false, msg:'Prices must be numbers, for example -110 or +240.'};
+  if(!amValid(a)) return {ok:false, msg:'American odds cannot fall between -100 and +100.'};
+  return {ok:true, d: amToDec(a)};
+}
+function vgCalc(){
+  var three = document.getElementById('vg-mode').value === '3';
+  document.getElementById('vg-cwrap').hidden = !three;
+  ['v-lc','v-lc2','v-pc','v-fc'].forEach(function(i){ document.getElementById(i).hidden = !three; });
+
+  var keys = three ? ['vg-a','vg-b','vg-c'] : ['vg-a','vg-b'];
+  var ds = [], msg = '';
+  for(var i = 0; i < keys.length; i++){
+    var r = vgRead(keys[i]);
+    if(!r.ok){ msg = r.msg; break; }
+    ds.push(r.d);
+  }
+  warn('vg-warn', msg);
+  var outs = ['v-hold','v-over','v-sum','v-pa','v-fa','v-pb','v-fb','v-pc','v-fc'];
+  if(msg){ outs.forEach(function(i){ set(i, DASH); }); return; }
+
+  var ps = ds.map(decToProb);
+  var S = ps.reduce(function(a,b){ return a+b; }, 0);
+  if(!isFinite(S) || S <= 0){ outs.forEach(function(i){ set(i, DASH); }); return; }
+
+  set('v-sum', fmtPct(S, 3));
+  set('v-over', fmtPct(S - 1, 3) + (S < 1 ? '  (negative: total under 100%)' : ''));
+  set('v-hold', fmtPct((S - 1)/S, 3));
+
+  var lbl = ['v-pa','v-pb','v-pc'], fl = ['v-fa','v-fb','v-fc'];
+  for(var j = 0; j < 3; j++){
+    if(j >= ps.length){ set(lbl[j], DASH); set(fl[j], DASH); continue; }
+    var q = ps[j]/S;
+    set(lbl[j], fmtPct(ps[j], 2) + '  →  ' + fmtPct(q, 2));
+    set(fl[j], fmtAm(probToAm(q)) + '  (' + fmtDec(1/q, 4) + ')');
+  }
+}
+bind(['vg-mode','vg-a','vg-b','vg-c'], vgCalc);
+vgCalc();
+
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
+</body>
+</html>

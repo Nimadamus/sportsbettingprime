@@ -1,210 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Football Betting Picks, Odds and Analysis | Sports Betting Prime</title>
-    <meta name="description" content="Sports Betting Prime is rebuilding its college football section. Automatically generated matchup statistics have been removed because they were not sourced from a data provider.">
-    <link rel="canonical" href="https://sportsbettingprime.com/college-football.html" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="College Football Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta property="og:description" content="This section is being rebuilt. Unsourced automatically generated statistics have been removed.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sportsbettingprime.com/college-football.html">
-    <meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="College Football Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta name="twitter:description" content="This section is being rebuilt. Unsourced automatically generated statistics have been removed.">
-    <meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --border: #334155;
-            --accent: #dc2626;
-            --accent2: #b91c1c;
-            --gold: #f59e0b;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --green: #22c55e;
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
-        .logo .prime { color: var(--gold); }
-        .nav-links { display: flex; list-style: none; gap: 0.5rem; flex-wrap: wrap; }
-        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
-        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .page-header { text-align: center; margin-bottom: 3rem; }
-        .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
-        .bowl-badge { display: inline-block; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
-        .week-badge { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
-        .intro-panel { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
-        .intro-panel p { color: var(--muted); margin-bottom: 1rem; }
-        .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
-        .intro-link { display: block; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); text-decoration: none; font-weight: 600; }
-        .intro-link span { display: block; margin-top: 0.35rem; color: var(--muted); font-size: 0.875rem; font-weight: 500; }
-
-        .no-games-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05)); border: 2px solid var(--gold); border-radius: 16px; padding: 3rem 2rem; margin-bottom: 3rem; text-align: center; }
-        .no-games-box h2 { color: var(--gold); font-size: 1.75rem; margin-bottom: 1rem; }
-        .no-games-box p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .christmas-icon { font-size: 3rem; margin-bottom: 1rem; }
-
-        .result-box { background: var(--card); border: 1px solid var(--green); border-radius: 16px; padding: 2rem; margin-bottom: 3rem; }
-        .result-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .result-badge { background: var(--green); color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 700; font-size: 0.875rem; }
-        .result-title { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
-        .result-matchup { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
-        .result-team { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-        .result-team img { width: 80px; height: 80px; object-fit: contain; }
-        .result-team .name { font-weight: 600; font-size: 1.1rem; }
-        .result-team .score { font-size: 2.5rem; font-weight: 800; }
-        .result-team.winner .score { color: var(--green); }
-        .result-team.loser .score { color: var(--muted); }
-        .result-final { color: var(--gold); font-weight: 700; font-size: 1.25rem; }
-        .result-analysis { color: var(--text); font-size: 0.95rem; line-height: 1.8; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-
-        .section-header { color: var(--accent); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
-
-        .preview-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-        .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .bowl-name { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
-        .game-time { color: var(--muted); font-size: 0.875rem; }
-        .preview-matchup { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px; }
-        .preview-team { display: flex; align-items: center; gap: 1rem; }
-        .preview-team img { width: 50px; height: 50px; object-fit: contain; }
-        .preview-team .info { text-align: left; }
-        .preview-team.right .info { text-align: right; }
-        .preview-team .name { font-weight: 600; font-size: 1rem; }
-        .preview-team .record { color: var(--muted); font-size: 0.875rem; }
-        .preview-vs { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
-        .preview-analysis { color: var(--text); font-size: 0.9rem; line-height: 1.8; }
-        .preview-analysis p { margin-bottom: 1rem; }
-        .preview-analysis p:last-child { margin-bottom: 0; }
-
-        .playoff-box { background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(185, 28, 28, 0.1)); border: 2px solid var(--accent); border-radius: 16px; padding: 2rem; margin-top: 3rem; text-align: center; }
-        .playoff-box h2 { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .playoff-subtitle { color: var(--muted); margin-bottom: 1.5rem; }
-        .playoff-matchups { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 1.5rem; }
-        .matchup { background: var(--card); padding: 1.5rem; border-radius: 12px; }
-        .matchup .date { color: var(--muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
-        .matchup .teams { font-weight: 700; font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; }
-        .matchup .venue { color: var(--gold); font-size: 0.875rem; }
-        .matchup .spread { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-top: 0.5rem; }
-
-        footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        footer a { color: var(--gold); text-decoration: none; }
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .result-matchup { flex-direction: column; gap: 1rem; }
-            .preview-matchup { flex-direction: column; gap: 1rem; }
-            .preview-team.right .info { text-align: left; }
-        }
-    </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QQH4JXHGN3');
-</script>
-<!-- breadcrumb-list-injected -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://sportsbettingprime.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "NCAAF",
-      "item": "https://sportsbettingprime.com/college-football.html"
-    }
-  ]
-}
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>College Football Betting Guide: Wide Spreads and Motivation | Sports Betting Prime</title>
+<meta name="description" content="The widest spreads in mainstream betting, with a talent gap between programmes that produces numbers you will not see anywhere else.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/college-football.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="College Football Betting Guide: Wide Spreads and Motivation | Sports Betting Prime">
+<meta property="og:description" content="The widest spreads in mainstream betting, with a talent gap between programmes that produces numbers you will not see anywhere else.">
+<meta property="og:url" content="https://sportsbettingprime.com/college-football.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="College Football Betting Guide: Wide Spreads and Motivation | Sports Betting Prime">
+<meta name="twitter:description" content="The widest spreads in mainstream betting, with a talent gap between programmes that produces numbers you will not see anywhere else.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                <li><a href="nba-court-vision.html">NBA</a></li>
-                <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                <li><a href="mlb-prime-directives.html">MLB</a></li>
-                <li><a href="college-basketball.html">NCAAB</a></li>
-                <li><a href="college-football.html" class="active">NCAAF</a></li>
-                <li><a href="the-data-stream.html">Blog</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </nav>
-    </header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
 
-    <main>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/sports.html" aria-current="page">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">College Football</div>
+  <h1>College Football Betting Guide: Wide Spreads and Motivation</h1>
+  <p class="lede">The widest spreads in mainstream betting, with a talent gap between programmes that produces numbers you will not see anywhere else.</p>
+</div></div>
 
-        <div class="page-header" id="sbp-rebuild-notice">
-            <h1>College Football</h1>
-            <p style="color: var(--muted); max-width: 46rem; margin: 0.75rem auto 0;">
-                This page is being rebuilt. Its previous daily matchup breakdowns have been removed.
-            </p>
-        </div>
+<section class="sec"><div class="wrap">
+  <div class="note"><strong>No live data on this page.</strong> Sports Betting Prime does not publish live odds, projected statistics, consensus percentages or game predictions. Every figure below is either a definition, a worked example computed from the numbers shown, or carries a named source and the date it was current as of.</div>
+  <div class="shead" style="margin-top:30px"><h2>What actually moves this market</h2></div>
+  <div class="card" style="margin-bottom:14px"><h3>Spreads run far wider than the pros</h3><p style="color:var(--ink-2)">A 35-point college spread is normal. Key-number logic built for the NFL does not transfer cleanly to a market with that range.</p></div><div class="card" style="margin-bottom:14px"><h3>Roster volatility is structural</h3><p style="color:var(--ink-2)">Transfers, opt-outs and developmental rosters mean last season's team may not be this season's team in any meaningful sense.</p></div><div class="card" style="margin-bottom:14px"><h3>Non-conference scheduling distorts records</h3><p style="color:var(--ink-2)">Early-season records are heavily shaped by scheduling choices. A 4-0 record against weak opposition is not evidence of much.</p></div><div class="card" style="margin-bottom:14px"><h3>Bowl and playoff motivation is genuinely uneven</h3><p style="color:var(--ink-2)">Opt-outs and coaching changes make late-season and postseason games unusually hard to price. This is well known, so the edge is in the specifics, not the concept.</p></div><div class="card" style="margin-bottom:14px"><h3>Limits are lower and moves are larger</h3><p style="color:var(--ink-2)">Smaller markets move further on less money. Early numbers are softer and riskier in equal measure.</p></div>
+</div></section>
 
-        <div style="max-width: 46rem; margin: 0 auto 2.5rem; background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 12px; padding: 1.75rem 2rem;">
-            <h2 style="font-size: 1.15rem; margin-bottom: 0.9rem;">Why this page is empty</h2>
-            <p style="color: var(--muted); margin-bottom: 0.9rem;">
-                Until 21 July 2026 this page published automatically generated college football game
-                breakdowns. An internal audit found that the statistics in those breakdowns
-                &mdash; against-the-spread records, points-per-game figures, home records,
-                defensive rankings, line-movement notes and &ldquo;sharp action&rdquo; claims
-                &mdash; were not sourced from any data provider. They were produced by a random
-                number generator. The schedules shown were also real fixtures from a future
-                month presented as that day&rsquo;s slate.
-            </p>
-            <p style="color: var(--muted); margin-bottom: 0.9rem;">
-                We have removed all of it rather than leave it up while we rebuild. The
-                generator that produced it has been switched off. Nothing on this page has been
-                replaced with an estimate, a projection or a placeholder.
-            </p>
-            <p style="color: var(--muted); margin-bottom: 0;">
-                Sports Betting Prime does not sell picks and does not publish projected
-                statistics. What returns here will be sourced college football betting fundamentals with
-                the source named on the page.
-            </p>
-        </div>
+<section class="sec"><div class="wrap">
+  <div class="shead"><div class="eyebrow">Go deeper</div><h2>Guides that apply here</h2></div>
+  <div class="linklist"><a href="/how-sportsbooks-set-opening-lines.html"><strong>How Sportsbooks Set Opening Lines</strong><span>Power ratings, model output, market-maker copying, and why the opener means different things at different books.</span></a><a href="/betting-market-liquidity-explained.html"><strong>Betting Market Liquidity Explained</strong><span>Market depth, capital volume, and why liquidity decides how far a line can be pushed.</span></a><a href="/weather-betting-guide.html"><strong>Weather Betting Guide</strong><span>Wind, cold and rain in NFL, MLB and soccer - which effects survive contact with the data.</span></a></div>
+  <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn btn-ghost" href="/tools.html">Betting calculators &rarr;</a>
+    <a class="btn btn-ghost" href="/glossary.html">Glossary &rarr;</a>
+    <a class="btn btn-ghost" href="/sports.html">All sports &rarr;</a>
+  </div>
+</div></section>
 
-        <div style="max-width: 46rem; margin: 0 auto 2.5rem;">
-            <h2 style="font-size: 1.15rem; margin-bottom: 1rem;">In the meantime</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
-                <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Find verified handicappers &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">Records timestamped before the game and graded automatically, on Trust My Record.</span></a>
-                <a href="betting-guide.html" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Betting guides &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">How lines are made, how they move, and how to price a bet.</span></a>
-                <a href="responsible-gambling.html" style="display: block; padding: 1.15rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600;">Responsible gambling &rarr;<span style="display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.875rem; font-weight: 500;">Limits, self-exclusion, and the national helpline.</span></a>
-            </div>
-        </div>
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">College Football picks, with the receipts.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Trust My Record tracks handicappers with timestamped, automatically graded records &mdash; and its free Handicapping Hub is open to everyone.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
 
-    </main>
+</main><footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
 
-    <footer>
-        <p>&copy; 2026 Sports Betting Prime | <a href="index.html">Home</a> | <a href="responsible-gambling.html">Responsible Gambling</a> | Educational content only</p>
-    </footer>
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
 </body>
 </html>
-

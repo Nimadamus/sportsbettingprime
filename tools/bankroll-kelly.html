@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kelly Criterion Calculator | Full, Half and Quarter Kelly Staking | Sports Betting Prime</title>
+<meta name="description" content="Calculate full, half and quarter Kelly stakes from a bankroll, price and probability estimate, with growth-rate maths and a flat-stake comparison.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/tools/bankroll-kelly.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Kelly Criterion Calculator | Full, Half and Quarter Kelly Staking | Sports Betting Prime">
+<meta property="og:description" content="Calculate full, half and quarter Kelly stakes from a bankroll, price and probability estimate, with growth-rate maths and a flat-stake comparison.">
+<meta property="og:url" content="https://sportsbettingprime.com/tools/bankroll-kelly.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kelly Criterion Calculator | Full, Half and Quarter Kelly Staking | Sports Betting Prime">
+<meta name="twitter:description" content="Calculate full, half and quarter Kelly stakes from a bankroll, price and probability estimate, with growth-rate maths and a flat-stake comparison.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html" aria-current="page">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Calculator</div>
+  <h1>Bankroll and Kelly staking</h1>
+  <p class="lede">Kelly sizes a bet to maximise long-run growth. It is optimal only if your probability estimate is right, and unforgiving when it is not.</p>
+</div></div>
+
+<section class="sec"><div class="wrap">
+
+<div class="note note-warn" style="margin-bottom:28px">
+  <strong>Read this before using the output.</strong> The Kelly criterion is
+  optimal only if your probability estimate is correct. It has no defence
+  against a wrong one. Overestimating your edge is the ordinary way bettors
+  fail, not a rare one, and Kelly converts that error into oversized stakes
+  automatically. Betting twice the correct Kelly fraction drives long-run
+  growth to roughly zero even when your edge is genuine, and betting more than
+  that makes it negative while the strategy still looks like a winner for long
+  stretches. Almost
+  everyone who uses this in practice uses a fraction of it, and the page shows
+  half and quarter for that reason.
+</div>
+
+<div class="grid g2" style="align-items:start">
+  <div class="calc">
+    <h2 style="font-size:1.15rem;margin-bottom:18px">Your bankroll and your estimate</h2>
+    <div class="row">
+      <div class="field">
+        <label for="k-bank">Bankroll</label>
+        <input id="k-bank" type="number" min="0" step="50" value="1000" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="k-am">Price (American)</label>
+        <input id="k-am" type="text" value="+120" autocomplete="off">
+      </div>
+    </div>
+    <div class="field">
+      <label for="k-p">Your estimate of the true win probability (%)</label>
+      <input id="k-p" type="number" min="0.01" max="99.99" step="0.5" value="50" autocomplete="off">
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label for="k-flat">Flat stake for comparison (% of bankroll)</label>
+      <input id="k-flat" type="number" min="0" max="100" step="0.25" value="1" autocomplete="off">
+    </div>
+    <p class="note note-warn" id="k-warn" hidden></p>
+  </div>
+
+  <div>
+    <div class="calc-out" aria-live="polite" aria-atomic="true">
+      <dl>
+        <dt>Full Kelly</dt><dd class="big" id="k-full">&mdash;</dd>
+        <dt>Full Kelly stake</dt><dd id="k-fullamt">&mdash;</dd>
+        <dt>Half Kelly</dt><dd id="k-half">&mdash;</dd>
+        <dt>Quarter Kelly</dt><dd id="k-quart">&mdash;</dd>
+        <dt>Edge over break-even</dt><dd id="k-edge">&mdash;</dd>
+        <dt>EV per bet at full Kelly</dt><dd id="k-ev">&mdash;</dd>
+        <dt>Growth rate, full Kelly</dt><dd id="k-g1">&mdash;</dd>
+        <dt>Growth rate, half Kelly</dt><dd id="k-g2">&mdash;</dd>
+        <dt>Growth rate, flat stake</dt><dd id="k-gf">&mdash;</dd>
+        <dt>Flat stake</dt><dd id="k-flatamt">&mdash;</dd>
+        <dt>Stake at 2x Kelly</dt><dd id="k-over">&mdash;</dd>
+      </dl>
+    </div>
+    <div class="formula">
+b = D - 1   (net decimal odds)   q = 1 - p
+
+Kelly fraction     f* = (p x b - q) / b   =   (p x D - 1) / (D - 1)
+If f* &le; 0 the bet has no positive expectation: stake nothing.
+
+Stake              f* x bankroll
+Fractional Kelly   half = f*/2,  quarter = f*/4
+
+Expected log growth per bet, at any fraction f:
+   g(f) = p x ln(1 + f x b) + q x ln(1 - f)
+g is maximised exactly at f = f*. At f = 2 x f* growth is at or
+near zero, and beyond it growth is negative. The page computes g
+at each fraction rather than assuming the textbook approximation.
+    </div>
+  </div>
+</div>
+
+<div class="prose" style="margin-top:44px">
+  <h2>What the number means</h2>
+  <p>Kelly answers one specific question: what fraction of a bankroll maximises
+  the long-run growth rate of that bankroll, given a known edge? The answer is
+  <code>(p x D - 1) / (D - 1)</code>, which is the expected value of the bet
+  divided by the amount you can win per unit staked. If expectation is zero or
+  negative the formula returns zero or less, which is the correct instruction to
+  not bet.</p>
+  <p>The growth-rate rows are the useful part of this page. They show that
+  overbetting is punished asymmetrically: the curve rises to a peak at full
+  Kelly and then falls away, reaching about zero at twice full Kelly and going
+  negative past it. Underbetting costs you a little growth. Overbetting can
+  cost you all of it while the bets themselves were still good ones.</p>
+  <p>Half Kelly is a common compromise. It captures roughly three quarters of
+  the growth rate at roughly half the volatility, and it halves the damage from
+  an overestimated edge. Quarter Kelly is more conservative again.</p>
+
+  <h3>Where it misleads</h3>
+  <p>Every number here is downstream of a probability you estimated. If your
+  true edge is 2% and you believe it is 5%, Kelly will size the bet as though
+  you had 5%, and you will be overbetting by a factor of two and a half without
+  any signal that anything is wrong. Results will not tell you either, because
+  variance at these stake sizes swamps the difference for hundreds of bets.</p>
+  <p>The formula also assumes one bet resolving at a time, a bankroll you can
+  actually re-stake, a price you can get in the size the formula asks for, and
+  no correlation between bets. Simultaneous or correlated positions require
+  smaller fractions than the single-bet answer. Limits, minimum increments and
+  the fact that bankrolls are also rent money all argue in the same direction.</p>
+  <p>Kelly is a sizing tool, not an edge detector. It presumes the hard problem
+  is already solved.</p>
+</div>
+
+</div></section>
+
+<section class="sec sec-tint"><div class="wrap">
+  <div class="shead"><h2>Read next</h2><p>Guides on this site that use the same maths.</p></div>
+  <div class="linklist"><a href="/value-betting-explained.html"><strong>Value Betting Explained</strong><span>Price versus probability, and why decisions beat results.</span></a><a href="/closing-line-value-explained.html"><strong>Closing Line Value Explained</strong><span>The benchmark that survives small samples better than win rate.</span></a><a href="/sharp-vs-square-money.html"><strong>Sharp vs Square Money Explained</strong><span>Who the market participants are and how pricing responds.</span></a></div>
+</div></section>
+</main>
+
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Kelly sizes an edge. It cannot tell you whether you have one.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">The dangerous input on this page is the probability, and no formula can check it for you. Trust My Record grades handicappers on picks locked in before the game, so the estimate meets reality in public.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+<script>
+
+var DASH = '—';
+function num(el){ if(!el) return NaN; var v = el.value; if(v===null||String(v).trim()==='') return NaN; var n = Number(v); return isFinite(n) ? n : NaN; }
+function amValid(a){ return isFinite(a) && (a >= 100 || a <= -100); }
+/* American -> decimal. |A| must be >= 100; anything strictly inside
+   (-100, +100) is not a real American price. */
+function amToDec(a){ if(!amValid(a)) return NaN; return a >= 100 ? 1 + a/100 : 1 + 100/(-a); }
+/* decimal -> American. Decimal must be > 1. */
+function decToAm(d){ if(!isFinite(d) || d <= 1) return NaN; return d >= 2 ? (d-1)*100 : -100/(d-1); }
+function decToProb(d){ return (isFinite(d) && d > 1) ? 1/d : NaN; }
+function probToDec(p){ return (isFinite(p) && p > 0 && p < 1) ? 1/p : NaN; }
+function probToAm(p){ return decToAm(probToDec(p)); }
+function fmtAm(a){
+  if(!isFinite(a)) return DASH;
+  var r = Math.round(a*10)/10;
+  var s = (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1);
+  return (r > 0 ? '+' : '') + s;
+}
+function fmtDec(d, p){ return isFinite(d) ? d.toFixed(p==null?4:p) : DASH; }
+/* snap floating-point crumbs to exact zero so nothing renders as "-0.00%" */
+function z(x){ return (isFinite(x) && Math.abs(x) < 1e-12) ? 0 : x; }
+function sign(x){ return (isFinite(x) && z(x) >= 0) ? '+' : ''; }
+function fmtPct(x, p){ x = z(x); return isFinite(x) ? (x*100).toFixed(p==null?2:p) + '%' : DASH; }
+function fmtNum(x, p){ x = z(x); return isFinite(x) ? x.toFixed(p==null?2:p) : DASH; }
+/* Smallest-denominator rational approximation of (decimal - 1). */
+function decToFrac(d){
+  if(!isFinite(d) || d <= 1) return DASH;
+  var x = d - 1, bn = 1, bd = 1, be = Infinity;
+  for(var den = 1; den <= 400; den++){
+    var n = Math.round(x*den);
+    if(n < 1) continue;
+    var e = Math.abs(x - n/den);
+    if(e < be - 1e-12){ be = e; bn = n; bd = den; if(e < 1e-10) break; }
+  }
+  return bn + '/' + bd;
+}
+function parseFrac(s){
+  if(s===null) return NaN;
+  s = String(s).trim();
+  if(s === '') return NaN;
+  var m = s.match(/^(\d+(?:\.\d+)?)\s*[\/\-:]\s*(\d+(?:\.\d+)?)$/);
+  if(m){ var a = Number(m[1]), b = Number(m[2]); return (b > 0 && a > 0) ? a/b : NaN; }
+  var n = Number(s);
+  return (isFinite(n) && n > 0) ? n : NaN;
+}
+function set(id, txt){ var e = document.getElementById(id); if(e) e.textContent = txt; }
+function warn(id, msg){
+  var e = document.getElementById(id);
+  if(!e) return;
+  if(msg){ e.textContent = msg; e.hidden = false; } else { e.textContent = ''; e.hidden = true; }
+}
+function bind(ids, fn){
+  ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if(e){ e.addEventListener('input', fn); e.addEventListener('change', fn); }
+  });
+}
+
+
+function kGrowth(f, p, b){
+  if(f <= 0) return 0;
+  if(f >= 1) return -Infinity;
+  var w = 1 + f*b, l = 1 - f;
+  if(w <= 0 || l <= 0) return -Infinity;
+  return p*Math.log(w) + (1 - p)*Math.log(l);
+}
+function fmtG(g){ g = z(g); return (isFinite(g)) ? (sign(g) + (g*100).toFixed(4) + '% / bet') : 'ruinous'; }
+function kCalc(){
+  var bank = num(document.getElementById('k-bank'));
+  var raw = (document.getElementById('k-am').value || '').trim();
+  var a = raw === '' ? NaN : Number(raw.replace(/^\+/, ''));
+  var p = num(document.getElementById('k-p'))/100;
+  var flat = num(document.getElementById('k-flat'))/100;
+  var msg = '';
+  if(raw === '') msg = 'Enter an American price, for example +120.';
+  else if(!isFinite(a)) msg = 'Price must be a number, for example -110 or +120.';
+  else if(!amValid(a)) msg = 'American odds cannot fall between -100 and +100.';
+  else if(!isFinite(bank) || bank <= 0) msg = 'Bankroll must be greater than zero.';
+  else if(!isFinite(p) || p <= 0 || p >= 1) msg = 'Win probability must be above 0% and below 100%.';
+  warn('k-warn', msg);
+  var outs = ['k-full','k-fullamt','k-half','k-quart','k-edge','k-ev','k-g1','k-g2','k-gf','k-flatamt','k-over'];
+  if(msg){ outs.forEach(function(i){ set(i, DASH); }); return; }
+
+  var d = amToDec(a), b = d - 1, p0 = 1/d;
+  var f = (p*d - 1)/b;
+  var noBet = !(f > 0);
+  set('k-full', noBet ? '0.00%  (no bet)' : fmtPct(f, 2));
+  set('k-fullamt', noBet ? 'stake nothing' : fmtNum(f*bank, 2));
+  set('k-half', noBet ? 'stake nothing' : fmtPct(f/2, 2) + '  =  ' + fmtNum(f*bank/2, 2));
+  set('k-quart', noBet ? 'stake nothing' : fmtPct(f/4, 2) + '  =  ' + fmtNum(f*bank/4, 2));
+  set('k-edge', sign(p - p0) + fmtPct(p - p0, 2) + '  (break-even ' + fmtPct(p0, 2) + ')');
+  set('k-ev', noBet ? DASH : (fmtPct(p*d - 1, 2) + ' of stake  =  ' + fmtNum((p*d - 1)*f*bank, 2)));
+  set('k-g1', noBet ? DASH : fmtG(kGrowth(Math.min(f, 0.999999), p, b)));
+  set('k-g2', noBet ? DASH : fmtG(kGrowth(Math.min(f/2, 0.999999), p, b)));
+  set('k-over', noBet ? DASH
+      : (2*f >= 1 ? fmtPct(2*f, 2) + '  (more than the whole bankroll: not stakeable)'
+                  : fmtPct(2*f, 2) + '  =  ' + fmtNum(2*f*bank, 2)
+                    + '  (growth ' + fmtG(kGrowth(2*f, p, b)) + ')'));
+  if(isFinite(flat) && flat > 0 && flat < 1){
+    set('k-gf', fmtG(kGrowth(flat, p, b)));
+    set('k-flatamt', fmtPct(flat, 2) + '  =  ' + fmtNum(flat*bank, 2));
+  } else if(isFinite(flat) && flat >= 1){
+    set('k-gf', 'a stake of the whole bankroll risks ruin on one bet');
+    set('k-flatamt', fmtNum(bank, 2));
+  } else {
+    set('k-gf', DASH); set('k-flatamt', DASH);
+  }
+}
+bind(['k-bank','k-am','k-p','k-flat'], kCalc);
+kCalc();
+
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
+</body>
+</html>

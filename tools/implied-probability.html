@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Implied Probability Calculator | Break-Even Win Rate | Sports Betting Prime</title>
+<meta name="description" content="Turn any price into its break-even win rate, and work out the win rate you would need at that price to reach a target return.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/tools/implied-probability.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="Implied Probability Calculator | Break-Even Win Rate | Sports Betting Prime">
+<meta property="og:description" content="Turn any price into its break-even win rate, and work out the win rate you would need at that price to reach a target return.">
+<meta property="og:url" content="https://sportsbettingprime.com/tools/implied-probability.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Implied Probability Calculator | Break-Even Win Rate | Sports Betting Prime">
+<meta name="twitter:description" content="Turn any price into its break-even win rate, and work out the win rate you would need at that price to reach a target return.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html" aria-current="page">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Calculator</div>
+  <h1>Implied probability and break-even win rate</h1>
+  <p class="lede">Every price states a win rate. This page tells you what that rate is, and what you would have to beat to make the bet worth taking.</p>
+</div></div>
+
+<section class="sec"><div class="wrap">
+
+<div class="grid g2" style="align-items:start">
+  <div class="calc">
+    <h2 style="font-size:1.15rem;margin-bottom:18px">Price in, break-even out</h2>
+    <div class="field">
+      <label for="ip-am">American odds</label>
+      <input id="ip-am" type="text" value="-110" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="ip-roi">Return on investment you want (%)</label>
+      <input id="ip-roi" type="number" step="0.5" value="5" autocomplete="off">
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label for="ip-true">Your estimate of the true win probability (%)</label>
+      <input id="ip-true" type="number" step="0.5" min="0.01" max="99.99" value="55" autocomplete="off">
+    </div>
+    <p class="note note-warn" id="ip-warn" hidden></p>
+  </div>
+
+  <div>
+    <div class="calc-out" aria-live="polite" aria-atomic="true">
+      <dl>
+        <dt>Break-even win rate</dt><dd class="big" id="i-be">&mdash;</dd>
+        <dt>Decimal price</dt><dd id="i-dec">&mdash;</dd>
+        <dt>Win rate needed for that ROI</dt><dd id="i-target">&mdash;</dd>
+        <dt>Your edge over break-even</dt><dd id="i-edge">&mdash;</dd>
+        <dt>ROI at your estimate</dt><dd id="i-roi">&mdash;</dd>
+        <dt>Fair price at your estimate</dt><dd id="i-fair">&mdash;</dd>
+        <dt>Record needed over 100 bets</dt><dd id="i-rec">&mdash;</dd>
+      </dl>
+    </div>
+    <div class="formula">
+Decimal from American   D = 1 + A/100        (A &ge; +100)
+                        D = 1 + 100/|A|      (A &le; -100)
+
+Break-even win rate     p0 = 1 / D
+ROI at win rate p       ROI = p x D - 1
+Win rate for target R   p  = (1 + R) / D
+Edge                    p_true - p0
+Fair decimal price      D_fair = 1 / p_true
+    </div>
+  </div>
+</div>
+
+<div class="prose" style="margin-top:44px">
+  <h2>What the number means</h2>
+  <p>Break-even win rate is the share of bets you must win at that price simply
+  to end up level. At <code>-110</code> it is 52.38%, so 52 wins in 100 is a
+  losing month and 53 is a thin winning one. The gap between 50% and that
+  break-even figure is the operator's cut, and it is the reason coin-flipping
+  loses money slowly rather than breaking even.</p>
+  <p>The second question the page answers is the one that actually decides a
+  bet: at this price, what win rate would you need for the bet to be worth
+  making? If you want a 5% return on stake at <code>-110</code>, you need
+  <code>(1 + 0.05) / 1.9091</code>, which is 55.0%. Whether you can identify
+  bets you win 55% of the time is not something a calculator can tell you.</p>
+
+  <h3>Where it misleads</h3>
+  <p>Break-even win rate is exact. Your estimate of the true probability is not,
+  and everything downstream of it inherits that error. A 2-point overestimate of
+  your own win rate turns a modest positive expectation into a negative one at
+  most prices, and nothing in the arithmetic will warn you, because the
+  arithmetic believes whatever you typed.</p>
+  <p>Break-even also assumes a fixed price. If you bet at <code>-110</code> and
+  the market closes at <code>-130</code>, your realised break-even was set at
+  the price you took, but the closing number is the better evidence about
+  whether the bet was priced well. That is what
+  <a href="/closing-line-value-explained.html">closing line value</a> measures,
+  and it stabilises far faster than win rate does.</p>
+</div>
+
+</div></section>
+
+<section class="sec sec-tint"><div class="wrap">
+  <div class="shead"><h2>Read next</h2><p>Guides on this site that use the same maths.</p></div>
+  <div class="linklist"><a href="/value-betting-explained.html"><strong>Value Betting Explained</strong><span>Price versus probability, and why decisions beat results.</span></a><a href="/closing-line-value-explained.html"><strong>Closing Line Value Explained</strong><span>The benchmark that survives small samples better than win rate.</span></a><a href="/bookmaker-margin-and-vig-explained.html"><strong>Bookmaker Margin and Vig Explained</strong><span>How the overround is built into a two-way price.</span></a></div>
+</div></section>
+</main>
+
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">A break-even rate is arithmetic. Clearing it is a record.</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Knowing you need 52.38% at -110 takes a second. Knowing whether anyone actually clears it takes a graded history. Trust My Record publishes handicapper results from picks locked in before the game, win or lose.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+<script>
+
+var DASH = '—';
+function num(el){ if(!el) return NaN; var v = el.value; if(v===null||String(v).trim()==='') return NaN; var n = Number(v); return isFinite(n) ? n : NaN; }
+function amValid(a){ return isFinite(a) && (a >= 100 || a <= -100); }
+/* American -> decimal. |A| must be >= 100; anything strictly inside
+   (-100, +100) is not a real American price. */
+function amToDec(a){ if(!amValid(a)) return NaN; return a >= 100 ? 1 + a/100 : 1 + 100/(-a); }
+/* decimal -> American. Decimal must be > 1. */
+function decToAm(d){ if(!isFinite(d) || d <= 1) return NaN; return d >= 2 ? (d-1)*100 : -100/(d-1); }
+function decToProb(d){ return (isFinite(d) && d > 1) ? 1/d : NaN; }
+function probToDec(p){ return (isFinite(p) && p > 0 && p < 1) ? 1/p : NaN; }
+function probToAm(p){ return decToAm(probToDec(p)); }
+function fmtAm(a){
+  if(!isFinite(a)) return DASH;
+  var r = Math.round(a*10)/10;
+  var s = (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1);
+  return (r > 0 ? '+' : '') + s;
+}
+function fmtDec(d, p){ return isFinite(d) ? d.toFixed(p==null?4:p) : DASH; }
+/* snap floating-point crumbs to exact zero so nothing renders as "-0.00%" */
+function z(x){ return (isFinite(x) && Math.abs(x) < 1e-12) ? 0 : x; }
+function sign(x){ return (isFinite(x) && z(x) >= 0) ? '+' : ''; }
+function fmtPct(x, p){ x = z(x); return isFinite(x) ? (x*100).toFixed(p==null?2:p) + '%' : DASH; }
+function fmtNum(x, p){ x = z(x); return isFinite(x) ? x.toFixed(p==null?2:p) : DASH; }
+/* Smallest-denominator rational approximation of (decimal - 1). */
+function decToFrac(d){
+  if(!isFinite(d) || d <= 1) return DASH;
+  var x = d - 1, bn = 1, bd = 1, be = Infinity;
+  for(var den = 1; den <= 400; den++){
+    var n = Math.round(x*den);
+    if(n < 1) continue;
+    var e = Math.abs(x - n/den);
+    if(e < be - 1e-12){ be = e; bn = n; bd = den; if(e < 1e-10) break; }
+  }
+  return bn + '/' + bd;
+}
+function parseFrac(s){
+  if(s===null) return NaN;
+  s = String(s).trim();
+  if(s === '') return NaN;
+  var m = s.match(/^(\d+(?:\.\d+)?)\s*[\/\-:]\s*(\d+(?:\.\d+)?)$/);
+  if(m){ var a = Number(m[1]), b = Number(m[2]); return (b > 0 && a > 0) ? a/b : NaN; }
+  var n = Number(s);
+  return (isFinite(n) && n > 0) ? n : NaN;
+}
+function set(id, txt){ var e = document.getElementById(id); if(e) e.textContent = txt; }
+function warn(id, msg){
+  var e = document.getElementById(id);
+  if(!e) return;
+  if(msg){ e.textContent = msg; e.hidden = false; } else { e.textContent = ''; e.hidden = true; }
+}
+function bind(ids, fn){
+  ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if(e){ e.addEventListener('input', fn); e.addEventListener('change', fn); }
+  });
+}
+
+
+function ipCalc(){
+  var raw = (document.getElementById('ip-am').value || '').trim();
+  var a = raw === '' ? NaN : Number(raw.replace(/^\+/, ''));
+  var msg = '';
+  if(raw === '') msg = 'Enter an American price, for example -110.';
+  else if(!isFinite(a)) msg = 'Enter a number, for example -110 or +145.';
+  else if(!amValid(a)) msg = 'American odds cannot fall between -100 and +100.';
+  var d = amToDec(a);
+  var roi = num(document.getElementById('ip-roi'))/100;
+  var pt  = num(document.getElementById('ip-true'))/100;
+  if(!msg && isFinite(pt) && (pt <= 0 || pt >= 1)) msg = 'True win probability must be above 0% and below 100%.';
+  warn('ip-warn', msg);
+  if(msg || !isFinite(d)){
+    ['i-be','i-dec','i-target','i-edge','i-roi','i-fair','i-rec'].forEach(function(i){ set(i, DASH); });
+    return;
+  }
+  var p0 = decToProb(d);
+  set('i-be', fmtPct(p0, 2));
+  set('i-dec', fmtDec(d, 4));
+  if(isFinite(roi)){
+    var need = (1 + roi)/d;
+    set('i-target', (need > 0 && need < 1) ? fmtPct(need, 2)
+        : (need >= 1 ? 'Impossible at this price' : DASH));
+    set('i-rec', (need > 0 && need < 1)
+        ? (Math.ceil(need*100) + '-' + (100 - Math.ceil(need*100)) + ' or better') : DASH);
+  } else { set('i-target', DASH); set('i-rec', DASH); }
+  if(isFinite(pt) && pt > 0 && pt < 1){
+    set('i-edge', fmtPct(pt - p0, 2) + (pt > p0 ? ' (positive)' : ' (negative)'));
+    set('i-roi', fmtPct(pt*d - 1, 2));
+    set('i-fair', fmtAm(probToAm(pt)) + '  (' + fmtDec(1/pt, 4) + ')');
+  } else { set('i-edge', DASH); set('i-roi', DASH); set('i-fair', DASH); }
+}
+bind(['ip-am','ip-roi','ip-true'], ipCalc);
+ipCalc();
+
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
+</body>
+</html>

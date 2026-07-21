@@ -29,13 +29,10 @@ jobs:
       - name: Create pending_content directory
         run: mkdir -p pending_content
 
-      # Sports Betting Prime - Consensus and Hub updates (these work independently)
-      - name: Update Sports Betting Prime
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: |
-          echo "=== SPORTS BETTING PRIME ==="
-          python scripts/github_consensus_update.py || true
+      # Consensus publishing was removed from this workflow on 2026-07-21. This job
+      # gathers research for other sites; it must not publish Sports Betting Prime
+      # pages as a side effect. See daily-consensus-update.yml for why consensus is
+      # paused.
 
       # LOLSBA Research Gathering
       - name: Gather LOLSBA Research

@@ -1,128 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - SPORTS BETTING PRIME</title>
-  <meta name="description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-  <link rel="canonical" href="https://sportsbettingprime.com/the-prime-protocol.html" />
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="The Prime Protocol | Sports Betting Prime">
-  <meta property="og:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sportsbettingprime.com/the-prime-protocol.html">
-  <meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
-  <meta property="og:site_name" content="Sports Betting Prime">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Prime Protocol | Sports Betting Prime">
-  <meta name="twitter:description" content="Sharp betting intelligence and consensus data. Real-time sports betting analysis, line movements, and expert picks.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #01000f; --text-color: #eaf8ff; --neon-cyan: #00ffff; --neon-gold: #FFD700;
-            --glass-bg: rgba(10, 8, 25, 0.5); --glass-border: rgba(0, 255, 255, 0.2);
-            --font-primary: 'Orbitron', sans-serif; --font-secondary: 'Poppins', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-secondary); background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; position: relative; }
-        
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background-color: #000; }
-        .background-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: cover; background-position: center center; animation: kenburns 120s ease-in-out infinite alternate; }
-        @keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.15) translate(-2%, 2%); } }
-
-        header { padding: 20px 5%; position: sticky; top: 0; z-index: 100; background: rgba(1, 0, 15, 0.2); backdrop-filter: blur(5px); border-bottom: 1px solid var(--glass-border); }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { flex: 1; }
-        .nav-center { flex: 2; display: flex; justify-content: center; }
-        .nav-right { flex: 1; display: flex; justify-content: flex-end; }
-        .logo a { color: inherit; text-decoration: none; font-family: var(--font-primary); font-size: 1.6rem; font-weight: 900; text-transform: uppercase;}
-        .logo span { color: var(--neon-cyan); text-shadow: 0 0 12px var(--neon-cyan); }
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
-        .nav-links a { font-family: var(--font-secondary); text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 10px; border-radius: 5px; transition: all 0.3s ease; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); }
-        .nav-links a:hover, .nav-links a.active { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
-        .btn-primary { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-family: var(--font-primary); font-size: 1rem; background-color: var(--neon-gold); color: #01000f; border: 1px solid var(--neon-gold); box-shadow: 0 0 20px var(--neon-gold); animation: pulse-button 2s infinite; transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 35px var(--neon-gold), 0 0 10px #fff; filter: brightness(1.2); }
-        @keyframes pulse-button { 50% { transform: scale(1.05); } }
-
-        .content-wrapper { position: relative; z-index: 10; }
-        .section-container { padding: 60px 5%; max-width: 1100px; margin: 0 auto; }
-        .section-title { font-family: var(--font-primary); font-size: 3.5rem; margin-bottom: 50px; text-align: center; color: var(--text-color); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 20px; padding: 50px; border: 1px solid var(--glass-border); }
-        .about-content h2 { font-family: var(--font-primary); color: var(--neon-cyan); font-size: 2.2rem; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border); }
-        .about-content p { font-size: 1.15rem; line-height: 1.8; margin-bottom: 30px; color: rgba(234, 248, 255, 0.9); }
-        .about-content p strong { color: var(--neon-gold); font-weight: 600; }
-        .about-content .final-cta { margin-top: 40px; text-align: center; font-size: 1.3rem; font-family: var(--font-primary); }
-        footer { text-align: center; background: transparent; padding: 40px 5%; margin-top: 60px; border-top: 1px solid var(--glass-border); }
-        footer p { color: rgba(234, 248, 255, 0.7); margin-bottom: 8px; font-size: 0.9rem; }
-        footer .footer-links a { color: var(--neon-cyan); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
-    </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QQH4JXHGN3');
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Prime protocol | Sports Betting Prime</title>
+<meta name="description" content="How this site decides what it is willing to publish.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://sportsbettingprime.com/the-prime-protocol.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sports Betting Prime">
+<meta property="og:title" content="The Prime protocol | Sports Betting Prime">
+<meta property="og:description" content="How this site decides what it is willing to publish.">
+<meta property="og:url" content="https://sportsbettingprime.com/the-prime-protocol.html">
+<meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Prime protocol | Sports Betting Prime">
+<meta name="twitter:description" content="How this site decides what it is willing to publish.">
+<meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbp.css">
 </head>
 <body>
-    <div class="background-container"></div>
-    <div class="content-wrapper">
-        <header>
-            <nav>
-                <div class="nav-left">
-                    <div class="logo">
-                        <a href="index.html">SPORTS BETTING <span>PRIME</span></a>
-                    </div>
-                </div>
-                <div class="nav-center">
-                                <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="covers-consensus.html">Consensus</a></li>
-                <li><a href="nfl-gridiron-oracles.html">NFL</a></li>
-                <li><a href="nba-court-vision.html">NBA</a></li>
-                <li><a href="nhl-ice-oracles.html">NHL</a></li>
-                <li><a href="college-basketball.html">NCAAB</a></li>
-                <li><a href="college-football.html">NCAAF</a></li>
-            </ul>
-                </div>
-                <div class="nav-right">
-                    <a href="https://www.youwager.lv/join-now?affid=BABS123" target="_blank" class="btn-primary">GET YOUR BONUS</a>
-                </div>
-            </nav>
-        </header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topstrip"><div class="wrap">
+  <span>Research and education. Sports Betting Prime does not sell picks.</span>
+  <span>21+</span>
+</div></div>
 
-        <main>
-            <section class="section-container">
-                <h1 class="section-title">THE PRIME PROTOCOL</h1>
-                <div class="about-content glass-panel">
-                    <h2>Our Mission: Isolate the Signal</h2>
-                    <p>The world of sports analysis is filled with noise. Pundit narratives, emotional hot takes, and outdated statistics create a chaotic fog that misleads the average bettor. Our mission is to cut through that fog. We built SPORTS BETTING PRIME to ignore the noise and focus on one thing: the pure, quantitative signal that predicts performance.</p>
-                    <h2>Our Philosophy: We Don't Pick Teams, We Analyze Markets</h2>
-                    <p>We approach sports betting not as a guessing game, but as a financial market rich with inefficiencies. We don't have favorite teams; we have favorite numbers. Our analysis approach is not designed to simply "pick a winner." It is designed to find **value** — discrepancies between a team's true, data-driven probability and the implied probability offered by the market.</p>
-                    <h2>Our Process: The Algorithm</h2>
-                    <p>SPORTS BETTING PRIME is powered by a research-driven analysis that considers multiple data points for every game. We go beyond the box score, utilizing advanced, predictive metrics to build a more accurate picture of a team's potential. Our system is built on a foundation of statistical analysis, constantly evolving to find new sources of analytical edge. We are die-hard sports fans who use data-driven analysis and believe in a quantitative approach to sports betting.</p>
-                    <h2>Our Mindset: A Tool for the Disciplined</h2>
-                    <p>This is not a get-rich-quick scheme. It is a tool for the modern, analytical bettor. Success in this space is a marathon, not a sprint. It requires a disciplined, long-term perspective and strict bankroll management. Our goal is to provide you with the highest-quality data and analysis, so you can make more informed decisions.</p>
-                    <p class="final-cta">
-                        The universe of probabilities has been hacked. <a href="mlb-prime-directives.html" style="color: var(--neon-gold);">Gain your edge.</a>
-                    </p>
-                </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2026 SPORTS BETTING PRIME. All rights reserved.</p>
-            <p class="footer-links">
-                 <a href="index.html">Home</a> | <a href="mlb-prime-directives.html">MLB</a> | <a href="nfl-gridiron-oracles.html">NFL</a> | <a href="nhl-ice-oracles.html">NHL</a> | <a href="college-football.html">College Football</a> | <a href="the-data-stream.html">Blog</a> | <a href="the-prime-protocol.html">About</a> | <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener">Responsible Gaming</a>
-            </p>
-        </footer>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <span class="mark">SPORTS BETTING <em>PRIME</em></span>
+      <span class="tag">Research</span>
+    </a>
+    <nav aria-label="Main"><ul class="navlinks"><li><a href="/guides.html">Guides</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/sports.html">Sports</a></li><li><a href="/glossary.html">Glossary</a></li><li><a href="/articles.html">Articles</a></li><li><a href="/sportsbook.html">Sportsbooks</a></li></ul></nav>
+    <a class="btn btn-brass header-cta" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul><a href="/guides.html">Guides</a><a href="/tools.html">Tools</a><a href="/sports.html">Sports</a><a href="/glossary.html">Glossary</a><a href="/articles.html">Articles</a><a href="/sportsbook.html">Sportsbooks</a>
+      <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="color:var(--brass);font-weight:600">Find Verified Handicappers &rarr;</a>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Sports Betting Prime</div>
+  <h1>The Prime protocol</h1>
+  <p class="lede">How this site decides what it is willing to publish.</p>
+</div></div>
+<section class="sec"><div class="wrap prose"><p>Every number on Sports Betting Prime is one of two things: computed in your browser from figures you entered, or carried with a named source and the date it was current as of. There is no third category.</p><p>We publish no live odds, no projections, no consensus percentages, no daily slates and no sharp-money claims. Nothing reaches the site automatically without a person reviewing it. Corrections are made on the page, dated, and listed rather than silently edited.</p><p>The rules in full, including what was removed in July 2026 and why, are on the <a href="/editorial-policy.html">editorial policy</a> page. Who we are and how we make money is on the <a href="/about.html">about</a> page.</p></div></section>
+<section class="band"><div class="wrap band-grid">
+  <div>
+    <div class="eyebrow">Where the proof lives</div>
+    <h2 class="serif" style="font-size:clamp(1.8rem,3.2vw,2.5rem);color:#fff;line-height:1.14;margin-bottom:14px">Looking for tracked results?</h2>
+    <p style="color:#a8a294;font-size:16px;max-width:34em">Trust My Record grades every pick automatically and its leaderboards are public. Free to browse, no account needed.</p>
+    <a class="bigcta" style="margin-top:22px" href="https://trustmyrecord.com/handicappers/" rel="noopener">Find Verified Handicappers &rarr;</a>
+  </div>
+  <div><div class="tmr-list"><a href="https://trustmyrecord.com/handicapping/" rel="noopener">Handicapping Hub<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/nfl-simulator/" rel="noopener">NFL Simulator<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/picks/" rel="noopener">Live Pick Feed<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/forum/" rel="noopener">Community Forum<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/polls/" rel="noopener">Polls &amp; Contests<span class="ar">&rarr;</span></a><a href="https://trustmyrecord.com/tools/" rel="noopener">Tools Hub<span class="ar">&rarr;</span></a></div></div>
+</div></section>
+
+</main><footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><span class="mark" style="color:#fff">SPORTS BETTING <em style="color:var(--brass-2)">PRIME</em></span></div>
+        <p style="max-width:32em;font-size:13.5px">A betting research and discovery site. We publish education, tools and dated analysis, and we point readers to Trust My Record for handicapper results that are timestamped before the game and graded automatically. We do not sell picks and we do not publish projected statistics.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides.html">All guides</a></li>
+        <li><a href="/glossary.html">Glossary</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/sports.html">By sport</a></li></ul></div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/odds-converter.html">Odds converter</a></li>
+        <li><a href="/tools/implied-probability.html">Implied probability</a></li>
+        <li><a href="/tools/vig-calculator.html">Vig calculator</a></li>
+        <li><a href="/tools/bankroll-kelly.html">Bankroll &amp; Kelly</a></li></ul></div>
+      <div><h4>Trust My Record</h4><ul>
+        <li><a href="https://trustmyrecord.com/handicappers/" rel="noopener">Verified handicappers</a></li>
+        <li><a href="https://trustmyrecord.com/leaderboards/" rel="noopener">Leaderboards</a></li>
+        <li><a href="https://trustmyrecord.com/mlb-simulator/" rel="noopener">MLB simulator</a></li>
+        <li><a href="https://trustmyrecord.com/forum/" rel="noopener">Community</a></li></ul></div>
     </div>
+    <div class="fbot">
+      <span>&copy; 2026 Sports Betting Prime. Educational content only. 21+ where applicable.</span>
+      <span><a href="/editorial-policy.html">Editorial policy</a> &middot; <a href="/affiliate-disclosure.html">Affiliate disclosure</a> &middot; <a href="/responsible-gambling.html">Responsible gambling</a> &middot; <a href="/about.html">About</a> &middot; <a href="/faq.html">FAQ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('menuBtn'), n = document.getElementById('mobileNav');
+  if (!b || !n) return;
+  b.addEventListener('click', function () {
+    var open = n.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+})();
+</script>
 </body>
 </html>
-
