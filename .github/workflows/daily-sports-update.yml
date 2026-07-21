@@ -1,13 +1,13 @@
 name: Daily Sports Auto-Update
 
 on:
-  schedule:
-    # Run at 8:00 AM ET (13:00 UTC) every day
-    - cron: '0 13 * * *'
-    # Run at 12:00 PM ET (17:00 UTC) for midday update
-    - cron: '0 17 * * *'
-    # Run at 6:00 PM ET (23:00 UTC) for evening update
-    - cron: '0 23 * * *'
+  # DISABLED 2026-07-21: scripts/build_site.py fabricates PPG, ATS records, home
+  # records, line movement and "sharp action" via random.uniform/random.randint
+  # (see build_site.py lines 523-653). Schedule removed so no further fabricated
+  # stats are published. Manual dispatch retained for maintenance only.
+  #   - cron: '0 13 * * *'
+  #   - cron: '0 17 * * *'
+  #   - cron: '0 23 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 concurrency:
