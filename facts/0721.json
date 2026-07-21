@@ -1,0 +1,221 @@
+{
+  "article": "0721-sharp-mlb-tuesday-red-sox-fourteen-straight-dodgers-phillies-under-9-wheeler-diamondbacks-debut-mariners-castillo-july-21-2026.html",
+  "published": "2026-07-21T12:30:00-04:00",
+  "modified": "2026-07-21T12:30:00-04:00",
+  "built_at": "2026-07-21T16:27:34.878495+00:00",
+  "sources": [
+    {
+      "name": "MLB Stats API",
+      "purpose": "tonight's slate, probable pitchers, first pitch times",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-21&hydrate=probablePitcher(note),team,linescore",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "AUTHORITATIVE team records, L10, streak, home/away splits, runs scored/allowed",
+      "endpoint": "https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&date=2026-07-21&standingsTypes=regularSeason&hydrate=team",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "2026 season pitching lines for all 16 probable starters",
+      "endpoint": "https://statsapi.mlb.com/api/v1/people?personIds=<16 ids>&hydrate=stats(group=[pitching],type=[season],season=2026)",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "team hitting: runs, games, AVG, OPS, HR, K",
+      "endpoint": "https://statsapi.mlb.com/api/v1/teams/stats?season=2026&sportIds=1&stats=season&group=hitting&gameType=R",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "team pitching: staff ERA and WHIP",
+      "endpoint": "https://statsapi.mlb.com/api/v1/teams/stats?season=2026&sportIds=1&stats=season&group=pitching&gameType=R",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "July 20 final scores",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-20",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "Red Sox game log, independent confirmation of the 14 game winning streak and the July 1 loss",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=111&startDate=2026-06-25&endDate=2026-07-20",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "Kohl Drake: career and yearByYear pitching both returned zero splits, mlbDebutDate null",
+      "endpoint": "https://statsapi.mlb.com/api/v1/people/684442/stats?stats=career&group=pitching ; https://statsapi.mlb.com/api/v1/people/684442/stats?stats=yearByYear&group=pitching ; https://statsapi.mlb.com/api/v1/people/684442",
+      "fetched_at": "2026-07-21T16:27:34.878495+00:00"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Red Sox 51-48, 14 game winning streak, last loss 10-2 to Washington on July 1 at 37-48",
+      "source": "standings + teamId=111 schedule game log",
+      "confirmations": 2
+    },
+    {
+      "claim": "Red Sox 22-27 at home, 29-21 on the road",
+      "source": "standings overallRecords"
+    },
+    {
+      "claim": "Dodgers 63-38, Phillies 56-45",
+      "source": "standings"
+    },
+    {
+      "claim": "Zack Wheeler 10-1, 2.13 ERA, 0.89 WHIP, 93.0 IP, 108 K, 22 BB",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Justin Wrobleski 10-2, 2.69 ERA, 1.02 WHIP, 100.1 IP, 20 BB",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Phillies 4.38 R/G (442 runs in 101 games), .237 AVG, 893 K",
+      "source": "teams hitting"
+    },
+    {
+      "claim": "Dodgers 5.19 R/G (524 in 101), .773 OPS",
+      "source": "teams hitting"
+    },
+    {
+      "claim": "Dodgers 7 at Phillies 10 on July 20",
+      "source": "July 20 schedule"
+    },
+    {
+      "claim": "Athletics 43-57, 2-8 L10, 559 runs allowed; staff 5.29 ERA / 1.48 WHIP",
+      "source": "standings + teams pitching"
+    },
+    {
+      "claim": "Jack Perkins 2-5, 6.87 ERA, 57.2 IP",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Kohl Drake has no major league innings; born 2000-07-17, turned 26 on Friday July 17 2026",
+      "source": "people/684442 career+yearByYear zero splits, birthDate",
+      "confirmations": 2
+    },
+    {
+      "claim": "Diamondbacks 51-49, 29-22 at home",
+      "source": "standings"
+    },
+    {
+      "claim": "Pirates 5.33 R/G (538 in 101), .263 AVG, 130 HR",
+      "source": "teams hitting"
+    },
+    {
+      "claim": "Bubba Chandler 3-8, 4.77 ERA, 55 BB in 94.1 IP, 1.45 WHIP, 18 GS",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Will Warren 7-4, 4.03 ERA",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Yankees 146 HR; staff 3.42 ERA, 387 runs allowed; 31-22 away, 25-22 home",
+      "source": "teams hitting + teams pitching + standings"
+    },
+    {
+      "claim": "Pirates 5 at Yankees 8 on July 20",
+      "source": "July 20 schedule"
+    },
+    {
+      "claim": "Ranger Suarez 3.15 ERA, 1.16 WHIP, 97 K, 26 BB",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Kyle Bradish 3.61 ERA, 50 BB in 107.1 IP",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Orioles 49-52, 7-3 L10, 464 RS / 478 RA; staff 4.21 ERA",
+      "source": "standings + teams pitching"
+    },
+    {
+      "claim": "Boston swept Tampa Bay July 17-19, four games, 28-10 aggregate (10-0, 5-3, 7-6, 6-1)",
+      "source": "teamId=111 schedule game log"
+    },
+    {
+      "claim": "Brewers 63-37 best winning pct, 33-18 home, 374 RA, 3.44 staff ERA",
+      "source": "standings + teams pitching"
+    },
+    {
+      "claim": "Mets 42-59, 4.08 R/G (412 in 101), .233 AVG, .683 OPS",
+      "source": "standings + teams hitting"
+    },
+    {
+      "claim": "Brandon Sproat 5.16 ERA, 39 BB in 82.0 IP, 1.37 WHIP",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Zac Thornton 2.60 ERA, 0.92 WHIP, 17.1 IP, 3 GS",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Parker Messick 8-5, 2.73 ERA, 1.07 WHIP, 112.0 IP, 110 K, 36 BB",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Kendry Rojas 2.79 ERA, 16 BB in 19.1 IP, 1.60 WHIP, 2 GS",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Twins 49-52, lost 3 straight, 4.75 staff ERA, 516 RA",
+      "source": "standings + teams pitching"
+    },
+    {
+      "claim": "Guardians 53-48, 4.01 R/G (405 in 101), .233 AVG",
+      "source": "standings + teams hitting"
+    },
+    {
+      "claim": "Twins 4 at Guardians 13 on July 20",
+      "source": "July 20 schedule"
+    },
+    {
+      "claim": "Drew Rasmussen 3.26 ERA, 0.95 WHIP, 17 BB in 99.1 IP, 18 GS",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Kevin Gausman 4.33 ERA, 112.1 IP, 116 K",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Blue Jays 3.98 R/G (398 in 100), .242 AVG, .684 OPS, lost 2 straight",
+      "source": "teams hitting + standings"
+    },
+    {
+      "claim": "Rays 4.46 R/G, 101 HR; Rays 7 at Blue Jays 1 on July 20",
+      "source": "teams hitting + July 20 schedule"
+    },
+    {
+      "claim": "Chase Burns 11-1, 2.54 ERA, 118 K in 102.2 IP, 1.11 WHIP",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Luis Castillo 3-8, 4.93 ERA",
+      "source": "people season pitching"
+    },
+    {
+      "claim": "Mariners 51-50, 30-21 home, W3, 389 RA, 3.57 staff ERA",
+      "source": "standings + teams pitching"
+    },
+    {
+      "claim": "Reds 45-54, 4.18 R/G (414 in 99), 481 RA, 4.60 staff ERA",
+      "source": "standings + teams hitting + teams pitching"
+    },
+    {
+      "claim": "Reds 0 at Mariners 8 on July 20",
+      "source": "July 20 schedule"
+    }
+  ],
+  "not_checked": [
+    "All odds and prices (author's own card, no book feed queried)",
+    "All stake sizes and unit counts (editorial judgement)",
+    "Any characterisation of market or sharp money"
+  ]
+}
