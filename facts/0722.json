@@ -1,0 +1,127 @@
+{
+  "article": "0722-sharp-mlb-wednesday-guardians-moneyline-rays-road-dog-yankees-nightcap-fried-marlins-astros-under-8-july-22-2026.html",
+  "published": "2026-07-22T18:45:00-04:00",
+  "modified": "2026-07-22T18:45:00-04:00",
+  "built_at": "2026-07-22T22:40:00+00:00",
+  "sources": [
+    {
+      "name": "MLB Stats API",
+      "purpose": "tonight's slate, gamePks, probable pitchers, first pitch times, doubleheader flag",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-22&hydrate=probablePitcher,linescore,team",
+      "fetched_at": "2026-07-22T22:35:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "AUTHORITATIVE team records, streak, home/away splits, L10, runs scored/allowed",
+      "endpoint": "https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&date=2026-07-22&standingsTypes=regularSeason&hydrate=team",
+      "fetched_at": "2026-07-22T22:36:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "2026 season pitching lines for the probable starters",
+      "endpoint": "https://statsapi.mlb.com/api/v1/people/{personId}/stats?stats=season&group=pitching&season=2026",
+      "fetched_at": "2026-07-22T22:36:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "team hitting (AVG, OPS, R, HR) and team pitching (staff ERA, WHIP, runs allowed)",
+      "endpoint": "https://statsapi.mlb.com/api/v1/teams/{teamId}/stats?stats=season&group=hitting|pitching&season=2026",
+      "fetched_at": "2026-07-22T22:36:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "July 21 final scores for the eight involved clubs",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-21",
+      "fetched_at": "2026-07-22T22:37:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "Pirates at Yankees game 1 final, linescore and pitching decisions",
+      "endpoint": "https://statsapi.mlb.com/api/v1.1/game/823518/feed/live",
+      "fetched_at": "2026-07-22T22:38:00+00:00"
+    }
+  ],
+  "games": [
+    {
+      "gamePk": 824408,
+      "matchup": "Minnesota Twins at Cleveland Guardians",
+      "first_pitch_et": "6:40 pm",
+      "away_probable": "Bailey Ober",
+      "home_probable": "Slade Cecconi",
+      "play": "Cleveland Guardians moneyline -137, 1.5 units"
+    },
+    {
+      "gamePk": 822784,
+      "matchup": "Tampa Bay Rays at Toronto Blue Jays",
+      "first_pitch_et": "7:07 pm",
+      "away_probable": "Griffin Jax",
+      "home_probable": "Braydon Fisher",
+      "play": "Tampa Bay Rays moneyline +106, 1.0 unit"
+    },
+    {
+      "gamePk": 823519,
+      "matchup": "Pittsburgh Pirates at New York Yankees, GAME 2 of a doubleheader",
+      "first_pitch_et": "7:05 pm",
+      "away_probable": "Bubba Chandler",
+      "home_probable": "Max Fried",
+      "play": "New York Yankees moneyline -170, 2.0 units",
+      "note": "doubleHeader flag 'S' (split). Game 1, gamePk 823518, first pitch 1:08 pm ET, final Pittsburgh 5 New York 3 in 10 innings. Monday July 20 Pirates at Yankees is recorded as Postponed; no cause is given in the data."
+    },
+    {
+      "gamePk": 824166,
+      "matchup": "Miami Marlins at Houston Astros",
+      "first_pitch_et": "8:10 pm",
+      "away_probable": "Sandy Alcantara",
+      "home_probable": "Peter Lambert",
+      "play": "Game total UNDER 8 at -110, 1.5 units"
+    }
+  ],
+  "team_records_as_of_2026-07-22": {
+    "Cleveland Guardians": {"record": "54-48", "streak": "W2", "L10": "7-3", "home": "27-24", "away": "27-24", "RS": 410, "RA": 410, "avg": ".233", "ops": ".690", "hr": 101, "staff_era": "3.73", "staff_whip": "1.26"},
+    "Minnesota Twins": {"record": "49-53", "streak": "L4", "L10": "4-6", "home": "26-25", "away": "23-28", "RS": 485, "RA": 521, "avg": ".247", "ops": ".733", "hr": 124, "staff_era": "4.75", "staff_whip": "1.40"},
+    "Tampa Bay Rays": {"record": "58-42", "streak": "W2", "L10": "4-6", "home": "35-15", "away": "23-27", "RS": 454, "RA": 424, "avg": ".261", "ops": ".739", "hr": 103, "staff_era": "3.86", "staff_whip": "1.18"},
+    "Toronto Blue Jays": {"record": "46-55", "streak": "L3", "L10": "4-6", "home": "25-29", "away": "21-26", "RS": 400, "RA": 461, "avg": ".242", "ops": ".683", "hr": 101, "staff_era": "4.21", "staff_whip": "1.32"},
+    "New York Yankees": {"record": "56-45", "streak": "L1", "L10": "6-4", "home": "25-23", "away": "31-22", "RS": 478, "RA": 392, "avg": ".236", "ops": ".736", "hr": 147, "staff_era": "3.42", "staff_whip": "1.19"},
+    "Pittsburgh Pirates": {"record": "53-49", "streak": "W1", "L10": "6-4", "home": "27-24", "away": "26-25", "RS": 543, "RA": 490, "avg": ".262", "ops": ".767", "hr": 132, "staff_era": "4.28", "staff_whip": "1.31"},
+    "Miami Marlins": {"record": "52-50", "streak": "L8", "L10": "2-8", "home": "31-20", "away": "21-30", "RS": 455, "RA": 441, "avg": ".251", "ops": ".735", "hr": 104, "staff_era": "4.04", "staff_whip": "1.25"},
+    "Houston Astros": {"record": "49-54", "streak": "W2", "L10": "4-6", "home": "25-27", "away": "24-27", "RS": 468, "RA": 516, "avg": ".241", "ops": ".727", "hr": 139, "staff_era": "4.74", "staff_whip": "1.40"}
+  },
+  "probable_starters_2026_season": {
+    "Bailey Ober": {"id": 641927, "wl": "7-3", "era": "4.32", "ip": "77.0", "whip": "1.19", "so": 58, "bb": 21, "hr": 13, "gs": 14},
+    "Slade Cecconi": {"id": 677944, "wl": "4-6", "era": "4.55", "ip": "99.0", "whip": "1.41", "so": 77, "bb": 31, "hr": 13, "gs": 19},
+    "Griffin Jax": {"id": 643377, "wl": "5-7", "era": "4.08", "ip": "75.0", "whip": "1.27", "so": 77, "bb": 26, "hr": 13, "gs": 15},
+    "Braydon Fisher": {"id": 680755, "wl": "3-3", "era": "3.65", "ip": "49.1", "whip": "1.18", "so": 50, "bb": 22, "hr": 6, "gs": 6},
+    "Bubba Chandler": {"id": 696149, "wl": "3-8", "era": "4.77", "ip": "94.1", "whip": "1.45", "so": 85, "bb": 55, "hr": 10, "gs": 18},
+    "Max Fried": {"id": 608331, "wl": "4-3", "era": "3.21", "ip": "61.2", "whip": "1.01", "so": 50, "bb": 19, "hr": 1, "gs": 10},
+    "Sandy Alcantara": {"id": 645261, "wl": "10-5", "era": "3.89", "ip": "136.2", "whip": "1.22", "so": 107, "bb": 37, "hr": 14, "gs": 21},
+    "Peter Lambert": {"id": 663567, "wl": "8-5", "era": "3.03", "ip": "92.0", "whip": "1.11", "so": 91, "bb": 36, "hr": 11, "gs": 16}
+  },
+  "july_21_finals_involved_clubs": [
+    "Minnesota Twins 2 at Cleveland Guardians 5",
+    "Tampa Bay Rays 12 at Toronto Blue Jays 2",
+    "Miami Marlins 3 at Houston Astros 5",
+    "Pittsburgh Pirates at New York Yankees: Postponed"
+  ],
+  "july_22_game_1_pirates_yankees": {
+    "gamePk": 823518,
+    "final": "Pittsburgh 5, New York 3 (10 innings)",
+    "hits": "PIT 7, NYY 6",
+    "first_pitch": "2026-07-22T17:08:00Z (1:08 pm ET)",
+    "starters": "Mitch Keller (PIT) vs Gerrit Cole (NYY)",
+    "decisions": {"win": "Mason Montgomery", "loss": "Fernando Cruz", "save": "Gregory Soto"},
+    "note": "Gerrit Cole started and did not factor in the decision; New York's loss went to a reliever in extra innings."
+  },
+  "derived_figures_stated_in_article": {
+    "staff_era_ranking_tonight": "NYY 3.42, CLE 3.73, TB 3.86, MIA 4.04, TOR 4.21, PIT 4.28, HOU 4.74, MIN 4.75",
+    "alcantara_lambert_combined": "3.53 ERA across 228.2 innings (136.2 + 92.0)",
+    "cleveland_run_differential": "0 (410 scored, 410 allowed)",
+    "rays_home_away_swing": "35-15 (.700) at home vs 23-27 (.460) on the road, a 240 point winning percentage gap",
+    "ober_hr_rate": "13 home runs allowed in 77.0 innings"
+  },
+  "not_checked": [
+    "All odds and prices (-137, +106, -170, -110). Supplied by the author from their own betting card. No sportsbook feed was queried and no archived quote exists.",
+    "All stake sizes and unit counts. Editorial judgement, not a measurement.",
+    "Any characterisation of market or sharp money.",
+    "The reason the July 20 Pirates at Yankees game was postponed. The schedule endpoint records the postponement and today's doubleheader but gives no cause."
+  ]
+}
