@@ -1,0 +1,128 @@
+{
+  "article": "0725-sharp-mlb-saturday-soto-il-total-drop-skenes-cubs-mariners-rangers-book-split-july-25-2026.html",
+  "published": "2026-07-25T15:30:00-04:00",
+  "modified": "2026-07-25T15:30:00-04:00",
+  "built_at": "2026-07-25T19:35:00+00:00",
+  "sources": [
+    {
+      "name": "MLB Stats API",
+      "purpose": "July 25 slate, probable pitchers, first pitch times, venues, game status",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-25&hydrate=probablePitcher,team,linescore",
+      "fetched_at": "2026-07-25T19:10:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "AUTHORITATIVE team records, runs scored, runs allowed",
+      "endpoint": "https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason&date=2026-07-25",
+      "fetched_at": "2026-07-25T19:15:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "2026 season pitching lines for the six probable starters (ERA, WHIP, IP, W-L, K, HR, GS, BB)",
+      "endpoint": "https://statsapi.mlb.com/api/v1/people/{personId}?hydrate=stats(group=pitching,type=season,season=2026)",
+      "fetched_at": "2026-07-25T19:20:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "team pitching (staff ERA, WHIP, saves)",
+      "endpoint": "https://statsapi.mlb.com/api/v1/teams/stats?season=2026&group=pitching&stats=season&sportIds=1",
+      "fetched_at": "2026-07-25T19:12:00+00:00"
+    },
+    {
+      "name": "NBC Sports / Yahoo Sports / MLB Trade Rumors",
+      "purpose": "confirm Juan Soto placed on 10-day IL with left calf strain, stats (.293/21 HR/52 RBI in 84 games), recovery estimate, Eric Wagaman recall",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:25:00+00:00"
+    },
+    {
+      "name": "FanDuel Research / Covers.com / SportsbookReview",
+      "purpose": "confirm Dodgers-Mets total moved from 8 (opening, still at DraftKings/Caesars) to 7.5 at most books",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:28:00+00:00"
+    },
+    {
+      "name": "Covers.com / FanDuel",
+      "purpose": "confirm Mariners-Rangers total of 7.5 with FanDuel pricing Over -122 / Under +100",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:30:00+00:00"
+    },
+    {
+      "name": "SportsbookReview / Oddsshark",
+      "purpose": "confirm Cubs +117 / Pirates -122 to -132 moneyline and Cubs-Pirates total near 8",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:31:00+00:00"
+    },
+    {
+      "name": "thecapper.io / Yahoo Sports fantasy park factors",
+      "purpose": "2026 PNC Park run factor (1.00) and home run factor (0.98)",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:33:00+00:00"
+    },
+    {
+      "name": "sportsbettingdime.com / colorwaysports.com",
+      "purpose": "2026 Globe Life Field run factor (1.07) and roof-closed frequency (>80% of home games)",
+      "endpoint": "web search, 2026-07-25",
+      "fetched_at": "2026-07-25T19:34:00+00:00"
+    }
+  ],
+  "facts": {
+    "records": {
+      "Cubs": "58-45", "Pirates": "53-51", "Dodgers": "66-38", "Mets": "43-61",
+      "Mariners": "51-53", "Rangers": "52-51"
+    },
+    "runs": {
+      "Cubs": {"RS": 523, "RA": 457, "games": 103, "rs_per_game": 5.08},
+      "Pirates": {"RS": 545, "RA": 495, "games": 104},
+      "Dodgers": {"RS": 539, "RA": 380, "games": 104},
+      "Mets": {"RS": 421, "RA": 487, "games": 104, "rs_per_game": 4.05},
+      "Mariners": {"RS": 419, "RA": 403, "games": 104, "rs_per_game": 4.03},
+      "Rangers": {"RS": 432, "RA": 461, "games": 103, "rs_per_game": 4.19}
+    },
+    "team_pitching": {
+      "Dodgers": {"era": 3.53, "whip": 1.13, "saves": 28},
+      "Mariners": {"era": 3.62, "whip": 1.17, "saves": 23},
+      "Pirates": {"era": 4.22, "whip": 1.30, "saves": 20},
+      "Cubs": {"era": 4.22, "whip": 1.27, "saves": 21},
+      "Mets": {"era": 4.22, "whip": 1.31, "saves": 17},
+      "Rangers": {"era": 4.31, "whip": 1.27, "saves": 31}
+    },
+    "starters": {
+      "Shota Imanaga": {"era": 3.82, "whip": 1.10, "ip": 117.2, "wl": "6-8", "k": 110, "hr": 22, "gs": 21, "bb": 29},
+      "Paul Skenes": {"era": 3.35, "whip": 1.03, "ip": 118.1, "wl": "9-8", "k": 144, "hr": 11, "gs": 22, "bb": 27},
+      "Yoshinobu Yamamoto": {"era": 2.77, "whip": 0.89, "ip": 120.1, "wl": "10-6", "k": 113, "hr": 13, "gs": 19, "bb": 25},
+      "Nolan McLean": {"era": 3.31, "whip": 1.08, "ip": 114.1, "wl": "7-6", "k": 135, "hr": 10, "gs": 21, "bb": 41},
+      "Bryan Woo": {"era": 4.23, "whip": 1.11, "ip": 110.2, "wl": "7-6", "k": 109, "hr": 12, "gs": 20, "bb": 23},
+      "Nathan Eovaldi": {"era": 4.18, "whip": 1.19, "ip": 116.1, "wl": "9-8", "k": 123, "hr": 22, "gs": 20, "bb": 28}
+    },
+    "first_pitch_et": {
+      "Chicago Cubs at Pittsburgh Pirates": "6:40 PM",
+      "Los Angeles Dodgers at New York Mets": "7:15 PM",
+      "Seattle Mariners at Texas Rangers": "7:15 PM"
+    },
+    "juan_soto_injury": {
+      "status": "Placed on 10-day injured list, Saturday July 25 2026",
+      "injury": "Left calf strain",
+      "recovery_estimate": "4-6 weeks (initial estimate per Jon Heyman, NY Post)",
+      "2026_stats_before_injury": ".293 AVG, 21 HR, 52 RBI in 84 games",
+      "replacement": "Eric Wagaman recalled from Triple-A Syracuse",
+      "prior_2026_absence": "Missed April 3-21 (15 games) with right calf strain; Mets went 3-12"
+    },
+    "odds_and_line_movement": {
+      "dodgers_mets_total": "Opened at 8; moved to 7.5 at most books by Saturday afternoon; DraftKings and Caesars still at 8 as of last check",
+      "dodgers_mets_moneyline": "Dodgers favored, roughly -154 to -160",
+      "mariners_rangers_total": "7.5 at FanDuel, Over -122 / Under +100",
+      "mariners_rangers_moneyline": "Mariners -112, Rangers -107 (near pick'em)",
+      "cubs_pirates_total": "Sits between 8 and 8.5",
+      "cubs_pirates_moneyline": "Cubs +117, Pirates -122 to -132"
+    },
+    "park_factors_2026": {
+      "PNC Park": {"run_factor": 1.00, "hr_factor": 0.98, "note": "neutral for runs, slightly homer-suppressing, open-air riverside park subject to wind swings"},
+      "Globe Life Field": {"run_factor": 1.07, "hr_factor": 1.12, "note": "season average skewed hitter-friendly on open-roof games; roof closed >80% of Rangers home dates, closer to neutral when shut"}
+    }
+  },
+  "not_checked": [
+    "Odds and stake sizes attached to each play (-111, -125, -145, -115, and the unit sizes). Supplied by the author from their own betting card. No sportsbook feed is queried for these specific numbers.",
+    "Public sportsbook totals and the 8-to-7.5 line move were checked live this session, but real-money lines move continuously and may not match by the time this page is read.",
+    "Any characterization of market or sharp money behavior is the author's read of the public data above, not a proprietary market feed."
+  ]
+}
