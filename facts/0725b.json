@@ -1,0 +1,71 @@
+{
+  "article": "0725-mlb-post-all-star-break-scoring-trends-yankees-nationals-padres-diamondbacks-july-25-2026.html",
+  "published": "2026-07-25T16:00:00-04:00",
+  "modified": "2026-07-25T16:00:00-04:00",
+  "built_at": "2026-07-25T20:15:00+00:00",
+  "sources": [
+    {
+      "name": "MLB Stats API",
+      "purpose": "confirm All-Star break dates: July 13 and 15 were off days (0 games each), July 14 had 1 game (All-Star Game), full slate resumed July 17",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-1{2..7}",
+      "fetched_at": "2026-07-25T19:40:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "AUTHORITATIVE 2026 full-season team records and runs scored per game",
+      "endpoint": "https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason&date=2026-07-25",
+      "fetched_at": "2026-07-25T19:15:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "team hitting stats (runs scored, games played) for the date range July 17-24 2026, used to compute post-All-Star-break runs per game",
+      "endpoint": "https://statsapi.mlb.com/api/v1/teams/stats?season=2026&group=hitting&stats=byDateRange&startDate=2026-07-17&endDate=2026-07-24&sportIds=1",
+      "fetched_at": "2026-07-25T19:42:00+00:00"
+    },
+    {
+      "name": "MLB Stats API",
+      "purpose": "confirm tonight's (July 25) probable pitchers for Yankees-Phillies, Braves-Orioles, Padres-Marlins, Diamondbacks-Nationals",
+      "endpoint": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-07-25&hydrate=probablePitcher,team,linescore",
+      "fetched_at": "2026-07-25T19:10:00+00:00"
+    }
+  ],
+  "facts": {
+    "season_2026_through_jul25": {
+      "New York Yankees": {"record": "58-45", "runs": 481, "games": 103, "rpg": 4.67},
+      "Toronto Blue Jays": {"record": "48-57", "runs": 415, "games": 105, "rpg": 3.95},
+      "Los Angeles Angels": {"record": "41-64", "runs": 450, "games": 105, "rpg": 4.29},
+      "Miami Marlins": {"record": "52-53", "runs": 461, "games": 105, "rpg": 4.39},
+      "Atlanta Braves": {"record": "61-42", "runs": 515, "games": 103, "rpg": 5.00},
+      "Washington Nationals": {"record": "53-52", "runs": 574, "games": 105, "rpg": 5.47},
+      "San Diego Padres": {"record": "52-53", "runs": 437, "games": 105, "rpg": 4.16},
+      "Arizona Diamondbacks": {"record": "55-50", "runs": 472, "games": 105, "rpg": 4.50},
+      "Philadelphia Phillies": {"record": "56-48", "runs": 448, "games": 104, "rpg": 4.31},
+      "Baltimore Orioles": {"record": "50-54", "runs": 478, "games": 104, "rpg": 4.60}
+    },
+    "post_all_star_break_jul17_to_jul24": {
+      "New York Yankees": {"runs": 19, "games": 7, "rpg": 2.71},
+      "Toronto Blue Jays": {"runs": 17, "games": 8, "rpg": 2.13},
+      "Los Angeles Angels": {"runs": 18, "games": 7, "rpg": 2.57},
+      "Miami Marlins": {"runs": 20, "games": 7, "rpg": 2.86},
+      "Atlanta Braves": {"runs": 55, "games": 8, "rpg": 6.88},
+      "Washington Nationals": {"runs": 53, "games": 7, "rpg": 7.57},
+      "San Diego Padres": {"runs": 51, "games": 8, "rpg": 6.38},
+      "Arizona Diamondbacks": {"runs": 53, "games": 8, "rpg": 6.63}
+    },
+    "all_star_break_2026": {
+      "off_days": ["2026-07-13", "2026-07-15"],
+      "all_star_game": "2026-07-14",
+      "second_half_resumed": "2026-07-17"
+    },
+    "tonight_jul25_games": {
+      "New York Yankees at Philadelphia Phillies": {"first_pitch_et": "6:05 PM", "probables": "Ryan Weathers vs Tim Mayza"},
+      "Atlanta Braves at Baltimore Orioles": {"first_pitch_et": "7:05 PM", "probables": "Bryce Elder vs Brandon Young"},
+      "San Diego Padres at Miami Marlins": {"first_pitch_et": "4:10 PM", "probables": "Randy Vasquez vs Eury Perez"},
+      "Arizona Diamondbacks at Washington Nationals": {"first_pitch_et": "4:05 PM", "probables": "Mitch Bratt vs Foster Griffin"}
+    }
+  },
+  "not_checked": [
+    "Whether any team's post-break scoring rate continues going forward. This is descriptive, not predictive.",
+    "Betting lines or totals for tonight's games. None are quoted or recommended in this article."
+  ]
+}
