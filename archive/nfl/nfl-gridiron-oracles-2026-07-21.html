@@ -1,291 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFL Betting Analysis Today: Odds, Matchups and Game Breakdowns | Sports Betting Prime</title>
-    <meta name="description" content="Withdrawn 21 July 2026. This archived page carried automatically generated statistics that were not sourced from any data provider.">
-    <link rel="canonical" href="https://sportsbettingprime.com/nfl-gridiron-oracles.html" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="NFL Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta property="og:description" content="NFL betting picks, line movement, matchup analysis, and daily odds from Sports Betting Prime.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sportsbettingprime.com/nfl-gridiron-oracles.html">
-    <meta property="og:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NFL Betting Picks, Odds and Analysis | Sports Betting Prime">
-    <meta name="twitter:description" content="NFL betting picks, line movement, matchup analysis, and daily odds from Sports Betting Prime.">
-    <meta name="twitter:image" content="https://sportsbettingprime.com/og-image.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --border: #334155;
-            --accent: #22c55e;
-            --accent2: #16a34a;
-            --gold: #f59e0b;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; }
-        .logo .prime { color: var(--gold); }
-        .nav-links { display: flex; list-style: none; gap: 0.5rem; flex-wrap: wrap; }
-        .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--card); }
-        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .page-header { text-align: center; margin-bottom: 3rem; }
-        .page-header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
-        .week-badge { display: inline-block; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
-        .intro-panel { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
-        .intro-panel p { color: var(--muted); margin-bottom: 1rem; }
-        .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
-        .intro-link { display: block; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); text-decoration: none; font-weight: 600; }
-        .intro-link span { display: block; margin-top: 0.35rem; color: var(--muted); font-size: 0.875rem; font-weight: 500; }
-        .tnf-banner { background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1)); border: 2px solid var(--accent); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
-        .tnf-banner h2 { color: var(--accent); font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .tnf-banner .live { background: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .game-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
-        .game-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.05)); }
-        .team { display: flex; align-items: center; gap: 1rem; }
-        .team img { width: 64px; height: 64px; object-fit: contain; }
-        .team-info .name { font-weight: 700; font-size: 1.2rem; }
-        .team-info .record { color: var(--muted); font-size: 0.9rem; }
-        .team.away { justify-content: flex-start; }
-        .team.home { justify-content: flex-end; text-align: right; }
-        .vs { font-weight: 800; color: var(--accent); padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; }
-        .game-meta { padding: 0.75rem 1.5rem; color: var(--muted); font-size: 0.9rem; border-bottom: 1px solid var(--border); }
-        .game-odds { display: flex; gap: 2rem; padding: 1rem 1.5rem; background: rgba(0, 0, 0, 0.2); flex-wrap: wrap; align-items: center; }
-        .odd-item { display: flex; flex-direction: column; }
-        .odd-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
-        .odd-value { font-weight: 700; color: var(--gold); font-size: 1.1rem; }
-        .pick-badge { margin-left: auto; background: linear-gradient(135deg, var(--accent), #16a34a); color: white; padding: 0.75rem 1.5rem; border-radius: 25px; font-weight: 800; font-size: 1rem; }
-        .game-analysis { padding: 1.5rem; }
-        .game-analysis h3 { color: var(--accent); font-size: 1.1rem; margin-bottom: 1rem; }
-        .game-analysis p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
-        .key-factors { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .factor { background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent); }
-        .factor .title { font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
-        .factor .desc { font-size: 0.875rem; color: var(--muted); }
-        footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .game-header { grid-template-columns: 1fr; gap: 1rem; text-align: center; } .team { justify-content: center !important; text-align: center !important; } }
-    
-/* Calendar Sidebar Styles */
-.page-layout { display: flex; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 2rem; }
-.calendar-sidebar { position: sticky; top: 100px; width: 280px; flex-shrink: 0; height: fit-content; }
-.main-content { flex: 1; min-width: 0; }
-.calendar-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
-.calendar-title { font-size: 0.875rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; text-align: center; }
-.year-display { font-size: 1.5rem; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 0.75rem; }
-.month-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.625rem; font-size: 0.875rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
-.calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
-.calendar-weekdays span { text-align: center; font-size: 0.7rem; font-weight: 600; color: var(--muted); padding: 4px 0; }
-.calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-.cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--muted); background: rgba(0,0,0,0.2); border-radius: 4px; cursor: default; }
-.cal-day.empty { background: transparent; }
-.cal-day.has-content { background: rgba(34, 197, 94, 0.2); color: #22c55e; cursor: pointer; font-weight: 600; border: 1px solid rgba(34, 197, 94, 0.3); }
-.cal-day.has-content:hover { background: rgba(34, 197, 94, 0.4); transform: scale(1.1); }
-.cal-day.today { box-shadow: inset 0 0 0 2px var(--gold); }
-.mobile-archive { display: none; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
-.mobile-archive-title { font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem; }
-.mobile-archive-select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 0.5rem; font-size: 0.875rem; border-radius: 6px; }
-@media (max-width: 1024px) { .calendar-sidebar { display: none; } .mobile-archive { display: block; } .page-layout { padding: 1rem; } }
-
-    </style>
-
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "NFL Gridiron Oracles",
-        "description": "Expert NFL betting analysis with spreads, totals, and sharp action",
-        "url": "https://sportsbettingprime.com/nfl-gridiron-oracles.html",
-        "isPartOf": {
-            "@type": "WebSite",
-            "name": "Sports Betting Prime",
-            "url": "https://sportsbettingprime.com/"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Sports Betting Prime"
-        }
-    }
-    </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQH4JXHGN3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QQH4JXHGN3');
-</script>
-<!-- breadcrumb-list-injected -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://sportsbettingprime.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "NFL",
-      "item": "https://sportsbettingprime.com/nfl-gridiron-oracles.html"
-    }
-  ]
-}
-</script>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/index.html" class="logo">SPORTS BETTING <span class="prime">PRIME</span></a>
-            <ul class="nav-links">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/covers-consensus.html">Consensus</a></li>
-                <li><a href="/nfl-gridiron-oracles.html" class="active">NFL</a></li>
-                <li><a href="/nba-court-vision.html">NBA</a></li>
-                <li><a href="/nhl-ice-oracles.html">NHL</a></li>
-                <li><a href="/mlb-prime-directives.html">MLB</a></li>
-                <li><a href="/college-basketball.html">NCAAB</a></li>
-                <li><a href="/college-football.html">NCAAF</a></li>
-                <li><a href="/guides.html">Blog</a></li>
-                <li><a href="/guides.html">Sitemap</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-<div style="max-width:720px;margin:0 auto;padding:60px 24px 80px" id="sbp-archive-notice">
-  <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f59e0b;font-weight:700;margin-bottom:14px">Withdrawn &mdash; 21 July 2026</p>
-  <h1 style="font-size:1.9rem;line-height:1.2;margin-bottom:18px;color:#f1f5f9">NFL Gridiron Oracles</h1>
-
-  <p style="color:#94a3b8;margin-bottom:16px">This page previously carried automatically generated NFL matchup analysis for 21 July 2026. Its content has been withdrawn.</p>
-
-  <p style="color:#94a3b8;margin-bottom:16px">An audit found that the statistics on these pages &mdash; against-the-spread records, points-per-game figures, home records, defensive rankings, line-movement notes and &ldquo;sharp action&rdquo; claims &mdash; were not sourced from any data provider. They were produced by a random number generator. Because the underlying numbers never existed, the page cannot be corrected; it can only be emptied.</p>
-
-  <p style="color:#94a3b8;margin-bottom:28px">The generator has been deleted. We have left this URL in place and returning normally rather than removing it, so that anything linking here still resolves and the record of what was published is not quietly erased.</p>
-
-  <div style="display:grid;gap:10px">
-    <a href="/nfl-gridiron-oracles.html" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">NFL betting fundamentals &rarr;<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">How the NFL market is priced, sourced and dated.</span></a>
-    <a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">Find verified handicappers &rarr;<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">Records timestamped before the game and graded automatically, on Trust My Record.</span></a>
-    <a href="/editorial-policy.html" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">What changed, and why &rarr;<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">Our editorial standards and what was removed.</span></a>
-    <a href="/" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">Sports Betting Prime home &rarr;</a>
-  </div>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>NFL Betting Analysis Today: Odds, Matchups and Game Breakdowns | Sports Betting Prime</title><meta content="Withdrawn 21 July 2026. This archived page carried automatically generated statistics that were not sourced from any data provider." name="description"/>
+<link href="https://sportsbettingprime.com/nfl-gridiron-oracles.html" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/sbp.css" rel="stylesheet"/></head><body>
+<header class="mast"><div class="wrap"><a class="brand" href="/index.html"><span class="tick"><i></i><i></i><i></i><i></i></span>Sports Betting Prime</a>
+<nav class="sections"><a href="/pricing.html">Pricing</a><a href="/movement.html">Line movement</a><a href="/structure.html">Market structure</a><a href="/staking.html">Staking</a><a href="/bet-types.html">Bet types</a><a href="/studies.html">Studies</a><a href="/tools.html">Tools</a><a href="/sport-guides.html">Sports</a><a href="/method.html">Method</a></nav></div></header>
+<main class="wrap"><div class="crumb"><a href="/index.html">Home</a> / <a href="/archive-index.html">Archive</a> / Withdrawn</div><h1 class="page">NFL Betting Analysis Today: Odds, Matchups and Game Breakdowns</h1><div class="note stop"><b>Withdrawn · content removed in July 2026</b><p>This page carried automatically generated matchup statistics that were produced by a random number generator rather than any data provider. The generator was deleted and the content emptied. The URL is kept live so that anything linking here still resolves and the record of what was published is not quietly erased.</p></div><div id="sbp-archive-notice" style="max-width:720px;margin:0 auto;padding:60px 24px 80px">
+<p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f59e0b;font-weight:700;margin-bottom:14px">Withdrawn — 21 July 2026</p>
+<p style="color:#94a3b8;margin-bottom:16px">This page previously carried automatically generated NFL matchup analysis for 21 July 2026. Its content has been withdrawn.</p>
+<p style="color:#94a3b8;margin-bottom:16px">An audit found that the statistics on these pages — against-the-spread records, points-per-game figures, home records, defensive rankings, line-movement notes and “sharp action” claims — were not sourced from any data provider. They were produced by a random number generator. Because the underlying numbers never existed, the page cannot be corrected; it can only be emptied.</p>
+<p style="color:#94a3b8;margin-bottom:28px">The generator has been deleted. We have left this URL in place and returning normally rather than removing it, so that anything linking here still resolves and the record of what was published is not quietly erased.</p>
+<div style="display:grid;gap:10px">
+<a href="/nfl-gridiron-oracles.html" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">NFL betting fundamentals →<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">How the NFL market is priced, sourced and dated.</span></a>
+<a href="https://trustmyrecord.com/handicappers/" rel="noopener" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">Find verified handicappers →<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">Records timestamped before the game and graded automatically, on Trust My Record.</span></a>
+<a href="/editorial-policy.html" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">What changed, and why →<span style="display:block;margin-top:4px;color:#94a3b8;font-size:.875rem;font-weight:500">Our editorial standards and what was removed.</span></a>
+<a href="/" style="display:block;padding:15px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#f1f5f9;text-decoration:none;font-weight:600">Sports Betting Prime home →</a>
 </div>
-</main>
-
-    <footer>
-        <p>&copy; 2026 Sports Betting Prime | NFL research, market context, and matchup analysis</p>
-        <p style="margin-top: 0.5rem;"><a href="/covers-consensus.html" style="color: var(--accent);">View Full Consensus</a> | <a href="/guides.html" style="color: var(--accent);">Handicapping Hub</a> | <a href="/responsible-gambling.html" style="color: var(--accent);">Responsible Gambling</a></p>
-    </footer>
-
-<script>
-const ARCHIVE_DATA = {
-            "2025-12-21": "archive/nfl/nfl-gridiron-oracles-2025-12-21.html",
-            "2025-12-22": "archive/nfl/nfl-gridiron-oracles-2025-12-22.html",
-            "2025-12-23": "archive/nfl/nfl-gridiron-oracles-2025-12-23.html",
-            "2025-12-24": "archive/nfl/nfl-gridiron-oracles-2025-12-24.html",
-            "2025-12-25": "archive/nfl/nfl-gridiron-oracles-2025-12-25.html"
-        };
-
-const CURRENT_SPORT = "NFL";
-
-function initCalendar() {
-    const today = new Date();
-    const monthSelect = document.getElementById('month-select');
-    const calendarDays = document.getElementById('calendar-days');
-    const yearDisplay = document.getElementById('cal-year');
-    const mobileSelect = document.getElementById('mobile-archive-select');
-
-    // Populate month dropdown
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                   'July', 'August', 'September', 'October', 'November', 'December'];
-
-    for (let i = 0; i < 12; i++) {
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = months[i];
-        if (i === today.getMonth()) opt.selected = true;
-        monthSelect.appendChild(opt);
-    }
-
-    // Populate mobile dropdown
-    Object.keys(ARCHIVE_DATA).sort().reverse().forEach(date => {
-        const opt = document.createElement('option');
-        opt.value = ARCHIVE_DATA[date];
-        const d = new Date(date + 'T12:00:00');
-        opt.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        mobileSelect.appendChild(opt);
-    });
-
-    mobileSelect.addEventListener('change', function() {
-        if (this.value) window.location.href = this.value;
-    });
-
-    function renderCalendar(year, month) {
-        yearDisplay.textContent = year;
-        calendarDays.innerHTML = '';
-
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        // Empty cells for days before month starts
-        for (let i = 0; i < firstDay; i++) {
-            const empty = document.createElement('div');
-            empty.className = 'cal-day empty';
-            calendarDays.appendChild(empty);
-        }
-
-        // Days of the month
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const dayEl = document.createElement('div');
-            dayEl.className = 'cal-day';
-            dayEl.textContent = day;
-
-            if (ARCHIVE_DATA[dateStr]) {
-                dayEl.classList.add('has-content');
-                dayEl.addEventListener('click', () => {
-                    window.location.href = ARCHIVE_DATA[dateStr];
-                });
-            }
-
-            // Highlight today
-            if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
-                dayEl.classList.add('today');
-            }
-
-            calendarDays.appendChild(dayEl);
-        }
-    }
-
-    monthSelect.addEventListener('change', function() {
-        renderCalendar(today.getFullYear(), parseInt(this.value));
-    });
-
-    renderCalendar(today.getFullYear(), today.getMonth());
-}
-
-document.addEventListener('DOMContentLoaded', initCalendar);
-</script>
-
-</body>
-</html>
-
+</div><div class="src">Historical material. The current reference library starts at <a href="/index.html">the home page</a>; this page is listed in the <a href="/archive-index.html">archive</a>.</div><div class="src">Historical material. The current reference library starts at <a href="/index.html">the home page</a>; this page is listed in the <a href="/archive-index.html">archive</a>.</div></main><footer class="site"><div class="wrap">
+<div><h4>How a price is built</h4><ul>
+<li><a href="/value-betting-explained.html">Value betting</a></li>
+<li><a href="/bookmaker-margin-and-vig-explained.html">Vig and margin</a></li>
+<li><a href="/closing-line-value-explained.html">Closing line value</a></li></ul></div>
+<div><h4>Research</h4><ul>
+<li><a href="/studies.html">Studies</a></li>
+<li><a href="/movement.html">Line movement</a></li>
+<li><a href="/structure.html">Market structure</a></li></ul></div>
+<div><h4>Practical</h4><ul>
+<li><a href="/tools.html">Calculators</a></li>
+<li><a href="/staking.html">Staking and risk</a></li>
+<li><a href="/bet-types.html">Bet types</a></li></ul></div>
+<div><h4>About</h4><ul>
+<li><a href="/method.html">Method and sources</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/archive-index.html">Historical archive</a></li></ul></div>
+<div class="colophon">A reference desk for how betting markets are priced. No page here sells a pick, ranks
+a handicapper or claims a record. Scores and schedules come from the ESPN public API. Consensus publishing
+is paused. Dated boards and withdrawn pages are kept at their original URLs in the
+<a href="/archive-index.html">archive</a>, clearly labelled and out of the way.</div>
+</div></footer></body></html>
