@@ -35,7 +35,7 @@ EXCLUDE_TOPLEVEL_DIRS = {
     ".git", "__pycache__", "node_modules", "scripts", "pending_content",
     # Daily near-duplicate snapshots: crawlable via calendars, NOT sitemap material
     "archive", "consensus_library", "handicapping-hub-archive",
-    "daily_reports", "logs",
+    "daily_reports", "logs", "daily", "blog",
 }
 # Sub-paths (relative to repo root, forward slash) that should be excluded
 EXCLUDE_PATH_PREFIXES = (
@@ -47,6 +47,8 @@ EXCLUDE_FILE_RES = (
     re.compile(r"^(sportsbettingprime-)?covers-consensus-\d{4}-\d{2}-\d{2}\.html$"),
     re.compile(r"^handicapping-hub-\d{4}-\d{2}-\d{2}\.html$"),
     re.compile(r"^handicapping-hub-calendar\.html$"),
+    re.compile(r"^sharp-mlb-"),
+    re.compile(r"^\d{4}-sharp-"),
 )
 
 META_ROBOTS_RE = re.compile(
@@ -104,6 +106,8 @@ def is_indexable_self_canonical(filepath: str, rel_path: str) -> bool:
     if robots and "noindex" in robots.group(1).lower():
         return False
     if META_REFRESH_RE.search(text):
+        return False
+    if "Historical · not a current board" in text:
         return False
     canonical = CANONICAL_RE.search(text)
     if canonical and canonical.group(1).rstrip("/") != canonical_url_for(rel_path).rstrip("/"):
