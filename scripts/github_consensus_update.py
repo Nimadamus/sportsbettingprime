@@ -403,25 +403,10 @@ class CoversConsensusScraper:
         self.side_counter = Counter()       # "sport|matchup|side" -> total count
         self.side_lines = defaultdict(Counter)  # "sport|matchup|side" -> {line_text: count}
         self.side_type = {}                 # "sport|matchup|side" -> pick_type
+        # Covers public contest split, kept OUT of side_counter so the
+        # "Nx" badge only ever counts contest leaders' actual picks.
+        self.public_sides = {}              # "sport|matchup|side" -> (pct, entrants)
 
-    def _consensus_weight(self, pct):
-        """Convert consensus percentage to weight for pick counting.
-        Stronger consensus = higher weight. This replaces the old count//20
-        formula which produced uniform ~8 for every game."""
-        if pct >= 75:
-            return 8
-        elif pct >= 70:
-            return 6
-        elif pct >= 65:
-            return 5
-        elif pct >= 60:
-            return 4
-        elif pct >= 55:
-            return 3
-        elif pct >= 52:
-            return 2
-        else:
-            return 1
 
     def _resolve_team_abbrev(self, abbrev):
         """Resolve a team abbreviation to full name"""
@@ -538,12 +523,21 @@ class CoversConsensusScraper:
 
         return matchup
 
-    def _add_to_side_counter(self, sport, matchup, pick_type, pick_text, weight=1):
-        """Add a pick to the side-based counter"""
+    def _add_to_side_counter(self, sport, matchup, pick_type, pick_text, weight=1, public=None):
+        """Add a pick to the side-based counter.
+        public=(pct, entrants) records the Covers public split for the side
+        without touching the leader pick count."""
         matchup = self._normalize_matchup(matchup)
         matchup = self._find_canonical_matchup(sport, matchup)
         side_label, display_line = self._extract_side(pick_text, pick_type, matchup)
         side_key = f"{sport}|{matchup}|{side_label}"
+        if public is not None:
+            prev = self.public_sides.get(side_key)
+            if prev is None or public[1] > prev[1]:
+                self.public_sides[side_key] = public
+            self.side_lines[side_key][display_line] += 0
+            self.side_type.setdefault(side_key, pick_type)
+            return
         self.side_counter[side_key] += weight
         self.side_lines[side_key][display_line] += weight
         self.side_type[side_key] = pick_type
@@ -732,10 +726,6 @@ class CoversConsensusScraper:
                                     val1 = abs(float(sides_parts[0]))
                                     val2 = abs(float(sides_parts[1]))
 
-                                    # Use percentage-based weight instead of count//20
-                                    weight1 = self._consensus_weight(pct1)
-                                    weight2 = self._consensus_weight(pct2)
-
                                     # Add picks if enough consensus (sport-specific threshold)
                                     if count1 >= min_picks:
                                         if val1 >= 100:
@@ -744,7 +734,7 @@ class CoversConsensusScraper:
                                         else:
                                             pick_type1 = 'Spread (ATS)'
                                             pick_text1 = f"{away_team} {sides_parts[0]}"
-                                        self._add_to_side_counter(sport_name, matchup, pick_type1, pick_text1, weight1)
+                                        self._add_to_side_counter(sport_name, matchup, pick_type1, pick_text1, public=(pct1, count1))
                                         picks_added += 1
 
                                     if count2 >= min_picks:
@@ -754,7 +744,7 @@ class CoversConsensusScraper:
                                         else:
                                             pick_type2 = 'Spread (ATS)'
                                             pick_text2 = f"{home_team} {sides_parts[1]}"
-                                        self._add_to_side_counter(sport_name, matchup, pick_type2, pick_text2, weight2)
+                                        self._add_to_side_counter(sport_name, matchup, pick_type2, pick_text2, public=(pct2, count2))
                                         picks_added += 1
         except Exception as e:
             print(f"    Error scraping sides: {e}")
@@ -815,16 +805,14 @@ class CoversConsensusScraper:
 
                                 # Add Over picks if significant (sport-specific threshold)
                                 if over_count >= min_picks:
-                                    over_weight = self._consensus_weight(over_pct)
                                     pick_text_over = f"Over {total_line}"
-                                    self._add_to_side_counter(sport_name, matchup, 'Total (Over)', pick_text_over, over_weight)
+                                    self._add_to_side_counter(sport_name, matchup, 'Total (Over)', pick_text_over, public=(over_pct, over_count))
                                     picks_added += 1
 
                                 # Add Under picks if significant
                                 if under_count >= min_picks:
-                                    under_weight = self._consensus_weight(under_pct)
                                     pick_text_under = f"Under {total_line}"
-                                    self._add_to_side_counter(sport_name, matchup, 'Total (Under)', pick_text_under, under_weight)
+                                    self._add_to_side_counter(sport_name, matchup, 'Total (Under)', pick_text_under, public=(under_pct, under_count))
                                     picks_added += 1
         except Exception as e:
             print(f"    Error scraping totals: {e}")
@@ -1557,9 +1545,11 @@ class CoversConsensusScraper:
         "MIA +6.5" and "Miami +5.5" both count under "Miami ATS" now."""
         aggregated = []
 
-        for side_key, count in self.side_counter.most_common():
-            if count < 1:
-                continue
+        all_keys = [k for k, c in self.side_counter.most_common() if c >= 1]
+        all_keys += [k for k in self.public_sides if k not in self.side_counter]
+        for side_key in all_keys:
+            count = self.side_counter.get(side_key, 0)
+            public = self.public_sides.get(side_key)
 
             parts = side_key.split('|', 2)
             if len(parts) != 3:
@@ -1587,13 +1577,15 @@ class CoversConsensusScraper:
 
             aggregated.append({
                 'count': count,
+                'public_pct': public[0] if public else None,
+                'public_n': public[1] if public else None,
                 'sport': sport,
                 'matchup': matchup,
                 'pickType': pick_type,
                 'pick': display_pick
             })
 
-        aggregated.sort(key=lambda x: -x['count'])
+        aggregated.sort(key=lambda x: (-x['count'], -(x['public_pct'] or 0)))
         print(f"\n[OK] Aggregated {len(aggregated)} consensus picks (side-based)")
         return aggregated  # Return ALL, not limited
 
@@ -1608,7 +1600,7 @@ def group_picks_by_game(picks):
 
     # Sort picks within each game by count
     for key in games:
-        games[key].sort(key=lambda x: -x['count'])
+        games[key].sort(key=lambda x: (-x['count'], -(x.get('public_pct') or 0)))
 
     # Convert to list and sort by highest consensus pick per game
     game_list = []
@@ -1674,18 +1666,29 @@ def generate_game_cards_html(games):
     for game in games:
         picks_html = []
         for pick in game['picks']:
+            if pick['count'] > 0:
+                badge = (f'<span class="consensus-badge {get_consensus_class(pick["count"])}" '
+                         f'title="Covers contest leaders on this side">{pick["count"]}x</span>')
+            else:
+                badge = '<span class="consensus-badge consensus-none" title="No contest leader on this side">0x</span>'
+            public_html = ''
+            if pick.get('public_pct') is not None:
+                public_html = (f'<span class="public-split" title="Share of all Covers contest entries on this side">'
+                               f'Public {pick["public_pct"]}% of {pick["public_n"]}</span>')
             pick_row = f'''                            <div class="pick-row">
-                                <span class="consensus-badge {get_consensus_class(pick['count'])}">{pick['count']}x</span>
+                                {badge}
                                 <span class="pick-type-badge {get_pick_class(pick['pickType'])}">{pick['pickType']}</span>
                                 <span class="pick-value">{pick['pick']}</span>
+                                {public_html}
                             </div>'''
             picks_html.append(pick_row)
 
+        top_label = f"{game['top_consensus']}x TOP" if game['top_consensus'] > 0 else "PUBLIC ONLY"
         card = f'''                <div class="game-card" data-sport="{game['sport']}">
                     <div class="game-header">
                         <span class="sport-tag {get_sport_class(game['sport'])}">{get_sport_abbrev(game['sport'])}</span>
                         <span class="game-matchup">{game['matchup']}</span>
-                        <span class="game-top-consensus">{game['top_consensus']}x TOP</span>
+                        <span class="game-top-consensus">{top_label}</span>
                     </div>
                     <div class="game-picks">
 {chr(10).join(picks_html)}
@@ -2107,7 +2110,8 @@ def update_covers_consensus(picks, espn_schedule=None):
     html = html[:games_start] + new_games_section + html[games_end + 6:]
 
     # Update timestamp
-    timestamp = TODAY.strftime('%B %d, %Y at %I:%M %p ET')
+    from zoneinfo import ZoneInfo
+    timestamp = datetime.now(ZoneInfo('America/New_York')).strftime('%B %d, %Y at %I:%M %p ET')
     html = re.sub(
         r'<strong>Last Updated:</strong>[^<]+',
         f'<strong>Last Updated:</strong> {timestamp}',
@@ -2150,6 +2154,11 @@ def update_covers_consensus(picks, espn_schedule=None):
         'total_picks': len(picks),
         'total_games': num_games,
         'sports_with_picks': sorted(sports_with_picks),
+        # Homepage widget reads this list.
+        'top_picks': [
+            {k: p.get(k) for k in ('sport', 'matchup', 'pickType', 'pick', 'count', 'public_pct', 'public_n')}
+            for p in sorted(picks, key=lambda x: (-x['count'], -(x.get('public_pct') or 0)))[:8]
+        ],
         'per_sport': {
             sport: {
                 'pick_count': data['picks'],
@@ -2383,7 +2392,9 @@ def main():
     for sport_name, games_list in espn_schedule.items():
         if games_list is not None:
             min_required = _MIN_ESPN_GAMES_TO_FILTER.get(sport_name, 3)
-            if len(games_list) < min_required:
+            # An empty list is a real answer (no games today), so it still
+            # filters; only a thin, possibly partial list skips filtering.
+            if 0 < len(games_list) < min_required:
                 print(f"    ESPN {sport_name}: only {len(games_list)} games (< {min_required} threshold) - SKIPPING filter for this sport")
                 espn_schedule[sport_name] = None  # None = don't filter
 
