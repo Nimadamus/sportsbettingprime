@@ -1590,5 +1590,18 @@
             renderCalendar(monthSelect.value);
         })();
     </script>
-    </body>
+    <script>
+        // Sport filter function
+        var sportMap = {'NCAAB': 'College Basketball', 'NCAAF': 'College Football'};
+        function filterSport(sport, btn) {
+            var match = sportMap[sport] || sport;
+            btn = btn || (window.event && window.event.target);
+            document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+            if (btn) btn.classList.add('active');
+            document.querySelectorAll('.game-card').forEach(function (card) {
+                card.style.display = (sport === 'all' || card.getAttribute('data-sport') === match) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
 </html>

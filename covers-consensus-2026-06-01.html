@@ -53,6 +53,11 @@
 <!-- Game Cards -->
 <div class="games-container">
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Colorado @ LA Angels</span>
+                        <span class="game-top-consensus">12x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-high">12x</span>
@@ -77,6 +82,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Miami @ Washington</span>
+                        <span class="game-top-consensus">11x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-high">11x</span>
@@ -101,6 +111,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Detroit @ Tampa Bay</span>
+                        <span class="game-top-consensus">9x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">9x</span>
@@ -120,6 +135,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Kansas City @ Cincinnati</span>
+                        <span class="game-top-consensus">9x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">9x</span>
@@ -139,6 +159,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">LA Dodgers @ Arizona</span>
+                        <span class="game-top-consensus">9x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">9x</span>
@@ -158,6 +183,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">San Francisco @ Milwaukee</span>
+                        <span class="game-top-consensus">9x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">9x</span>
@@ -182,6 +212,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">Chi. White Sox @ Minnesota</span>
+                        <span class="game-top-consensus">7x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">7x</span>
@@ -206,6 +241,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="MLB">
+<div class="game-header">
+                        <span class="sport-tag sport-mlb">MLB</span>
+                        <span class="game-matchup">NY Mets @ Seattle</span>
+                        <span class="game-top-consensus">6x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-medium">6x</span>
@@ -230,6 +270,11 @@
 </div>
 </div>
 <div class="game-card" data-sport="NHL">
+<div class="game-header">
+                        <span class="sport-tag sport-nhl">NHL</span>
+                        <span class="game-matchup">Vegas @ Carolina</span>
+                        <span class="game-top-consensus">3x TOP</span>
+                    </div>
 <div class="game-picks">
 <div class="pick-row">
 <span class="consensus-badge consensus-low">3x</span>
@@ -275,4 +320,17 @@
 <li><a href="/archive-index.html">Historical archive</a></li></ul></div>
 <div class="colophon">Sports Betting Prime tracks the Covers.com contest consensus every day and publishes betting market research that states its sample, method and date range. No page here sells a pick or claims a record. Consensus data comes from Covers.com contests; scores and schedules come from the ESPN public API. Dated boards and withdrawn pages are kept at their original URLs in the
 <a href="/archive-index.html">archive</a>.</div>
-</div></footer></body></html>
+</div></footer><script>
+        // Sport filter function
+        var sportMap = {'NCAAB': 'College Basketball', 'NCAAF': 'College Football'};
+        function filterSport(sport, btn) {
+            var match = sportMap[sport] || sport;
+            btn = btn || (window.event && window.event.target);
+            document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+            if (btn) btn.classList.add('active');
+            document.querySelectorAll('.game-card').forEach(function (card) {
+                card.style.display = (sport === 'all' || card.getAttribute('data-sport') === match) ? '' : 'none';
+            });
+        }
+    </script>
+</body></html>

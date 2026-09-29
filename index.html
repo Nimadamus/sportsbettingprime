@@ -7,19 +7,13 @@
 <link rel="stylesheet" href="/sbp.css"><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Sports Betting Prime", "url": "https://sportsbettingprime.com/", "description": "Sports betting tools and data: daily Covers.com contest consensus, betting calculators, and data studies that state sample, method and date range."}, {"@type": "Organization", "name": "Sports Betting Prime", "url": "https://sportsbettingprime.com/"}]}</script></head><body>
 <header class="mast"><div class="wrap"><a class="brand" href="/"><span class="tick"><i></i><i></i><i></i><i></i></span>Sports Betting Prime</a>
 <nav class="sections"><a href="/covers-consensus.html">Consensus</a><a href="/tools.html">Tools</a><a href="/studies.html">Studies</a><a href="/sport-guides.html">Sports</a><a href="/articles.html">Articles</a><a href="/learn.html">Learn</a><a href="/sportsbook.html">Sportsbooks</a></nav></div></header>
-<main class="wrap"><h1 class="page">Sports betting tools and data</h1><p class="dek">The daily Covers contest consensus, free betting calculators, and data studies that state their sample, method and date range.</p>
-<style>
-.cc-home{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;margin:18px 0}
-.cc-home-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between}
-.cc-home h2{margin:0}
-.cc-home ol{list-style:none;margin:12px 0 4px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
-.cc-home li{border:1px solid var(--rule2);border-radius:8px;padding:8px 10px;background:var(--panel)}
-.cc-home .m{font-size:12px;color:var(--chrome)}
-.cc-home .p{font-weight:600}
-.cc-home .b{font-family:var(--mono);font-size:12px;margin-right:6px;color:var(--pos)}
-.cc-home .pub{font-family:var(--mono);font-size:11px;color:var(--hold)}
-.cc-home .go{font-family:var(--mono);font-size:13px}
-</style>
+<main class="wrap"><section class="hero"><div class="hero-copy">
+<span class="eyebrow"><span class="live-dot"></span>Covers consensus, rebuilt daily</span>
+<h1>Know where the <em>contest leaders</em> are before you bet.</h1>
+<p class="dek">Sports Betting Prime tracks the Covers.com contest consensus every day, gives you the calculators to price it, and backs it with data studies that show their sample and method.</p>
+<div class="ctas"><a class="btn primary" href="/covers-consensus.html">Open today's consensus &rarr;</a><a class="btn" href="/tools.html">Betting calculators</a><a class="btn" href="/studies.html">Data studies</a></div>
+<div class="hero-stats"><div><b id="hs-games">&nbsp;</b><span>games on today's board</span></div><div><b id="hs-picks">&nbsp;</b><span>sides tracked today</span></div><div><b>6</b><span>free calculators</span></div><div><b>36</b><span>data studies</span></div></div>
+</div>
 <section class="cc-home" aria-labelledby="cc-home-h"><div class="cc-home-head"><h2 id="cc-home-h"><a href="/covers-consensus.html">Covers Consensus today</a></h2><span class="m" id="cc-home-date"></span></div>
 <p class="m" style="margin:4px 0 0">How many Covers contest leaders are on each side, with the public split beside it. Rebuilt every day.</p>
 <ol id="cc-home-list"></ol>
@@ -30,6 +24,9 @@
   function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   fetch('/consensus_scrape_log.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     if(d.date_display){document.getElementById('cc-home-date').textContent=d.date_display;}
+    document.getElementById('hs-games').textContent=d.total_games==null?'0':d.total_games;
+    document.getElementById('hs-picks').textContent=d.total_picks==null?'0':d.total_picks;
+    if(!(d.top_picks||[]).length){list.innerHTML='<li class="empty">No games on the board yet. Check back after the morning update.</li>';}
     (d.top_picks||[]).slice(0,6).forEach(function(p){
       var li=document.createElement('li');
       li.innerHTML='<div class="m">'+esc(p.sport)+' &middot; '+esc(p.matchup)+'</div><div class="p">'+
@@ -40,6 +37,7 @@
   }).catch(function(){});
 })();
 </script>
+</section>
 <h2>Tools</h2><div class="grid">
 <div class="card"><span class="kicker">Daily</span><h3><a href="/covers-consensus.html">Covers Consensus</a></h3><p>Contest leader picks and the public split for every game on today's card, with a calendar of past boards.</p></div>
 <div class="card"><span class="kicker">Calculator</span><h3><a href="/tools/odds-converter.html">Odds converter</a></h3><p>American, decimal and fractional odds, converted both ways.</p></div>

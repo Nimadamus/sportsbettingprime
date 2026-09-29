@@ -1673,7 +1673,7 @@ def generate_game_cards_html(games):
                 badge = '<span class="consensus-badge consensus-none" title="No contest leader on this side">0x</span>'
             public_html = ''
             if pick.get('public_pct') is not None:
-                public_html = (f'<span class="public-split" title="Share of all Covers contest entries on this side">'
+                public_html = (f'<span class="public-split" style="--p:{pick["public_pct"]}" title="Share of all Covers contest entries on this side">'
                                f'Public {pick["public_pct"]}% of {pick["public_n"]}</span>')
             pick_row = f'''                            <div class="pick-row">
                                 {badge}
@@ -1849,6 +1849,13 @@ def _build_archive_calendar_data():
     for filename in os.listdir(REPO):
         match = re.match(r'covers-consensus-(\d{4}-\d{2}-\d{2})\.html', filename)
         if match:
+            # Jul 22 to Aug 21 2026 files are copies of the pause notice, not boards.
+            try:
+                with open(os.path.join(REPO, filename), encoding='utf-8') as fh:
+                    if '<title>Consensus (Paused)' in fh.read(4000):
+                        continue
+            except OSError:
+                continue
             consensus_files.append((match.group(1), filename))
     consensus_files.sort()
 
