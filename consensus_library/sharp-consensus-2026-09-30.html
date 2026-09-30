@@ -358,7 +358,7 @@
         <header>
             <h1>⭐ Sharp Consensus Board</h1>
             <div class="subtitle">Top 100 Consensus Picks | September 30, 2026</div>
-            <div class="update-time">Data from: <span id="updateTime">September 30, 2026 - 12:09 AM EST</span></div>
+            <div class="update-time">Data from: <span id="updateTime">September 30, 2026 - 07:45 PM EST</span></div>
         </header>
 
         <div class="stats-bar">
@@ -367,11 +367,11 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">26</div>
+                <div class="stat-number" id="topConsensus">28</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="sportCount">1</div>
+                <div class="stat-number" id="sportCount">2</div>
                 <div class="stat-label">Sports Covered</div>
             </div>
         </div>
@@ -424,112 +424,247 @@
     <script>
         const consensusData = [
         {
-                "count": 26,
-                "public_pct": 52,
-                "public_n": 90,
+                "count": 28,
+                "public_pct": 75,
+                "public_n": 285,
                 "sport": "NHL",
-                "matchup": "Pittsburgh @ Philadelphia",
-                "pickType": "Moneyline",
-                "pick": "Pittsburgh ML (+114)"
+                "matchup": "Los Angeles @ Colorado",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
         },
         {
-                "count": 24,
-                "public_pct": 55,
-                "public_n": 91,
+                "count": 28,
+                "public_pct": 47,
+                "public_n": 237,
                 "sport": "NHL",
                 "matchup": "NY Islanders @ Toronto",
                 "pickType": "Moneyline",
-                "pick": "NY Islanders ML (+105)"
+                "pick": "NY Islanders ML (+100)"
         },
         {
-                "count": 23,
-                "public_pct": 77,
-                "public_n": 149,
+                "count": 27,
+                "public_pct": 70,
+                "public_n": 272,
+                "sport": "NHL",
+                "matchup": "Pittsburgh @ Philadelphia",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 27,
+                "public_pct": 64,
+                "public_n": 234,
+                "sport": "NHL",
+                "matchup": "NY Islanders @ Toronto",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 24,
+                "public_pct": 81,
+                "public_n": 439,
                 "sport": "NHL",
                 "matchup": "Los Angeles @ Colorado",
                 "pickType": "Moneyline",
                 "pick": "Colorado ML (-180)"
         },
         {
-                "count": 23,
-                "public_pct": 67,
-                "public_n": 93,
-                "sport": "NHL",
-                "matchup": "Los Angeles @ Colorado",
-                "pickType": "Total (Over)",
-                "pick": "Over 5.5"
-        },
-        {
-                "count": 20,
-                "public_pct": 62,
-                "public_n": 83,
+                "count": 22,
+                "public_pct": 46,
+                "public_n": 228,
                 "sport": "NHL",
                 "matchup": "Pittsburgh @ Philadelphia",
-                "pickType": "Total (Over)",
-                "pick": "Over 5.5"
+                "pickType": "Moneyline",
+                "pick": "Pittsburgh ML (+120)"
         },
         {
-                "count": 17,
-                "public_pct": 60,
-                "public_n": 74,
+                "count": 19,
+                "public_pct": 54,
+                "public_n": 266,
                 "sport": "NHL",
-                "matchup": "NY Islanders @ Toronto",
-                "pickType": "Total (Over)",
-                "pick": "Over 5.5"
+                "matchup": "Pittsburgh @ Philadelphia",
+                "pickType": "Moneyline",
+                "pick": "Philadelphia ML (-142)"
         },
         {
-                "count": 17,
-                "public_pct": 23,
-                "public_n": 44,
+                "count": 18,
+                "public_pct": 19,
+                "public_n": 101,
                 "sport": "NHL",
                 "matchup": "Los Angeles @ Colorado",
                 "pickType": "Moneyline",
                 "pick": "Los Angeles ML (+150)"
         },
         {
-                "count": 11,
-                "public_pct": 48,
-                "public_n": 82,
+                "count": 13,
+                "public_pct": 53,
+                "public_n": 267,
                 "sport": "NHL",
-                "matchup": "Pittsburgh @ Philadelphia",
+                "matchup": "NY Islanders @ Toronto",
                 "pickType": "Moneyline",
-                "pick": "Philadelphia ML (-135)"
+                "pick": "Toronto ML (-120)"
         },
         {
-                "count": 8,
-                "public_pct": 40,
-                "public_n": 50,
+                "count": 13,
+                "public_pct": 36,
+                "public_n": 132,
                 "sport": "NHL",
                 "matchup": "NY Islanders @ Toronto",
                 "pickType": "Total (Under)",
-                "pick": "Under 6.5"
+                "pick": "Under 5.5"
         },
         {
-                "count": 7,
-                "public_pct": 45,
-                "public_n": 74,
+                "count": 12,
+                "public_pct": 30,
+                "public_n": 119,
                 "sport": "NHL",
-                "matchup": "NY Islanders @ Toronto",
-                "pickType": "Moneyline",
-                "pick": "Toronto ML (-125)"
+                "matchup": "Pittsburgh @ Philadelphia",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
         },
         {
-                "count": 7,
-                "public_pct": 33,
-                "public_n": 46,
+                "count": 12,
+                "public_pct": 25,
+                "public_n": 96,
                 "sport": "NHL",
                 "matchup": "Los Angeles @ Colorado",
                 "pickType": "Total (Under)",
                 "pick": "Under 5.5"
         },
         {
-                "count": 6,
-                "public_pct": 38,
-                "public_n": 50,
-                "sport": "NHL",
-                "matchup": "Pittsburgh @ Philadelphia",
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Boston @ NY Yankees",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Philadelphia @ Atlanta",
+                "pickType": "Moneyline",
+                "pick": "Philadelphia ML (-117)"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. White Sox @ Houston",
+                "pickType": "Moneyline",
+                "pick": "CHW ML (+122)"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. Cubs @ San Diego",
+                "pickType": "Total (Over)",
+                "pick": "Over 7.0"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. Cubs @ San Diego",
+                "pickType": "Moneyline",
+                "pick": "San Diego ML (-145)"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Philadelphia @ Atlanta",
+                "pickType": "Moneyline",
+                "pick": "Atlanta ML (-106)"
+        },
+        {
+                "count": 3,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Philadelphia @ Atlanta",
+                "pickType": "Total (Over)",
+                "pick": "Over 7.0"
+        },
+        {
+                "count": 3,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Boston @ NY Yankees",
+                "pickType": "Moneyline",
+                "pick": "Boston ML (+113)"
+        },
+        {
+                "count": 3,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Boston @ NY Yankees",
                 "pickType": "Total (Under)",
-                "pick": "Under 5.5"
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 3,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Boston @ NY Yankees",
+                "pickType": "Moneyline",
+                "pick": "NY Yankees ML (-134)"
+        },
+        {
+                "count": 3,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. White Sox @ Houston",
+                "pickType": "Total (Over)",
+                "pick": "Over 7.5"
+        },
+        {
+                "count": 2,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. White Sox @ Houston",
+                "pickType": "Total (Under)",
+                "pick": "Under 7.5"
+        },
+        {
+                "count": 2,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Philadelphia @ Atlanta",
+                "pickType": "Total (Under)",
+                "pick": "Under 7.0"
+        },
+        {
+                "count": 1,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. Cubs @ San Diego",
+                "pickType": "Moneyline",
+                "pick": "CHC ML (+124)"
+        },
+        {
+                "count": 1,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "Chi. White Sox @ Houston",
+                "pickType": "Moneyline",
+                "pick": "Houston ML (-147)"
         }
 ];
 
