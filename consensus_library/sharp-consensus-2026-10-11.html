@@ -358,7 +358,7 @@
         <header>
             <h1>⭐ Sharp Consensus Board</h1>
             <div class="subtitle">Top 100 Consensus Picks | October 11, 2026</div>
-            <div class="update-time">Data from: <span id="updateTime">October 11, 2026 - 12:09 AM EST</span></div>
+            <div class="update-time">Data from: <span id="updateTime">October 11, 2026 - 07:16 PM EST</span></div>
         </header>
 
         <div class="stats-bar">
@@ -367,7 +367,7 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">29</div>
+                <div class="stat-number" id="topConsensus">41</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
@@ -424,18 +424,81 @@
     <script>
         const consensusData = [
         {
-                "count": 29,
-                "public_pct": 44,
+                "count": 41,
+                "public_pct": 77,
                 "public_n": 437,
+                "sport": "NHL",
+                "matchup": "Seattle @ Washington",
+                "pickType": "Moneyline",
+                "pick": "Washington ML (-218)"
+        },
+        {
+                "count": 40,
+                "public_pct": 74,
+                "public_n": 405,
+                "sport": "NHL",
+                "matchup": "Vancouver @ NY Rangers",
+                "pickType": "Moneyline",
+                "pick": "NY Rangers ML (-265)"
+        },
+        {
+                "count": 38,
+                "public_pct": 72,
+                "public_n": 412,
+                "sport": "NHL",
+                "matchup": "Carolina @ Philadelphia",
+                "pickType": "Moneyline",
+                "pick": "Carolina ML (-180)"
+        },
+        {
+                "count": 31,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Minnesota @ New Orleans",
                 "pickType": "Spread (ATS)",
                 "pick": "New Orleans +1.5"
         },
         {
+                "count": 28,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cleveland @ N.Y. Jets",
+                "pickType": "Spread (ATS)",
+                "pick": "N.Y. Jets -2.5"
+        },
+        {
+                "count": 27,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Chicago @ Green Bay",
+                "pickType": "Spread (ATS)",
+                "pick": "Green Bay +1.5"
+        },
+        {
+                "count": 26,
+                "public_pct": 49,
+                "public_n": 717,
+                "sport": "NFL",
+                "matchup": "Detroit @ Arizona",
+                "pickType": "Spread (ATS)",
+                "pick": "Arizona +4.5"
+        },
+        {
                 "count": 24,
-                "public_pct": 61,
-                "public_n": 611,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Houston @ Tennessee",
+                "pickType": "Spread (ATS)",
+                "pick": "Tennessee +6.5"
+        },
+        {
+                "count": 24,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Indianapolis @ Pittsburgh",
                 "pickType": "Spread (ATS)",
@@ -443,17 +506,44 @@
         },
         {
                 "count": 23,
-                "public_pct": 53,
-                "public_n": 492,
+                "public_pct": 71,
+                "public_n": 791,
                 "sport": "NFL",
                 "matchup": "Detroit @ Arizona",
+                "pickType": "Total (Over)",
+                "pick": "Over 48.5"
+        },
+        {
+                "count": 23,
+                "public_pct": 62,
+                "public_n": 977,
+                "sport": "NFL",
+                "matchup": "San Francisco @ Seattle",
                 "pickType": "Spread (ATS)",
-                "pick": "Arizona +8.5"
+                "pick": "San Francisco +3.5"
+        },
+        {
+                "count": 23,
+                "public_pct": 60,
+                "public_n": 246,
+                "sport": "NHL",
+                "matchup": "Vancouver @ NY Rangers",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
         },
         {
                 "count": 23,
                 "public_pct": 53,
-                "public_n": 522,
+                "public_n": 786,
+                "sport": "NFL",
+                "matchup": "Denver @ L.A. Chargers",
+                "pickType": "Spread (ATS)",
+                "pick": "L.A. Chargers +3.5"
+        },
+        {
+                "count": 22,
+                "public_pct": 53,
+                "public_n": 803,
                 "sport": "NFL",
                 "matchup": "Baltimore @ Atlanta",
                 "pickType": "Spread (ATS)",
@@ -461,188 +551,152 @@
         },
         {
                 "count": 22,
-                "public_pct": 71,
-                "public_n": 710,
-                "sport": "NFL",
-                "matchup": "Cincinnati @ Miami",
-                "pickType": "Spread (ATS)",
-                "pick": "Cincinnati -6.0"
-        },
-        {
-                "count": 22,
-                "public_pct": 60,
-                "public_n": 590,
-                "sport": "NFL",
-                "matchup": "San Francisco @ Seattle",
-                "pickType": "Spread (ATS)",
-                "pick": "San Francisco +3.5"
-        },
-        {
-                "count": 22,
-                "public_pct": 45,
-                "public_n": 461,
-                "sport": "NFL",
-                "matchup": "Cleveland @ N.Y. Jets",
-                "pickType": "Spread (ATS)",
-                "pick": "N.Y. Jets -1.5"
-        },
-        {
-                "count": 21,
-                "public_pct": 73,
-                "public_n": 499,
-                "sport": "NFL",
-                "matchup": "Detroit @ Arizona",
-                "pickType": "Total (Over)",
-                "pick": "Over 48.5"
-        },
-        {
-                "count": 21,
-                "public_pct": 65,
-                "public_n": 55,
-                "sport": "NHL",
-                "matchup": "Carolina @ Philadelphia",
-                "pickType": "Moneyline",
-                "pick": "Carolina ML (-148)"
-        },
-        {
-                "count": 21,
-                "public_pct": 62,
-                "public_n": 612,
-                "sport": "NFL",
-                "matchup": "N.Y. Giants @ Washington",
-                "pickType": "Spread (ATS)",
-                "pick": "N.Y. Giants +3.0"
-        },
-        {
-                "count": 21,
-                "public_pct": 42,
-                "public_n": 433,
-                "sport": "NFL",
-                "matchup": "Chicago @ Green Bay",
-                "pickType": "Spread (ATS)",
-                "pick": "Green Bay +2.5"
-        },
-        {
-                "count": 20,
-                "public_pct": 67,
-                "public_n": 56,
-                "sport": "NHL",
-                "matchup": "Vancouver @ NY Rangers",
-                "pickType": "Moneyline",
-                "pick": "NY Rangers ML (-250)"
-        },
-        {
-                "count": 20,
-                "public_pct": 50,
-                "public_n": 464,
-                "sport": "NFL",
-                "matchup": "Denver @ L.A. Chargers",
-                "pickType": "Spread (ATS)",
-                "pick": "L.A. Chargers +3.5"
-        },
-        {
-                "count": 19,
-                "public_pct": 72,
-                "public_n": 60,
-                "sport": "NHL",
-                "matchup": "Seattle @ Washington",
-                "pickType": "Moneyline",
-                "pick": "Washington ML (-218)"
-        },
-        {
-                "count": 18,
-                "public_pct": 60,
-                "public_n": 578,
-                "sport": "NFL",
-                "matchup": "Houston @ Tennessee",
-                "pickType": "Spread (ATS)",
-                "pick": "Houston -6.5"
-        },
-        {
-                "count": 18,
-                "public_pct": 56,
-                "public_n": 255,
-                "sport": "NFL",
-                "matchup": "San Francisco @ Seattle",
-                "pickType": "Total (Under)",
-                "pick": "Under 47.5"
-        },
-        {
-                "count": 18,
-                "public_pct": 54,
-                "public_n": 558,
-                "sport": "NFL",
-                "matchup": "Philadelphia @ Jacksonville",
-                "pickType": "Spread (ATS)",
-                "pick": "Jacksonville +1.5"
-        },
-        {
-                "count": 18,
-                "public_pct": 51,
-                "public_n": 505,
-                "sport": "NFL",
-                "matchup": "Las Vegas @ New England",
-                "pickType": "Spread (ATS)",
-                "pick": "New England -3.5"
-        },
-        {
-                "count": 18,
-                "public_pct": 47,
-                "public_n": 306,
-                "sport": "NFL",
-                "matchup": "Philadelphia @ Jacksonville",
-                "pickType": "Total (Under)",
-                "pick": "Under 43.5"
-        },
-        {
-                "count": 17,
-                "public_pct": 58,
-                "public_n": 597,
-                "sport": "NFL",
-                "matchup": "Chicago @ Green Bay",
-                "pickType": "Spread (ATS)",
-                "pick": "Chicago -2.5"
-        },
-        {
-                "count": 17,
-                "public_pct": 58,
-                "public_n": 253,
-                "sport": "NFL",
-                "matchup": "Cleveland @ N.Y. Jets",
-                "pickType": "Total (Under)",
-                "pick": "Under 39.5"
-        },
-        {
-                "count": 17,
-                "public_pct": 52,
-                "public_n": 278,
-                "sport": "NFL",
-                "matchup": "Houston @ Tennessee",
-                "pickType": "Total (Under)",
-                "pick": "Under 43.5"
-        },
-        {
-                "count": 17,
-                "public_pct": 46,
-                "public_n": 484,
-                "sport": "NFL",
-                "matchup": "Philadelphia @ Jacksonville",
-                "pickType": "Spread (ATS)",
-                "pick": "Philadelphia +7.5"
-        },
-        {
-                "count": 17,
-                "public_pct": 46,
-                "public_n": 278,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Chicago @ Green Bay",
                 "pickType": "Total (Under)",
                 "pick": "Under 45.5"
         },
         {
+                "count": 21,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cincinnati @ Miami",
+                "pickType": "Spread (ATS)",
+                "pick": "Miami +6.5"
+        },
+        {
+                "count": 21,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cleveland @ N.Y. Jets",
+                "pickType": "Total (Under)",
+                "pick": "Under 39.5"
+        },
+        {
+                "count": 20,
+                "public_pct": 69,
+                "public_n": 264,
+                "sport": "NHL",
+                "matchup": "Carolina @ Philadelphia",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 20,
+                "public_pct": 54,
+                "public_n": 446,
+                "sport": "NFL",
+                "matchup": "San Francisco @ Seattle",
+                "pickType": "Total (Under)",
+                "pick": "Under 47.5"
+        },
+        {
+                "count": 20,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Las Vegas @ New England",
+                "pickType": "Spread (ATS)",
+                "pick": "New England -3.5"
+        },
+        {
+                "count": 20,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cincinnati @ Miami",
+                "pickType": "Total (Under)",
+                "pick": "Under 42.5"
+        },
+        {
+                "count": 19,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Indianapolis @ Pittsburgh",
+                "pickType": "Spread (ATS)",
+                "pick": "Indianapolis +2.5"
+        },
+        {
+                "count": 19,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "N.Y. Giants @ Washington",
+                "pickType": "Spread (ATS)",
+                "pick": "N.Y. Giants +3.5"
+        },
+        {
+                "count": 18,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cincinnati @ Miami",
+                "pickType": "Spread (ATS)",
+                "pick": "Cincinnati -6.5"
+        },
+        {
+                "count": 18,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Houston @ Tennessee",
+                "pickType": "Total (Under)",
+                "pick": "Under 38.5"
+        },
+        {
+                "count": 17,
+                "public_pct": 40,
+                "public_n": 165,
+                "sport": "NHL",
+                "matchup": "Vancouver @ NY Rangers",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 17,
+                "public_pct": 38,
+                "public_n": 598,
+                "sport": "NFL",
+                "matchup": "San Francisco @ Seattle",
+                "pickType": "Spread (ATS)",
+                "pick": "Seattle -3.5"
+        },
+        {
+                "count": 17,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "N.Y. Giants @ Washington",
+                "pickType": "Total (Under)",
+                "pick": "Under 41.5"
+        },
+        {
+                "count": 17,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Indianapolis @ Pittsburgh",
+                "pickType": "Total (Under)",
+                "pick": "Under 43.5"
+        },
+        {
                 "count": 16,
-                "public_pct": 50,
-                "public_n": 459,
+                "public_pct": 57,
+                "public_n": 159,
+                "sport": "NHL",
+                "matchup": "Seattle @ Washington",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 16,
+                "public_pct": 47,
+                "public_n": 704,
                 "sport": "NFL",
                 "matchup": "Denver @ L.A. Chargers",
                 "pickType": "Spread (ATS)",
@@ -650,26 +704,17 @@
         },
         {
                 "count": 16,
-                "public_pct": 49,
-                "public_n": 488,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
-                "matchup": "Las Vegas @ New England",
-                "pickType": "Spread (ATS)",
-                "pick": "Las Vegas +8.5"
+                "matchup": "Minnesota @ New Orleans",
+                "pickType": "Total (Over)",
+                "pick": "Over 41.5"
         },
         {
                 "count": 16,
-                "public_pct": 47,
-                "public_n": 460,
-                "sport": "NFL",
-                "matchup": "Baltimore @ Atlanta",
-                "pickType": "Spread (ATS)",
-                "pick": "Baltimore +2.5"
-        },
-        {
-                "count": 16,
-                "public_pct": 46,
-                "public_n": 281,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Minnesota @ New Orleans",
                 "pickType": "Total (Under)",
@@ -677,98 +722,71 @@
         },
         {
                 "count": 16,
-                "public_pct": 45,
-                "public_n": 258,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
-                "matchup": "Cincinnati @ Miami",
+                "matchup": "Denver @ L.A. Chargers",
                 "pickType": "Total (Under)",
                 "pick": "Under 42.5"
         },
         {
                 "count": 16,
-                "public_pct": 45,
-                "public_n": 267,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
-                "matchup": "N.Y. Giants @ Washington",
-                "pickType": "Total (Under)",
-                "pick": "Under 48.5"
-        },
-        {
-                "count": 16,
-                "public_pct": 40,
-                "public_n": 398,
-                "sport": "NFL",
-                "matchup": "San Francisco @ Seattle",
+                "matchup": "Las Vegas @ New England",
                 "pickType": "Spread (ATS)",
-                "pick": "Seattle -3.0"
+                "pick": "Las Vegas +3.5"
         },
         {
-                "count": 16,
-                "public_pct": 40,
-                "public_n": 378,
+                "count": 15,
+                "public_pct": 43,
+                "public_n": 210,
+                "sport": "NHL",
+                "matchup": "Seattle @ Washington",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 15,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Houston @ Tennessee",
                 "pickType": "Spread (ATS)",
-                "pick": "Tennessee +3.5"
-        },
-        {
-                "count": 16,
-                "public_pct": 39,
-                "public_n": 384,
-                "sport": "NFL",
-                "matchup": "Indianapolis @ Pittsburgh",
-                "pickType": "Spread (ATS)",
-                "pick": "Indianapolis +2.5"
+                "pick": "Houston -6.5"
         },
         {
                 "count": 15,
-                "public_pct": 46,
-                "public_n": 264,
-                "sport": "NFL",
-                "matchup": "Indianapolis @ Pittsburgh",
-                "pickType": "Total (Under)",
-                "pick": "Under 44.5"
-        },
-        {
-                "count": 15,
-                "public_pct": 38,
-                "public_n": 381,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "N.Y. Giants @ Washington",
                 "pickType": "Spread (ATS)",
-                "pick": "Washington -2.5"
+                "pick": "Washington -3.5"
         },
         {
-                "count": 15,
-                "public_pct": 29,
-                "public_n": 286,
+                "count": 14,
+                "public_pct": 64,
+                "public_n": 648,
                 "sport": "NFL",
-                "matchup": "Cincinnati @ Miami",
+                "matchup": "Baltimore @ Atlanta",
+                "pickType": "Total (Over)",
+                "pick": "Over 43.5"
+        },
+        {
+                "count": 14,
+                "public_pct": 47,
+                "public_n": 721,
+                "sport": "NFL",
+                "matchup": "Baltimore @ Atlanta",
                 "pickType": "Spread (ATS)",
-                "pick": "Miami +7.5"
+                "pick": "Baltimore +3.5"
         },
         {
                 "count": 14,
-                "public_pct": 63,
-                "public_n": 371,
-                "sport": "NFL",
-                "matchup": "Las Vegas @ New England",
-                "pickType": "Total (Over)",
-                "pick": "Over 44.5"
-        },
-        {
-                "count": 14,
-                "public_pct": 42,
-                "public_n": 355,
-                "sport": "NFL",
-                "matchup": "Cleveland @ N.Y. Jets",
-                "pickType": "Total (Over)",
-                "pick": "Over 40.5"
-        },
-        {
-                "count": 14,
-                "public_pct": 37,
-                "public_n": 228,
+                "public_pct": 36,
+                "public_n": 359,
                 "sport": "NFL",
                 "matchup": "Baltimore @ Atlanta",
                 "pickType": "Total (Under)",
@@ -779,104 +797,86 @@
                 "public_pct": null,
                 "public_n": null,
                 "sport": "NFL",
-                "matchup": "Denver @ L.A. Chargers",
-                "pickType": "Total (Under)",
-                "pick": "Under 42.5"
-        },
-        {
-                "count": 13,
-                "public_pct": 63,
-                "public_n": 392,
-                "sport": "NFL",
-                "matchup": "Baltimore @ Atlanta",
-                "pickType": "Total (Over)",
-                "pick": "Over 48.5"
-        },
-        {
-                "count": 13,
-                "public_pct": 55,
-                "public_n": 558,
-                "sport": "NFL",
-                "matchup": "Cleveland @ N.Y. Jets",
-                "pickType": "Spread (ATS)",
-                "pick": "Cleveland +2.5"
-        },
-        {
-                "count": 13,
-                "public_pct": 54,
-                "public_n": 330,
-                "sport": "NFL",
-                "matchup": "Minnesota @ New Orleans",
-                "pickType": "Total (Over)",
-                "pick": "Over 41.5"
-        },
-        {
-                "count": 13,
-                "public_pct": 54,
-                "public_n": 329,
-                "sport": "NFL",
-                "matchup": "Chicago @ Green Bay",
+                "matchup": "Las Vegas @ New England",
                 "pickType": "Total (Over)",
                 "pick": "Over 44.5"
         },
         {
-                "count": 13,
-                "public_pct": 53,
-                "public_n": 351,
+                "count": 14,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
-                "matchup": "Philadelphia @ Jacksonville",
-                "pickType": "Total (Over)",
-                "pick": "Over 45.5"
+                "matchup": "Chicago @ Green Bay",
+                "pickType": "Spread (ATS)",
+                "pick": "Chicago -2.5"
         },
         {
-                "count": 13,
-                "public_pct": 37,
-                "public_n": 220,
+                "count": 14,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Denver @ L.A. Chargers",
+                "pickType": "Total (Over)",
+                "pick": "Over 42.5"
+        },
+        {
+                "count": 14,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Las Vegas @ New England",
                 "pickType": "Total (Under)",
                 "pick": "Under 44.5"
         },
         {
-                "count": 12,
-                "public_pct": 55,
-                "public_n": 314,
-                "sport": "NFL",
-                "matchup": "Cincinnati @ Miami",
-                "pickType": "Total (Over)",
-                "pick": "Over 42.5"
-        },
-        {
-                "count": 12,
-                "public_pct": 55,
-                "public_n": 326,
+                "count": 14,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "N.Y. Giants @ Washington",
                 "pickType": "Total (Over)",
-                "pick": "Over 43.5"
+                "pick": "Over 41.5"
         },
         {
-                "count": 12,
-                "public_pct": 55,
-                "public_n": 34,
-                "sport": "NHL",
-                "matchup": "Carolina @ Philadelphia",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.5"
-        },
-        {
-                "count": 12,
-                "public_pct": 54,
-                "public_n": 307,
+                "count": 13,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Indianapolis @ Pittsburgh",
                 "pickType": "Total (Over)",
                 "pick": "Over 44.5"
         },
         {
+                "count": 13,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cleveland @ N.Y. Jets",
+                "pickType": "Spread (ATS)",
+                "pick": "Cleveland +2.5"
+        },
+        {
                 "count": 12,
-                "public_pct": 48,
-                "public_n": 298,
+                "public_pct": 51,
+                "public_n": 758,
+                "sport": "NFL",
+                "matchup": "Detroit @ Arizona",
+                "pickType": "Spread (ATS)",
+                "pick": "Detroit -4.5"
+        },
+        {
+                "count": 12,
+                "public_pct": 31,
+                "public_n": 117,
+                "sport": "NHL",
+                "matchup": "Carolina @ Philadelphia",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
+        },
+        {
+                "count": 12,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "NFL",
                 "matchup": "Houston @ Tennessee",
                 "pickType": "Total (Over)",
@@ -887,138 +887,75 @@
                 "public_pct": null,
                 "public_n": null,
                 "sport": "NFL",
-                "matchup": "Denver @ L.A. Chargers",
+                "matchup": "Cleveland @ N.Y. Jets",
                 "pickType": "Total (Over)",
-                "pick": "Over 42.5"
+                "pick": "Over 40.5"
         },
         {
                 "count": 11,
-                "public_pct": 47,
-                "public_n": 437,
-                "sport": "NFL",
-                "matchup": "Detroit @ Arizona",
-                "pickType": "Spread (ATS)",
-                "pick": "Detroit -5.5"
-        },
-        {
-                "count": 10,
-                "public_pct": 54,
-                "public_n": 28,
-                "sport": "NHL",
-                "matchup": "Seattle @ Washington",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.5"
-        },
-        {
-                "count": 10,
-                "public_pct": 52,
-                "public_n": 33,
-                "sport": "NHL",
-                "matchup": "Vancouver @ NY Rangers",
-                "pickType": "Total (Over)",
-                "pick": "Over 5.5"
-        },
-        {
-                "count": 10,
-                "public_pct": 48,
-                "public_n": 30,
-                "sport": "NHL",
-                "matchup": "Vancouver @ NY Rangers",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.5"
-        },
-        {
-                "count": 10,
                 "public_pct": 46,
-                "public_n": 33,
-                "sport": "NHL",
-                "matchup": "Seattle @ Washington",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.5"
-        },
-        {
-                "count": 10,
-                "public_pct": 27,
-                "public_n": 182,
-                "sport": "NFL",
-                "matchup": "Detroit @ Arizona",
-                "pickType": "Total (Under)",
-                "pick": "Under 48.5"
-        },
-        {
-                "count": 9,
-                "public_pct": 56,
-                "public_n": 556,
-                "sport": "NFL",
-                "matchup": "Minnesota @ New Orleans",
-                "pickType": "Spread (ATS)",
-                "pick": "Minnesota -1.5"
-        },
-        {
-                "count": 9,
-                "public_pct": 44,
-                "public_n": 329,
+                "public_n": 516,
                 "sport": "NFL",
                 "matchup": "San Francisco @ Seattle",
                 "pickType": "Total (Over)",
                 "pick": "Over 47.5"
         },
         {
-                "count": 8,
-                "public_pct": 45,
-                "public_n": 28,
-                "sport": "NHL",
-                "matchup": "Carolina @ Philadelphia",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.5"
+                "count": 11,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Cincinnati @ Miami",
+                "pickType": "Total (Over)",
+                "pick": "Over 42.5"
         },
         {
-                "count": 5,
+                "count": 10,
                 "public_pct": 28,
-                "public_n": 23,
+                "public_n": 161,
+                "sport": "NHL",
+                "matchup": "Carolina @ Philadelphia",
+                "pickType": "Moneyline",
+                "pick": "Philadelphia ML (+150)"
+        },
+        {
+                "count": 10,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Minnesota @ New Orleans",
+                "pickType": "Spread (ATS)",
+                "pick": "Minnesota -1.5"
+        },
+        {
+                "count": 10,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NFL",
+                "matchup": "Chicago @ Green Bay",
+                "pickType": "Total (Over)",
+                "pick": "Over 44.5"
+        },
+        {
+                "count": 9,
+                "public_pct": 29,
+                "public_n": 321,
+                "sport": "NFL",
+                "matchup": "Detroit @ Arizona",
+                "pickType": "Total (Under)",
+                "pick": "Under 54.5"
+        },
+        {
+                "count": 7,
+                "public_pct": 23,
+                "public_n": 127,
                 "sport": "NHL",
                 "matchup": "Seattle @ Washington",
                 "pickType": "Moneyline",
                 "pick": "Seattle ML (+180)"
         },
         {
-                "count": 4,
-                "public_pct": 35,
-                "public_n": 29,
-                "sport": "NHL",
-                "matchup": "Carolina @ Philadelphia",
-                "pickType": "Moneyline",
-                "pick": "Philadelphia ML (+124)"
-        },
-        {
-                "count": 4,
-                "public_pct": 33,
-                "public_n": 27,
-                "sport": "NHL",
-                "matchup": "Vancouver @ NY Rangers",
-                "pickType": "Moneyline",
-                "pick": "Vancouver ML (+205)"
-        },
-        {
-                "count": 3,
-                "public_pct": null,
-                "public_n": null,
-                "sport": "MLB",
-                "matchup": "LA Dodgers @ Milwaukee",
-                "pickType": "Total (Over)",
-                "pick": "Over 6.5"
-        },
-        {
-                "count": 2,
-                "public_pct": null,
-                "public_n": null,
-                "sport": "MLB",
-                "matchup": "LA Dodgers @ Milwaukee",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.5"
-        },
-        {
-                "count": 2,
+                "count": 6,
                 "public_pct": null,
                 "public_n": null,
                 "sport": "MLB",
@@ -1027,7 +964,34 @@
                 "pick": "Milwaukee ML (-112)"
         },
         {
-                "count": 1,
+                "count": 5,
+                "public_pct": 26,
+                "public_n": 143,
+                "sport": "NHL",
+                "matchup": "Vancouver @ NY Rangers",
+                "pickType": "Moneyline",
+                "pick": "Vancouver ML (+215)"
+        },
+        {
+                "count": 5,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "LA Dodgers @ Milwaukee",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 4,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "MLB",
+                "matchup": "LA Dodgers @ Milwaukee",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 2,
                 "public_pct": null,
                 "public_n": null,
                 "sport": "MLB",
