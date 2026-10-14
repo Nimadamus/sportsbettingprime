@@ -358,7 +358,7 @@
         <header>
             <h1>⭐ Sharp Consensus Board</h1>
             <div class="subtitle">Top 100 Consensus Picks | October 14, 2026</div>
-            <div class="update-time">Data from: <span id="updateTime">October 14, 2026 - 07:06 PM EST</span></div>
+            <div class="update-time">Data from: <span id="updateTime">October 14, 2026 - 11:46 PM EST</span></div>
         </header>
 
         <div class="stats-bar">
@@ -367,7 +367,7 @@
                 <div class="stat-label">Top Consensus Picks</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number" id="topConsensus">38</div>
+                <div class="stat-number" id="topConsensus">32</div>
                 <div class="stat-label">Highest Consensus</div>
             </div>
             <div class="stat-box">
@@ -424,16 +424,34 @@
     <script>
         const consensusData = [
         {
-                "count": 38,
-                "public_pct": 72,
-                "public_n": 355,
+                "count": 32,
+                "public_pct": 71,
+                "public_n": 491,
                 "sport": "NHL",
                 "matchup": "Dallas @ Colorado",
                 "pickType": "Moneyline",
                 "pick": "Colorado ML (-148)"
         },
         {
-                "count": 30,
+                "count": 28,
+                "public_pct": 70,
+                "public_n": 409,
+                "sport": "College Football",
+                "matchup": "Western Kentucky @ Sam Houston",
+                "pickType": "Total (Over)",
+                "pick": "Over 53.5"
+        },
+        {
+                "count": 27,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NHL",
+                "matchup": "Montreal @ Washington",
+                "pickType": "Moneyline",
+                "pick": "Washington ML (-130)"
+        },
+        {
+                "count": 27,
                 "public_pct": null,
                 "public_n": null,
                 "sport": "College Football",
@@ -442,52 +460,25 @@
                 "pick": "WKU -1.5"
         },
         {
-                "count": 28,
-                "public_pct": 67,
-                "public_n": 305,
-                "sport": "NHL",
-                "matchup": "Montreal @ Washington",
-                "pickType": "Moneyline",
-                "pick": "Washington ML (-130)"
-        },
-        {
-                "count": 25,
-                "public_pct": 71,
-                "public_n": 316,
-                "sport": "College Football",
-                "matchup": "Western Kentucky @ Sam Houston",
-                "pickType": "Total (Over)",
-                "pick": "Over 51.5"
-        },
-        {
-                "count": 25,
-                "public_pct": 63,
-                "public_n": 393,
+                "count": 24,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "College Football",
                 "matchup": "Kennesaw State @ Missouri State",
                 "pickType": "Spread (ATS)",
                 "pick": "Kennesaw State -2.5"
         },
         {
-                "count": 18,
+                "count": 20,
                 "public_pct": 48,
-                "public_n": 147,
+                "public_n": 242,
                 "sport": "NHL",
                 "matchup": "Dallas @ Colorado",
                 "pickType": "Total (Over)",
                 "pick": "Over 6.5"
         },
         {
-                "count": 15,
-                "public_pct": 33,
-                "public_n": 151,
-                "sport": "NHL",
-                "matchup": "Montreal @ Washington",
-                "pickType": "Moneyline",
-                "pick": "Montreal ML (+110)"
-        },
-        {
-                "count": 13,
+                "count": 18,
                 "public_pct": null,
                 "public_n": null,
                 "sport": "College Football",
@@ -496,25 +487,25 @@
                 "pick": "Over 52.5"
         },
         {
-                "count": 12,
+                "count": 16,
                 "public_pct": null,
                 "public_n": null,
-                "sport": "College Football",
-                "matchup": "Kennesaw State @ Missouri State",
-                "pickType": "Spread (ATS)",
-                "pick": "MOSU +3.5"
-        },
-        {
-                "count": 10,
-                "public_pct": 52,
-                "public_n": 138,
                 "sport": "NHL",
-                "matchup": "Dallas @ Colorado",
-                "pickType": "Total (Under)",
-                "pick": "Under 6.5"
+                "matchup": "Montreal @ Washington",
+                "pickType": "Moneyline",
+                "pick": "Montreal ML (+110)"
         },
         {
-                "count": 10,
+                "count": 15,
+                "public_pct": 34,
+                "public_n": 294,
+                "sport": "College Football",
+                "matchup": "Western Kentucky @ Sam Houston",
+                "pickType": "Spread (ATS)",
+                "pick": "Sam Houston +1.5"
+        },
+        {
+                "count": 15,
                 "public_pct": null,
                 "public_n": null,
                 "sport": "College Football",
@@ -523,36 +514,126 @@
                 "pick": "Under 52.5"
         },
         {
-                "count": 9,
-                "public_pct": 31,
-                "public_n": 210,
+                "count": 14,
+                "public_pct": null,
+                "public_n": null,
                 "sport": "College Football",
-                "matchup": "Western Kentucky @ Sam Houston",
+                "matchup": "Kennesaw State @ Missouri State",
                 "pickType": "Spread (ATS)",
-                "pick": "Sam Houston +1.5"
+                "pick": "MOSU +3.5"
         },
         {
-                "count": 8,
-                "public_pct": 28,
-                "public_n": 135,
+                "count": 12,
+                "public_pct": 52,
+                "public_n": 227,
+                "sport": "NHL",
+                "matchup": "Dallas @ Colorado",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 10,
+                "public_pct": 29,
+                "public_n": 196,
                 "sport": "NHL",
                 "matchup": "Dallas @ Colorado",
                 "pickType": "Moneyline",
                 "pick": "Dallas ML (+124)"
         },
         {
-                "count": 3,
-                "public_pct": 29,
-                "public_n": 127,
+                "count": 8,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NHL",
+                "matchup": "Montreal @ Washington",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 5,
+                "public_pct": 30,
+                "public_n": 176,
                 "sport": "College Football",
                 "matchup": "Western Kentucky @ Sam Houston",
                 "pickType": "Total (Under)",
                 "pick": "Under 53.5"
         },
         {
+                "count": 1,
+                "public_pct": null,
+                "public_n": null,
+                "sport": "NHL",
+                "matchup": "Montreal @ Washington",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
                 "count": 0,
-                "public_pct": 80,
-                "public_n": 24,
+                "public_pct": 72,
+                "public_n": 54,
+                "sport": "NHL",
+                "matchup": "Utah @ Edmonton",
+                "pickType": "Moneyline",
+                "pick": "Edmonton ML (-127)"
+        },
+        {
+                "count": 0,
+                "public_pct": 72,
+                "public_n": 53,
+                "sport": "NHL",
+                "matchup": "Buffalo @ Toronto",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 68,
+                "public_n": 54,
+                "sport": "NHL",
+                "matchup": "Calgary @ Vegas",
+                "pickType": "Moneyline",
+                "pick": "Vegas ML (-325)"
+        },
+        {
+                "count": 0,
+                "public_pct": 66,
+                "public_n": 581,
+                "sport": "College Football",
+                "matchup": "Western Kentucky @ Sam Houston",
+                "pickType": "Spread (ATS)",
+                "pick": "Western Kentucky -1"
+        },
+        {
+                "count": 0,
+                "public_pct": 64,
+                "public_n": 39,
+                "sport": "NHL",
+                "matchup": "St. Louis @ Minnesota",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 64,
+                "public_n": 21,
+                "sport": "NHL",
+                "matchup": "San Jose @ Nashville",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 63,
+                "public_n": 37,
+                "sport": "NHL",
+                "matchup": "Calgary @ Vegas",
+                "pickType": "Total (Over)",
+                "pick": "Over 5.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 62,
+                "public_n": 45,
                 "sport": "NHL",
                 "matchup": "Seattle @ Tampa Bay",
                 "pickType": "Total (Over)",
@@ -560,62 +641,107 @@
         },
         {
                 "count": 0,
-                "public_pct": 69,
-                "public_n": 458,
-                "sport": "College Football",
-                "matchup": "Western Kentucky @ Sam Houston",
-                "pickType": "Spread (ATS)",
-                "pick": "Western Kentucky -1.5"
-        },
-        {
-                "count": 0,
-                "public_pct": 59,
-                "public_n": 23,
+                "public_pct": 61,
+                "public_n": 59,
                 "sport": "NHL",
                 "matchup": "Seattle @ Tampa Bay",
                 "pickType": "Moneyline",
-                "pick": "Tampa Bay ML (-238)"
+                "pick": "Tampa Bay ML (-244)"
         },
         {
                 "count": 0,
-                "public_pct": 55,
-                "public_n": 18,
+                "public_pct": 58,
+                "public_n": 32,
+                "sport": "NHL",
+                "matchup": "St. Louis @ Minnesota",
+                "pickType": "Moneyline",
+                "pick": "Minnesota ML (-145)"
+        },
+        {
+                "count": 0,
+                "public_pct": 57,
+                "public_n": 30,
+                "sport": "NHL",
+                "matchup": "Utah @ Edmonton",
+                "pickType": "Total (Over)",
+                "pick": "Over 7.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 54,
+                "public_n": 49,
                 "sport": "NHL",
                 "matchup": "NY Islanders @ Ottawa",
                 "pickType": "Moneyline",
-                "pick": "NY Islanders ML (+130)"
+                "pick": "Ottawa ML (-153)"
         },
         {
                 "count": 0,
                 "public_pct": 51,
-                "public_n": 20,
+                "public_n": 46,
                 "sport": "NHL",
                 "matchup": "NY Rangers @ New Jersey",
                 "pickType": "Moneyline",
-                "pick": "New Jersey ML (-145)"
+                "pick": "NY Rangers ML (+130)"
+        },
+        {
+                "count": 0,
+                "public_pct": 51,
+                "public_n": 28,
+                "sport": "NHL",
+                "matchup": "San Jose @ Nashville",
+                "pickType": "Moneyline",
+                "pick": "Nashville ML (-135)"
         },
         {
                 "count": 0,
                 "public_pct": 49,
-                "public_n": 19,
+                "public_n": 44,
                 "sport": "NHL",
                 "matchup": "NY Rangers @ New Jersey",
                 "pickType": "Moneyline",
-                "pick": "NY Rangers ML (+125)"
+                "pick": "New Jersey ML (-133)"
         },
         {
                 "count": 0,
-                "public_pct": 45,
-                "public_n": 15,
+                "public_pct": 49,
+                "public_n": 27,
+                "sport": "NHL",
+                "matchup": "San Jose @ Nashville",
+                "pickType": "Moneyline",
+                "pick": "San Jose ML (+115)"
+        },
+        {
+                "count": 0,
+                "public_pct": 46,
+                "public_n": 42,
                 "sport": "NHL",
                 "matchup": "NY Islanders @ Ottawa",
                 "pickType": "Moneyline",
-                "pick": "Ottawa ML (-165)"
+                "pick": "NY Islanders ML (+144)"
         },
         {
                 "count": 0,
-                "public_pct": 41,
-                "public_n": 16,
+                "public_pct": 43,
+                "public_n": 23,
+                "sport": "NHL",
+                "matchup": "Utah @ Edmonton",
+                "pickType": "Total (Under)",
+                "pick": "Under 7.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 42,
+                "public_n": 23,
+                "sport": "NHL",
+                "matchup": "St. Louis @ Minnesota",
+                "pickType": "Moneyline",
+                "pick": "St. Louis ML (+125)"
+        },
+        {
+                "count": 0,
+                "public_pct": 39,
+                "public_n": 37,
                 "sport": "NHL",
                 "matchup": "Seattle @ Tampa Bay",
                 "pickType": "Moneyline",
@@ -623,12 +749,66 @@
         },
         {
                 "count": 0,
+                "public_pct": 38,
+                "public_n": 28,
+                "sport": "NHL",
+                "matchup": "Seattle @ Tampa Bay",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
+        },
+        {
+                "count": 0,
                 "public_pct": 37,
-                "public_n": 226,
-                "sport": "College Football",
-                "matchup": "Kennesaw State @ Missouri State",
-                "pickType": "Spread (ATS)",
-                "pick": "Missouri State +2.5"
+                "public_n": 22,
+                "sport": "NHL",
+                "matchup": "Calgary @ Vegas",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 36,
+                "public_n": 22,
+                "sport": "NHL",
+                "matchup": "St. Louis @ Minnesota",
+                "pickType": "Total (Under)",
+                "pick": "Under 5.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 36,
+                "public_n": 37,
+                "sport": "NHL",
+                "matchup": "San Jose @ Nashville",
+                "pickType": "Total (Over)",
+                "pick": "Over 6.5"
+        },
+        {
+                "count": 0,
+                "public_pct": 32,
+                "public_n": 25,
+                "sport": "NHL",
+                "matchup": "Calgary @ Vegas",
+                "pickType": "Moneyline",
+                "pick": "Calgary ML (+255)"
+        },
+        {
+                "count": 0,
+                "public_pct": 28,
+                "public_n": 21,
+                "sport": "NHL",
+                "matchup": "Utah @ Edmonton",
+                "pickType": "Moneyline",
+                "pick": "Utah ML (+104)"
+        },
+        {
+                "count": 0,
+                "public_pct": 28,
+                "public_n": 21,
+                "sport": "NHL",
+                "matchup": "Buffalo @ Toronto",
+                "pickType": "Total (Under)",
+                "pick": "Under 6.5"
         }
 ];
 
